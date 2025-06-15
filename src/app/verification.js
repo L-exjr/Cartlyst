@@ -33,11 +33,11 @@ export default function VerificationScreen() {
   };
 
   const handleConfirm = async () => {
-    // Here you would typically verify the OTP with your backend
-    const otpCode = otp.join('');
-    console.log('Verifying OTP:', otpCode);
-    
     try {
+      // Here you would typically verify the OTP with your backend
+      const otpCode = otp.join('');
+      console.log('Verifying OTP:', otpCode);
+      
       // Simulate API call
       // await verifyOTP(otpCode, type, signUpData);
       
@@ -53,12 +53,21 @@ export default function VerificationScreen() {
     } catch (error) {
       console.error('Verification failed:', error);
       // Handle verification error
+      alert(error.message || "Verification failed. Please try again.");
     }
   };
 
-  const handleResend = () => {
-    // Implement resend logic here
-    console.log('Resending code to', type);
+  const handleResend = async () => {
+    try {
+      // Implement resend logic here
+      console.log('Resending code to', type);
+      // Simulate API call
+      // await resendVerificationCode(type, signUpData);
+      alert("Verification code has been resent successfully!");
+    } catch (error) {
+      console.error('Resend failed:', error);
+      alert(error.message || "Failed to resend verification code. Please try again.");
+    }
   };
 
   const handleSwitchMethod = () => {

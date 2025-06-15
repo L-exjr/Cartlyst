@@ -86,11 +86,15 @@ export default function SignUpScreen() {
   };
 
   const handleSignUp = async () => {
-    if (!validateForm()) return;
+    try {
+      if (!validateForm()) return;
 
-    // Start with email verification
-    setVerification('email', formData);
-    router.push('/verification');
+      // Start with email verification
+      setVerification('email', formData);
+      router.push('/verification');
+    } catch (error) {
+      showError(error.message || "An error occurred while signing up");
+    }
   };
 
   return (

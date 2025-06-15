@@ -44,21 +44,25 @@ export default function ResetPasswordScreen() {
   };
 
   const handleResetPassword = async () => {
-    if (!email.trim()) {
-      showError("Email is required");
-      return;
-    }
+    try {
+      if (!email.trim()) {
+        showError("Email is required");
+        return;
+      }
 
-    if (!validateEmail(email)) {
-      showError("Please enter a valid email");
-      return;
-    }
+      if (!validateEmail(email)) {
+        showError("Please enter a valid email");
+        return;
+      }
 
-    // Here you would typically make an API call to your backend to handle the password reset
-    // For now, we'll just simulate a successful reset
-    setError("");
-    setResettingPassword(false);
-    router.replace('sign-in');
+      // Here you would typically make an API call to your backend to handle the password reset
+      // For now, we'll just simulate a successful reset
+      setError("");
+      setResettingPassword(false);
+      router.replace('sign-in');
+    } catch (error) {
+      showError(error.message || "An error occurred while resetting your password");
+    }
   };
 
   return (

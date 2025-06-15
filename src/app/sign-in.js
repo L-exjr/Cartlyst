@@ -57,10 +57,14 @@ export default function SignInScreen() {
   };
 
   const handleSignIn = async () => {
-    if (!validateForm()) return;
+    try {
+      if (!validateForm()) return;
 
-    logIn();
-    router.replace('/(tabs)');
+      logIn();
+      router.replace('/(tabs)');
+    } catch (error) {
+      showError(error.message || "An error occurred while signing in");
+    }
   };
 
   return (
