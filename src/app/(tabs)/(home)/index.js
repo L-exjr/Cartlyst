@@ -11,10 +11,10 @@ import {
   ActivityIndicator,
 } from 'react-native';
 import { useRouter } from 'expo-router';
-import SearchBar from './SearchBar';
-import ProductCard from './ProductCard';
-import CarouselCard from './CarouselCard';
-import CategoryCircles from './CategoryCircles';
+import SearchBar from '../../../components/SearchBar';
+import ProductCard from '../../../components/ProductCard';
+import CarouselCard from '../../../components/CarouselCard';
+import CategoryCircles from '../../../components/CategoryCircles';
 
 const { width } = Dimensions.get('window');
 const API_BASE_URL = 'http://192.168.227.168:8089'; // Consider moving this to an environment variable

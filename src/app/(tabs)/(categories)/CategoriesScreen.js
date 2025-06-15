@@ -10,10 +10,10 @@ import {
   Dimensions,
   
 } from 'react-native';
-import SearchBar from './SearchBar';
+import SearchBar from '../../../components/SearchBar';
 
 import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
-import CategoryCards from './CategoryCards';
+import CategoryCards from '../../../components/CategoryCards';
 
 export default function CategoriesScreen({ navigation }) {
 

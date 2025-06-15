@@ -5,7 +5,7 @@ export default function TabsLayout() {
     return (
         <Tabs screenOptions={{ headerShown: false}}>
             <Tabs.Screen 
-                name="index" 
+                name="(home)" 
                 options={{
                     title: "Home",
                     tabBarIcon: ({ color }) => <FontAwesome6 name="house" size={24} color={color} />
@@ -19,7 +19,7 @@ export default function TabsLayout() {
                 }}
             />
             <Tabs.Screen 
-                name="account" 
+                name="(account)" 
                 options={{
                     title: "Account",
                     tabBarIcon: ({ color }) => <FontAwesome6 name="user" size={24} color={color} />
