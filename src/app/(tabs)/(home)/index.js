@@ -1,0 +1,354 @@
+import React, { useRef, useEffect, useState } from 'react';
+import {
+  View,
+  Text,
+  ScrollView,
+  StyleSheet,
+  FlatList,
+  TouchableOpacity,
+  Dimensions,
+  Animated,
+  ActivityIndicator,
+} from 'react-native';
+import { useRouter } from 'expo-router';
+import SearchBar from './SearchBar';
+import ProductCard from './ProductCard';
+import CarouselCard from './CarouselCard';
+import CategoryCircles from './CategoryCircles';
+
+const { width } = Dimensions.get('window');
+const API_BASE_URL = 'http://192.168.227.168:8089'; // Consider moving this to an environment variable
+
+export default function HomeScreen() {
+  const router = useRouter();
+  const flatListRef = useRef(null);
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [manualScroll, setManualScroll] = useState(false);
+  const [dotOffset] = useState(new Animated.Value(0));
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
+  
+  const itemWidth = width;
+  const itemGap = width * 0.025;
+  const dotSize = 8;
+  const dotMargin = 4;
+  const visibleDots = 10;
+  const [featuredProducts, setFeaturedProducts] = useState([]);
+  const [categories, setCategories] = useState([]);
+  const [carouselItems, setCarouselItems] = useState([]);
+
+  const dotContainerWidth = (dotSize + dotMargin * 2) * Math.min(carouselItems.length, visibleDots);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      setIsLoading(true);
+      setError(null);
+      try {
+        await Promise.all([
+          fetchCategories(),
+          fetchFeaturedProducts(),
+          fetchCarouselItems()
+        ]);
+      } catch (err) {
+        setError('Failed to load data. Please try again later.');
+        console.error('Error loading data:', err);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  const fetchCategories = async () => {
+    try {
+      const response = await fetch(`${API_BASE_URL}/categories`);
+      if (!response.ok) throw new Error('Failed to fetch categories');
+      const data = await response.json();
+      setCategories(data);
+    } catch (error) {
+      console.error('Error fetching categories:', error);
+      throw error;
+    }
+  };
+
+  const fetchCarouselItems = async () => {
+    try {
+      const response = await fetch(`${API_BASE_URL}/carousel`);
+      if (!response.ok) throw new Error('Failed to fetch carousel items');
+      const data = await response.json();
+      setCarouselItems(data);
+    } catch (error) {
+      console.error('Error fetching carousel items:', error);
+      throw error;
+    }
+  };
+
+  const fetchFeaturedProducts = async () => {
+    try {
+      const response = await fetch(`${API_BASE_URL}/products`);
+      if (!response.ok) throw new Error('Failed to fetch products');
+      const data = await response.json();
+      setFeaturedProducts(data);
+    } catch (error) {
+      console.error('Error fetching featured products:', error);
+      throw error;
+    }
+  };
+
+  useEffect(() => {
+    if (manualScroll || carouselItems.length === 0) return;
+    const interval = setInterval(() => {
+      const nextIndex = (activeIndex + 1) % carouselItems.length;
+      scrollToIndex(nextIndex);
+    }, 5000);
+    return () => clearInterval(interval);
+  }, [activeIndex, manualScroll, carouselItems.length]);
+
+  useEffect(() => {
+    if (carouselItems.length === 0) return;
+    const scrollTo = activeIndex >= visibleDots - 2
+      ? Math.max(0, (activeIndex - (visibleDots - 2)) * (dotSize + dotMargin * 2))
+      : 0;
+    Animated.spring(dotOffset, {
+      toValue: -scrollTo,
+      useNativeDriver: true,
+    }).start();
+  }, [activeIndex, carouselItems.length]);
+
+  const scrollToIndex = (index) => {
+    if (!flatListRef.current || index >= carouselItems.length) return;
+    flatListRef.current.scrollToOffset({
+      offset: index * (itemWidth + itemGap),
+      animated: true,
+    });
+    setActiveIndex(index);
+  };
+
+  const handleScroll = (event) => {
+    const contentOffset = event.nativeEvent.contentOffset.x;
+    const index = Math.round(contentOffset / (itemWidth + itemGap));
+    if (index !== activeIndex && index >= 0 && index < carouselItems.length) {
+      setActiveIndex(index);
+    }
+  };
+
+  if (isLoading) {
+    return (
+      <View style={styles.loadingContainer}>
+        <ActivityIndicator size="large" color="#d4af37" />
+      </View>
+    );
+  }
+
+  if (error) {
+    return (
+      <View style={styles.errorContainer}>
+        <Text style={styles.errorText}>{error}</Text>
+        <TouchableOpacity 
+          style={styles.retryButton}
+          onPress={() => {
+            setIsLoading(true);
+            setError(null);
+            fetchData();
+          }}
+        >
+          <Text style={styles.retryText}>Retry</Text>
+        </TouchableOpacity>
+      </View>
+    );
+  }
+
+  return (
+    <View style={styles.container}>
+      <View style={styles.fixedHeader}>
+        <SearchBar />
+      </View>
+      <ScrollView>
+        {carouselItems.length > 0 && (
+          <View style={styles.carouselWrapper}>
+            <FlatList
+              ref={flatListRef}
+              data={carouselItems}
+              horizontal
+              snapToInterval={itemWidth + itemGap}
+              snapToAlignment="start"
+              decelerationRate="fast"
+              keyExtractor={(item) => item.id.toString()}
+              renderItem={({ item }) => (
+                <View style={{ width: itemWidth, marginRight: itemGap }}>
+                  <CarouselCard source={item.source} type={item.type} title={item.title} />
+                </View>
+              )}
+              showsHorizontalScrollIndicator={false}
+              onScroll={handleScroll}
+              scrollEventThrottle={16}
+              onScrollBeginDrag={() => setManualScroll(true)}
+              onMomentumScrollEnd={() => setManualScroll(false)}
+              getItemLayout={(data, index) => ({
+                length: itemWidth + itemGap,
+                offset: (itemWidth + itemGap) * index,
+                index,
+              })}
+            />
+            <View style={styles.carouselBar}>
+              {carouselItems[activeIndex]?.title && (
+                <Text style={styles.carouselText}>{carouselItems[activeIndex].title}</Text>
+              )}
+              <View style={[styles.dotsContainer, { width: dotContainerWidth }]}>
+                <Animated.View style={{ flexDirection: 'row', transform: [{ translateX: dotOffset }] }}>
+                  {carouselItems.map((_, i) => (
+                    <TouchableOpacity 
+                      key={i} 
+                      onPress={() => {
+                        setManualScroll(true);
+                        scrollToIndex(i);
+                        setTimeout(() => setManualScroll(false), 1000);
+                      }}
+                    >
+                      <View
+                        style={[styles.dot, {
+                          backgroundColor: i === activeIndex ? '#d4af37' : '#fff',
+                          width: dotSize,
+                          height: dotSize,
+                          marginHorizontal: dotMargin,
+                        }]}
+                      />
+                    </TouchableOpacity>
+                  ))}
+                </Animated.View>
+              </View>
+            </View>
+          </View>
+        )}
+
+        <View style={{ paddingHorizontal: 10 }}>
+          <View style={styles.sectionHeader}>
+            <Text style={styles.sectionTitle}>Categories</Text>
+            <TouchableOpacity onPress={() => router.push('/categories')}>
+              <Text style={styles.seeAllText}>SEE ALL</Text>
+            </TouchableOpacity>
+          </View>
+          <CategoryCircles categories={categories.slice(0, 5)} />
+
+          <Text style={styles.sectionTitle}>Featured Products</Text>
+          {featuredProducts.length > 0 ? (
+            <FlatList
+              data={featuredProducts}
+              numColumns={2}
+              columnWrapperStyle={{ justifyContent: 'space-between' }}
+              keyExtractor={(item) => item.id.toString()}
+              scrollEnabled={false}
+              renderItem={({ item }) => (
+                <ProductCard
+                  title={item.title}
+                  price={item.price}
+                  discount={item.discount}
+                  rating={item.rating}
+                  image={item.image}
+                  onPress={() => router.push(`/product/${item.id}`)}
+                  onPressHeart={() => console.log('Heart clicked', item.title)}
+                  onAddToCart={() => console.log('Add to Cart', item.title)}
+                />
+              )}
+            />
+          ) : (
+            <Text style={styles.noProductsText}>No featured products available</Text>
+          )}
+        </View>
+      </ScrollView>
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: '#f5f5f5',
+    flex: 1,
+  },
+  loadingContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#f5f5f5',
+  },
+  errorContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#f5f5f5',
+    padding: 20,
+  },
+  errorText: {
+    color: '#ff0000',
+    fontSize: 16,
+    textAlign: 'center',
+    marginBottom: 20,
+  },
+  retryButton: {
+    backgroundColor: '#d4af37',
+    paddingHorizontal: 20,
+    paddingVertical: 10,
+    borderRadius: 5,
+  },
+  retryText: {
+    color: '#fff',
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
+  fixedHeader: {
+    zIndex: 10,
+  },
+  carouselWrapper: {
+    position: 'relative',
+    height: 170,
+    marginBottom: 10,
+  },
+  carouselBar: {
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    right: 0,
+    backgroundColor: '#00000080',
+    paddingVertical: 8,
+    paddingHorizontal: 16,
+    justifyContent: 'center',
+    flexDirection: 'column',
+  },
+  carouselText: {
+    color: '#fff',
+    fontSize: 18,
+    fontWeight: '400',
+    marginBottom: 4,
+  },
+  dotsContainer: {
+    height: 20,
+    overflow: 'hidden',
+    alignSelf: 'center',
+  },
+  dot: {
+    borderRadius: 4,
+  },
+  sectionTitle: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginBottom: 15,
+  },
+  sectionHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 15,
+  },
+  seeAllText: {
+    color: '#d4af37',
+    fontSize: 14,
+    fontWeight: 'bold',
+  },
+  noProductsText: {
+    textAlign: 'center',
+    color: '#666',
+    fontSize: 16,
+    marginTop: 20,
+  },
+});
