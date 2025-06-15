@@ -1,13 +1,13 @@
 import { Stack } from 'expo-router';
 
-export default function CategoriesLayout() {
+export default function WishlistLayout() {
     return (
         <Stack>
             <Stack.Screen
-                name="index"
+                name="whislist"
                 options={{
-                    title: "Categories",
-                    headerShown: true
+                    title: "Wishlist",
+                    headerShown: false
                 }}
             />
         </Stack>

@@ -1,13 +1,13 @@
 import { Stack } from 'expo-router';
 
-export default function CategoriesLayout() {
+export default function CartLayout() {
     return (
         <Stack>
             <Stack.Screen
-                name="index"
+                name="cart"
                 options={{
-                    title: "Categories",
-                    headerShown: true
+                    title: "Cart",
+                    headerShown: false
                 }}
             />
         </Stack>
