@@ -12,6 +12,13 @@ export default function TabsLayout() {
                 }}
             />
             <Tabs.Screen 
+                name="(categories)" 
+                options={{
+                    title: "Categories",
+                    tabBarIcon: ({ color }) => <FontAwesome6 name="list" size={24} color={color} />
+                }}
+            />
+            <Tabs.Screen 
                 name="account" 
                 options={{
                     title: "Account",
