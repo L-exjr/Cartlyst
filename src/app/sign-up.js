@@ -101,7 +101,13 @@ export default function SignUpScreen() {
     <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"} style={styles.container}>
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <ScrollView contentContainerStyle={styles.scrollContainer} keyboardShouldPersistTaps="handled">
-          <TouchableOpacity style={styles.skipButton} onPress={() => { setGuestMode(); router.replace('/(tabs)'); }}>
+          <TouchableOpacity 
+            style={styles.skipButton} 
+            onPress={async () => { 
+              await setGuestMode(); 
+              router.replace('/(tabs)'); 
+            }}
+          >
             <Text style={styles.skipText}>Skip</Text>
           </TouchableOpacity>
           

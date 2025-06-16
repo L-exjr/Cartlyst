@@ -15,6 +15,7 @@ import SearchBar from '../../../components/SearchBar';
 import ProductCard from '../../../components/ProductCard';
 import CarouselCard from '../../../components/CarouselCard';
 import CategoryCircles from '../../../components/CategoryCircles';
+import { API_BASE_URL } from '../../../utils/config';
 
 const { width } = Dimensions.get('window');
 
