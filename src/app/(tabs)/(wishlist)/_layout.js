@@ -4,7 +4,7 @@ export default function WishlistLayout() {
     return (
         <Stack>
             <Stack.Screen
-                name="whislist"
+                name="index"
                 options={{
                     title: "Wishlist",
                     headerShown: false

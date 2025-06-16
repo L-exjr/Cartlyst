@@ -4,7 +4,7 @@ export default function AccountLayout() {
     return (
         <Stack>
             <Stack.Screen
-                name="account"
+                name="index"
                 options={{
                     title: "Account",
                     headerShown: false
