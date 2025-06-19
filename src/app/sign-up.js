@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { View, Text, StyleSheet, TextInput, TouchableOpacity, Keyboard, KeyboardAvoidingView, ScrollView, Platform, TouchableWithoutFeedback, Image, Animated } from 'react-native';
 import { router } from "expo-router";
-import { useAuthStore } from "../utils/authStore"
-import { FontAwesome6 } from "@expo/vector-icons"
+import * as ImagePicker from "expo-image-picker";
+import { useAuthStore } from "../utils/authStore";
+import { FontAwesome6 } from "@expo/vector-icons";
 
 export default function SignUpScreen() {
   const { setVerification, setGuestMode, setshouldCreateAccount } = useAuthStore();
@@ -18,77 +19,105 @@ export default function SignUpScreen() {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [errorAnimation] = useState(new Animated.Value(0));
   const [error, setError] = useState("");
+  const [photo, setPhoto] = useState();
 
   const showError = (message) => {
-    setError(message);
-    Animated.sequence([
-      Animated.timing(errorAnimation, {
-        toValue: 1,
-        duration: 300,
-        useNativeDriver: true,
-      }),
-      Animated.delay(2000),
-      Animated.timing(errorAnimation, {
-        toValue: 0,
-        duration: 300,
-        useNativeDriver: true,
-      })
-    ]).start(() => setError(""));
+    try {
+      setError(message);
+      Animated.sequence([
+        Animated.timing(errorAnimation, {
+          toValue: 1,
+          duration: 300,
+          useNativeDriver: true,
+        }),
+        Animated.delay(2000),
+        Animated.timing(errorAnimation, {
+          toValue: 0,
+          duration: 300,
+          useNativeDriver: true,
+        })
+      ]).start(() => setError(""));
+    } catch (error){
+      console.error("Error showing animation:", error)
+    }
   };
 
+  const pickImage = async () => {
+    try {
+      // console.log("Camera icon pressed");
+      let result = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ['images'],
+        allowsEditing: true,
+        aspect: [1, 1],
+        quality: 1,
+      });
+      // console.log("Image picker result:", result);
+      if (!result.canceled) {
+        setPhoto(result.assets[0].uri);
+      }
+    } catch (e) {
+      console.error("Image picker error:", e);
+    }
+  };
+  
   const validateForm = () => {
-    // Full Name Validation
-    if (!formData.fullName.trim()) {
-      showError("Full name is required");
-      return false;
-    } else if (formData.fullName.length < 3) {
-      showError("Full name must be at least 3 characters");
+    try {
+      // Full Name Validation
+      if (!formData.fullName?.trim()) {
+        showError("Full name is required");
+        return false;
+      } else if (formData.fullName.length < 3) {
+        showError("Full name must be at least 3 characters");
+        return false;
+      }
+      // Email Validation
+      if (!formData.email?.trim()) {
+        showError("Email is required");
+        return false;
+      } else if (!/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(formData.email)) {
+        showError("Please enter a valid email");
+        return false;
+      }
+
+      // Phone Number Validation
+      if (!formData.phoneNumber?.trim()) {
+        showError("Phone number is required");
+        return false;
+      } else if (!/^\+?[1-9]\d{1,14}$/.test(formData.phoneNumber)) {
+        showError("Please enter a valid phone number");
+        return false;
+      }
+
+      // Password Validation
+      if (!formData.password) {
+        showError("Password is required");
+        return false;
+      } else if (formData.password.length < 8) {
+        showError("Password must be at least 8 characters");
+        return false;
+      }
+
+      // Confirm Password Validation
+      if (!formData.confirmPassword) {
+        showError("Confirm password is required");
+        return false;
+      } else if (formData.confirmPassword !== formData.password) {
+        showError("Passwords do not match");
+        return false;
+      }
+    
+      return true;
+    } catch (error) {
+      console.error("Validation error:", error);
+      showError("An unexpected error occurred. Please try again.");
       return false;
     }
-
-    // Email Validation
-    if (!formData.email.trim()) {
-      showError("Email is required");
-      return false;
-    } else if (!/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(formData.email)) {
-      showError("Please enter a valid email");
-      return false;
-    }
-
-    // Phone Number Validation
-    if (!formData.phoneNumber.trim()) {
-      showError("Phone number is required");
-      return false;
-    } else if (!/^\+?[1-9]\d{1,14}$/.test(formData.phoneNumber)) {
-      showError("Please enter a valid phone number");
-      return false;
-    }
-
-    // Password Validation
-    if (!formData.password) {
-      showError("Password is required");
-      return false;
-    } else if (formData.password.length < 8) {
-      showError("Password must be at least 8 characters");
-      return false;
-    }
-
-    // Confirm Password Validation
-    if (!formData.confirmPassword) {
-      showError("Confirm password is required");
-      return false;
-    } else if (formData.confirmPassword !== formData.password) {
-      showError("Passwords do not match");
-      return false;
-    }
-
-    return true;
   };
+
 
   const handleSignUp = async () => {
     try {
       if (!validateForm()) return;
-
       // Start with email verification
       setVerification('email', formData);
       router.push('/verification');
@@ -101,70 +130,50 @@ export default function SignUpScreen() {
     <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"} style={styles.container}>
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <ScrollView contentContainerStyle={styles.scrollContainer} keyboardShouldPersistTaps="handled">
-          <TouchableOpacity 
-            style={styles.skipButton} 
-            onPress={async () => { 
-              await setGuestMode(); 
-              router.replace('/(tabs)'); 
-            }}
-          >
-            <Text style={styles.skipText}>Skip</Text>
+        
+        <View style={styles.contentContainer}>
+        <TouchableOpacity style={styles.skipButton} onPress={async () => { 
+          await setGuestMode(); 
+          router.replace('/(tabs)'); 
+        }}>
+        <Text style={styles.skipText}>Skip</Text>
+        </TouchableOpacity>
+        <Text style={styles.title}>Sign Up</Text>
+        <Text style={styles.subtitle}>Create an account on Cartlyst</Text>
+        
+        <View style={styles.imageContainer}>
+        <View>
+          <Image style={styles.image} source={ photo ? { uri: photo } : require('../../assets/placeholder.png')} />
+          <TouchableOpacity style={styles.cameraIcon} onPress={pickImage}>
+            <FontAwesome6 name="camera" size={24} color={'#808080'}/>
           </TouchableOpacity>
-          
-          <View style={styles.contentContainer}>
-            <Text style={styles.title}>Sign Up</Text>
+          </View>
+          </View>
             
-            <View style={styles.inputContainer}>
-              <Text style={styles.label}>Full Name</Text>
-              <TextInput 
-                placeholder="Full Name" 
-                style={styles.input}
-                value={formData.fullName} 
-                onChangeText={text => setFormData({ ...formData, fullName: text })} 
-              />
-            </View>
+          <View style={styles.inputContainer}>
+            <Text style={styles.label}>Full Name</Text>
+            <TextInput placeholder="Full Name" style={styles.input} value={formData.fullName} onChangeText={text => setFormData({ ...formData, fullName: text })} />
+          </View> 
+          
+          <View style={styles.inputContainer}>
+            <Text style={styles.label}>Email</Text>
+            <TextInput placeholder="Email" style={styles.input} value={formData.email} onChangeText={text => setFormData({ ...formData, email: text })} keyboardType="email-address" autoCapitalize="none" />
+          </View>
 
-            <View style={styles.inputContainer}>
-              <Text style={styles.label}>Email</Text>
-              <TextInput 
-                placeholder="Email" 
-                style={styles.input}
-                value={formData.email} 
-                onChangeText={text => setFormData({ ...formData, email: text })} 
-                keyboardType="email-address" 
-                autoCapitalize="none" 
-              />
-            </View>
+          <View style={styles.inputContainer}>
+            <Text style={styles.label}>Phone Number</Text>
+            <TextInput placeholder="Phone Number" style={styles.input} value={formData.phoneNumber} onChangeText={text => setFormData({ ...formData, phoneNumber: text })} keyboardType="phone-pad" />
+          </View>
 
-            <View style={styles.inputContainer}>
-              <Text style={styles.label}>Phone Number</Text>
-              <TextInput 
-                placeholder="Phone Number" 
-                style={styles.input}
-                value={formData.phoneNumber} 
-                onChangeText={text => setFormData({ ...formData, phoneNumber: text })} 
-                keyboardType="phone-pad" 
-              />
+          <View style={styles.inputContainer}>
+            <Text style={styles.label}>Password</Text>
+            <View style={{ position: 'relative' }}>
+            <TextInput placeholder="Password" style={styles.input} value={formData.password} onChangeText={text => setFormData({ ...formData, password: text })} secureTextEntry={!showPassword} />
+            <TouchableOpacity style={{ position: 'absolute', right: 10, top: 12 }} onPress={() => setShowPassword(!showPassword)}>
+              <FontAwesome6 name={showPassword ? "eye-slash" : "eye"} size={20} color="#333" />
+            </TouchableOpacity>
             </View>
-
-            <View style={styles.inputContainer}>
-              <Text style={styles.label}>Password</Text>
-              <View style={{ position: 'relative' }}>
-                <TextInput 
-                  placeholder="Password" 
-                  style={styles.input}
-                  value={formData.password} 
-                  onChangeText={text => setFormData({ ...formData, password: text })} 
-                  secureTextEntry={!showPassword} 
-                />
-                <TouchableOpacity 
-                  style={{ position: 'absolute', right: 10, top: 12 }} 
-                  onPress={() => setShowPassword(!showPassword)}
-                >
-                  <FontAwesome6 name={showPassword ? "eye-slash" : "eye"} size={20} color="#333" />
-                </TouchableOpacity>
-              </View>
-            </View>
+          </View>
 
             <View style={styles.inputContainer}>
               <Text style={styles.label}>Confirm Password</Text>
@@ -250,7 +259,7 @@ const styles = StyleSheet.create({
   contentContainer: {
     flex: 1,
     paddingHorizontal: 20,
-    paddingTop: 100,
+    paddingTop: 80,
     alignItems: 'center',
     gap: 1,
   },
@@ -268,12 +277,31 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 30,
     fontWeight: 'bold',
-    marginBottom: 10,
     textAlign: 'center',
+  },
+  subtitle: {
+    fontSize: 16,
+    fontWeight: 'regular',
+    textAlign: 'center',
+  },
+  imageContainer: {
+    alignItems: 'center',
+  },
+  image: {
+    width: 95,
+    height: 95,
+    borderRadius: 60,
+    backgroundColor: '#eee',
+  },
+  cameraIcon: {
+    position: 'absolute',
+    bottom: 0,
+    right: 0,
+    padding: 0,
   },
   inputContainer: {
     width: '100%',
-    marginBottom: 20,
+    marginBottom: 10,
   },
   label: {
     fontSize: 14,

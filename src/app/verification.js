@@ -152,9 +152,6 @@ export default function VerificationScreen() {
             </Text>
           </Text>
 
-          <Text style={styles.footer}>
-            Privacy policy. Terms of service
-          </Text>
         </View>
       </ScrollView>
     </KeyboardAvoidingView>
@@ -265,10 +262,5 @@ const styles = StyleSheet.create({
   linkText: {
     color: '#007BFF',
     fontWeight: 'bold',
-  },
-  footer: {
-    fontSize: 16,
-    color: '#333',
-    textAlign: 'center',
   },
 }); 

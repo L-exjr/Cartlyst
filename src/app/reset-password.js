@@ -85,13 +85,13 @@ export default function ResetPasswordScreen() {
           <View style={styles.contentContainer}>
             <View style={styles.headerContainer}>
               <Text style={styles.title}>Reset Password</Text>
-              <Text style={styles.subtitle}>Enter your email address and we'll send you instructions to reset your password.</Text>
+              <Text style={styles.subtitle}>Enter your email address and you'll receive instructions to reset your password.</Text>
             </View>
 
             <View style={styles.inputContainer}>
               <Text style={styles.label}>Email</Text>
               <TextInput
-                placeholder="Email"
+                placeholder="Enter you Email"
                 style={[styles.input, error && styles.inputError]}
                 value={email}
                 onChangeText={(text) => {
