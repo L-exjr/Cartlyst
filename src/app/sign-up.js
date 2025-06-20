@@ -147,8 +147,8 @@ export default function SignUpScreen() {
           <TouchableOpacity style={styles.cameraIcon} onPress={pickImage}>
             <FontAwesome6 name="camera" size={24} color={'#808080'}/>
           </TouchableOpacity>
-          </View>
-          </View>
+        </View>
+        </View>
             
           <View style={styles.inputContainer}>
             <Text style={styles.label}>Full Name</Text>

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { View, Text, StyleSheet, TextInput, TouchableOpacity, Keyboard, KeyboardAvoidingView, ScrollView, Platform, TouchableWithoutFeedback, Image, Animated } from 'react-native';
 import { router } from "expo-router";
 import { useAuthStore } from "../utils/authStore"
-import { Ionicons, FontAwesome6 } from "@expo/vector-icons"
+import { FontAwesome6 } from "@expo/vector-icons"
 
 export default function SignInScreen() {
   const { logIn, setGuestMode, setshouldCreateAccount, setResettingPassword } = useAuthStore();
@@ -10,7 +10,6 @@ export default function SignInScreen() {
     email: "",
     password: "",
   });
-  const [formErrors, setFormErrors] = useState({});
   const [showPassword, setShowPassword] = useState(false);
   const [errorAnimation] = useState(new Animated.Value(0));
   const [error, setError] = useState("");

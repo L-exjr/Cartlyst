@@ -1,5 +1,5 @@
 {
-  "name": "swiftmart",
+  "name": "cartlyst",
   "version": "1.0.0",
   "main": "expo-router/entry",
   "scripts": {
@@ -9,8 +9,9 @@
     "web": "expo start --web"
   },
   "dependencies": {
-    "expo": "53.0.12",
+    "expo": "^53.0.12",
     "expo-constants": "~17.1.6",
+    "expo-image-picker": "~16.1.4",
     "expo-linking": "~7.1.5",
     "expo-router": "~5.1.0",
     "expo-secure-store": "~14.2.3",
@@ -19,8 +20,7 @@
     "react-native": "0.79.4",
     "react-native-safe-area-context": "5.4.0",
     "react-native-screens": "~4.11.1",
-    "zustand": "^5.0.5",
-    "expo-image-picker": "~16.1.4"
+    "zustand": "^5.0.5"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0"

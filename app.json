@@ -1,12 +1,12 @@
 {
   "expo": {
-    "name": "SwiftMart",
-    "scheme": "swiftmart",
-    "slug": "SwiftMart",
+    "name": "Cartlyst",
+    "scheme": "cartlyst",
+    "slug": "Cartlyst",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/logo.png",
-    "userInterfaceStyle": "light",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "splash": {
       "image": "./assets/splash-icon.png",

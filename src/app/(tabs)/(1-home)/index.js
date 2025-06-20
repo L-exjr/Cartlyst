@@ -1,15 +1,5 @@
 import React, { useRef, useEffect, useState } from 'react';
-import {
-  View,
-  Text,
-  ScrollView,
-  StyleSheet,
-  FlatList,
-  TouchableOpacity,
-  Dimensions,
-  Animated,
-  ActivityIndicator,
-} from 'react-native';
+import { View, Text, ScrollView, StyleSheet, FlatList, TouchableOpacity, Dimensions, Animated, ActivityIndicator } from 'react-native';
 import { useRouter } from 'expo-router';
 import SearchBar from '../../../components/SearchBar';
 import ProductCard from '../../../components/ProductCard';
