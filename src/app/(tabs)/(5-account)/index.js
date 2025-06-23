@@ -33,6 +33,10 @@ export default function AccountScreen() {
     }
   };
 
+  const handleSectionPress = () => {
+    router.push('/(tabs)/(5-account)/modal');
+  };
+
   return (
     <View style={styles.container}>
       {/* Title */}
@@ -67,22 +71,22 @@ export default function AccountScreen() {
 
       {/* Section List Example */}
       <View style={styles.section1}>
-        <SectionItem IconComponent={MaterialIcons} iconName="storefront" label="Orders" />
-        <SectionItem IconComponent={MaterialCommunityIcons} iconName="ticket-confirmation-outline" label="Vouchers" />
-        <SectionItem IconComponent={MaterialIcons} iconName="rate-review" label="Ratings & Reviews" />
-        <SectionItem IconComponent={MaterialIcons} iconName="interests" label="Interests" />
+        <SectionItem IconComponent={MaterialIcons} iconName="storefront" label="Orders" onPress={handleSectionPress} />
+        <SectionItem IconComponent={MaterialCommunityIcons} iconName="ticket-confirmation-outline" label="Vouchers" onPress={handleSectionPress} />
+        <SectionItem IconComponent={MaterialIcons} iconName="rate-review" label="Ratings & Reviews" onPress={handleSectionPress} />
+        <SectionItem IconComponent={MaterialIcons} iconName="interests" label="Interests" onPress={handleSectionPress} />
       </View>
       <View style={styles.section2}>
-        <SectionItem IconComponent={FontAwesome6} iconName="eye" label="Recently Viewed" />
-        <SectionItem IconComponent={MaterialIcons} iconName="youtube-searched-for" label="Recently Searched" />
-        <SectionItem IconComponent={MaterialIcons} iconName="shopping-basket" label="But Again" />
-        <SectionItem IconComponent={MaterialCommunityIcons} iconName="view-list-outline" label="Lists and Registries" />
+        <SectionItem IconComponent={FontAwesome6} iconName="eye" label="Recently Viewed" onPress={handleSectionPress} />
+        <SectionItem IconComponent={MaterialIcons} iconName="youtube-searched-for" label="Recently Searched" onPress={handleSectionPress} />
+        <SectionItem IconComponent={MaterialIcons} iconName="shopping-basket" label="But Again" onPress={handleSectionPress} />
+        <SectionItem IconComponent={MaterialCommunityIcons} iconName="view-list-outline" label="Lists and Registries" onPress={handleSectionPress} />
       </View>
       <View style={styles.section3}>
-        <SectionItem IconComponent={FontAwesome6} iconName="money-check-dollar" label="Payment Settings" />
-        <SectionItem IconComponent={FontAwesome6} iconName="location-dot" label="Address Book" />
-        <SectionItem IconComponent={MaterialIcons} iconName="policy" label="Legal & About" />
-        <SectionItem IconComponent={FontAwesome6} iconName="star" label="Rate Our App" />
+        <SectionItem IconComponent={FontAwesome6} iconName="money-check-dollar" label="Payment Settings" onPress={handleSectionPress} />
+        <SectionItem IconComponent={FontAwesome6} iconName="location-dot" label="Address Book" onPress={handleSectionPress} />
+        <SectionItem IconComponent={MaterialIcons} iconName="policy" label="Legal & About" onPress={handleSectionPress} />
+        <SectionItem IconComponent={FontAwesome6} iconName="star" label="Rate Our App" onPress={handleSectionPress} />
       </View>
 
       {/* Sign Out & Switch Account */}
@@ -97,9 +101,9 @@ export default function AccountScreen() {
   );
 }
 
-function SectionItem({ IconComponent, iconName, label }) {
+function SectionItem({ IconComponent, iconName, label, onPress }) {
   return (
-    <TouchableOpacity style={styles.sectionItem}>
+    <TouchableOpacity style={styles.sectionItem} onPress={onPress}>
       <IconComponent name={iconName} size={26} style={{ width: 30 }} />
       <Text style={styles.sectionLabel}>{label}</Text>
       <FontAwesome6 name="chevron-right" size={18} style={{ marginLeft: 'auto' }} />
