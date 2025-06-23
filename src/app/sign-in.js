@@ -208,10 +208,10 @@ const styles = StyleSheet.create({
     fontWeight: '500',
   },
   logo: {
-    width: 360,
-    height: 360,
+    width: 350,
+    height: 350,
     resizeMode: 'contain',
-    marginBottom: -110,
+    marginBottom: -90,
     marginTop: -110,
   },
   title: {
