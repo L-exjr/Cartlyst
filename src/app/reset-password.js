@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import {
   View,
   Text,
@@ -11,10 +11,25 @@ import {
   Platform,
   ScrollView,
   Animated,
-} from 'react-native';
+} from "react-native";
 import { router } from "expo-router";
-import { useAuthStore } from '../utils/authStore';
+import { useAuthStore } from "../utils/authStore";
 import { FontAwesome6 } from "@expo/vector-icons";
+
+const COLORS = {
+  white: "#fff",
+  gold: "#d4af37",
+  gray: "gray",
+  gray2: "#666",
+  gray3: "#333",
+  gray4: "#f1f1f1",
+  red: "red",
+  errorBg: "#FFE5E5",
+  errorBorder: "#FF3B30",
+  errorShadow: "#000",
+  arrow: "#333",
+  black: "#000",
+};
 
 export default function ResetPasswordScreen() {
   const { setResettingPassword } = useAuthStore();
@@ -35,7 +50,7 @@ export default function ResetPasswordScreen() {
         toValue: 0,
         duration: 300,
         useNativeDriver: true,
-      })
+      }),
     ]).start(() => setError(""));
   };
 
@@ -59,33 +74,41 @@ export default function ResetPasswordScreen() {
       // For now, we'll just simulate a successful reset
       setError("");
       setResettingPassword(false);
-      router.replace('sign-in');
+      router.replace("sign-in");
     } catch (error) {
-      showError(error.message || "An error occurred while resetting your password");
+      showError(
+        error.message || "An error occurred while resetting your password",
+      );
     }
   };
 
   return (
-    <KeyboardAvoidingView 
+    <KeyboardAvoidingView
       behavior={Platform.OS === "ios" ? "padding" : "height"}
       style={styles.container}
     >
-      <TouchableOpacity 
+      <TouchableOpacity
         style={styles.backButton}
-        onPress={() => { setResettingPassword(false); router.replace('sign-in'); }}
+        onPress={() => {
+          setResettingPassword(false);
+          router.replace("sign-in");
+        }}
       >
-        <FontAwesome6 name="arrow-left" size={24} color="#333" />
+        <FontAwesome6 name="arrow-left" size={24} color={COLORS.arrow} />
       </TouchableOpacity>
 
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-        <ScrollView 
+        <ScrollView
           contentContainerStyle={styles.scrollContainer}
           keyboardShouldPersistTaps="handled"
         >
           <View style={styles.contentContainer}>
             <View style={styles.headerContainer}>
               <Text style={styles.title}>Reset Password</Text>
-              <Text style={styles.subtitle}>Enter your email address and you'll receive instructions to reset your password.</Text>
+              <Text style={styles.subtitle}>
+                Enter your email address and you&apos;ll receive instructions to
+                reset your password.
+              </Text>
             </View>
 
             <View style={styles.inputContainer}>
@@ -103,7 +126,7 @@ export default function ResetPasswordScreen() {
               />
             </View>
 
-            <TouchableOpacity 
+            <TouchableOpacity
               style={styles.resetButton}
               onPress={handleResetPassword}
             >
@@ -112,18 +135,20 @@ export default function ResetPasswordScreen() {
           </View>
 
           {error && (
-            <Animated.View 
+            <Animated.View
               style={[
                 styles.errorContainer,
                 {
                   opacity: errorAnimation,
-                  transform: [{
-                    translateY: errorAnimation.interpolate({
-                      inputRange: [0, 1],
-                      outputRange: [-20, 0]
-                    })
-                  }]
-                }
+                  transform: [
+                    {
+                      translateY: errorAnimation.interpolate({
+                        inputRange: [0, 1],
+                        outputRange: [-20, 0],
+                      }),
+                    },
+                  ],
+                },
               ]}
             >
               <Text style={styles.errorText}>{error}</Text>
@@ -136,107 +161,102 @@ export default function ResetPasswordScreen() {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
+  backButton: {
+    left: 25,
+    padding: 8,
+    position: "absolute",
+    top: 60,
+    zIndex: 1,
   },
-  scrollContainer: {
-    flexGrow: 1,
+  container: {
+    backgroundColor: COLORS.white,
+    flex: 1,
   },
   contentContainer: {
+    alignItems: "center",
     flex: 1,
+    gap: 10,
     paddingHorizontal: 20,
     paddingTop: 100,
-    alignItems: 'center',
-    gap: 10,
-  },
-  headerContainer: {
-    width: '100%',
-    alignItems: 'center',
-    marginBottom: 20,
-  },
-  backButton: {
-    position: 'absolute',
-    top: 60,
-    left: 25,
-    zIndex: 1,
-    padding: 8,
-  },
-  backText: {
-    color: 'gray',
-    fontSize: 20,
-    fontWeight: '500',
-  },
-  title: {
-    fontSize: 30,
-    fontWeight: 'bold',
-    marginBottom: 10,
-    textAlign: 'center',
-  },
-  subtitle: {
-    fontSize: 16,
-    color: '#666',
-    textAlign: 'center',
-    marginBottom: 30,
-    paddingHorizontal: 20,
-  },
-  inputContainer: {
-    width: '100%',
-    marginBottom: 20,
-  },
-  label: {
-    fontSize: 14,
-    color: '#333',
-    fontWeight: '300',
-    marginBottom: 8,
-  },
-  input: {
-    width: '100%',
-    height: 50,
-    backgroundColor: '#f1f1f1',
-    padding: 12,
-    borderRadius: 10,
-  },
-  inputError: {
-    borderColor: 'red',
-    borderWidth: 1,
   },
   errorContainer: {
-    position: 'absolute',
-    top: 120,
-    left: 20,
-    right: 20,
-    backgroundColor: '#FFE5E5',
-    padding: 12,
-    borderRadius: 8,
+    backgroundColor: COLORS.errorBg,
+    borderLeftColor: COLORS.errorBorder,
     borderLeftWidth: 4,
-    borderLeftColor: '#FF3B30',
-    shadowColor: '#000',
+    borderRadius: 8,
+    elevation: 5,
+    left: 20,
+    padding: 12,
+    position: "absolute",
+    right: 20,
+    shadowColor: COLORS.errorShadow,
     shadowOffset: {
       width: 0,
       height: 2,
     },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
-    elevation: 5,
+    top: 120,
   },
   errorText: {
-    color: '#FF3B30',
+    color: COLORS.errorBorder,
     fontSize: 14,
-    textAlign: 'center',
+    textAlign: "center",
+  },
+  headerContainer: {
+    alignItems: "center",
+    marginBottom: 20,
+    width: "100%",
+  },
+  input: {
+    backgroundColor: COLORS.gray4,
+    borderRadius: 10,
+    height: 50,
+    padding: 12,
+    width: "100%",
+  },
+  inputContainer: {
+    marginBottom: 20,
+    width: "100%",
+  },
+  inputError: {
+    borderColor: COLORS.red,
+    borderWidth: 1,
+  },
+  label: {
+    color: COLORS.gray3,
+    fontSize: 14,
+    fontWeight: "300",
+    marginBottom: 8,
   },
   resetButton: {
-    width: '100%',
-    height: 50,
-    backgroundColor: '#D4AF37',
+    alignItems: "center",
+    backgroundColor: COLORS.gold,
     borderRadius: 10,
-    justifyContent: 'center',
-    alignItems: 'center',
+    height: 50,
+    justifyContent: "center",
     marginTop: 20,
+    width: "100%",
   },
   resetButtonText: {
-    color: '#000',
+    color: COLORS.black,
     fontSize: 20,
-    fontWeight: 'bold',
+    fontWeight: "bold",
+  },
+  scrollContainer: {
+    flexGrow: 1,
+  },
+  subtitle: {
+    color: COLORS.gray2,
+    fontSize: 16,
+    marginBottom: 30,
+    paddingHorizontal: 20,
+    textAlign: "center",
+  },
+  title: {
+    fontSize: 30,
+    fontWeight: "bold",
+    marginBottom: 10,
+    textAlign: "center",
   },
 });

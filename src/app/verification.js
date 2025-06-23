@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef } from "react";
 import {
   View,
   Text,
@@ -8,20 +8,31 @@ import {
   KeyboardAvoidingView,
   Platform,
   ScrollView,
-} from 'react-native';
-import { useRouter, useLocalSearchParams } from 'expo-router';
-import { useAuthStore } from '../utils/authStore';
+} from "react-native";
+import { useRouter, useLocalSearchParams } from "expo-router";
+import { useAuthStore } from "../utils/authStore";
+
+const COLORS = {
+  white: "#fff",
+  gold: "#d4af37",
+  gray: "#666",
+  gray2: "#333",
+  gray3: "#f0f0f0",
+  gray4: "#e0e0e0",
+  black: "#000000",
+  blue: "#007BFF",
+};
 
 export default function VerificationScreen() {
   const router = useRouter();
-  const { type = 'email' } = useLocalSearchParams();
+  const { type = "email" } = useLocalSearchParams();
   const { clearVerification, logIn, signUpData } = useAuthStore();
-  const [otp, setOtp] = useState(['', '', '', '', '', '']);
+  const [otp, setOtp] = useState(["", "", "", "", "", ""]);
   const inputRefs = useRef([]);
 
   const handleChange = (text, index) => {
     if (text.length > 1) return;
-    
+
     const newOtp = [...otp];
     newOtp[index] = text;
     setOtp(newOtp);
@@ -35,23 +46,23 @@ export default function VerificationScreen() {
   const handleConfirm = async () => {
     try {
       // Here you would typically verify the OTP with your backend
-      const otpCode = otp.join('');
-      console.log('Verifying OTP:', otpCode);
-      
+      const otpCode = otp.join("");
+      console.log("Verifying OTP:", otpCode);
+
       // Simulate API call
       // await verifyOTP(otpCode, type, signUpData);
-      
+
       // If verification is successful
-      if (type === 'email') {
+      if (type === "email") {
         // If email verification is successful, proceed to phone verification
-        router.setParams({ type: 'phone' });
+        router.setParams({ type: "phone" });
       } else {
         // If phone verification is successful, complete sign-up
         logIn();
-        router.replace('/(tabs)');
+        router.replace("/(tabs)");
       }
     } catch (error) {
-      console.error('Verification failed:', error);
+      console.error("Verification failed:", error);
       // Handle verification error
       alert(error.message || "Verification failed. Please try again.");
     }
@@ -60,19 +71,22 @@ export default function VerificationScreen() {
   const handleResend = async () => {
     try {
       // Implement resend logic here
-      console.log('Resending code to', type);
+      console.log("Resending code to", type);
       // Simulate API call
       // await resendVerificationCode(type, signUpData);
       alert("Verification code has been resent successfully!");
     } catch (error) {
-      console.error('Resend failed:', error);
-      alert(error.message || "Failed to resend verification code. Please try again.");
+      console.error("Resend failed:", error);
+      alert(
+        error.message ||
+          "Failed to resend verification code. Please try again.",
+      );
     }
   };
 
   const handleSwitchMethod = () => {
     // Switch between email and phone verification
-    const newType = type === 'email' ? 'phone' : 'email';
+    const newType = type === "email" ? "phone" : "email";
     router.setParams({ type: newType });
   };
 
@@ -82,25 +96,23 @@ export default function VerificationScreen() {
   };
 
   return (
-    <KeyboardAvoidingView 
-      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+    <KeyboardAvoidingView
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
       style={styles.container}
     >
-      <ScrollView 
+      <ScrollView
         contentContainerStyle={styles.scrollContent}
         keyboardShouldPersistTaps="handled"
       >
         <View style={styles.content}>
-          <TouchableOpacity 
-            style={styles.closeButton}
-            onPress={handleClose}
-          >
+          <TouchableOpacity style={styles.closeButton} onPress={handleClose}>
             <Text style={styles.closeButtonText}>✕</Text>
           </TouchableOpacity>
 
           <Text style={styles.title}>OTP</Text>
           <Text style={styles.subtitle}>
-            We've sent a verification code to your {type}{'\n'}
+            We&apos;ve sent a verification code to your {type}
+            {"\n"}
             Enter it below to complete your verification
           </Text>
 
@@ -115,7 +127,11 @@ export default function VerificationScreen() {
                   value={digit}
                   onChangeText={(text) => handleChange(text, index)}
                   onKeyPress={({ nativeEvent }) => {
-                    if (nativeEvent.key === 'Backspace' && !digit && index > 0) {
+                    if (
+                      nativeEvent.key === "Backspace" &&
+                      !digit &&
+                      index > 0
+                    ) {
                       inputRefs.current[index - 1].focus();
                     }
                   }}
@@ -125,7 +141,7 @@ export default function VerificationScreen() {
             ))}
           </View>
 
-          <TouchableOpacity 
+          <TouchableOpacity
             style={styles.confirmButton}
             onPress={handleConfirm}
           >
@@ -133,7 +149,7 @@ export default function VerificationScreen() {
           </TouchableOpacity>
 
           <Text style={styles.infoText}>
-            Didn't receive any code?{' '}
+            Didn&apos;t receive any code?{" "}
             <Text style={styles.linkText} onPress={handleResend}>
               Send again
             </Text>
@@ -146,12 +162,11 @@ export default function VerificationScreen() {
           </View>
 
           <Text style={styles.switchText}>
-            Send to{' '}
+            Send to{" "}
             <Text style={styles.linkText} onPress={handleSwitchMethod}>
-              {type === 'email' ? 'Phone Number' : 'Email'}
+              {type === "email" ? "Phone Number" : "Email"}
             </Text>
           </Text>
-
         </View>
       </ScrollView>
     </KeyboardAvoidingView>
@@ -159,108 +174,108 @@ export default function VerificationScreen() {
 }
 
 const styles = StyleSheet.create({
+  closeButton: {
+    alignItems: "center",
+    backgroundColor: COLORS.gray3,
+    borderRadius: 20,
+    height: 40,
+    justifyContent: "center",
+    position: "absolute",
+    right: 20,
+    top: 20,
+    width: 40,
+    zIndex: 1,
+  },
+  closeButtonText: {
+    color: COLORS.black,
+    fontSize: 20,
+  },
+  confirmButton: {
+    alignItems: "center",
+    backgroundColor: COLORS.gold,
+    borderRadius: 8,
+    height: 50,
+    justifyContent: "center",
+    marginBottom: 16,
+    width: "100%",
+  },
+  confirmText: {
+    color: COLORS.black,
+    fontSize: 16,
+    fontWeight: "bold",
+  },
   container: {
+    backgroundColor: COLORS.white,
     flex: 1,
-    backgroundColor: '#fff',
+  },
+  content: {
+    alignItems: "center",
+    flex: 1,
+    justifyContent: "center",
+    paddingHorizontal: 20,
+    paddingVertical: 40,
+  },
+  hyphen: {
+    fontSize: 24,
+    fontWeight: "bold",
+    marginHorizontal: 4,
+  },
+  infoText: {
+    color: COLORS.gray2,
+    marginBottom: 16,
+  },
+  line: {
+    backgroundColor: COLORS.black,
+    flex: 1,
+    height: 1.5,
+  },
+  linkText: {
+    color: COLORS.blue,
+    fontWeight: "bold",
+  },
+  orContainer: {
+    alignItems: "center",
+    flexDirection: "row",
+    marginBottom: 16,
+    width: "100%",
+  },
+  orText: {
+    color: COLORS.black,
+    marginHorizontal: 10,
+  },
+  otpContainer: {
+    alignItems: "center",
+    flexDirection: "row",
+    justifyContent: "center",
+    marginBottom: 32,
+    width: "100%",
+  },
+  otpInput: {
+    backgroundColor: COLORS.gray4,
+    borderRadius: 10,
+    fontSize: 20,
+    height: 50,
+    marginHorizontal: 4,
+    textAlign: "center",
+    width: 45,
   },
   scrollContent: {
     flexGrow: 1,
   },
-  content: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    paddingHorizontal: 20,
-    paddingVertical: 40,
+  subtitle: {
+    color: COLORS.gray2,
+    fontSize: 18,
+    fontWeight: "500",
+    marginBottom: 32,
+    textAlign: "center",
   },
-  closeButton: {
-    position: 'absolute',
-    top: 20,
-    right: 20,
-    width: 40,
-    height: 40,
-    borderRadius: 20,
-    backgroundColor: '#f0f0f0',
-    justifyContent: 'center',
-    alignItems: 'center',
-    zIndex: 1,
-  },
-  closeButtonText: {
-    fontSize: 20,
-    color: '#333',
+  switchText: {
+    color: COLORS.gray2,
+    marginBottom: 32,
   },
   title: {
     fontSize: 32,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     marginBottom: 16,
   },
-  subtitle: {
-    color: '#333',
-    fontWeight: '500',
-    fontSize: 18,
-    textAlign: 'center',
-    marginBottom: 32,
-  },
-  otpContainer: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginBottom: 32,
-    width: '100%',
-  },
-  otpInput: {
-    width: 45,
-    height: 50,
-    borderRadius: 10,
-    backgroundColor: '#e0e0e0',
-    textAlign: 'center',
-    fontSize: 20,
-    marginHorizontal: 4,
-  },
-  hyphen: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    marginHorizontal: 4,
-  },
-  confirmButton: {
-    backgroundColor: '#d4af37',
-    borderRadius: 8,
-    width: '100%',
-    height: 50,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginBottom: 16,
-  },
-  confirmText: {
-    color: '#000',
-    fontWeight: 'bold',
-    fontSize: 16,
-  },
-  infoText: {
-    color: '#333',
-    marginBottom: 16,
-  },
-  orContainer: {
-    width: '100%',
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginBottom: 16,
-  },
-  line: {
-    flex: 1,
-    height: 1.5,
-    backgroundColor: '#000000',
-  },
-  orText: {
-    marginHorizontal: 10,
-    color: '#000000',
-  },
-  switchText: {
-    color: '#333',
-    marginBottom: 32,
-  },
-  linkText: {
-    color: '#007BFF',
-    fontWeight: 'bold',
-  },
-}); 
+});

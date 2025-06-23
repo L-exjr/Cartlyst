@@ -15,6 +15,7 @@ SwiftMart is a modern e-commerce mobile application built with React Native and 
 ## Prerequisites
 
 Before you begin, ensure you have the following installed:
+
 - Node.js (Latest LTS version recommended)
 - npm or yarn
 - Expo CLI (`npm install -g expo-cli`)
@@ -23,12 +24,14 @@ Before you begin, ensure you have the following installed:
 ## Installation
 
 1. Clone the repository:
+
 ```bash
 git clone https://github.com/yourusername/swiftmart.git
 cd swiftmart
 ```
 
 2. Install dependencies:
+
 ```bash
 npm install
 # or
@@ -36,6 +39,7 @@ yarn install
 ```
 
 3. Start the development server:
+
 ```bash
 npm start
 # or
@@ -83,4 +87,4 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 ## Support
 
-For support, please open an issue in the GitHub repository or contact the development team. 
+For support, please open an issue in the GitHub repository or contact the development team.

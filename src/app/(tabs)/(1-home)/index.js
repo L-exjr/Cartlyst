@@ -1,14 +1,31 @@
-import React, { useRef, useEffect, useState } from 'react';
-import { View, Text, ScrollView, StyleSheet, FlatList, TouchableOpacity, Dimensions, Animated, ActivityIndicator } from 'react-native';
-import { useRouter } from 'expo-router';
-import SearchBar from '../../../components/SearchBar';
-import ProductCard from '../../../components/ProductCard';
-import CarouselCard from '../../../components/CarouselCard';
-import CategoryCircles from '../../../components/CategoryCircles';
-import { API_BASE_URL } from '../../../utils/config';
+import React, { useRef, useEffect, useState } from "react";
+import {
+  View,
+  Text,
+  ScrollView,
+  StyleSheet,
+  FlatList,
+  TouchableOpacity,
+  Dimensions,
+  Animated,
+  ActivityIndicator,
+} from "react-native";
+import { useRouter } from "expo-router";
+import SearchBar from "../../../components/SearchBar";
+import ProductCard from "../../../components/ProductCard";
+import CarouselCard from "../../../components/CarouselCard";
+import CategoryCircles from "../../../components/CategoryCircles";
+import { API_BASE_URL } from "../../../utils/config";
 
-const { width } = Dimensions.get('window');
+const { width } = Dimensions.get("window");
 
+const COLORS = {
+  gold: "#d4af37",
+  white: "#fff",
+  black: "#00000080",
+  gray: "#666",
+  background: "#f5f5f5",
+};
 
 export default function HomeScreen() {
   const router = useRouter();
@@ -18,7 +35,7 @@ export default function HomeScreen() {
   const [dotOffset] = useState(new Animated.Value(0));
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
-  
+
   const itemWidth = width;
   const itemGap = width * 0.025;
   const dotSize = 8;
@@ -28,7 +45,8 @@ export default function HomeScreen() {
   const [categories, setCategories] = useState([]);
   const [carouselItems, setCarouselItems] = useState([]);
 
-  const dotContainerWidth = (dotSize + dotMargin * 2) * Math.min(carouselItems.length, visibleDots);
+  const dotContainerWidth =
+    (dotSize + dotMargin * 2) * Math.min(carouselItems.length, visibleDots);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -38,11 +56,11 @@ export default function HomeScreen() {
         await Promise.all([
           fetchCategories(),
           fetchFeaturedProducts(),
-          fetchCarouselItems()
+          fetchCarouselItems(),
         ]);
       } catch (err) {
-        setError('Failed to load data. Please try again later.');
-        console.error('Error loading data:', err);
+        setError("Failed to load data. Please try again later.");
+        console.error("Error loading data:", err);
       } finally {
         setIsLoading(false);
       }
@@ -54,11 +72,11 @@ export default function HomeScreen() {
   const fetchCategories = async () => {
     try {
       const response = await fetch(`${API_BASE_URL}/categories`);
-      if (!response.ok) throw new Error('Failed to fetch categories');
+      if (!response.ok) throw new Error("Failed to fetch categories");
       const data = await response.json();
       setCategories(data);
     } catch (error) {
-      console.error('Error fetching categories:', error);
+      console.error("Error fetching categories:", error);
       throw error;
     }
   };
@@ -66,11 +84,11 @@ export default function HomeScreen() {
   const fetchCarouselItems = async () => {
     try {
       const response = await fetch(`${API_BASE_URL}/carousel`);
-      if (!response.ok) throw new Error('Failed to fetch carousel items');
+      if (!response.ok) throw new Error("Failed to fetch carousel items");
       const data = await response.json();
       setCarouselItems(data);
     } catch (error) {
-      console.error('Error fetching carousel items:', error);
+      console.error("Error fetching carousel items:", error);
       throw error;
     }
   };
@@ -78,11 +96,11 @@ export default function HomeScreen() {
   const fetchFeaturedProducts = async () => {
     try {
       const response = await fetch(`${API_BASE_URL}/products`);
-      if (!response.ok) throw new Error('Failed to fetch products');
+      if (!response.ok) throw new Error("Failed to fetch products");
       const data = await response.json();
       setFeaturedProducts(data);
     } catch (error) {
-      console.error('Error fetching featured products:', error);
+      console.error("Error fetching featured products:", error);
       throw error;
     }
   };
@@ -98,9 +116,13 @@ export default function HomeScreen() {
 
   useEffect(() => {
     if (carouselItems.length === 0) return;
-    const scrollTo = activeIndex >= visibleDots - 2
-      ? Math.max(0, (activeIndex - (visibleDots - 2)) * (dotSize + dotMargin * 2))
-      : 0;
+    const scrollTo =
+      activeIndex >= visibleDots - 2
+        ? Math.max(
+            0,
+            (activeIndex - (visibleDots - 2)) * (dotSize + dotMargin * 2),
+          )
+        : 0;
     Animated.spring(dotOffset, {
       toValue: -scrollTo,
       useNativeDriver: true,
@@ -127,7 +149,7 @@ export default function HomeScreen() {
   if (isLoading) {
     return (
       <View style={styles.loadingContainer}>
-        <ActivityIndicator size="large" color="#d4af37" />
+        <ActivityIndicator size="large" color={COLORS.gold} />
       </View>
     );
   }
@@ -136,7 +158,7 @@ export default function HomeScreen() {
     return (
       <View style={styles.errorContainer}>
         <Text style={styles.errorText}>{error}</Text>
-        <TouchableOpacity 
+        <TouchableOpacity
           style={styles.retryButton}
           onPress={() => {
             setIsLoading(true);
@@ -168,7 +190,11 @@ export default function HomeScreen() {
               keyExtractor={(item) => item.id.toString()}
               renderItem={({ item }) => (
                 <View style={{ width: itemWidth, marginRight: itemGap }}>
-                  <CarouselCard source={item.source} type={item.type} title={item.title} />
+                  <CarouselCard
+                    source={item.source}
+                    type={item.type}
+                    title={item.title}
+                  />
                 </View>
               )}
               showsHorizontalScrollIndicator={false}
@@ -184,13 +210,24 @@ export default function HomeScreen() {
             />
             <View style={styles.carouselBar}>
               {carouselItems[activeIndex]?.title && (
-                <Text style={styles.carouselText}>{carouselItems[activeIndex].title}</Text>
+                <Text style={styles.carouselText}>
+                  {carouselItems[activeIndex].title}
+                </Text>
               )}
-              <View style={[styles.dotsContainer, { width: dotContainerWidth }]}>
-                <Animated.View style={{ flexDirection: 'row', transform: [{ translateX: dotOffset }] }}>
+              <View
+                style={[styles.dotsContainer, { width: dotContainerWidth }]}
+              >
+                <Animated.View
+                  style={[
+                    styles.dotsRow,
+                    {
+                      transform: [{ translateX: dotOffset }],
+                    },
+                  ]}
+                >
                   {carouselItems.map((_, i) => (
-                    <TouchableOpacity 
-                      key={i} 
+                    <TouchableOpacity
+                      key={i}
                       onPress={() => {
                         setManualScroll(true);
                         scrollToIndex(i);
@@ -198,12 +235,16 @@ export default function HomeScreen() {
                       }}
                     >
                       <View
-                        style={[styles.dot, {
-                          backgroundColor: i === activeIndex ? '#d4af37' : '#fff',
-                          width: dotSize,
-                          height: dotSize,
-                          marginHorizontal: dotMargin,
-                        }]}
+                        style={[
+                          styles.dot,
+                          {
+                            backgroundColor:
+                              i === activeIndex ? COLORS.gold : COLORS.white,
+                            width: dotSize,
+                            height: dotSize,
+                            marginHorizontal: dotMargin,
+                          },
+                        ]}
                       />
                     </TouchableOpacity>
                   ))}
@@ -213,10 +254,10 @@ export default function HomeScreen() {
           </View>
         )}
 
-        <View style={{ paddingHorizontal: 10 }}>
+        <View style={styles.paddedHorizontal}>
           <View style={styles.sectionHeader}>
             <Text style={styles.sectionTitle}>Categories</Text>
-            <TouchableOpacity onPress={() => router.push('/categories')}>
+            <TouchableOpacity onPress={() => router.push("/categories")}>
               <Text style={styles.seeAllText}>SEE ALL</Text>
             </TouchableOpacity>
           </View>
@@ -227,7 +268,7 @@ export default function HomeScreen() {
             <FlatList
               data={featuredProducts}
               numColumns={2}
-              columnWrapperStyle={{ justifyContent: 'space-between' }}
+              columnWrapperStyle={styles.spaceBetween}
               keyExtractor={(item) => item.id.toString()}
               scrollEnabled={false}
               renderItem={({ item }) => (
@@ -238,13 +279,15 @@ export default function HomeScreen() {
                   rating={item.rating}
                   image={item.image}
                   onPress={() => router.push(`/product/${item.id}`)}
-                  onPressHeart={() => console.log('Heart clicked', item.title)}
-                  onAddToCart={() => console.log('Add to Cart', item.title)}
+                  onPressHeart={() => console.log("Heart clicked", item.title)}
+                  onAddToCart={() => console.log("Add to Cart", item.title)}
                 />
               )}
             />
           ) : (
-            <Text style={styles.noProductsText}>No featured products available</Text>
+            <Text style={styles.noProductsText}>
+              No featured products available
+            </Text>
           )}
         </View>
       </ScrollView>
@@ -253,93 +296,96 @@ export default function HomeScreen() {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    backgroundColor: '#f5f5f5',
-    flex: 1,
-  },
-  loadingContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#f5f5f5',
-  },
-  errorContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#f5f5f5',
-    padding: 20,
-  },
-  errorText: {
-    color: '#ff0000',
-    fontSize: 16,
-    textAlign: 'center',
-    marginBottom: 20,
-  },
-  retryButton: {
-    backgroundColor: '#d4af37',
-    paddingHorizontal: 20,
-    paddingVertical: 10,
-    borderRadius: 5,
-  },
-  retryText: {
-    color: '#fff',
-    fontSize: 16,
-    fontWeight: 'bold',
-  },
-  fixedHeader: {
-    zIndex: 10,
-  },
-  carouselWrapper: {
-    position: 'relative',
-    height: 170,
-    marginBottom: 10,
-  },
   carouselBar: {
-    position: 'absolute',
+    backgroundColor: COLORS.black,
     bottom: 0,
+    flexDirection: "column",
+    justifyContent: "center",
     left: 0,
-    right: 0,
-    backgroundColor: '#00000080',
-    paddingVertical: 8,
     paddingHorizontal: 16,
-    justifyContent: 'center',
-    flexDirection: 'column',
+    paddingVertical: 8,
+    position: "absolute",
+    right: 0,
   },
   carouselText: {
-    color: '#fff',
+    color: COLORS.white,
     fontSize: 18,
-    fontWeight: '400',
+    fontWeight: "400",
     marginBottom: 4,
   },
-  dotsContainer: {
-    height: 20,
-    overflow: 'hidden',
-    alignSelf: 'center',
+  carouselWrapper: {
+    height: 170,
+    marginBottom: 10,
+    position: "relative",
+  },
+  container: {
+    backgroundColor: COLORS.background,
+    flex: 1,
   },
   dot: {
     borderRadius: 4,
   },
-  sectionTitle: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    marginBottom: 15,
+  dotsContainer: {
+    alignSelf: "center",
+    height: 20,
+    overflow: "hidden",
+  },
+  dotsRow: { flexDirection: "row" },
+  errorContainer: {
+    alignItems: "center",
+    backgroundColor: COLORS.background,
+    flex: 1,
+    justifyContent: "center",
+    padding: 20,
+  },
+  errorText: {
+    color: COLORS.gold,
+    fontSize: 16,
+    marginBottom: 20,
+    textAlign: "center",
+  },
+  fixedHeader: {
+    zIndex: 10,
+  },
+  loadingContainer: {
+    alignItems: "center",
+    backgroundColor: COLORS.background,
+    flex: 1,
+    justifyContent: "center",
+  },
+  noProductsText: {
+    color: COLORS.gray,
+    fontSize: 16,
+    marginTop: 20,
+    textAlign: "center",
+  },
+  paddedHorizontal: { paddingHorizontal: 10 },
+  retryButton: {
+    backgroundColor: COLORS.gold,
+    borderRadius: 5,
+    paddingHorizontal: 20,
+    paddingVertical: 10,
+  },
+  retryText: {
+    color: COLORS.white,
+    fontSize: 16,
+    fontWeight: "bold",
   },
   sectionHeader: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    alignItems: "center",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginBottom: 15,
+  },
+  sectionTitle: {
+    fontSize: 20,
+    fontWeight: "bold",
     marginBottom: 15,
   },
   seeAllText: {
-    color: '#d4af37',
+    color: COLORS.gold,
     fontSize: 14,
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
-  noProductsText: {
-    textAlign: 'center',
-    color: '#666',
-    fontSize: 16,
-    marginTop: 20,
-  },
+  spaceBetween: { justifyContent: "space-between" },
 });

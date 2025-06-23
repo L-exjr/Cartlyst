@@ -1,3 +1,4 @@
+import React from "react";
 import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
 import * as SecureStore from "expo-secure-store";
@@ -15,16 +16,18 @@ export const useAuthStore = create(
       setGuestMode: () => set({ isGuest: true }),
       setshouldCreateAccount: (value) => set({ shouldCreateAccount: value }),
       setResettingPassword: (value) => set({ isResettingPassword: value }),
-      setVerification: (type, data = null) => set({ 
-        isVerifying: true, 
-        verificationType: type,
-        signUpData: data
-      }),
-      clearVerification: () => set({ 
-        isVerifying: false, 
-        verificationType: null,
-        signUpData: null
-      }),
+      setVerification: (type, data = null) =>
+        set({
+          isVerifying: true,
+          verificationType: type,
+          signUpData: data,
+        }),
+      clearVerification: () =>
+        set({
+          isVerifying: false,
+          verificationType: null,
+          signUpData: null,
+        }),
       logIn: () => {
         set((state) => ({
           ...state,
@@ -52,6 +55,6 @@ export const useAuthStore = create(
         getItem: SecureStore.getItemAsync,
         removeItem: SecureStore.deleteItemAsync,
       })),
-    }
-  )
+    },
+  ),
 );

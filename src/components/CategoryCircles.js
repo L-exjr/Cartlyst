@@ -1,10 +1,21 @@
-import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
-import{MaterialCommunityIcons,MaterialIcons,FontAwesome5} from '@expo/vector-icons';
+import React from "react";
+import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
+import {
+  MaterialCommunityIcons,
+  MaterialIcons,
+  FontAwesome5,
+} from "@expo/vector-icons";
+import PropTypes from "prop-types";
+
 const iconMap = {
   MaterialIcons,
   MaterialCommunityIcons,
   FontAwesome5,
+};
+
+const COLORS = {
+  circle: "#d9d9d9",
+  gray: "#333",
 };
 
 export default function CategoryCircles({ categories = [], onPress }) {
@@ -33,31 +44,36 @@ export default function CategoryCircles({ categories = [], onPress }) {
   );
 }
 
+CategoryCircles.propTypes = {
+  categories: PropTypes.array.isRequired,
+  onPress: PropTypes.func.isRequired,
+};
+
 const styles = StyleSheet.create({
-  container: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'space-between',
-    marginBottom: 20,
-  },
   categoryItem: {
-    alignItems: 'center',
-    width: '20%',
+    alignItems: "center",
     marginBottom: 15,
-  },
-  circle: {
-    width: 45,
-    height: 45,
-    borderRadius: '50%',
-    backgroundColor: '#d9d9d9',
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginBottom: 8,
+    width: "20%",
   },
   categoryText: {
+    color: COLORS.gray,
     fontSize: 12,
-    textAlign: 'center',
-    color: '#333',
-    fontWeight: '500',
+    fontWeight: "500",
+    textAlign: "center",
+  },
+  circle: {
+    alignItems: "center",
+    backgroundColor: COLORS.circle,
+    borderRadius: "50%",
+    height: 45,
+    justifyContent: "center",
+    marginBottom: 8,
+    width: 45,
+  },
+  container: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "space-between",
+    marginBottom: 20,
   },
 });

@@ -1,13 +1,32 @@
-import React from 'react';
-import { View, Text, TouchableOpacity, Image, StyleSheet, Dimensions } from 'react-native';
-import { MaterialIcons, MaterialCommunityIcons, FontAwesome5 } from '@expo/vector-icons';
+import React from "react";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  Image,
+  StyleSheet,
+  Dimensions,
+} from "react-native";
+import {
+  MaterialIcons,
+  MaterialCommunityIcons,
+  FontAwesome5,
+} from "@expo/vector-icons";
+import PropTypes from "prop-types";
 
-const { width } = Dimensions.get('window');
+const { width } = Dimensions.get("window");
 
 const iconMap = {
   MaterialIcons,
   MaterialCommunityIcons,
   FontAwesome5,
+};
+
+const COLORS = {
+  card: "#d9d9d9",
+  card2: "#d2d0d0",
+  overlay: "rgba(255,255,255,0.7)",
+  gray: "#333",
 };
 
 export default function CategoryCards({ categories, onPress }) {
@@ -49,50 +68,55 @@ export default function CategoryCards({ categories, onPress }) {
   );
 }
 
+CategoryCards.propTypes = {
+  categories: PropTypes.array.isRequired,
+  onPress: PropTypes.func.isRequired,
+};
+
 const styles = StyleSheet.create({
-  container: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'space-between',
-    paddingHorizontal: 10,
-  },
   card: {
-    width: '48%',
-    backgroundColor: '#d9d9d9',
+    backgroundColor: COLORS.card,
     borderRadius: 15,
     marginBottom: 16,
-    overflow: 'hidden',
-  },
-  imageContainer: {
-    position: 'relative',
-    borderRadius: 15,
-    overflow: 'hidden',
+    overflow: "hidden",
+    width: "48%",
   },
   cardImage: {
-    width: '100%',
+    backgroundColor: COLORS.card2,
     height: width * 0.4,
-    backgroundColor: '#d2d0d0',
+    width: "100%",
+  },
+  categoryText: {
+    color: COLORS.gray,
+    fontSize: 16,
+    fontWeight: "bold",
+  },
+  container: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "space-between",
+    paddingHorizontal: 10,
   },
   iconCircle: {
-    position: 'absolute',
-    top: width * 0.025,
-    right: width * 0.01,
-    backgroundColor: 'rgba(255,255,255,0.7)',
-    width: width * 0.1145,
-    height: width * 0.1145,
+    alignItems: "center",
+    backgroundColor: COLORS.overlay,
     borderRadius: 999,
-    justifyContent: 'center',
-    alignItems: 'center',
+    height: width * 0.1145,
+    justifyContent: "center",
+    position: "absolute",
+    right: width * 0.01,
+    top: width * 0.025,
+    width: width * 0.1145,
     zIndex: 2,
+  },
+  imageContainer: {
+    borderRadius: 15,
+    overflow: "hidden",
+    position: "relative",
   },
   textContainer: {
     height: width * 0.1,
-    justifyContent: 'center',
+    justifyContent: "center",
     paddingLeft: 10,
-  },
-  categoryText: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    color: '#333',
   },
 });

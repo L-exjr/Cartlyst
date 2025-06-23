@@ -1,12 +1,41 @@
 import React, { useState } from "react";
-import { View, Text, StyleSheet, TextInput, TouchableOpacity, Keyboard, KeyboardAvoidingView, ScrollView, Platform, TouchableWithoutFeedback, Image, Animated } from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  TextInput,
+  TouchableOpacity,
+  Keyboard,
+  KeyboardAvoidingView,
+  ScrollView,
+  Platform,
+  TouchableWithoutFeedback,
+  Image,
+  Animated,
+} from "react-native";
 import { router } from "expo-router";
 import * as ImagePicker from "expo-image-picker";
 import { useAuthStore } from "../utils/authStore";
 import { FontAwesome6 } from "@expo/vector-icons";
 
+const COLORS = {
+  white: "#fff",
+  gold: "#d4af37",
+  gray: "gray",
+  gray2: "#666",
+  gray3: "#333",
+  gray4: "#f1f1f1",
+  blue: "#2196f3",
+  silver: "#eee",
+  errorBg: "#FFE5E5",
+  errorBorder: "#FF3B30",
+  errorShadow: "#000",
+  black: "#000",
+};
+
 export default function SignUpScreen() {
-  const { setVerification, setGuestMode, setshouldCreateAccount } = useAuthStore();
+  const { setVerification, setGuestMode, setshouldCreateAccount } =
+    useAuthStore();
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",
@@ -35,10 +64,10 @@ export default function SignUpScreen() {
           toValue: 0,
           duration: 300,
           useNativeDriver: true,
-        })
+        }),
       ]).start(() => setError(""));
-    } catch (error){
-      console.error("Error showing animation:", error)
+    } catch (error) {
+      console.error("Error showing animation:", error);
     }
   };
 
@@ -46,7 +75,7 @@ export default function SignUpScreen() {
     try {
       // console.log("Camera icon pressed");
       let result = await ImagePicker.launchImageLibraryAsync({
-        mediaTypes: ['images'],
+        mediaTypes: ["images"],
         allowsEditing: true,
         aspect: [1, 1],
         quality: 1,
@@ -59,7 +88,7 @@ export default function SignUpScreen() {
       console.error("Image picker error:", e);
     }
   };
-  
+
   const validateForm = () => {
     try {
       // Full Name Validation
@@ -74,7 +103,9 @@ export default function SignUpScreen() {
       if (!formData.email?.trim()) {
         showError("Email is required");
         return false;
-      } else if (!/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(formData.email)) {
+      } else if (
+        !/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(formData.email)
+      ) {
         showError("Please enter a valid email");
         return false;
       }
@@ -105,7 +136,7 @@ export default function SignUpScreen() {
         showError("Passwords do not match");
         return false;
       }
-    
+
       return true;
     } catch (error) {
       console.error("Validation error:", error);
@@ -114,92 +145,164 @@ export default function SignUpScreen() {
     }
   };
 
-
   const handleSignUp = async () => {
     try {
       if (!validateForm()) return;
       // Start with email verification
-      setVerification('email', formData);
-      router.push('/verification');
+      setVerification("email", formData);
+      router.push("/verification");
     } catch (error) {
       showError(error.message || "An error occurred while signing up");
     }
   };
 
   return (
-    <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"} style={styles.container}>
+    <KeyboardAvoidingView
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+      style={styles.container}
+    >
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-        <ScrollView contentContainerStyle={styles.scrollContainer} keyboardShouldPersistTaps="handled">
-        
-        <View style={styles.contentContainer}>
-        <TouchableOpacity style={styles.skipButton} onPress={async () => { 
-          await setGuestMode(); 
-          router.replace('/(tabs)'); 
-        }}>
-        <Text style={styles.skipText}>Skip</Text>
-        </TouchableOpacity>
-        <Text style={styles.title}>Sign Up</Text>
-        <Text style={styles.subtitle}>Create an account on Cartlyst</Text>
-        
-        <View style={styles.imageContainer}>
-        <View>
-          <Image style={styles.image} source={ photo ? { uri: photo } : require('../../assets/placeholder.png')} />
-          <TouchableOpacity style={styles.cameraIcon} onPress={pickImage}>
-            <FontAwesome6 name="camera" size={24} color={'#808080'}/>
-          </TouchableOpacity>
-        </View>
-        </View>
-            
-          <View style={styles.inputContainer}>
-            <Text style={styles.label}>Full Name</Text>
-            <TextInput placeholder="Full Name" style={styles.input} value={formData.fullName} onChangeText={text => setFormData({ ...formData, fullName: text })} />
-          </View> 
-          
-          <View style={styles.inputContainer}>
-            <Text style={styles.label}>Email</Text>
-            <TextInput placeholder="Email" style={styles.input} value={formData.email} onChangeText={text => setFormData({ ...formData, email: text })} keyboardType="email-address" autoCapitalize="none" />
-          </View>
-
-          <View style={styles.inputContainer}>
-            <Text style={styles.label}>Phone Number</Text>
-            <TextInput placeholder="Phone Number" style={styles.input} value={formData.phoneNumber} onChangeText={text => setFormData({ ...formData, phoneNumber: text })} keyboardType="phone-pad" />
-          </View>
-
-          <View style={styles.inputContainer}>
-            <Text style={styles.label}>Password</Text>
-            <View style={{ position: 'relative' }}>
-            <TextInput placeholder="Password" style={styles.input} value={formData.password} onChangeText={text => setFormData({ ...formData, password: text })} secureTextEntry={!showPassword} />
-            <TouchableOpacity style={{ position: 'absolute', right: 10, top: 12 }} onPress={() => setShowPassword(!showPassword)}>
-              <FontAwesome6 name={showPassword ? "eye-slash" : "eye"} size={20} color="#333" />
+        <ScrollView
+          contentContainerStyle={styles.scrollContainer}
+          keyboardShouldPersistTaps="handled"
+        >
+          <View style={styles.contentContainer}>
+            <TouchableOpacity
+              style={styles.skipButton}
+              onPress={async () => {
+                await setGuestMode();
+                router.replace("/(tabs)");
+              }}
+            >
+              <Text style={styles.skipText}>Skip</Text>
             </TouchableOpacity>
-            </View>
-          </View>
+            <Text style={styles.title}>Sign Up</Text>
+            <Text style={styles.subtitle}>Create an account on Cartlyst</Text>
 
-            <View style={styles.inputContainer}>
-              <Text style={styles.label}>Confirm Password</Text>
-              <View style={{ position: 'relative' }}>
-                <TextInput 
-                  placeholder="Confirm Password" 
-                  style={styles.input}
-                  value={formData.confirmPassword} 
-                  onChangeText={text => setFormData({ ...formData, confirmPassword: text })} 
-                  secureTextEntry={!showConfirmPassword} 
+            <View style={styles.imageContainer}>
+              <View>
+                <Image
+                  style={styles.image}
+                  source={
+                    photo
+                      ? { uri: photo }
+                      : require("../../assets/placeholder.png")
+                  }
                 />
-                <TouchableOpacity 
-                  style={{ position: 'absolute', right: 10, top: 12 }} 
-                  onPress={() => setShowConfirmPassword(!showConfirmPassword)}
-                >
-                  <FontAwesome6 name={showConfirmPassword ? "eye-slash" : "eye"} size={20} color="#333" />
+                <TouchableOpacity style={styles.cameraIcon} onPress={pickImage}>
+                  <FontAwesome6 name="camera" size={24} color={"#808080"} />
                 </TouchableOpacity>
               </View>
             </View>
 
-            <TouchableOpacity style={styles.signUpButton} onPress={handleSignUp}>
+            <View style={styles.inputContainer}>
+              <Text style={styles.label}>Full Name</Text>
+              <TextInput
+                placeholder="Full Name"
+                style={styles.input}
+                value={formData.fullName}
+                onChangeText={(text) =>
+                  setFormData({ ...formData, fullName: text })
+                }
+              />
+            </View>
+
+            <View style={styles.inputContainer}>
+              <Text style={styles.label}>Email</Text>
+              <TextInput
+                placeholder="Email"
+                style={styles.input}
+                value={formData.email}
+                onChangeText={(text) =>
+                  setFormData({ ...formData, email: text })
+                }
+                keyboardType="email-address"
+                autoCapitalize="none"
+              />
+            </View>
+
+            <View style={styles.inputContainer}>
+              <Text style={styles.label}>Phone Number</Text>
+              <TextInput
+                placeholder="Phone Number"
+                style={styles.input}
+                value={formData.phoneNumber}
+                onChangeText={(text) =>
+                  setFormData({ ...formData, phoneNumber: text })
+                }
+                keyboardType="phone-pad"
+              />
+            </View>
+
+            <View style={styles.inputContainer}>
+              <Text style={styles.label}>Password</Text>
+              <View style={styles.relative}>
+                <TextInput
+                  placeholder="Password"
+                  style={styles.input}
+                  value={formData.password}
+                  onChangeText={(text) =>
+                    setFormData({ ...formData, password: text })
+                  }
+                  secureTextEntry={!showPassword}
+                />
+                <TouchableOpacity
+                  style={styles.eyeIconButton}
+                  onPress={() => setShowPassword(!showPassword)}
+                >
+                  <FontAwesome6
+                    name={showPassword ? "eye-slash" : "eye"}
+                    size={20}
+                    color="#333"
+                  />
+                </TouchableOpacity>
+              </View>
+            </View>
+
+            <View style={styles.inputContainer}>
+              <Text style={styles.label}>Confirm Password</Text>
+              <View style={styles.relative}>
+                <TextInput
+                  placeholder="Confirm Password"
+                  style={styles.input}
+                  value={formData.confirmPassword}
+                  onChangeText={(text) =>
+                    setFormData({ ...formData, confirmPassword: text })
+                  }
+                  secureTextEntry={!showConfirmPassword}
+                />
+                <TouchableOpacity
+                  style={styles.eyeIconButton}
+                  onPress={() => setShowConfirmPassword(!showConfirmPassword)}
+                >
+                  <FontAwesome6
+                    name={showConfirmPassword ? "eye-slash" : "eye"}
+                    size={20}
+                    color="#333"
+                  />
+                </TouchableOpacity>
+              </View>
+            </View>
+
+            <TouchableOpacity
+              style={styles.signUpButton}
+              onPress={handleSignUp}
+            >
               <Text style={styles.signUpText}>Sign Up</Text>
             </TouchableOpacity>
 
             <View style={styles.signInContainer}>
-              <Text style={styles.signIn}>Already have an account? <Text style={styles.signUpLink} onPress={() => {setshouldCreateAccount(false); router.replace('sign-in');}}>Sign In</Text>
+              <Text style={styles.signIn}>
+                Already have an account?{" "}
+                <Text
+                  style={styles.signUpLink}
+                  onPress={() => {
+                    setshouldCreateAccount(false);
+                    router.replace("sign-in");
+                  }}
+                >
+                  Sign In
+                </Text>
               </Text>
             </View>
 
@@ -208,35 +311,42 @@ export default function SignUpScreen() {
               <Text style={styles.orText}>OR</Text>
               <View style={styles.line} />
             </View>
-            
+
             <View style={styles.socialButtonsContainer}>
               <TouchableOpacity style={styles.socialButton}>
-                <Image source={require('../../assets/Google.png')} style={styles.socialIcon} />
+                <Image
+                  source={require("../../assets/Google.png")}
+                  style={styles.socialIcon}
+                />
               </TouchableOpacity>
               <TouchableOpacity style={styles.socialButton}>
                 <FontAwesome6 name="apple" size={40} color="#000000" />
               </TouchableOpacity>
             </View>
-            
+
             <View style={styles.footerContainer}>
-              <Text style={styles.footer}>By continuing you agree to SwiftMart's</Text>
+              <Text style={styles.footer}>
+                By continuing you agree to SwiftMart&apos;s
+              </Text>
               <Text style={styles.footerLink}>Terms and Conditions</Text>
             </View>
           </View>
 
           {error && (
-            <Animated.View 
+            <Animated.View
               style={[
                 styles.errorContainer,
                 {
                   opacity: errorAnimation,
-                  transform: [{
-                    translateY: errorAnimation.interpolate({
-                      inputRange: [0, 1],
-                      outputRange: [-20, 0]
-                    })
-                  }]
-                }
+                  transform: [
+                    {
+                      translateY: errorAnimation.interpolate({
+                        inputRange: [0, 1],
+                        outputRange: [-20, 0],
+                      }),
+                    },
+                  ],
+                },
               ]}
             >
               <Text style={styles.errorText}>{error}</Text>
@@ -249,176 +359,185 @@ export default function SignUpScreen() {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
+  cameraIcon: {
+    bottom: 0,
+    padding: 0,
+    position: "absolute",
+    right: 0,
   },
-  scrollContainer: {
-    flexGrow: 1,
+  container: {
+    backgroundColor: COLORS.white,
+    flex: 1,
   },
   contentContainer: {
+    alignItems: "center",
     flex: 1,
+    gap: 1,
     paddingHorizontal: 20,
     paddingTop: 80,
-    alignItems: 'center',
-    gap: 1,
-  },
-  skipButton: {
-    position: 'absolute',
-    top: 60,
-    right: 25,
-    zIndex: 1,
-  },
-  skipText: {
-    color: 'gray',
-    fontSize: 20,
-    fontWeight: '500',
-  },
-  title: {
-    fontSize: 30,
-    fontWeight: 'bold',
-    textAlign: 'center',
-  },
-  subtitle: {
-    fontSize: 16,
-    fontWeight: 'regular',
-    textAlign: 'center',
-  },
-  imageContainer: {
-    alignItems: 'center',
-  },
-  image: {
-    width: 95,
-    height: 95,
-    borderRadius: 60,
-    backgroundColor: '#eee',
-  },
-  cameraIcon: {
-    position: 'absolute',
-    bottom: 0,
-    right: 0,
-    padding: 0,
-  },
-  inputContainer: {
-    width: '100%',
-    marginBottom: 10,
-  },
-  label: {
-    fontSize: 14,
-    color: '#333',
-    fontWeight: '300',
-    marginBottom: 8,
-  },
-  input: {
-    width: '100%',
-    height: 50,
-    backgroundColor: '#f1f1f1',
-    padding: 12,
-    borderRadius: 10,
-  },
-  signUpButton: {
-    width: '100%',
-    height: 50,
-    backgroundColor: '#D4AF37',
-    borderRadius: 10,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginBottom: 20,
-  },
-  signUpText: {
-    color: '#000',
-    fontSize: 20,
-    fontWeight: 'bold',
-  },
-  signInContainer: {
-    alignItems: 'center',
-    marginBottom: 20,
-  },
-  signIn: {
-    color: '#333',
-    textAlign: 'center',
-  },
-  signUpLink: {
-    color: '#2196f3',
-  },
-  orContainer: {
-    width: '100%',
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginBottom: 20,
-  },
-  line: {
-    flex: 1,
-    height: 1,
-    backgroundColor: '#E0E0E0',
-  },
-  orText: {
-    marginHorizontal: 10,
-    color: '#666',
-  },
-  socialButtonsContainer: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    gap: 50,
-    marginBottom: 10,
-  },
-  socialButton: {
-    width: 60,
-    height: 60,
-    borderRadius: 30,
-    backgroundColor: '#f1f1f1',
-    justifyContent: 'center',
-    alignItems: 'center',
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 4,
-    },
-    shadowOpacity: 0.5,
-    shadowRadius: 3,
-    elevation: 5,
-  },
-  socialIcon: {
-    width: 80,
-    height: 80,
-    resizeMode: 'contain',
-  },
-  footerContainer: {
-    alignItems: 'center',
-    marginBottom: 20,
-  },
-  footer: {
-    color: '#666',
-    textAlign: 'center',
-    marginBottom: 4,
-  },
-  footerLink: {
-    color: '#d4af37',
-    textDecorationLine: 'underline',
-    textAlign: 'center',
   },
   errorContainer: {
-    position: 'absolute',
-    top: 120,
-    left: 20,
-    right: 20,
-    backgroundColor: '#FFE5E5',
-    padding: 12,
-    borderRadius: 8,
+    backgroundColor: COLORS.errorBg,
+    borderLeftColor: COLORS.errorBorder,
     borderLeftWidth: 4,
-    borderLeftColor: '#FF3B30',
-    shadowColor: '#000',
+    borderRadius: 8,
+    elevation: 5,
+    left: 20,
+    padding: 12,
+    position: "absolute",
+    right: 20,
+    shadowColor: COLORS.errorShadow,
     shadowOffset: {
       width: 0,
       height: 2,
     },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
-    elevation: 5,
+    top: 120,
   },
   errorText: {
-    color: '#FF3B30',
+    color: COLORS.errorBorder,
     fontSize: 14,
-    textAlign: 'center',
+    textAlign: "center",
+  },
+  eyeIconButton: {
+    position: "absolute",
+    right: 10,
+    top: 12,
+  },
+  footer: {
+    color: COLORS.gray2,
+    marginBottom: 4,
+    textAlign: "center",
+  },
+  footerContainer: {
+    alignItems: "center",
+    marginBottom: 20,
+  },
+  footerLink: {
+    color: COLORS.gold,
+    textAlign: "center",
+    textDecorationLine: "underline",
+  },
+  image: {
+    backgroundColor: COLORS.silver,
+    borderRadius: 60,
+    height: 95,
+    width: 95,
+  },
+  imageContainer: {
+    alignItems: "center",
+  },
+  input: {
+    backgroundColor: COLORS.gray4,
+    borderRadius: 10,
+    height: 50,
+    padding: 12,
+    width: "100%",
+  },
+  inputContainer: {
+    marginBottom: 10,
+    width: "100%",
+  },
+  label: {
+    color: COLORS.gray3,
+    fontSize: 14,
+    fontWeight: "300",
+    marginBottom: 8,
+  },
+  line: {
+    backgroundColor: COLORS.gray4,
+    flex: 1,
+    height: 1,
+  },
+  orContainer: {
+    alignItems: "center",
+    flexDirection: "row",
+    marginBottom: 20,
+    width: "100%",
+  },
+  orText: {
+    color: COLORS.gray2,
+    marginHorizontal: 10,
+  },
+  relative: {
+    position: "relative",
+  },
+
+  scrollContainer: {
+    flexGrow: 1,
+  },
+  signIn: {
+    color: COLORS.gray3,
+    textAlign: "center",
+  },
+  signInContainer: {
+    alignItems: "center",
+    marginBottom: 20,
+  },
+  signUpButton: {
+    alignItems: "center",
+    backgroundColor: COLORS.gold,
+    borderRadius: 10,
+    height: 50,
+    justifyContent: "center",
+    marginBottom: 20,
+    width: "100%",
+  },
+  signUpLink: {
+    color: COLORS.blue,
+  },
+  signUpText: {
+    color: COLORS.black,
+    fontSize: 20,
+    fontWeight: "bold",
+  },
+  skipButton: {
+    position: "absolute",
+    right: 25,
+    top: 60,
+    zIndex: 1,
+  },
+  skipText: {
+    color: COLORS.gray,
+    fontSize: 20,
+    fontWeight: "500",
+  },
+  socialButton: {
+    alignItems: "center",
+    backgroundColor: COLORS.gray4,
+    borderRadius: 30,
+    elevation: 5,
+    height: 60,
+    justifyContent: "center",
+    shadowColor: COLORS.black,
+    shadowOffset: {
+      width: 0,
+      height: 4,
+    },
+    shadowOpacity: 0.5,
+    shadowRadius: 3,
+    width: 60,
+  },
+  socialButtonsContainer: {
+    flexDirection: "row",
+    gap: 50,
+    justifyContent: "center",
+    marginBottom: 10,
+  },
+  socialIcon: {
+    height: 80,
+    resizeMode: "contain",
+    width: 80,
+  },
+  subtitle: {
+    fontSize: 16,
+    fontWeight: "regular",
+    textAlign: "center",
+  },
+  title: {
+    fontSize: 30,
+    fontWeight: "bold",
+    textAlign: "center",
   },
 });

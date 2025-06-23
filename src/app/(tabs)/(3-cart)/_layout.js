@@ -1,15 +1,16 @@
-import { Stack } from 'expo-router';
+import React from "react";
+import { Stack } from "expo-router";
 
 export default function CartLayout() {
-    return (
-        <Stack>
-            <Stack.Screen
-                name="index"
-                options={{
-                    title: "Cart",
-                    headerShown: false
-                }}
-            />
-        </Stack>
-    );
+  return (
+    <Stack>
+      <Stack.Screen
+        name="index"
+        options={{
+          title: "Cart",
+          headerShown: false,
+        }}
+      />
+    </Stack>
+  );
 }
