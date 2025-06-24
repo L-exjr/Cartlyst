@@ -5,6 +5,7 @@ Cartlyst is a modern e-commerce mobile application built with React Native (Expo
 ## 🚀 Features
 
 ### Frontend (React Native + Expo)
+
 - **Modern UI/UX**: Clean, intuitive interface with tab-based navigation
 - **Authentication System**: Complete sign-in, sign-up, and password reset flow
 - **Product Management**: Browse products by categories with search functionality
@@ -15,6 +16,7 @@ Cartlyst is a modern e-commerce mobile application built with React Native (Expo
 - **Image Handling**: Profile picture upload and product image display
 
 ### Backend (Spring Boot)
+
 - **RESTful API**: Comprehensive backend services
 - **Security**: Spring Security with JWT authentication
 - **Database**: PostgreSQL with JPA/Hibernate
@@ -24,6 +26,7 @@ Cartlyst is a modern e-commerce mobile application built with React Native (Expo
 ## 🛠 Tech Stack
 
 ### Frontend
+
 - **React Native** (0.79.4) - Cross-platform mobile development
 - **Expo** (^53.0.12) - Development platform and tools
 - **Expo Router** (^5.1.0) - File-based routing
@@ -33,6 +36,7 @@ Cartlyst is a modern e-commerce mobile application built with React Native (Expo
 - **React Native Screens** - Native navigation components
 
 ### Backend
+
 - **Spring Boot** (3.5.3) - Java framework
 - **Spring Security** - Authentication and authorization
 - **Spring Data JPA** - Database operations
@@ -42,6 +46,7 @@ Cartlyst is a modern e-commerce mobile application built with React Native (Expo
 - **Java 17** - Runtime environment
 
 ### Development Tools
+
 - **ESLint** - Code linting
 - **Prettier** - Code formatting
 - **Babel** - JavaScript transpilation
@@ -99,12 +104,14 @@ Cartlyst/
 ### Frontend Setup
 
 1. **Clone the repository:**
+
    ```bash
    git clone https://github.com/yourusername/cartlyst.git
    cd cartlyst
    ```
 
 2. **Install dependencies:**
+
    ```bash
    npm install
    # or
@@ -124,12 +131,14 @@ Cartlyst/
 ### Backend Setup
 
 1. **Navigate to backend directory:**
+
    ```bash
    cd backend
    ```
 
 2. **Configure database:**
    Update `src/main/resources/application.properties` with your PostgreSQL credentials:
+
    ```properties
    spring.datasource.url=jdbc:postgresql://localhost:5432/cartlyst
    spring.datasource.username=your_username
@@ -146,6 +155,7 @@ Cartlyst/
 ## 📱 Available Scripts
 
 ### Frontend
+
 - `npm start` - Starts the Expo development server
 - `npm run ios` - Runs the app on iOS simulator
 - `npm run android` - Runs the app on Android emulator
@@ -154,6 +164,7 @@ Cartlyst/
 - `npm run format` - Formats code with Prettier
 
 ### Backend
+
 - `./gradlew bootRun` - Runs the Spring Boot application
 - `./gradlew build` - Builds the application
 - `./gradlew test` - Runs tests
@@ -161,12 +172,15 @@ Cartlyst/
 ## 🔧 Configuration
 
 ### Environment Variables
+
 Create a `.env` file in the root directory for environment-specific configuration:
+
 ```env
 API_BASE_URL=http://localhost:8080/api
 ```
 
 ### Database Setup
+
 1. Install PostgreSQL
 2. Create a database named `cartlyst`
 3. Update the database configuration in `backend/src/main/resources/application.properties`
@@ -174,6 +188,7 @@ API_BASE_URL=http://localhost:8080/api
 ## 📱 App Screenshots
 
 The app features a modern tab-based interface with:
+
 - **Home**: Featured products and promotions
 - **Categories**: Browse products by category
 - **Cart**: Shopping cart management
@@ -183,6 +198,7 @@ The app features a modern tab-based interface with:
 ## 🔐 Authentication Flow
 
 The app implements a comprehensive authentication system:
+
 1. **Sign In**: Email/password authentication
 2. **Sign Up**: New user registration with email verification
 3. **Password Reset**: Secure password recovery via email
@@ -197,6 +213,7 @@ The app implements a comprehensive authentication system:
 5. Open a Pull Request
 
 ### Development Guidelines
+
 - Follow the existing code style
 - Write meaningful commit messages
 - Test your changes thoroughly
@@ -209,6 +226,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## 🆘 Support
 
 For support and questions:
+
 - Open an issue in the GitHub repository
 - Contact the development team
 - Check the documentation
