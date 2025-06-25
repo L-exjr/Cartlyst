@@ -11,17 +11,8 @@ import {
 } from "react-native";
 import { useRouter, useLocalSearchParams } from "expo-router";
 import { useAuthStore } from "../utils/authStore";
-
-const COLORS = {
-  white: "#fff",
-  gold: "#d4af37",
-  gray: "#666",
-  gray2: "#333",
-  gray3: "#f0f0f0",
-  gray4: "#e0e0e0",
-  black: "#000000",
-  blue: "#007BFF",
-};
+import { COLORS, SPACING, BORDER_RADIUS, TYPOGRAPHY } from "../utils/theme";
+import { commonStyles } from "../utils/styles";
 
 export default function VerificationScreen() {
   const router = useRouter();
@@ -47,7 +38,6 @@ export default function VerificationScreen() {
     try {
       // Here you would typically verify the OTP with your backend
       const otpCode = otp.join("");
-      console.log("Verifying OTP:", otpCode);
 
       // Simulate API call
       // await verifyOTP(otpCode, type, signUpData);
@@ -62,7 +52,6 @@ export default function VerificationScreen() {
         router.replace("/(tabs)");
       }
     } catch (error) {
-      console.error("Verification failed:", error);
       // Handle verification error
       alert(error.message || "Verification failed. Please try again.");
     }
@@ -71,12 +60,10 @@ export default function VerificationScreen() {
   const handleResend = async () => {
     try {
       // Implement resend logic here
-      console.log("Resending code to", type);
       // Simulate API call
       // await resendVerificationCode(type, signUpData);
       alert("Verification code has been resent successfully!");
     } catch (error) {
-      console.error("Resend failed:", error);
       alert(
         error.message ||
           "Failed to resend verification code. Please try again.",
@@ -176,106 +163,101 @@ export default function VerificationScreen() {
 const styles = StyleSheet.create({
   closeButton: {
     alignItems: "center",
-    backgroundColor: COLORS.gray3,
+    backgroundColor: COLORS.gray[200],
     borderRadius: 20,
     height: 40,
     justifyContent: "center",
     position: "absolute",
-    right: 20,
-    top: 20,
+    right: SPACING.lg,
+    top: SPACING.lg,
     width: 40,
     zIndex: 1,
   },
   closeButtonText: {
-    color: COLORS.black,
-    fontSize: 20,
+    color: COLORS.text.primary,
+    ...TYPOGRAPHY.h3,
   },
   confirmButton: {
-    alignItems: "center",
-    backgroundColor: COLORS.gold,
-    borderRadius: 8,
-    height: 50,
-    justifyContent: "center",
-    marginBottom: 16,
+    ...commonStyles.button,
+    marginBottom: SPACING.md,
     width: "100%",
   },
   confirmText: {
-    color: COLORS.black,
-    fontSize: 16,
-    fontWeight: "bold",
+    ...commonStyles.buttonText,
   },
   container: {
-    backgroundColor: COLORS.white,
+    backgroundColor: COLORS.surface,
     flex: 1,
   },
   content: {
     alignItems: "center",
     flex: 1,
-    justifyContent: "center",
-    paddingHorizontal: 20,
-    paddingVertical: 40,
+    paddingHorizontal: SPACING.lg,
+    paddingTop: SPACING.xl,
   },
   hyphen: {
-    fontSize: 24,
+    color: COLORS.text.secondary,
+    ...TYPOGRAPHY.h2,
     fontWeight: "bold",
-    marginHorizontal: 4,
+    marginHorizontal: SPACING.xs,
   },
   infoText: {
-    color: COLORS.gray2,
-    marginBottom: 16,
+    color: COLORS.text.secondary,
+    ...TYPOGRAPHY.body,
+    textAlign: "center",
   },
   line: {
-    backgroundColor: COLORS.black,
+    backgroundColor: COLORS.gray[200],
     flex: 1,
-    height: 1.5,
+    height: 1,
   },
   linkText: {
-    color: COLORS.blue,
+    color: COLORS.secondary,
     fontWeight: "bold",
   },
   orContainer: {
     alignItems: "center",
     flexDirection: "row",
-    marginBottom: 16,
+    marginVertical: SPACING.lg,
     width: "100%",
   },
   orText: {
-    color: COLORS.black,
-    marginHorizontal: 10,
+    color: COLORS.text.secondary,
+    marginHorizontal: SPACING.sm,
   },
   otpContainer: {
-    alignItems: "center",
     flexDirection: "row",
     justifyContent: "center",
-    marginBottom: 32,
-    width: "100%",
+    marginVertical: SPACING.xl,
   },
   otpInput: {
-    backgroundColor: COLORS.gray4,
-    borderRadius: 10,
-    fontSize: 20,
-    height: 50,
-    marginHorizontal: 4,
+    backgroundColor: COLORS.gray[100],
+    borderColor: COLORS.gray[200],
+    borderRadius: BORDER_RADIUS.md,
+    borderWidth: 1,
+    ...TYPOGRAPHY.h2,
+    fontWeight: "bold",
+    height: 60,
+    marginHorizontal: SPACING.xs,
     textAlign: "center",
-    width: 45,
+    width: 50,
   },
   scrollContent: {
     flexGrow: 1,
   },
   subtitle: {
-    color: COLORS.gray2,
-    fontSize: 18,
-    fontWeight: "500",
-    marginBottom: 32,
+    color: COLORS.text.secondary,
+    ...TYPOGRAPHY.body,
+    marginTop: SPACING.sm,
     textAlign: "center",
   },
   switchText: {
-    color: COLORS.gray2,
-    marginBottom: 32,
+    color: COLORS.text.secondary,
+    ...TYPOGRAPHY.body,
+    textAlign: "center",
   },
   title: {
-    fontSize: 32,
-    fontWeight: "bold",
-    marginBottom: 16,
+    ...TYPOGRAPHY.h1,
+    marginBottom: SPACING.sm,
   },
 });

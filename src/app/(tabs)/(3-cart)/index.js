@@ -1,5 +1,7 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
+import { COLORS, TYPOGRAPHY } from "../../../utils/theme";
+import { commonStyles } from "../../../utils/styles";
 
 export default function CartScreen() {
   return (
@@ -11,12 +13,10 @@ export default function CartScreen() {
 
 const styles = StyleSheet.create({
   container: {
-    alignItems: "center",
-    flex: 1,
-    justifyContent: "center",
+    ...commonStyles.centered,
+    ...commonStyles.container,
   },
   title: {
-    fontSize: 20,
-    fontWeight: "bold",
+    ...TYPOGRAPHY.h3,
   },
 });

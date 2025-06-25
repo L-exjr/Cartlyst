@@ -9,18 +9,13 @@ import {
 } from "react-native";
 import { FontAwesome, Feather, Entypo } from "@expo/vector-icons";
 import PropTypes from "prop-types";
-
-const COLORS = {
-  card: "#d9d9d9",
-  card2: "#d2d0d0",
-  overlay: "rgba(0,0,0,0.05)",
-  overlay2: "rgba(255, 255, 255, 0.4)",
-  gold: "#ffd700",
-  white: "#fff",
-  gray: "#333",
-  gray2: "#222",
-  gray3: "#555",
-};
+import {
+  COLORS,
+  SPACING,
+  BORDER_RADIUS,
+  TYPOGRAPHY,
+  SHADOWS,
+} from "../utils/theme";
 
 export default function ProductCard({
   image,
@@ -39,7 +34,7 @@ export default function ProductCard({
     <Pressable
       style={styles.card}
       onPress={onPress}
-      android_ripple={{ color: "#f1f1f1" }}
+      android_ripple={{ color: COLORS.gray[100] }}
     >
       <View style={styles.imageContainer}>
         <Image
@@ -61,7 +56,7 @@ export default function ProductCard({
         >
           <Feather
             name="heart"
-            color={isFavorite ? "#ff4444" : "#fff"}
+            color={isFavorite ? COLORS.error : COLORS.text.inverse}
             size={20}
           />
         </TouchableOpacity>
@@ -88,7 +83,7 @@ export default function ProductCard({
                 key={index}
                 name="star"
                 size={14}
-                color={index < rating ? "#ffd700" : "#808080"}
+                color={index < rating ? COLORS.primary : COLORS.text.tertiary}
               />
             ))}
           </View>
@@ -97,11 +92,15 @@ export default function ProductCard({
             onPress={onAddToCart}
             style={styles.cartIconWrapper}
           >
-            <Feather name="shopping-cart" size={20} color="#000" />
+            <Feather
+              name="shopping-cart"
+              size={20}
+              color={COLORS.text.primary}
+            />
             <Entypo
               name="plus"
               size={12}
-              color="#000"
+              color={COLORS.text.primary}
               style={styles.plusOverlay}
             />
           </TouchableOpacity>
@@ -126,10 +125,11 @@ ProductCard.propTypes = {
 const styles = StyleSheet.create({
   card: {
     backgroundColor: COLORS.card,
-    borderRadius: 15,
-    marginBottom: 16,
+    borderRadius: BORDER_RADIUS.lg,
+    marginBottom: SPACING.md,
     overflow: "hidden",
     width: "48%",
+    ...SHADOWS.small,
   },
   cartIconWrapper: {
     alignItems: "center",
@@ -137,24 +137,24 @@ const styles = StyleSheet.create({
     position: "relative",
   },
   detailsContainer: {
-    padding: 12,
+    padding: SPACING.sm,
   },
   discountBadge: {
-    backgroundColor: COLORS.overlay2,
+    backgroundColor: COLORS.overlayLight,
     bottom: "2%",
-    paddingHorizontal: 6,
-    paddingVertical: 6,
+    paddingHorizontal: SPACING.xs,
+    paddingVertical: SPACING.xs,
     position: "absolute",
     right: "2%",
   },
   discountText: {
-    color: COLORS.gold,
-    fontSize: 14,
+    color: COLORS.primary,
+    ...TYPOGRAPHY.caption,
     fontWeight: "bold",
   },
   discountedPrice: {
-    color: COLORS.gray2,
-    fontSize: 15,
+    color: COLORS.text.primary,
+    ...TYPOGRAPHY.body,
     fontWeight: "500",
   },
   heartIcon: {
@@ -163,7 +163,7 @@ const styles = StyleSheet.create({
     borderRadius: 50,
     height: 45,
     justifyContent: "center",
-    padding: 6,
+    padding: SPACING.xs,
     position: "absolute",
     right: "1%",
     top: "2.5%",
@@ -171,8 +171,8 @@ const styles = StyleSheet.create({
     zIndex: 1,
   },
   image: {
-    backgroundColor: COLORS.card2,
-    borderRadius: 15,
+    backgroundColor: COLORS.gray[200],
+    borderRadius: BORDER_RADIUS.lg,
     height: 169,
     width: "100%",
   },
@@ -181,14 +181,14 @@ const styles = StyleSheet.create({
     position: "relative",
   },
   originalPrice: {
-    color: COLORS.gray3,
-    fontSize: 13,
+    color: COLORS.text.secondary,
+    ...TYPOGRAPHY.caption,
     textDecorationLine: "line-through",
   },
   plusOverlay: {
-    backgroundColor: COLORS.white,
+    backgroundColor: COLORS.surface,
     borderRadius: 10,
-    padding: 1,
+    padding: SPACING.xs,
     position: "absolute",
     right: "-1.5%",
     top: 0,
@@ -203,10 +203,9 @@ const styles = StyleSheet.create({
     gap: 2,
   },
   title: {
-    color: COLORS.gray,
-    fontSize: 18,
-    fontWeight: "400",
+    color: COLORS.text.primary,
+    ...TYPOGRAPHY.h3,
     lineHeight: 18,
-    marginBottom: 4,
+    marginBottom: SPACING.xs,
   },
 });

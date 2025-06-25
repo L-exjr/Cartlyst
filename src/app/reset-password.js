@@ -15,21 +15,8 @@ import {
 import { router } from "expo-router";
 import { useAuthStore } from "../utils/authStore";
 import { FontAwesome6 } from "@expo/vector-icons";
-
-const COLORS = {
-  white: "#fff",
-  gold: "#d4af37",
-  gray: "gray",
-  gray2: "#666",
-  gray3: "#333",
-  gray4: "#f1f1f1",
-  red: "red",
-  errorBg: "#FFE5E5",
-  errorBorder: "#FF3B30",
-  errorShadow: "#000",
-  arrow: "#333",
-  black: "#000",
-};
+import { COLORS, SPACING, BORDER_RADIUS, TYPOGRAPHY } from "../utils/theme";
+import { commonStyles } from "../utils/styles";
 
 export default function ResetPasswordScreen() {
   const { setResettingPassword } = useAuthStore();
@@ -163,33 +150,33 @@ export default function ResetPasswordScreen() {
 const styles = StyleSheet.create({
   backButton: {
     left: 25,
-    padding: 8,
+    padding: SPACING.sm,
     position: "absolute",
     top: 60,
     zIndex: 1,
   },
   container: {
-    backgroundColor: COLORS.white,
+    backgroundColor: COLORS.surface,
     flex: 1,
   },
   contentContainer: {
     alignItems: "center",
     flex: 1,
-    gap: 10,
-    paddingHorizontal: 20,
+    gap: SPACING.sm,
+    paddingHorizontal: SPACING.lg,
     paddingTop: 100,
   },
   errorContainer: {
-    backgroundColor: COLORS.errorBg,
-    borderLeftColor: COLORS.errorBorder,
+    backgroundColor: COLORS.error,
+    borderLeftColor: COLORS.error,
     borderLeftWidth: 4,
-    borderRadius: 8,
+    borderRadius: BORDER_RADIUS.md,
     elevation: 5,
-    left: 20,
-    padding: 12,
+    left: SPACING.lg,
+    padding: SPACING.sm,
     position: "absolute",
-    right: 20,
-    shadowColor: COLORS.errorShadow,
+    right: SPACING.lg,
+    shadowColor: COLORS.text.primary,
     shadowOffset: {
       width: 0,
       height: 2,
@@ -199,64 +186,51 @@ const styles = StyleSheet.create({
     top: 120,
   },
   errorText: {
-    color: COLORS.errorBorder,
-    fontSize: 14,
+    color: COLORS.text.inverse,
+    ...TYPOGRAPHY.caption,
     textAlign: "center",
   },
   headerContainer: {
     alignItems: "center",
-    marginBottom: 20,
-    width: "100%",
+    marginBottom: SPACING.lg,
   },
   input: {
-    backgroundColor: COLORS.gray4,
-    borderRadius: 10,
-    height: 50,
-    padding: 12,
+    ...commonStyles.input,
     width: "100%",
   },
   inputContainer: {
-    marginBottom: 20,
+    marginBottom: SPACING.lg,
     width: "100%",
   },
   inputError: {
-    borderColor: COLORS.red,
+    borderColor: COLORS.error,
     borderWidth: 1,
   },
   label: {
-    color: COLORS.gray3,
-    fontSize: 14,
+    color: COLORS.text.primary,
+    ...TYPOGRAPHY.caption,
     fontWeight: "300",
-    marginBottom: 8,
+    marginBottom: SPACING.sm,
   },
   resetButton: {
-    alignItems: "center",
-    backgroundColor: COLORS.gold,
-    borderRadius: 10,
-    height: 50,
-    justifyContent: "center",
-    marginTop: 20,
+    ...commonStyles.button,
+    marginTop: SPACING.lg,
     width: "100%",
   },
   resetButtonText: {
-    color: COLORS.black,
-    fontSize: 20,
-    fontWeight: "bold",
+    ...commonStyles.buttonText,
   },
   scrollContainer: {
     flexGrow: 1,
   },
   subtitle: {
-    color: COLORS.gray2,
-    fontSize: 16,
-    marginBottom: 30,
-    paddingHorizontal: 20,
+    color: COLORS.text.secondary,
+    ...TYPOGRAPHY.body,
+    marginTop: SPACING.sm,
     textAlign: "center",
   },
   title: {
-    fontSize: 30,
-    fontWeight: "bold",
-    marginBottom: 10,
+    ...TYPOGRAPHY.h1,
     textAlign: "center",
   },
 });

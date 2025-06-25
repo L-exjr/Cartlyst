@@ -8,24 +8,23 @@ import {
   TouchableOpacity,
   Dimensions,
   Animated,
-  ActivityIndicator,
 } from "react-native";
 import { useRouter } from "expo-router";
 import SearchBar from "../../../components/SearchBar";
 import ProductCard from "../../../components/ProductCard";
 import CarouselCard from "../../../components/CarouselCard";
 import CategoryCircles from "../../../components/CategoryCircles";
+import LoadingSpinner from "../../../components/LoadingSpinner";
 import { API_BASE_URL } from "../../../utils/config";
+import {
+  COLORS,
+  SPACING,
+  BORDER_RADIUS,
+  TYPOGRAPHY,
+} from "../../../utils/theme";
+import { commonStyles } from "../../../utils/styles";
 
 const { width } = Dimensions.get("window");
-
-const COLORS = {
-  gold: "#d4af37",
-  white: "#fff",
-  black: "#00000080",
-  gray: "#666",
-  background: "#f5f5f5",
-};
 
 export default function HomeScreen() {
   const router = useRouter();
@@ -60,7 +59,6 @@ export default function HomeScreen() {
         ]);
       } catch (err) {
         setError("Failed to load data. Please try again later.");
-        console.error("Error loading data:", err);
       } finally {
         setIsLoading(false);
       }
@@ -76,7 +74,6 @@ export default function HomeScreen() {
       const data = await response.json();
       setCategories(data);
     } catch (error) {
-      console.error("Error fetching categories:", error);
       throw error;
     }
   };
@@ -88,7 +85,6 @@ export default function HomeScreen() {
       const data = await response.json();
       setCarouselItems(data);
     } catch (error) {
-      console.error("Error fetching carousel items:", error);
       throw error;
     }
   };
@@ -100,7 +96,6 @@ export default function HomeScreen() {
       const data = await response.json();
       setFeaturedProducts(data);
     } catch (error) {
-      console.error("Error fetching featured products:", error);
       throw error;
     }
   };
@@ -147,11 +142,7 @@ export default function HomeScreen() {
   };
 
   if (isLoading) {
-    return (
-      <View style={styles.loadingContainer}>
-        <ActivityIndicator size="large" color={COLORS.gold} />
-      </View>
-    );
+    return <LoadingSpinner text="Loading home content..." />;
   }
 
   if (error) {
@@ -239,7 +230,9 @@ export default function HomeScreen() {
                           styles.dot,
                           {
                             backgroundColor:
-                              i === activeIndex ? COLORS.gold : COLORS.white,
+                              i === activeIndex
+                                ? COLORS.primary
+                                : COLORS.surface,
                             width: dotSize,
                             height: dotSize,
                             marginHorizontal: dotMargin,
@@ -279,8 +272,8 @@ export default function HomeScreen() {
                   rating={item.rating}
                   image={item.image}
                   onPress={() => router.push(`/product/${item.id}`)}
-                  onPressHeart={() => console.log("Heart clicked", item.title)}
-                  onAddToCart={() => console.log("Add to Cart", item.title)}
+                  onPressHeart={() => {}}
+                  onAddToCart={() => {}}
                 />
               )}
             />
@@ -297,33 +290,31 @@ export default function HomeScreen() {
 
 const styles = StyleSheet.create({
   carouselBar: {
-    backgroundColor: COLORS.black,
+    backgroundColor: COLORS.overlay,
     bottom: 0,
     flexDirection: "column",
     justifyContent: "center",
     left: 0,
-    paddingHorizontal: 16,
-    paddingVertical: 8,
+    paddingHorizontal: SPACING.md,
+    paddingVertical: SPACING.sm,
     position: "absolute",
     right: 0,
   },
   carouselText: {
-    color: COLORS.white,
-    fontSize: 18,
-    fontWeight: "400",
-    marginBottom: 4,
+    color: COLORS.text.inverse,
+    ...TYPOGRAPHY.body,
+    marginBottom: SPACING.xs,
   },
   carouselWrapper: {
     height: 170,
-    marginBottom: 10,
+    marginBottom: SPACING.sm,
     position: "relative",
   },
   container: {
-    backgroundColor: COLORS.background,
-    flex: 1,
+    ...commonStyles.container,
   },
   dot: {
-    borderRadius: 4,
+    borderRadius: BORDER_RADIUS.sm,
   },
   dotsContainer: {
     alignSelf: "center",
@@ -332,59 +323,46 @@ const styles = StyleSheet.create({
   },
   dotsRow: { flexDirection: "row" },
   errorContainer: {
-    alignItems: "center",
+    ...commonStyles.centered,
     backgroundColor: COLORS.background,
     flex: 1,
-    justifyContent: "center",
-    padding: 20,
+    padding: SPACING.lg,
   },
   errorText: {
-    color: COLORS.gold,
-    fontSize: 16,
-    marginBottom: 20,
+    color: COLORS.primary,
+    ...TYPOGRAPHY.body,
+    marginBottom: SPACING.lg,
     textAlign: "center",
   },
   fixedHeader: {
     zIndex: 10,
   },
-  loadingContainer: {
-    alignItems: "center",
-    backgroundColor: COLORS.background,
-    flex: 1,
-    justifyContent: "center",
-  },
   noProductsText: {
-    color: COLORS.gray,
-    fontSize: 16,
-    marginTop: 20,
+    color: COLORS.text.secondary,
+    ...TYPOGRAPHY.body,
+    marginTop: SPACING.lg,
     textAlign: "center",
   },
-  paddedHorizontal: { paddingHorizontal: 10 },
+  paddedHorizontal: { paddingHorizontal: SPACING.sm },
   retryButton: {
-    backgroundColor: COLORS.gold,
-    borderRadius: 5,
-    paddingHorizontal: 20,
-    paddingVertical: 10,
+    ...commonStyles.button,
   },
   retryText: {
-    color: COLORS.white,
-    fontSize: 16,
-    fontWeight: "bold",
+    ...commonStyles.buttonText,
   },
   sectionHeader: {
     alignItems: "center",
     flexDirection: "row",
     justifyContent: "space-between",
-    marginBottom: 15,
+    marginBottom: SPACING.md,
   },
   sectionTitle: {
-    fontSize: 20,
-    fontWeight: "bold",
-    marginBottom: 15,
+    ...TYPOGRAPHY.h3,
+    marginBottom: SPACING.md,
   },
   seeAllText: {
-    color: COLORS.gold,
-    fontSize: 14,
+    color: COLORS.primary,
+    ...TYPOGRAPHY.caption,
     fontWeight: "bold",
   },
   spaceBetween: { justifyContent: "space-between" },

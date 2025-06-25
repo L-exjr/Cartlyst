@@ -13,6 +13,13 @@ import {
   FontAwesome5,
 } from "@expo/vector-icons";
 import PropTypes from "prop-types";
+import {
+  COLORS,
+  SPACING,
+  BORDER_RADIUS,
+  TYPOGRAPHY,
+  SHADOWS,
+} from "../utils/theme";
 
 const { width } = Dimensions.get("window");
 
@@ -20,13 +27,6 @@ const iconMap = {
   MaterialIcons,
   MaterialCommunityIcons,
   FontAwesome5,
-};
-
-const COLORS = {
-  card: "#d9d9d9",
-  card2: "#d2d0d0",
-  overlay: "rgba(255,255,255,0.7)",
-  gray: "#333",
 };
 
 export default function CategoryCards({ categories, onPress }) {
@@ -51,7 +51,11 @@ export default function CategoryCards({ categories, onPress }) {
 
               {IconComponent && (
                 <View style={styles.iconCircle}>
-                  <IconComponent name={category.icon} size={24} color="black" />
+                  <IconComponent
+                    name={category.icon}
+                    size={24}
+                    color={COLORS.text.primary}
+                  />
                 </View>
               )}
             </View>
@@ -76,30 +80,31 @@ CategoryCards.propTypes = {
 const styles = StyleSheet.create({
   card: {
     backgroundColor: COLORS.card,
-    borderRadius: 15,
-    marginBottom: 16,
+    borderRadius: BORDER_RADIUS.lg,
+    marginBottom: SPACING.md,
     overflow: "hidden",
     width: "48%",
+    ...SHADOWS.small,
   },
   cardImage: {
-    backgroundColor: COLORS.card2,
+    backgroundColor: COLORS.gray[200],
     height: width * 0.4,
     width: "100%",
   },
   categoryText: {
-    color: COLORS.gray,
-    fontSize: 16,
+    color: COLORS.text.primary,
+    ...TYPOGRAPHY.body,
     fontWeight: "bold",
   },
   container: {
     flexDirection: "row",
     flexWrap: "wrap",
     justifyContent: "space-between",
-    paddingHorizontal: 10,
+    paddingHorizontal: SPACING.sm,
   },
   iconCircle: {
     alignItems: "center",
-    backgroundColor: COLORS.overlay,
+    backgroundColor: COLORS.overlayLight,
     borderRadius: 999,
     height: width * 0.1145,
     justifyContent: "center",
@@ -110,13 +115,13 @@ const styles = StyleSheet.create({
     zIndex: 2,
   },
   imageContainer: {
-    borderRadius: 15,
+    borderRadius: BORDER_RADIUS.lg,
     overflow: "hidden",
     position: "relative",
   },
   textContainer: {
     height: width * 0.1,
     justifyContent: "center",
-    paddingLeft: 10,
+    paddingLeft: SPACING.sm,
   },
 });

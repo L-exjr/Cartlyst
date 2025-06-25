@@ -17,21 +17,8 @@ import { router } from "expo-router";
 import * as ImagePicker from "expo-image-picker";
 import { useAuthStore } from "../utils/authStore";
 import { FontAwesome6 } from "@expo/vector-icons";
-
-const COLORS = {
-  white: "#fff",
-  gold: "#d4af37",
-  gray: "gray",
-  gray2: "#666",
-  gray3: "#333",
-  gray4: "#f1f1f1",
-  blue: "#2196f3",
-  silver: "#eee",
-  errorBg: "#FFE5E5",
-  errorBorder: "#FF3B30",
-  errorShadow: "#000",
-  black: "#000",
-};
+import { COLORS, SPACING, BORDER_RADIUS, TYPOGRAPHY } from "../utils/theme";
+import { commonStyles } from "../utils/styles";
 
 export default function SignUpScreen() {
   const { setVerification, setGuestMode, setshouldCreateAccount } =
@@ -67,25 +54,23 @@ export default function SignUpScreen() {
         }),
       ]).start(() => setError(""));
     } catch (error) {
-      console.error("Error showing animation:", error);
+      setError("An error occurred. Please try again.");
     }
   };
 
   const pickImage = async () => {
     try {
-      // console.log("Camera icon pressed");
       let result = await ImagePicker.launchImageLibraryAsync({
         mediaTypes: ["images"],
         allowsEditing: true,
         aspect: [1, 1],
         quality: 1,
       });
-      // console.log("Image picker result:", result);
       if (!result.canceled) {
         setPhoto(result.assets[0].uri);
       }
     } catch (e) {
-      console.error("Image picker error:", e);
+      showError("Failed to pick image. Please try again.");
     }
   };
 
@@ -139,7 +124,6 @@ export default function SignUpScreen() {
 
       return true;
     } catch (error) {
-      console.error("Validation error:", error);
       showError("An unexpected error occurred. Please try again.");
       return false;
     }
@@ -190,7 +174,11 @@ export default function SignUpScreen() {
                   }
                 />
                 <TouchableOpacity style={styles.cameraIcon} onPress={pickImage}>
-                  <FontAwesome6 name="camera" size={24} color={"#808080"} />
+                  <FontAwesome6
+                    name="camera"
+                    size={24}
+                    color={COLORS.text.tertiary}
+                  />
                 </TouchableOpacity>
               </View>
             </View>
@@ -320,7 +308,11 @@ export default function SignUpScreen() {
                 />
               </TouchableOpacity>
               <TouchableOpacity style={styles.socialButton}>
-                <FontAwesome6 name="apple" size={40} color="#000000" />
+                <FontAwesome6
+                  name="apple"
+                  size={40}
+                  color={COLORS.text.primary}
+                />
               </TouchableOpacity>
             </View>
 
@@ -366,27 +358,27 @@ const styles = StyleSheet.create({
     right: 0,
   },
   container: {
-    backgroundColor: COLORS.white,
+    backgroundColor: COLORS.surface,
     flex: 1,
   },
   contentContainer: {
     alignItems: "center",
     flex: 1,
     gap: 1,
-    paddingHorizontal: 20,
+    paddingHorizontal: SPACING.lg,
     paddingTop: 80,
   },
   errorContainer: {
-    backgroundColor: COLORS.errorBg,
-    borderLeftColor: COLORS.errorBorder,
+    backgroundColor: COLORS.error,
+    borderLeftColor: COLORS.error,
     borderLeftWidth: 4,
-    borderRadius: 8,
+    borderRadius: BORDER_RADIUS.md,
     elevation: 5,
-    left: 20,
-    padding: 12,
+    left: SPACING.lg,
+    padding: SPACING.sm,
     position: "absolute",
-    right: 20,
-    shadowColor: COLORS.errorShadow,
+    right: SPACING.lg,
+    shadowColor: COLORS.text.primary,
     shadowOffset: {
       width: 0,
       height: 2,
@@ -396,31 +388,31 @@ const styles = StyleSheet.create({
     top: 120,
   },
   errorText: {
-    color: COLORS.errorBorder,
-    fontSize: 14,
+    color: COLORS.text.inverse,
+    ...TYPOGRAPHY.caption,
     textAlign: "center",
   },
   eyeIconButton: {
     position: "absolute",
-    right: 10,
+    right: SPACING.sm,
     top: 12,
   },
   footer: {
-    color: COLORS.gray2,
-    marginBottom: 4,
+    color: COLORS.text.secondary,
+    marginBottom: SPACING.xs,
     textAlign: "center",
   },
   footerContainer: {
     alignItems: "center",
-    marginBottom: 20,
+    marginBottom: SPACING.lg,
   },
   footerLink: {
-    color: COLORS.gold,
+    color: COLORS.primary,
     textAlign: "center",
     textDecorationLine: "underline",
   },
   image: {
-    backgroundColor: COLORS.silver,
+    backgroundColor: COLORS.gray[200],
     borderRadius: 60,
     height: 95,
     width: 95,
@@ -429,68 +421,58 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   input: {
-    backgroundColor: COLORS.gray4,
-    borderRadius: 10,
-    height: 50,
-    padding: 12,
+    ...commonStyles.input,
     width: "100%",
   },
   inputContainer: {
-    marginBottom: 10,
+    marginBottom: SPACING.sm,
     width: "100%",
   },
   label: {
-    color: COLORS.gray3,
-    fontSize: 14,
+    color: COLORS.text.primary,
+    ...TYPOGRAPHY.caption,
     fontWeight: "300",
-    marginBottom: 8,
+    marginBottom: SPACING.sm,
   },
   line: {
-    backgroundColor: COLORS.gray4,
+    backgroundColor: COLORS.gray[100],
     flex: 1,
     height: 1,
   },
   orContainer: {
     alignItems: "center",
     flexDirection: "row",
-    marginBottom: 20,
+    marginBottom: SPACING.lg,
     width: "100%",
   },
   orText: {
-    color: COLORS.gray2,
-    marginHorizontal: 10,
+    color: COLORS.text.secondary,
+    marginHorizontal: SPACING.sm,
   },
   relative: {
     position: "relative",
   },
-
   scrollContainer: {
     flexGrow: 1,
   },
   signIn: {
-    color: COLORS.gray3,
+    color: COLORS.text.primary,
     textAlign: "center",
   },
   signInContainer: {
     alignItems: "center",
-    marginBottom: 20,
+    marginBottom: SPACING.lg,
   },
   signUpButton: {
-    alignItems: "center",
-    backgroundColor: COLORS.gold,
-    borderRadius: 10,
-    height: 50,
-    justifyContent: "center",
-    marginBottom: 20,
+    ...commonStyles.button,
+    marginBottom: SPACING.lg,
     width: "100%",
   },
   signUpLink: {
-    color: COLORS.blue,
+    color: COLORS.secondary,
   },
   signUpText: {
-    color: COLORS.black,
-    fontSize: 20,
-    fontWeight: "bold",
+    ...commonStyles.buttonText,
   },
   skipButton: {
     position: "absolute",
@@ -499,18 +481,18 @@ const styles = StyleSheet.create({
     zIndex: 1,
   },
   skipText: {
-    color: COLORS.gray,
-    fontSize: 20,
+    color: COLORS.text.secondary,
+    ...TYPOGRAPHY.h3,
     fontWeight: "500",
   },
   socialButton: {
     alignItems: "center",
-    backgroundColor: COLORS.gray4,
+    backgroundColor: COLORS.gray[100],
     borderRadius: 30,
     elevation: 5,
     height: 60,
     justifyContent: "center",
-    shadowColor: COLORS.black,
+    shadowColor: COLORS.text.primary,
     shadowOffset: {
       width: 0,
       height: 4,
@@ -523,7 +505,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     gap: 50,
     justifyContent: "center",
-    marginBottom: 10,
+    marginBottom: SPACING.sm,
   },
   socialIcon: {
     height: 80,
@@ -531,13 +513,11 @@ const styles = StyleSheet.create({
     width: 80,
   },
   subtitle: {
-    fontSize: 16,
-    fontWeight: "regular",
+    ...TYPOGRAPHY.body,
     textAlign: "center",
   },
   title: {
-    fontSize: 30,
-    fontWeight: "bold",
+    ...TYPOGRAPHY.h1,
     textAlign: "center",
   },
 });

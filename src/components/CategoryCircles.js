@@ -6,16 +6,12 @@ import {
   FontAwesome5,
 } from "@expo/vector-icons";
 import PropTypes from "prop-types";
+import { COLORS, SPACING, TYPOGRAPHY } from "../utils/theme";
 
 const iconMap = {
   MaterialIcons,
   MaterialCommunityIcons,
   FontAwesome5,
-};
-
-const COLORS = {
-  circle: "#d9d9d9",
-  gray: "#333",
 };
 
 export default function CategoryCircles({ categories = [], onPress }) {
@@ -32,7 +28,11 @@ export default function CategoryCircles({ categories = [], onPress }) {
             onPress={() => onPress?.(category)}
           >
             <View style={styles.circle}>
-              <IconComponent name={category.icon} size={26} color="black" />
+              <IconComponent
+                name={category.icon}
+                size={26}
+                color={COLORS.text.primary}
+              />
             </View>
             <Text style={styles.categoryText} numberOfLines={2}>
               {category.name}
@@ -52,28 +52,28 @@ CategoryCircles.propTypes = {
 const styles = StyleSheet.create({
   categoryItem: {
     alignItems: "center",
-    marginBottom: 15,
+    marginBottom: SPACING.md,
     width: "20%",
   },
   categoryText: {
-    color: COLORS.gray,
-    fontSize: 12,
+    color: COLORS.text.primary,
+    ...TYPOGRAPHY.caption,
     fontWeight: "500",
     textAlign: "center",
   },
   circle: {
     alignItems: "center",
-    backgroundColor: COLORS.circle,
+    backgroundColor: COLORS.card,
     borderRadius: "50%",
     height: 45,
     justifyContent: "center",
-    marginBottom: 8,
+    marginBottom: SPACING.sm,
     width: 45,
   },
   container: {
     flexDirection: "row",
     flexWrap: "wrap",
     justifyContent: "space-between",
-    marginBottom: 20,
+    marginBottom: SPACING.lg,
   },
 });

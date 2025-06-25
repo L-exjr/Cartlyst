@@ -1,13 +1,8 @@
 import React from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { useRouter } from "expo-router";
-
-const COLORS = {
-  white: "#fff",
-  gold: "#d4af37",
-  gray: "#222",
-  gray2: "#555",
-};
+import { COLORS, SPACING, TYPOGRAPHY } from "../../../utils/theme";
+import { commonStyles } from "../../../utils/styles";
 
 export default function Modal() {
   const router = useRouter();
@@ -27,32 +22,30 @@ export default function Modal() {
 
 const styles = StyleSheet.create({
   closeButton: {
-    padding: 8,
+    padding: SPACING.sm,
     position: "absolute",
-    right: 24,
+    right: SPACING.xl,
     top: 40,
     zIndex: 10,
   },
   closeText: {
-    color: COLORS.gold,
-    fontSize: 16,
+    color: COLORS.primary,
+    ...TYPOGRAPHY.body,
     fontWeight: "bold",
   },
   content: {
-    color: COLORS.gray2,
-    fontSize: 18,
+    color: COLORS.text.secondary,
+    ...TYPOGRAPHY.body,
   },
   modalContainer: {
-    alignItems: "center",
-    backgroundColor: COLORS.white,
+    ...commonStyles.centered,
+    backgroundColor: COLORS.surface,
     flex: 1,
-    justifyContent: "center",
-    padding: 24,
+    padding: SPACING.xl,
   },
   title: {
-    color: COLORS.gray,
-    fontSize: 28,
-    fontWeight: "bold",
-    marginBottom: 16,
+    color: COLORS.text.primary,
+    ...TYPOGRAPHY.h1,
+    marginBottom: SPACING.md,
   },
 });

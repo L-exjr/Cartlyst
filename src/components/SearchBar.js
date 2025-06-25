@@ -1,12 +1,7 @@
 import React from "react";
 import { View, TextInput, StyleSheet, TouchableOpacity } from "react-native";
 import { FontAwesome6 } from "@expo/vector-icons";
-
-const COLORS = {
-  white: "#fff",
-  background: "#f5f5f5",
-  gray: "#333",
-};
+import { COLORS, SPACING, BORDER_RADIUS, TYPOGRAPHY } from "../utils/theme";
 
 export default function SearchBar() {
   return (
@@ -15,13 +10,13 @@ export default function SearchBar() {
         <FontAwesome6
           name="magnifying-glass"
           size={20}
-          color="#666"
+          color={COLORS.text.secondary}
           style={styles.searchIcon}
         />
         <TextInput
           style={styles.input}
           placeholder="Search products..."
-          placeholderTextColor="#666"
+          placeholderTextColor={COLORS.text.secondary}
         />
       </View>
     </View>
@@ -30,23 +25,23 @@ export default function SearchBar() {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: COLORS.white,
-    padding: 10,
+    backgroundColor: COLORS.surface,
+    padding: SPACING.sm,
   },
   input: {
-    color: COLORS.gray,
+    color: COLORS.text.primary,
     flex: 1,
-    fontSize: 16,
+    ...TYPOGRAPHY.body,
   },
   searchContainer: {
     alignItems: "center",
     backgroundColor: COLORS.background,
-    borderRadius: 10,
+    borderRadius: BORDER_RADIUS.md,
     flexDirection: "row",
     height: 40,
-    paddingHorizontal: 10,
+    paddingHorizontal: SPACING.sm,
   },
   searchIcon: {
-    marginRight: 10,
+    marginRight: SPACING.sm,
   },
 });

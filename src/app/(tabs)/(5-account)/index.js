@@ -16,16 +16,14 @@ import {
   MaterialCommunityIcons,
 } from "@expo/vector-icons";
 import PropTypes from "prop-types";
-
-const COLORS = {
-  gold: "#d4af37",
-  white: "#fff",
-  black: "#000",
-  gray: "#666",
-  background: "#f5f5f5",
-  silver: "#eee",
-  shadow: "#000",
-};
+import {
+  COLORS,
+  SPACING,
+  BORDER_RADIUS,
+  TYPOGRAPHY,
+  SHADOWS,
+} from "../../../utils/theme";
+import { commonStyles } from "../../../utils/styles";
 
 export default function AccountScreen() {
   const { logOut } = useAuthStore();
@@ -38,19 +36,17 @@ export default function AccountScreen() {
 
   const pickImage = async () => {
     try {
-      // console.log("Camera icon pressed");
       let result = await ImagePicker.launchImageLibraryAsync({
         mediaTypes: ["images"],
         allowsEditing: true,
         aspect: [1, 1],
         quality: 1,
       });
-      // console.log("Image picker result:", result);
       if (!result.canceled) {
         setPhoto(result.assets[0].uri);
       }
     } catch (e) {
-      console.error("Image picker error:", e);
+      // Handle image picker error silently or show a toast
     }
   };
 
@@ -60,8 +56,6 @@ export default function AccountScreen() {
 
   return (
     <View style={styles.container}>
-      {/* Title */}
-      <Text style={styles.title}>Account Screen</Text>
       <ScrollView
         contentContainerStyle={styles.scrollContainer}
         keyboardShouldPersistTaps="handled"
@@ -219,17 +213,14 @@ const styles = StyleSheet.create({
   },
   chevronStyle: { marginLeft: "auto" },
   container: {
-    alignItems: "center",
-    backgroundColor: COLORS.background,
-    flex: 1,
-    justifyContent: "center",
+    ...commonStyles.container,
   },
   email: {
-    fontSize: 16,
+    ...TYPOGRAPHY.body,
     fontWeight: "semibold",
   },
   greeting: {
-    fontSize: 20,
+    ...TYPOGRAPHY.h3,
     fontWeight: "bold",
   },
   greetingAndEmail: {
@@ -237,77 +228,49 @@ const styles = StyleSheet.create({
   },
   iconStyle: { width: 30 },
   image: {
-    backgroundColor: COLORS.silver,
+    backgroundColor: COLORS.gray[200],
     borderRadius: 75,
     height: 150,
     width: 150,
   },
   imageContainer: {
     alignItems: "center",
-    marginTop: 10,
+    marginTop: SPACING.sm,
     padding: 0,
   },
   language: {
-    paddingHorizontal: 10,
+    paddingHorizontal: SPACING.sm,
   },
   notification: {
-    paddingHorizontal: 10,
+    paddingHorizontal: SPACING.sm,
   },
   profile: {
     alignItems: "center",
     flexDirection: "row",
     justifyContent: "space-between",
     marginTop: 0,
-    paddingHorizontal: 10,
+    paddingHorizontal: SPACING.sm,
     width: "100%",
   },
   section1: {
-    backgroundColor: COLORS.silver,
-    // Android shadow
-    elevation: 4,
-    marginTop: 20,
-    paddingHorizontal: 16,
-    // iOS shadow
-    shadowColor: COLORS.shadow,
-    shadowOffset: {
-      width: 0,
-      height: 0,
-    },
-    shadowOpacity: 0.5,
-    shadowRadius: 4,
+    backgroundColor: COLORS.gray[200],
+    ...SHADOWS.medium,
+    marginTop: SPACING.lg,
+    paddingHorizontal: SPACING.md,
     width: "100%",
   },
   section2: {
-    backgroundColor: COLORS.silver,
-    // Android shadow
-    elevation: 4,
-    marginTop: 20,
-
-    paddingHorizontal: 16,
-    // iOS shadow
-    shadowColor: COLORS.shadow,
-    shadowOffset: {
-      width: 0,
-      height: 0,
-    },
-    shadowOpacity: 0.5,
-    shadowRadius: 4,
+    backgroundColor: COLORS.gray[200],
+    ...SHADOWS.medium,
+    marginTop: SPACING.lg,
+    paddingHorizontal: SPACING.md,
     width: "100%",
   },
   section3: {
-    backgroundColor: COLORS.silver,
-    // Android shadow
-    elevation: 4,
-    marginTop: 20,
-    paddingHorizontal: 16,
-    // iOS shadow
-    shadowColor: COLORS.shadow,
-    shadowOffset: {
-      width: 0,
-      height: 0,
-    },
-    shadowOpacity: 0.5,
-    shadowRadius: 4,
+    backgroundColor: COLORS.gray[200],
+    ...SHADOWS.medium,
+    marginTop: SPACING.lg,
+    paddingHorizontal: SPACING.md,
     width: "100%",
   },
   sectionItem: {
@@ -316,34 +279,26 @@ const styles = StyleSheet.create({
     paddingVertical: 5,
   },
   sectionLabel: {
-    fontSize: 20,
-    marginLeft: 10,
+    ...TYPOGRAPHY.h3,
+    marginLeft: SPACING.sm,
   },
   signoutBtn: {
     alignItems: "center",
-    marginTop: 24,
+    marginTop: SPACING.xl,
   },
   signoutText: {
-    color: COLORS.gold,
-    fontSize: 18,
+    color: COLORS.primary,
+    ...TYPOGRAPHY.body,
     fontWeight: "bold",
   },
   switchBtn: {
     alignItems: "center",
-    marginBottom: 32,
-    marginTop: 8,
+    marginBottom: SPACING.xl,
+    marginTop: SPACING.sm,
   },
   switchText: {
-    color: COLORS.black,
-    fontSize: 16,
+    color: COLORS.text.primary,
+    ...TYPOGRAPHY.body,
     fontWeight: "bold",
-  },
-  title: {
-    backgroundColor: COLORS.gold,
-    color: COLORS.black,
-    fontSize: 24,
-    fontWeight: "bold",
-    paddingHorizontal: 131,
-    paddingTop: 50,
   },
 });

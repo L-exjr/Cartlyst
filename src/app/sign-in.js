@@ -16,27 +16,8 @@ import {
 import { router } from "expo-router";
 import { useAuthStore } from "../utils/authStore";
 import { FontAwesome6 } from "@expo/vector-icons";
-
-const COLORS = {
-  white: "#fff",
-  gold: "#d4af37",
-  gray: "gray",
-  gray2: "#666",
-  gray3: "#333",
-  gray4: "#f1f1f1",
-  blue: "#2196f3",
-  errorBg: "#FFE5E5",
-  errorBorder: "#FF3B30",
-  errorShadow: "#000",
-  FF3B30: "#FF3B30",
-  E0E0E0: "#E0E0E0",
-  f1f1f1: "#f1f1f1",
-  d4af37: "#d4af37",
-  gray2: "#666",
-  gray3: "#333",
-  gray5: "#999",
-  black: "#000",
-};
+import { COLORS, SPACING, BORDER_RADIUS, TYPOGRAPHY } from "../utils/theme";
+import { commonStyles } from "../utils/styles";
 
 export default function SignInScreen() {
   const { logIn, setGuestMode, setshouldCreateAccount, setResettingPassword } =
@@ -218,7 +199,11 @@ export default function SignInScreen() {
                 />
               </TouchableOpacity>
               <TouchableOpacity style={styles.socialButton}>
-                <FontAwesome6 name="apple" size={40} color="#000000" />
+                <FontAwesome6
+                  name="apple"
+                  size={40}
+                  color={COLORS.text.primary}
+                />
               </TouchableOpacity>
             </View>
 
@@ -258,27 +243,27 @@ export default function SignInScreen() {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: COLORS.white,
+    backgroundColor: COLORS.surface,
     flex: 1,
   },
   contentContainer: {
     alignItems: "center",
     flex: 1,
     gap: 1,
-    paddingHorizontal: 20,
+    paddingHorizontal: SPACING.lg,
     paddingTop: 100,
   },
   errorContainer: {
-    backgroundColor: COLORS.errorBg,
-    borderLeftColor: COLORS.errorBorder,
+    backgroundColor: COLORS.error,
+    borderLeftColor: COLORS.error,
     borderLeftWidth: 4,
-    borderRadius: 8,
+    borderRadius: BORDER_RADIUS.md,
     elevation: 5,
-    left: 20,
-    padding: 12,
+    left: SPACING.lg,
+    padding: SPACING.sm,
     position: "absolute",
-    right: 20,
-    shadowColor: COLORS.errorShadow,
+    right: SPACING.lg,
+    shadowColor: COLORS.text.primary,
     shadowOffset: {
       width: 0,
       height: 2,
@@ -288,54 +273,51 @@ const styles = StyleSheet.create({
     top: 120,
   },
   errorText: {
-    color: COLORS.FF3B30,
-    fontSize: 14,
+    color: COLORS.text.inverse,
+    ...TYPOGRAPHY.caption,
     textAlign: "center",
   },
   eyeIcon: {
     position: "absolute",
-    right: 12,
+    right: SPACING.sm,
   },
   footer: {
-    color: COLORS.gray2,
-    marginBottom: 4,
+    color: COLORS.text.secondary,
+    marginBottom: SPACING.xs,
     textAlign: "center",
   },
   footerContainer: {
     alignItems: "center",
-    marginBottom: 20,
+    marginBottom: SPACING.lg,
   },
   footerLink: {
-    color: COLORS.d4af37,
+    color: COLORS.primary,
     textAlign: "center",
     textDecorationLine: "underline",
   },
   forgotPassword: {
-    color: COLORS.gray5,
+    color: COLORS.text.tertiary,
   },
   forgotPasswordTouchable: {
     alignSelf: "flex-end",
-    marginBottom: 20,
+    marginBottom: SPACING.lg,
   },
   input: {
-    backgroundColor: COLORS.gray4,
-    borderRadius: 10,
-    height: 50,
-    padding: 12,
+    ...commonStyles.input,
     width: "100%",
   },
   inputContainer: {
-    marginBottom: 20,
+    marginBottom: SPACING.lg,
     width: "100%",
   },
   label: {
-    color: COLORS.gray3,
-    fontSize: 14,
+    color: COLORS.text.primary,
+    ...TYPOGRAPHY.caption,
     fontWeight: "300",
-    marginBottom: 8,
+    marginBottom: SPACING.sm,
   },
   line: {
-    backgroundColor: COLORS.E0E0E0,
+    backgroundColor: COLORS.gray[200],
     flex: 1,
     height: 1,
   },
@@ -349,46 +331,41 @@ const styles = StyleSheet.create({
   orContainer: {
     alignItems: "center",
     flexDirection: "row",
-    marginBottom: 20,
+    marginBottom: SPACING.lg,
     width: "100%",
   },
   orText: {
-    color: COLORS.gray2,
-    marginHorizontal: 10,
+    color: COLORS.text.secondary,
+    marginHorizontal: SPACING.sm,
   },
   passwordContainer: {
     alignItems: "center",
-    backgroundColor: COLORS.gray4,
-    borderRadius: 10,
+    backgroundColor: COLORS.gray[100],
+    borderRadius: BORDER_RADIUS.md,
     flexDirection: "row",
   },
   scrollContainer: {
     flexGrow: 1,
   },
   signInButton: {
-    alignItems: "center",
-    backgroundColor: COLORS.gold,
-    borderRadius: 10,
-    height: 50,
-    justifyContent: "center",
-    marginBottom: 20,
+    ...commonStyles.button,
+    marginBottom: SPACING.lg,
     width: "100%",
   },
   signInText: {
-    color: COLORS.black,
-    fontSize: 20,
-    fontWeight: "bold",
+    ...commonStyles.buttonText,
+    color: COLORS.text.primary,
   },
   signUp: {
-    color: COLORS.gray3,
+    color: COLORS.text.primary,
     textAlign: "center",
   },
   signUpContainer: {
     alignItems: "center",
-    marginBottom: 20,
+    marginBottom: SPACING.lg,
   },
   signUpLink: {
-    color: COLORS.blue,
+    color: COLORS.secondary,
   },
   skipButton: {
     position: "absolute",
@@ -397,18 +374,18 @@ const styles = StyleSheet.create({
     zIndex: 1,
   },
   skipText: {
-    color: COLORS.gray,
-    fontSize: 20,
+    color: COLORS.text.secondary,
+    ...TYPOGRAPHY.h3,
     fontWeight: "500",
   },
   socialButton: {
     alignItems: "center",
-    backgroundColor: COLORS.f1f1f1,
+    backgroundColor: COLORS.gray[100],
     borderRadius: 30,
     elevation: 5,
     height: 60,
     justifyContent: "center",
-    shadowColor: COLORS.black,
+    shadowColor: COLORS.text.primary,
     shadowOffset: {
       width: 0,
       height: 4,
@@ -421,7 +398,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     gap: 50,
     justifyContent: "center",
-    marginBottom: 10,
+    marginBottom: SPACING.sm,
   },
   socialIcon: {
     height: 80,
@@ -429,9 +406,8 @@ const styles = StyleSheet.create({
     width: 80,
   },
   title: {
-    fontSize: 30,
-    fontWeight: "bold",
-    marginBottom: 10,
+    ...TYPOGRAPHY.h1,
+    marginBottom: SPACING.sm,
     textAlign: "center",
   },
 });

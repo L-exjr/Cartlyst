@@ -1,5 +1,6 @@
 import React from "react";
 import { Stack } from "expo-router";
+import { COLORS, TYPOGRAPHY } from "../../../utils/theme";
 
 export default function AccountLayout() {
   return (
@@ -8,7 +9,13 @@ export default function AccountLayout() {
         name="index"
         options={{
           title: "Account",
-          headerShown: false,
+          headerShown: true,
+          headerStyle: {
+            backgroundColor: COLORS.primary,
+          },
+          headerTitleStyle: {
+            ...TYPOGRAPHY.h2,
+          },
         }}
       />
       <Stack.Screen

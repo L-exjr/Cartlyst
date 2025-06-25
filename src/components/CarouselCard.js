@@ -1,17 +1,9 @@
 import React from "react";
 import { View, Text, Image, StyleSheet, Dimensions } from "react-native";
 import PropTypes from "prop-types";
+import { COLORS, SPACING, BORDER_RADIUS, TYPOGRAPHY } from "../utils/theme";
 
 const { width } = Dimensions.get("window");
-
-const COLORS = {
-  gold: "#d4af37",
-  white: "#fff",
-  black: "#000",
-  overlay: "rgba(0,0,0,0.3)",
-  textShadow: "rgba(0,0,0,0.5)",
-  gray: "#333",
-};
 
 export default function CarouselCard({ source, type, title }) {
   return (
@@ -43,13 +35,13 @@ CarouselCard.propTypes = {
 
 const styles = StyleSheet.create({
   container: {
-    borderRadius: 15,
+    borderRadius: BORDER_RADIUS.lg,
     height: width * 0.5,
     overflow: "hidden",
     width: width,
   },
   content: {
-    padding: 20,
+    padding: SPACING.lg,
   },
   image: {
     height: "100%",
@@ -61,24 +53,23 @@ const styles = StyleSheet.create({
     justifyContent: "flex-end",
   },
   title: {
-    color: COLORS.white,
-    fontSize: 24,
-    fontWeight: "bold",
-    textShadowColor: COLORS.textShadow,
+    color: COLORS.text.inverse,
+    ...TYPOGRAPHY.h2,
+    textShadowColor: COLORS.text.primary,
     textShadowOffset: { width: 1, height: 1 },
     textShadowRadius: 3,
   },
   typeContainer: {
     alignSelf: "flex-start",
-    backgroundColor: COLORS.gold,
+    backgroundColor: COLORS.primary,
     borderRadius: 20,
-    marginBottom: 8,
-    paddingHorizontal: 12,
-    paddingVertical: 6,
+    marginBottom: SPACING.sm,
+    paddingHorizontal: SPACING.sm,
+    paddingVertical: SPACING.xs,
   },
   typeText: {
-    color: COLORS.white,
-    fontSize: 12,
+    color: COLORS.text.inverse,
+    ...TYPOGRAPHY.caption,
     fontWeight: "bold",
   },
 });
