@@ -19,7 +19,6 @@ import PropTypes from "prop-types";
 import {
   COLORS,
   SPACING,
-  BORDER_RADIUS,
   TYPOGRAPHY,
   SHADOWS,
 } from "../../../utils/theme";
@@ -214,6 +213,7 @@ const styles = StyleSheet.create({
   chevronStyle: { marginLeft: "auto" },
   container: {
     ...commonStyles.container,
+    backgroundColor: COLORS.background,
   },
   email: {
     ...TYPOGRAPHY.body,
@@ -253,21 +253,21 @@ const styles = StyleSheet.create({
     width: "100%",
   },
   section1: {
-    backgroundColor: COLORS.gray[200],
+    backgroundColor: COLORS.background,
     ...SHADOWS.medium,
     marginTop: SPACING.lg,
     paddingHorizontal: SPACING.md,
     width: "100%",
   },
   section2: {
-    backgroundColor: COLORS.gray[200],
+    backgroundColor: COLORS.background,
     ...SHADOWS.medium,
     marginTop: SPACING.lg,
     paddingHorizontal: SPACING.md,
     width: "100%",
   },
   section3: {
-    backgroundColor: COLORS.gray[200],
+    backgroundColor: COLORS.background,
     ...SHADOWS.medium,
     marginTop: SPACING.lg,
     paddingHorizontal: SPACING.md,
@@ -288,7 +288,7 @@ const styles = StyleSheet.create({
   },
   signoutText: {
     color: COLORS.primary,
-    ...TYPOGRAPHY.body,
+    ...TYPOGRAPHY.h1,
     fontWeight: "bold",
   },
   switchBtn: {
@@ -298,7 +298,7 @@ const styles = StyleSheet.create({
   },
   switchText: {
     color: COLORS.text.primary,
-    ...TYPOGRAPHY.body,
+    ...TYPOGRAPHY.h3,
     fontWeight: "bold",
   },
 });

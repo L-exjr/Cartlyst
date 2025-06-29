@@ -1,6 +1,6 @@
 import React from "react";
 import { Stack } from "expo-router";
-import { COLORS, TYPOGRAPHY } from "../../../utils/theme"
+import { COLORS, TYPOGRAPHY } from "../../../utils/theme";
 
 export default function CartLayout() {
   return (

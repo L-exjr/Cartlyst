@@ -23,6 +23,8 @@ import {
   TYPOGRAPHY,
 } from "../../../utils/theme";
 import { commonStyles } from "../../../utils/styles";
+import { useWishlistStore } from "../../../utils/wishlistStore"
+import { useCartStore } from "../../../utils/cartStore";
 
 const { width } = Dimensions.get("window");
 
@@ -58,7 +60,7 @@ export default function HomeScreen() {
           fetchCarouselItems(),
         ]);
       } catch (err) {
-        setError("Failed to load data. Please try again later.");
+        setError("Failed to load data. Please check your internet connection.");
       } finally {
         setIsLoading(false);
       }
@@ -142,7 +144,7 @@ export default function HomeScreen() {
   };
 
   if (isLoading) {
-    return <LoadingSpinner text="Loading home content..." />;
+    return <LoadingSpinner text="Loading..." />;
   }
 
   if (error) {
@@ -162,6 +164,16 @@ export default function HomeScreen() {
       </View>
     );
   }
+
+  const cart = useCartStore((state) => state.cart);
+  const addToCart = useCartStore((state) => state.addToCart);
+  const removeFromCart = useCartStore((state) => state.removeFromCart);
+  const wishlist = useWishlistStore((state) => state.wishlist);
+  const addToWishlist = useWishlistStore((state) => state.addToWishlist);
+  const removeFromWishlist = useWishlistStore((state) => state.removeFromWishlist);
+
+  const isInCart = (productId) => cart.some((item) => item.id === productId);
+  const isInWishlist = (productId) => wishlist.some((item) => item.id === productId);
 
   return (
     <View style={styles.container}>
@@ -272,8 +284,13 @@ export default function HomeScreen() {
                   rating={item.rating}
                   image={item.image}
                   onPress={() => router.push(`/product/${item.id}`)}
-                  onPressHeart={() => {}}
-                  onAddToCart={() => {}}
+                  onPressHeart={() =>
+                    isInWishlist(item.id)
+                    ? removeFromWishlist(item.id)
+                    : addToWishlist(item)
+                  }
+                  onAddToCart={() => addToCart(item)}
+                  isFavorite={isInWishlist(item.id)}
                 />
               )}
             />
@@ -329,7 +346,7 @@ const styles = StyleSheet.create({
     padding: SPACING.lg,
   },
   errorText: {
-    color: COLORS.primary,
+    color: COLORS.text.secondary,
     ...TYPOGRAPHY.body,
     marginBottom: SPACING.lg,
     textAlign: "center",
