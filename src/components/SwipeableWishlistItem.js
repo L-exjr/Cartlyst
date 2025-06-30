@@ -4,6 +4,7 @@ import { SwipeListView } from "react-native-swipe-list-view";
 import { FontAwesome6 } from "@expo/vector-icons";
 import { COLORS, SPACING, BORDER_RADIUS, TYPOGRAPHY } from "../utils/theme";
 import { commonStyles } from "../utils/styles";
+import PropTypes from "prop-types";
 
 export default function SwipeableWishlistItem({ item, onRemove, onAddToCart }) {
   const renderItem = () => (
@@ -132,3 +133,15 @@ const styles = StyleSheet.create({
     marginBottom: SPACING.xs,
   },
 });
+
+SwipeableWishlistItem.propTypes = {
+  item: PropTypes.shape({
+    id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+    key: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    image: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
+    price: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+  }).isRequired,
+  onRemove: PropTypes.func.isRequired,
+  onAddToCart: PropTypes.func.isRequired,
+};

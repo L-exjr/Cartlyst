@@ -30,6 +30,9 @@ export const COLORS = {
     500: "#333",
   },
 
+  // Transparent
+  transparent: "rgba(0,0,0,0)",
+
   // Overlays
   overlay: "rgba(0,0,0,0.3)",
   overlayLight: "rgba(255, 255, 255, 0.4)",

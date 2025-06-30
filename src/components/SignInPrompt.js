@@ -4,6 +4,7 @@ import { useRouter } from "expo-router";
 import { FontAwesome6 } from "@expo/vector-icons";
 import { COLORS, SPACING, BORDER_RADIUS, TYPOGRAPHY } from "../utils/theme";
 import { commonStyles } from "../utils/styles";
+import PropTypes from "prop-types";
 
 export default function SignInPrompt({ title, message, iconName = "user" }) {
   const router = useRouter();
@@ -82,3 +83,9 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
 });
+
+SignInPrompt.propTypes = {
+  title: PropTypes.string.isRequired,
+  message: PropTypes.string.isRequired,
+  iconName: PropTypes.string,
+};

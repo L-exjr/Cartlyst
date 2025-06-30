@@ -4,6 +4,7 @@ import { SwipeListView } from "react-native-swipe-list-view";
 import { FontAwesome6 } from "@expo/vector-icons";
 import { COLORS, SPACING, BORDER_RADIUS, TYPOGRAPHY } from "../utils/theme";
 import { commonStyles } from "../utils/styles";
+import PropTypes from "prop-types";
 
 export default function SwipeableCartItem({
   item,
@@ -156,3 +157,10 @@ const styles = StyleSheet.create({
     marginBottom: SPACING.xs,
   },
 });
+
+SwipeableCartItem.propTypes = {
+  item: PropTypes.object.isRequired,
+  onRemove: PropTypes.func.isRequired,
+  onUpdateQuantity: PropTypes.func.isRequired,
+  onMoveToWishlist: PropTypes.func.isRequired,
+};

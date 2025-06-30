@@ -129,7 +129,7 @@ const styles = StyleSheet.create({
   },
   clearButton: {
     alignItems: "center",
-    backgroundColor: "transparent",
+    backgroundColor: COLORS.transparent,
     borderColor: COLORS.error,
     borderRadius: BORDER_RADIUS.lg,
     borderWidth: 1,
