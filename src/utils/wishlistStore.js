@@ -8,7 +8,8 @@ export const useWishlistStore = create(
       wishlist: [],
       addToWishlist: (product) =>
         set((state) => {
-          if (state.wishlist.find((item) => item.id === product.id)) return state;
+          if (state.wishlist.find((item) => item.id === product.id))
+            return state;
           return { wishlist: [...state.wishlist, product] };
         }),
       removeFromWishlist: (productId) =>
@@ -24,6 +25,6 @@ export const useWishlistStore = create(
         getItem: SecureStore.getItemAsync,
         removeItem: SecureStore.deleteItemAsync,
       })),
-    }
-  )
+    },
+  ),
 );

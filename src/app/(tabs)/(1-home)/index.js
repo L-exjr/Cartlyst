@@ -23,7 +23,7 @@ import {
   TYPOGRAPHY,
 } from "../../../utils/theme";
 import { commonStyles } from "../../../utils/styles";
-import { useWishlistStore } from "../../../utils/wishlistStore"
+import { useWishlistStore } from "../../../utils/wishlistStore";
 import { useCartStore } from "../../../utils/cartStore";
 
 const { width } = Dimensions.get("window");
@@ -170,10 +170,13 @@ export default function HomeScreen() {
   const removeFromCart = useCartStore((state) => state.removeFromCart);
   const wishlist = useWishlistStore((state) => state.wishlist);
   const addToWishlist = useWishlistStore((state) => state.addToWishlist);
-  const removeFromWishlist = useWishlistStore((state) => state.removeFromWishlist);
+  const removeFromWishlist = useWishlistStore(
+    (state) => state.removeFromWishlist,
+  );
 
   const isInCart = (productId) => cart.some((item) => item.id === productId);
-  const isInWishlist = (productId) => wishlist.some((item) => item.id === productId);
+  const isInWishlist = (productId) =>
+    wishlist.some((item) => item.id === productId);
 
   return (
     <View style={styles.container}>
@@ -286,8 +289,8 @@ export default function HomeScreen() {
                   onPress={() => router.push(`/product/${item.id}`)}
                   onPressHeart={() =>
                     isInWishlist(item.id)
-                    ? removeFromWishlist(item.id)
-                    : addToWishlist(item)
+                      ? removeFromWishlist(item.id)
+                      : addToWishlist(item)
                   }
                   onAddToCart={() => addToCart(item)}
                   isFavorite={isInWishlist(item.id)}

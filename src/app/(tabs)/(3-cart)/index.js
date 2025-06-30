@@ -1,33 +1,78 @@
 import React from "react";
-import { View, Text, FlatList, TouchableOpacity, Image, StyleSheet } from "react-native";
+import {
+  View,
+  Text,
+  FlatList,
+  TouchableOpacity,
+  StyleSheet,
+} from "react-native";
 import { useCartStore } from "../../../utils/cartStore";
+import { useWishlistStore } from "../../../utils/wishlistStore";
+import { useAuthStore } from "../../../utils/authStore";
 import { useRouter } from "expo-router";
-import { FontAwesome6 } from "@expo/vector-icons"
+import { Ionicons } from "@expo/vector-icons";
+import {
+  COLORS,
+  SPACING,
+  BORDER_RADIUS,
+  TYPOGRAPHY,
+} from "../../../utils/theme";
+import { commonStyles } from "../../../utils/styles";
+import SignInPrompt from "../../../components/SignInPrompt";
+import SwipeableCartItem from "../../../components/SwipeableCartItem";
 
 export default function CartScreen() {
-  const router = useRouter()
   const cart = useCartStore((state) => state.cart);
   const removeFromCart = useCartStore((state) => state.removeFromCart);
   const updateQuantity = useCartStore((state) => state.updateQuantity);
   const clearCart = useCartStore((state) => state.clearCart);
+  const addToWishlist = useWishlistStore((state) => state.addToWishlist);
+  const { isGuest } = useAuthStore();
+  const router = useRouter();
 
-  const subtotal = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+  const subtotal = cart.reduce(
+    (sum, item) => sum + item.price * item.quantity,
+    0,
+  );
+
+  // Show sign-in prompt for guest users
+  if (isGuest) {
+    return (
+      <SignInPrompt
+        title="Sign In to View Cart"
+        message="Create an account or sign in to save your cart items and access your shopping history."
+        iconName="cart-shopping"
+      />
+    );
+  }
 
   if (cart.length === 0) {
     // Empty cart UI
     return (
       <View style={styles.emptyContainer}>
-        <FontAwesome6 name="cart-shopping" size={64} color="#bfa100" style={styles.icon} />
+        <Ionicons
+          name="cart-outline"
+          size={64}
+          color={COLORS.primary}
+          style={styles.icon}
+        />
         <Text style={styles.emptyText}>
-          Explore our categories to find the best deals we have to offer.
+          Your cart is empty! Start shopping to add items to your cart.
         </Text>
-        <TouchableOpacity style={styles.button} onPress={() => router.replace("/(tabs)/(1-home)")}>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => router.replace("/(tabs)/(1-home)")}
+        >
           <Text style={styles.buttonText}>Continue Shopping</Text>
         </TouchableOpacity>
-        {/* Add recommended/Recently Viewed sections here if you want */}
       </View>
     );
   }
+
+  const handleMoveToWishlist = (item) => {
+    removeFromCart(item.id);
+    addToWishlist(item);
+  };
 
   // Cart with items UI
   return (
@@ -37,57 +82,107 @@ export default function CartScreen() {
         data={cart}
         keyExtractor={(item) => item.id.toString()}
         renderItem={({ item }) => (
-          <View style={styles.cartItem}>
-            <Image source={{ uri: item.image }} style={styles.image} />
-            <View style={styles.info}>
-              <Text style={styles.title}>{item.title}</Text>
-              <Text style={styles.price}>${item.price.toFixed(2)}</Text>
-              <View style={styles.quantityRow}>
-                <TouchableOpacity onPress={() => updateQuantity(item.id, Math.max(1, item.quantity - 1))}>
-                  <Text style={styles.qtyButton}>-</Text>
-                </TouchableOpacity>
-                <Text style={styles.quantity}>{item.quantity}</Text>
-                <TouchableOpacity onPress={() => updateQuantity(item.id, item.quantity + 1)}>
-                  <Text style={styles.qtyButton}>+</Text>
-                </TouchableOpacity>
-              </View>
-              <TouchableOpacity onPress={() => removeFromCart(item.id)}>
-                <Text style={styles.remove}>Remove</Text>
-              </TouchableOpacity>
-            </View>
-          </View>
+          <SwipeableCartItem
+            item={item}
+            onRemove={removeFromCart}
+            onUpdateQuantity={updateQuantity}
+            onMoveToWishlist={handleMoveToWishlist}
+          />
         )}
+        style={styles.list}
       />
       <View style={styles.summary}>
         <Text style={styles.subtotal}>Subtotal: ${subtotal.toFixed(2)}</Text>
         <TouchableOpacity style={styles.checkoutButton}>
-          <Text style={styles.checkoutText}>Checkout (${subtotal.toFixed(2)})</Text>
+          <Text style={styles.checkoutText}>
+            Checkout (${subtotal.toFixed(2)})
+          </Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.clearButton} onPress={clearCart}>
+          <Text style={styles.clearText}>Clear Cart</Text>
         </TouchableOpacity>
       </View>
     </View>
   );
 }
 
-// Add your own styles or copy from your Figma design
 const styles = StyleSheet.create({
-  container: { flex: 1, padding: 16, backgroundColor: "#fff" },
-  header: { fontWeight: "bold", fontSize: 18, marginBottom: 8 },
-  cartItem: { flexDirection: "row", marginBottom: 16, backgroundColor: "#f9f9f9", borderRadius: 8, padding: 8 },
-  image: { width: 80, height: 80, borderRadius: 8, marginRight: 12 },
-  info: { flex: 1 },
-  title: { fontWeight: "bold", fontSize: 16 },
-  price: { color: "#bfa100", marginVertical: 4 },
-  quantityRow: { flexDirection: "row", alignItems: "center", marginVertical: 4 },
-  qtyButton: { fontSize: 20, paddingHorizontal: 8 },
-  quantity: { marginHorizontal: 8, fontSize: 16 },
-  remove: { color: "red", marginTop: 4 },
-  summary: { borderTopWidth: 1, borderColor: "#eee", paddingTop: 12, alignItems: "center" },
-  subtotal: { fontWeight: "bold", fontSize: 16, marginBottom: 8 },
-  checkoutButton: { backgroundColor: "#bfa100", padding: 12, borderRadius: 8, width: "100%", alignItems: "center" },
-  checkoutText: { color: "#fff", fontWeight: "bold", fontSize: 16 },
-  emptyContainer: { flex: 1, justifyContent: "center", alignItems: "center", backgroundColor: "#fff" },
-  icon: { fontSize: 64, marginBottom: 16 },
-  emptyText: { fontSize: 16, color: "#888", textAlign: "center", marginBottom: 24 },
-  button: { backgroundColor: "#bfa100", padding: 12, borderRadius: 8 },
-  buttonText: { color: "#fff", fontWeight: "bold" },
+  button: {
+    ...commonStyles.button,
+    marginBottom: SPACING.lg,
+  },
+  buttonText: {
+    ...commonStyles.buttonText,
+  },
+  checkoutButton: {
+    alignItems: "center",
+    backgroundColor: COLORS.primary,
+    borderRadius: BORDER_RADIUS.lg,
+    marginTop: SPACING.sm,
+    padding: SPACING.md,
+    width: "100%",
+  },
+  checkoutText: {
+    color: COLORS.text.inverse,
+    fontWeight: "bold",
+    ...TYPOGRAPHY.body,
+  },
+  clearButton: {
+    alignItems: "center",
+    backgroundColor: "transparent",
+    borderColor: COLORS.error,
+    borderRadius: BORDER_RADIUS.lg,
+    borderWidth: 1,
+    marginTop: SPACING.sm,
+    padding: SPACING.md,
+    width: "100%",
+  },
+  clearText: {
+    color: COLORS.error,
+    fontWeight: "bold",
+    ...TYPOGRAPHY.body,
+  },
+  container: {
+    ...commonStyles.container,
+    backgroundColor: COLORS.background,
+  },
+  emptyContainer: {
+    ...commonStyles.centered,
+    backgroundColor: COLORS.background,
+    flex: 1,
+    padding: SPACING.lg,
+  },
+  emptyText: {
+    color: COLORS.text.secondary,
+    ...TYPOGRAPHY.body,
+    marginBottom: SPACING.lg,
+    textAlign: "center",
+  },
+  header: {
+    ...TYPOGRAPHY.h3,
+    fontWeight: "bold",
+    marginBottom: SPACING.md,
+    marginTop: SPACING.md,
+    paddingHorizontal: SPACING.md,
+  },
+  icon: {
+    marginBottom: SPACING.lg,
+  },
+  list: {
+    flex: 1,
+    paddingHorizontal: SPACING.md,
+  },
+  subtotal: {
+    fontWeight: "bold",
+    ...TYPOGRAPHY.body,
+    marginBottom: SPACING.sm,
+  },
+  summary: {
+    alignItems: "center",
+    borderColor: COLORS.gray[200],
+    borderTopWidth: 1,
+    marginTop: SPACING.md,
+    paddingHorizontal: SPACING.md,
+    paddingTop: SPACING.md,
+  },
 });

@@ -16,12 +16,7 @@ import {
   MaterialCommunityIcons,
 } from "@expo/vector-icons";
 import PropTypes from "prop-types";
-import {
-  COLORS,
-  SPACING,
-  TYPOGRAPHY,
-  SHADOWS,
-} from "../../../utils/theme";
+import { COLORS, SPACING, TYPOGRAPHY, SHADOWS } from "../../../utils/theme";
 import { commonStyles } from "../../../utils/styles";
 
 export default function AccountScreen() {

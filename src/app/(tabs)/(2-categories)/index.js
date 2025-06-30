@@ -15,7 +15,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import CategoryCards from "../../../components/CategoryCards";
 import { COLORS, SPACING, TYPOGRAPHY } from "../../../utils/theme";
 import { commonStyles } from "../../../utils/styles";
-import { API_BASE_URL } from "../../../utils/config"
+import { API_BASE_URL } from "../../../utils/config";
 
 export default function CategoriesScreen() {
   const [categories, setCategories] = useState([]);
@@ -36,7 +36,9 @@ export default function CategoriesScreen() {
       const data = await response.json();
       setCategories(data);
     } catch (error) {
-      setError("Failed to load categories. Please check your internet connection.");
+      setError(
+        "Failed to load categories. Please check your internet connection.",
+      );
     } finally {
       setIsLoading(false);
     }
