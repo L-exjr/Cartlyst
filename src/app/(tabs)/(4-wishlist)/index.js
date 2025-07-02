@@ -9,6 +9,8 @@ import {
 } from "react-native";
 import { useWishlistStore } from "../../../utils/wishlistStore";
 import { useCartStore } from "../../../utils/cartStore";
+import  SignInPrompt  from "../../../components/SignInPrompt";
+import { useAuthStore } from "../../../utils/authStore";
 import { useRouter } from "expo-router";
 import { FontAwesome6 } from "@expo/vector-icons";
 import {
@@ -25,7 +27,19 @@ export default function WishlistScreen() {
     (state) => state.removeFromWishlist,
   );
   const addToCart = useCartStore((state) => state.addToCart);
+  const { isGuest } = useAuthStore();
   const router = useRouter();
+  
+  // Show sign-in prompt for guest users
+  if (isGuest) {
+    return (
+      <SignInPrompt
+        title="Sign In to View Wishlist"
+        message="Sign in to save your wishlist items and access your shopping history."
+        iconName="heart-half-full"
+      />
+    );
+  }
 
   if (wishlist.length === 0) {
     // Empty wishlist UI

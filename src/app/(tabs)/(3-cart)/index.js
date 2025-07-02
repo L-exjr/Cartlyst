@@ -40,8 +40,8 @@ export default function CartScreen() {
     return (
       <SignInPrompt
         title="Sign In to View Cart"
-        message="Create an account or sign in to save your cart items and access your shopping history."
-        iconName="cart-shopping"
+        message="Sign in to save your cart items and access your shopping history."
+        iconName="cart-outline"
       />
     );
   }

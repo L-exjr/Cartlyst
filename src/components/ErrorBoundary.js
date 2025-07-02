@@ -1,7 +1,7 @@
 import React from "react";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import PropTypes from "prop-types";
-import { COLORS, SPACING, BORDER_RADIUS, TYPOGRAPHY } from "../utils/theme";
+import { COLORS, SPACING, TYPOGRAPHY } from "../utils/theme";
 import { commonStyles } from "../utils/styles";
 
 class ErrorBoundary extends React.Component {

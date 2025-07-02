@@ -1,8 +1,8 @@
 import React from "react";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import { useRouter } from "expo-router";
-import { FontAwesome6 } from "@expo/vector-icons";
-import { COLORS, SPACING, BORDER_RADIUS, TYPOGRAPHY } from "../utils/theme";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { COLORS, SPACING, TYPOGRAPHY } from "../utils/theme";
 import { commonStyles } from "../utils/styles";
 import PropTypes from "prop-types";
 
@@ -15,9 +15,9 @@ export default function SignInPrompt({ title, message, iconName = "user" }) {
 
   return (
     <View style={styles.container}>
-      <FontAwesome6
+      <MaterialCommunityIcons
         name={iconName}
-        size={80}
+        size={100}
         color={COLORS.primary}
         style={styles.icon}
       />
@@ -25,12 +25,6 @@ export default function SignInPrompt({ title, message, iconName = "user" }) {
       <Text style={styles.message}>{message}</Text>
       <TouchableOpacity style={styles.signInButton} onPress={handleSignIn}>
         <Text style={styles.signInText}>Sign In</Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        style={styles.signUpButton}
-        onPress={() => router.push("/sign-up")}
-      >
-        <Text style={styles.signUpText}>Create Account</Text>
       </TouchableOpacity>
     </View>
   );
@@ -60,20 +54,6 @@ const styles = StyleSheet.create({
   },
   signInText: {
     ...commonStyles.buttonText,
-  },
-  signUpButton: {
-    alignItems: "center",
-    backgroundColor: COLORS.overlay,
-    borderColor: COLORS.primary,
-    borderRadius: BORDER_RADIUS.lg,
-    borderWidth: 2,
-    padding: SPACING.md,
-    width: "100%",
-  },
-  signUpText: {
-    color: COLORS.primary,
-    ...TYPOGRAPHY.body,
-    fontWeight: "bold",
   },
   title: {
     color: COLORS.text.primary,
