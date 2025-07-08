@@ -1,16 +1,16 @@
 import React from "react";
 import { View, TextInput, StyleSheet } from "react-native";
-import { Search } from "lucide-react-native";
+import { FontAwesome6 } from "@expo/vector-icons";
 import { COLORS, SPACING, BORDER_RADIUS, TYPOGRAPHY } from "../utils/theme";
 
 export default function SearchBar() {
   return (
     <View style={styles.container}>
       <View style={styles.searchContainer}>
-        <Search
-          color={COLORS.text.secondary}
+        <FontAwesome6
+          name="magnifying-glass"
           size={20}
-          strokeWidth={2}
+          color={COLORS.text.secondary}
           style={styles.searchIcon}
         />
         <TextInput
@@ -25,30 +25,21 @@ export default function SearchBar() {
 
 const styles = StyleSheet.create({
   container: {
-    paddingHorizontal: SPACING.md,
-    marginBottom: SPACING.sm,
+    backgroundColor: COLORS.surface,
+    padding: SPACING.sm,
   },
   input: {
     color: COLORS.text.primary,
     flex: 1,
-    fontFamily: 'Inter-Regular',
-    fontSize: 16,
+    ...TYPOGRAPHY.body,
   },
   searchContainer: {
     alignItems: "center",
-    backgroundColor: COLORS.gray[100],
-    borderRadius: BORDER_RADIUS.lg,
+    backgroundColor: COLORS.background,
+    borderRadius: BORDER_RADIUS.md,
     flexDirection: "row",
-    height: 48,
-    paddingHorizontal: SPACING.md,
-    shadowColor: COLORS.text.primary,
-    shadowOffset: {
-      width: 0,
-      height: 1,
-    },
-    shadowOpacity: 0.05,
-    shadowRadius: 2,
-    elevation: 1,
+    height: 40,
+    paddingHorizontal: SPACING.sm,
   },
   searchIcon: {
     marginRight: SPACING.sm,
