@@ -1,41 +1,41 @@
 export const COLORS = {
   // Primary colors
-  primary: "#d4af37", // gold
+  primary: "#6366f1", // indigo
   secondary: "#2196f3", // blue
 
   // Background colors
-  background: "#f5f5f5",
+  background: "#f8fafc",
   surface: "#fff",
-  card: "#d9d9d9",
+  card: "#ffffff",
 
   // Text colors
   text: {
-    primary: "#333",
-    secondary: "#666",
-    tertiary: "#999",
+    primary: "#1e293b",
+    secondary: "#64748b",
+    tertiary: "#94a3b8",
     inverse: "#fff",
   },
 
   // Status colors
   success: "#4CAF50",
-  error: "#FF3B30",
+  error: "#ef4444",
   warning: "#FF9800",
 
   // Grays
   gray: {
-    100: "#f1f1f1",
-    200: "#E0E0E0",
-    300: "#999",
-    400: "#666",
-    500: "#333",
+    100: "#f1f5f9",
+    200: "#e2e8f0",
+    300: "#cbd5e1",
+    400: "#94a3b8",
+    500: "#64748b",
   },
 
   // Transparent
   transparent: "rgba(0,0,0,0)",
 
   // Overlays
-  overlay: "rgba(0,0,0,0.3)",
-  overlayLight: "rgba(255, 255, 255, 0.4)",
+  overlay: "rgba(0,0,0,0.4)",
+  overlayLight: "rgba(255, 255, 255, 0.8)",
 };
 
 export const SPACING = {
@@ -54,27 +54,27 @@ export const BORDER_RADIUS = {
 };
 
 export const TYPOGRAPHY = {
-  h1: { fontSize: 32, fontWeight: "bold" },
-  h2: { fontSize: 24, fontWeight: "bold" },
-  h3: { fontSize: 20, fontWeight: "bold" },
-  body: { fontSize: 16, fontWeight: "normal" },
-  caption: { fontSize: 14, fontWeight: "300" },
-  button: { fontSize: 18, fontWeight: "bold" },
+  h1: { fontSize: 32, fontFamily: "Inter-Bold" },
+  h2: { fontSize: 24, fontFamily: "Inter-Bold" },
+  h3: { fontSize: 20, fontFamily: "Inter-SemiBold" },
+  body: { fontSize: 16, fontFamily: "Inter-Regular" },
+  caption: { fontSize: 14, fontFamily: "Inter-Medium" },
+  button: { fontSize: 16, fontFamily: "Inter-SemiBold" },
 };
 
 export const SHADOWS = {
   small: {
     shadowColor: "#000",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    elevation: 5,
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.1,
+    shadowRadius: 2,
+    elevation: 2,
   },
   medium: {
     shadowColor: "#000",
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.5,
-    shadowRadius: 3,
-    elevation: 8,
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.15,
+    shadowRadius: 4,
+    elevation: 4,
   },
 };

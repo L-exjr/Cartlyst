@@ -36,9 +36,17 @@ CarouselCard.propTypes = {
 const styles = StyleSheet.create({
   container: {
     borderRadius: BORDER_RADIUS.lg,
-    height: width * 0.5,
+    height: 200,
     overflow: "hidden",
-    width: width,
+    marginHorizontal: SPACING.md,
+    shadowColor: COLORS.text.primary,
+    shadowOffset: {
+      width: 0,
+      height: 4,
+    },
+    shadowOpacity: 0.2,
+    shadowRadius: 8,
+    elevation: 6,
   },
   content: {
     padding: SPACING.lg,
@@ -49,12 +57,14 @@ const styles = StyleSheet.create({
   },
   overlay: {
     ...StyleSheet.absoluteFillObject,
-    backgroundColor: COLORS.overlay,
+    background: 'linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.6) 100%)',
+    backgroundColor: 'rgba(0,0,0,0.3)',
     justifyContent: "flex-end",
   },
   title: {
     color: COLORS.text.inverse,
-    ...TYPOGRAPHY.h2,
+    fontFamily: 'Inter-Bold',
+    fontSize: 20,
     textShadowColor: COLORS.text.primary,
     textShadowOffset: { width: 1, height: 1 },
     textShadowRadius: 3,
@@ -62,14 +72,17 @@ const styles = StyleSheet.create({
   typeContainer: {
     alignSelf: "flex-start",
     backgroundColor: COLORS.primary,
-    borderRadius: 20,
+    borderRadius: BORDER_RADIUS.lg,
     marginBottom: SPACING.sm,
-    paddingHorizontal: SPACING.sm,
+    paddingHorizontal: SPACING.md,
     paddingVertical: SPACING.xs,
   },
   typeText: {
     color: COLORS.text.inverse,
-    ...TYPOGRAPHY.caption,
+    fontFamily: 'Inter-SemiBold',
+    fontSize: 12,
     fontWeight: "bold",
+    textTransform: 'uppercase',
+    letterSpacing: 0.5,
   },
 });

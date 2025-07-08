@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
   Pressable,
 } from "react-native";
-import { FontAwesome, Feather, Entypo } from "@expo/vector-icons";
+import { Star, Heart, ShoppingCart, Plus } from "lucide-react-native";
 import PropTypes from "prop-types";
 import {
   COLORS,
@@ -54,10 +54,11 @@ export default function ProductCard({
           onPress={onPressHeart}
           activeOpacity={0.7}
         >
-          <Feather
-            name="heart"
+          <Heart
             color={isFavorite ? COLORS.error : COLORS.text.inverse}
             size={20}
+            strokeWidth={2}
+            fill={isFavorite ? COLORS.error : 'transparent'}
           />
         </TouchableOpacity>
       </View>
@@ -79,11 +80,12 @@ export default function ProductCard({
         <View style={styles.ratingRow}>
           <View style={styles.starsContainer}>
             {[...Array(5)].map((_, index) => (
-              <FontAwesome
+              <Star
                 key={index}
-                name="star"
                 size={14}
                 color={index < rating ? COLORS.primary : COLORS.text.tertiary}
+                strokeWidth={1.5}
+                fill={index < rating ? COLORS.primary : 'transparent'}
               />
             ))}
           </View>
@@ -92,15 +94,15 @@ export default function ProductCard({
             onPress={onAddToCart}
             style={styles.cartIconWrapper}
           >
-            <Feather
-              name="shopping-cart"
+            <ShoppingCart
               size={20}
               color={COLORS.text.primary}
+              strokeWidth={2}
             />
-            <Entypo
-              name="plus"
+            <Plus
               size={12}
               color={COLORS.text.primary}
+              strokeWidth={2}
               style={styles.plusOverlay}
             />
           </TouchableOpacity>
@@ -126,10 +128,10 @@ const styles = StyleSheet.create({
   card: {
     backgroundColor: COLORS.card,
     borderRadius: BORDER_RADIUS.lg,
-    marginBottom: SPACING.md,
     overflow: "hidden",
-    width: "48%",
     ...SHADOWS.small,
+    borderWidth: 1,
+    borderColor: COLORS.gray[200],
   },
   cartIconWrapper: {
     alignItems: "center",
@@ -137,43 +139,45 @@ const styles = StyleSheet.create({
     position: "relative",
   },
   detailsContainer: {
-    padding: SPACING.sm,
+    padding: SPACING.md,
   },
   discountBadge: {
-    backgroundColor: COLORS.overlayLight,
-    bottom: "2%",
+    backgroundColor: COLORS.error,
+    bottom: SPACING.sm,
     paddingHorizontal: SPACING.xs,
     paddingVertical: SPACING.xs,
     position: "absolute",
-    right: "2%",
+    right: SPACING.sm,
+    borderRadius: BORDER_RADIUS.sm,
   },
   discountText: {
-    color: COLORS.primary,
-    ...TYPOGRAPHY.caption,
+    color: COLORS.text.inverse,
+    fontFamily: 'Inter-Bold',
+    fontSize: 12,
     fontWeight: "bold",
   },
   discountedPrice: {
     color: COLORS.text.primary,
-    ...TYPOGRAPHY.body,
+    fontFamily: 'Inter-SemiBold',
+    fontSize: 16,
     fontWeight: "500",
   },
   heartIcon: {
     alignItems: "center",
-    backgroundColor: COLORS.overlay,
+    backgroundColor: COLORS.overlayLight,
     borderRadius: 50,
-    height: 45,
+    height: 36,
     justifyContent: "center",
     padding: SPACING.xs,
     position: "absolute",
-    right: "1%",
-    top: "2.5%",
-    width: 45,
+    right: SPACING.sm,
+    top: SPACING.sm,
+    width: 36,
     zIndex: 1,
   },
   image: {
     backgroundColor: COLORS.gray[200],
-    borderRadius: BORDER_RADIUS.lg,
-    height: 169,
+    height: 160,
     width: "100%",
   },
 
@@ -182,16 +186,23 @@ const styles = StyleSheet.create({
   },
   originalPrice: {
     color: COLORS.text.secondary,
-    ...TYPOGRAPHY.caption,
+    fontFamily: 'Inter-Regular',
+    fontSize: 14,
     textDecorationLine: "line-through",
+    marginLeft: SPACING.xs,
   },
   plusOverlay: {
     backgroundColor: COLORS.surface,
     borderRadius: 10,
     padding: SPACING.xs,
     position: "absolute",
-    right: "-1.5%",
+    right: -2,
     top: 0,
+  },
+  priceContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: SPACING.sm,
   },
   ratingRow: {
     alignItems: "center",
@@ -204,7 +215,8 @@ const styles = StyleSheet.create({
   },
   title: {
     color: COLORS.text.primary,
-    ...TYPOGRAPHY.h3,
+    fontFamily: 'Inter-Medium',
+    fontSize: 14,
     lineHeight: 18,
     marginBottom: SPACING.xs,
   },

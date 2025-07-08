@@ -5,6 +5,7 @@ import {
   MaterialIcons,
   FontAwesome5,
 } from "@expo/vector-icons";
+import Animated, { FadeInRight } from 'react-native-reanimated';
 import PropTypes from "prop-types";
 import { COLORS, SPACING, TYPOGRAPHY } from "../utils/theme";
 
@@ -22,22 +23,27 @@ export default function CategoryCircles({ categories = [], onPress }) {
         if (!IconComponent) return null;
 
         return (
-          <TouchableOpacity
+          <Animated.View
             key={index}
-            style={styles.categoryItem}
-            onPress={() => onPress?.(category)}
+            entering={FadeInRight.delay(index * 100)}
           >
-            <View style={styles.circle}>
-              <IconComponent
-                name={category.icon}
-                size={26}
-                color={COLORS.text.primary}
-              />
-            </View>
-            <Text style={styles.categoryText} numberOfLines={2}>
-              {category.name}
-            </Text>
-          </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.categoryItem}
+              onPress={() => onPress?.(category)}
+              activeOpacity={0.7}
+            >
+              <View style={styles.circle}>
+                <IconComponent
+                  name={category.icon}
+                  size={24}
+                  color={COLORS.primary}
+                />
+              </View>
+              <Text style={styles.categoryText} numberOfLines={2}>
+                {category.name}
+              </Text>
+            </TouchableOpacity>
+          </Animated.View>
         );
       })}
     </View>
@@ -57,23 +63,32 @@ const styles = StyleSheet.create({
   },
   categoryText: {
     color: COLORS.text.primary,
-    ...TYPOGRAPHY.caption,
+    fontFamily: 'Inter-Medium',
+    fontSize: 12,
     fontWeight: "500",
     textAlign: "center",
+    marginTop: SPACING.xs,
   },
   circle: {
     alignItems: "center",
-    backgroundColor: COLORS.card,
-    borderRadius: "50%",
-    height: 45,
+    backgroundColor: COLORS.primary + '15',
+    borderRadius: 28,
+    height: 56,
     justifyContent: "center",
-    marginBottom: SPACING.sm,
-    width: 45,
+    width: 56,
+    shadowColor: COLORS.primary,
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 3,
   },
   container: {
     flexDirection: "row",
     flexWrap: "wrap",
     justifyContent: "space-between",
-    marginBottom: SPACING.lg,
+    marginBottom: SPACING.md,
   },
 });
