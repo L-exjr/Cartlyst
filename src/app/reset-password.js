@@ -12,18 +12,27 @@ import {
   ScrollView,
   Animated,
 } from "react-native";
-import { router } from "expo-router";
+import { router, useLocalSearchParams } from "expo-router";
 import { useAuthStore } from "../utils/authStore";
 import { FontAwesome6 } from "@expo/vector-icons";
 import { COLORS, SPACING, BORDER_RADIUS, TYPOGRAPHY } from "../utils/theme";
 import { commonStyles } from "../utils/styles";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { API_BASE_URL } from "../utils/config";
+
+export const options = { headerShown: false };
 
 export default function ResetPasswordScreen() {
   const { setResettingPassword } = useAuthStore();
+  const params = useLocalSearchParams();
   const [email, setEmail] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
   const [errorAnimation] = useState(new Animated.Value(0));
+  const [success, setSuccess] = useState("");
+  const [loading, setLoading] = useState(false);
+  const token = params.token;
 
   const showError = (message) => {
     setError(message);
@@ -47,26 +56,79 @@ export default function ResetPasswordScreen() {
   };
 
   const handleResetPassword = async () => {
+    if (token) {
+      // Handle actual password reset with token
+      if (!newPassword || !confirmPassword) {
+        showError("Please enter and confirm your new password");
+        return;
+      }
+      if (newPassword.length < 8) {
+        showError("Password must be at least 8 characters");
+        return;
+      }
+      if (newPassword !== confirmPassword) {
+        showError("Passwords do not match");
+        return;
+      }
+      setLoading(true);
+      setError("");
+      setSuccess("");
+      try {
+        const res = await fetch(`${API_BASE_URL}/api/auth/reset-password`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ token, newPassword }),
+        });
+        const data = await res.json();
+        setLoading(false);
+        if (res.ok) {
+          setSuccess("Your password has been reset. You can now sign in.");
+          setNewPassword("");
+          setConfirmPassword("");
+        } else {
+          showError(data.error || "An error occurred while resetting your password");
+        }
+      } catch (error) {
+        setLoading(false);
+        showError(error.message || "An error occurred while resetting your password");
+      }
+      return;
+    }
+    // Handle email reset logic
     try {
       if (!email.trim()) {
         showError("Email is required");
         return;
       }
-
       if (!validateEmail(email)) {
         showError("Please enter a valid email");
         return;
       }
-
-      // Here you would typically make an API call to your backend to handle the password reset
-      // For now, we'll just simulate a successful reset
+      setLoading(true);
       setError("");
-      setResettingPassword(false);
-      router.replace("sign-in");
+      setSuccess("");
+      // Compute the base URL for the reset link (remove /api or /api/auth if present)
+      let resetBaseUrl = API_BASE_URL.replace(/\/api(\/auth)?$/, "");
+      console.log("Sending password reset request for:", email, "with resetBaseUrl:", resetBaseUrl);
+      // Call backend API
+      const res = await fetch(`${API_BASE_URL}/api/auth/request-password-reset`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, resetBaseUrl }),
+      });
+      const data = await res.json();
+      console.log("Password reset response:", res.status, data);
+      setLoading(false);
+      if (res.ok) {
+        setSuccess("If your email is registered, you will receive a password reset link.");
+        setEmail("");
+      } else {
+        showError(data.error || "An error occurred while resetting your password");
+      }
     } catch (error) {
-      showError(
-        error.message || "An error occurred while resetting your password",
-      );
+      setLoading(false);
+      console.error("Password reset error:", error);
+      showError(error.message || "An error occurred while resetting your password");
     }
   };
 
@@ -94,32 +156,69 @@ export default function ResetPasswordScreen() {
             <View style={styles.contentContainer}>
               <View style={styles.headerContainer}>
                 <Text style={styles.title}>Reset Password</Text>
-                <Text style={styles.subtitle}>
-                  Enter your email address and you&apos;ll receive instructions to
-                  reset your password.
-                </Text>
+                {token ? (
+                  <Text style={styles.subtitle}>
+                    Enter your new password below.
+                  </Text>
+                ) : (
+                  <Text style={styles.subtitle}>
+                    Enter your email address and you'll receive instructions to reset your password.
+                  </Text>
+                )}
               </View>
-
-              <View style={styles.inputContainer}>
-                <Text style={styles.label}>Email</Text>
-                <TextInput
-                  placeholder="Enter you Email"
-                  style={[styles.input, error && styles.inputError]}
-                  value={email}
-                  onChangeText={(text) => {
-                    setEmail(text);
-                    setError("");
-                  }}
-                  keyboardType="email-address"
-                  autoCapitalize="none"
-                />
-              </View>
-
+              {token ? (
+                <>
+                  <View style={styles.inputContainer}>
+                    <Text style={styles.label}>New Password</Text>
+                    <TextInput
+                      placeholder="Enter new password"
+                      style={[styles.input, error && styles.inputError]}
+                      value={newPassword}
+                      onChangeText={(text) => {
+                        setNewPassword(text);
+                        setError("");
+                      }}
+                      secureTextEntry
+                    />
+                  </View>
+                  <View style={styles.inputContainer}>
+                    <Text style={styles.label}>Confirm Password</Text>
+                    <TextInput
+                      placeholder="Confirm new password"
+                      style={[styles.input, error && styles.inputError]}
+                      value={confirmPassword}
+                      onChangeText={(text) => {
+                        setConfirmPassword(text);
+                        setError("");
+                      }}
+                      secureTextEntry
+                    />
+                  </View>
+                </>
+              ) : (
+                <View style={styles.inputContainer}>
+                  <Text style={styles.label}>Email</Text>
+                  <TextInput
+                    placeholder="Enter your Email"
+                    style={[styles.input, error && styles.inputError]}
+                    value={email}
+                    onChangeText={(text) => {
+                      setEmail(text);
+                      setError("");
+                    }}
+                    keyboardType="email-address"
+                    autoCapitalize="none"
+                  />
+                </View>
+              )}
               <TouchableOpacity
                 style={styles.resetButton}
                 onPress={handleResetPassword}
+                disabled={loading}
               >
-                <Text style={styles.resetButtonText}>Reset Password</Text>
+                <Text style={styles.resetButtonText}>
+                  {loading ? "Sending..." : token ? "Set New Password" : "Reset Password"}
+                </Text>
               </TouchableOpacity>
             </View>
 
@@ -143,6 +242,11 @@ export default function ResetPasswordScreen() {
                 <Text style={styles.errorText}>{error}</Text>
               </Animated.View>
             )}
+            {success ? (
+              <View style={[styles.errorContainer, { backgroundColor: COLORS.success, borderLeftColor: COLORS.success }]}>
+                <Text style={[styles.errorText, { color: COLORS.text.primary }]}>{success}</Text>
+              </View>
+            ) : null}
           </ScrollView>
         </TouchableWithoutFeedback>
       </KeyboardAvoidingView>

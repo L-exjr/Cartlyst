@@ -5,6 +5,21 @@ import { FontAwesome6 } from "@expo/vector-icons";
 import { COLORS, SPACING, BORDER_RADIUS, TYPOGRAPHY } from "../utils/theme";
 import { commonStyles } from "../utils/styles";
 import PropTypes from "prop-types";
+import Price from './Price';
+
+// Helper to get discounted price
+function getDiscountedPrice(product) {
+  if (!product) return 0;
+  let discount = product.discount || 0;
+  let price = product.price || 0;
+  if (discount > 0 && discount < 1) {
+    return price * (1 - discount);
+  } else if (discount >= 1 && discount <= 100) {
+    return price * (1 - discount / 100);
+  } else {
+    return price - discount;
+  }
+}
 
 export default function SwipeableCartItem({
   item,
@@ -17,7 +32,7 @@ export default function SwipeableCartItem({
       <Image source={{ uri: item.image }} style={styles.image} />
       <View style={styles.info}>
         <Text style={styles.title}>{item.title}</Text>
-        <Text style={styles.price}>${(Number(item.price) || 0).toFixed(2)}</Text>
+        <Price amount={getDiscountedPrice(item)} style={styles.price} />
         <View style={styles.quantityContainer}>
           <TouchableOpacity
             style={styles.qtyButton}
@@ -165,3 +180,5 @@ SwipeableCartItem.propTypes = {
   onUpdateQuantity: PropTypes.func.isRequired,
   onMoveToWishlist: PropTypes.func.isRequired,
 };
+
+

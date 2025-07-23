@@ -1,0 +1,13 @@
+package com.Cartlyst.CartlystAPI.repository;
+
+import com.Cartlyst.CartlystAPI.model.PendingUser;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+import java.util.Optional;
+
+@Repository
+public interface PendingUserRepository extends JpaRepository<PendingUser, Long> {
+    Optional<PendingUser> findByEmail(String email);
+    Optional<PendingUser> findByPhoneNumber(String phoneNumber);
+    Optional<PendingUser> findByVerificationCode(String verificationCode);
+} 

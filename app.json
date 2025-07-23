@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "Cartlyst",
-    "scheme": "cartlyst",
+    "scheme": "cartlystbuyer",
     "slug": "Cartlyst",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -24,7 +24,8 @@
       "edgeToEdgeEnabled": true,
       "permissions": [
         "android.permission.RECORD_AUDIO"
-      ]
+      ],
+      "package": "com.gimeon2512.Cartlyst"
     },
     "web": {
       "favicon": "./assets/favicon.png"

@@ -22,6 +22,7 @@ import {
 import { commonStyles } from "../../../utils/styles";
 import { SafeAreaView } from "react-native-safe-area-context";
 import SwipeableWishlistItem from "../../../components/SwipeableWishlistItem";
+import { useTranslation } from 'react-i18next';
 
 export default function WishlistScreen() {
   const wishlist = useWishlistStore((state) => state.wishlist);
@@ -31,6 +32,7 @@ export default function WishlistScreen() {
   const addToCart = useCartStore((state) => state.addToCart);
   const { isGuest, isLoggedIn, userId } = useAuthStore();
   const router = useRouter();
+  const { t } = useTranslation();
 
   React.useEffect(() => {
     if (isLoggedIn && userId) {
@@ -42,8 +44,8 @@ export default function WishlistScreen() {
   if (!isLoggedIn || !userId) {
     return (
       <SignInPrompt
-        title="Sign In to View Wishlist"
-        message="Sign in to save your wishlist items and access your shopping history."
+        title={t('signInToViewWishlist')}
+        message={t('signInToSaveWishlist')}
         iconName="heart-half-full"
       />
     );
@@ -60,14 +62,13 @@ export default function WishlistScreen() {
           style={styles.icon}
         />
         <Text style={styles.emptyText}>
-          Your Wishlist is empty! Tap the heart-shaped icon on an item to add it
-          to your wishlist. All your saved items will be displayed here.
+          {t('wishlistEmpty')}
         </Text>
         <TouchableOpacity
           style={styles.button}
           onPress={() => router.replace("/(tabs)/(1-home)")}
         >
-          <Text style={styles.buttonText}>Continue Shopping</Text>
+          <Text style={styles.buttonText}>{t('continueShopping')}</Text>
         </TouchableOpacity>
       </View>
     );
@@ -78,7 +79,8 @@ export default function WishlistScreen() {
   };
 
   const handleAddToCart = (item) => {
-    addToCart(userId, item);
+    addToCart(userId, item, 1);
+    addToWishlist(userId, item);
     removeFromWishlist(userId, item.id);
   };
 
@@ -113,9 +115,9 @@ const styles = StyleSheet.create({
     paddingVertical: SPACING.xs,
   },
   addToCartText: {
-    color: COLORS.text.inverse,
+    color: COLORS.text.primary,
+    fontWeight: 'bold',
     ...TYPOGRAPHY.caption,
-    fontWeight: "bold",
   },
   button: {
     ...commonStyles.button,
@@ -123,6 +125,8 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     ...commonStyles.buttonText,
+    color: COLORS.text.primary,
+    fontWeight: 'bold',
   },
   container: {
     ...commonStyles.container,
@@ -179,3 +183,5 @@ const styles = StyleSheet.create({
     marginBottom: SPACING.xs,
   },
 });
+
+

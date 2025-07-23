@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { View, TextInput, TouchableOpacity, Text, StyleSheet, ScrollView, Keyboard } from "react-native";
+import { View, TextInput, TouchableOpacity, Text, StyleSheet, ScrollView, Keyboard, Image } from "react-native";
 import { FontAwesome6 } from "@expo/vector-icons";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { COLORS, SPACING, BORDER_RADIUS, TYPOGRAPHY } from "../utils/theme";
@@ -11,7 +11,10 @@ export default function SearchBarWithHistory({
   onSearch,
   suggestionsSource = [], // [{title, category}]
   categoryName = '',
-  placeholder = 'Search products...'
+  placeholder = 'Search products...',
+  showBackButton = false,
+  onBack = () => {},
+  onAssistantPress // <-- new prop
 }) {
   const [search, setSearch] = useState("");
   const [searchHistory, setSearchHistory] = useState([]);
@@ -89,6 +92,11 @@ export default function SearchBarWithHistory({
 
   return (
     <View style={styles.container}>
+      {showBackButton && (
+        <TouchableOpacity onPress={onBack} style={{ marginRight: 8, justifyContent: 'center', alignItems: 'center', height: 40, width: 40 }}>
+          <FontAwesome6 name="arrow-left" size={20} color={COLORS.text.primary} />
+        </TouchableOpacity>
+      )}
       <View style={styles.searchContainer}>
         <FontAwesome6
           name="magnifying-glass"
@@ -107,6 +115,20 @@ export default function SearchBarWithHistory({
           onSubmitEditing={handleSearchSubmit}
           returnKeyType="search"
         />
+        {search.length > 0 && (
+          <TouchableOpacity
+            onPress={() => {
+              setSearch("");
+              setShowSuggestions(false);
+            }}
+            style={{ marginLeft: 8, justifyContent: 'center', alignItems: 'center', height: 40, width: 32 }}
+          >
+            <FontAwesome6 name="xmark" size={18} color={COLORS.text.secondary} />
+          </TouchableOpacity>
+        )}
+        <TouchableOpacity onPress={onAssistantPress} style={styles.assistantIconContainer}>
+          <Image source={require("../../assets/aicon.png")} style={styles.assistantIcon} />
+        </TouchableOpacity>
       </View>
       {showSuggestions && (search.length > 0 ? suggestions.length > 0 : searchHistory.length > 0) && (
         <ScrollView style={styles.suggestionDropdown} keyboardShouldPersistTaps="handled">
@@ -148,6 +170,9 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: COLORS.surface,
     padding: SPACING.sm,
+    position: 'relative',
+    flexDirection: 'row',
+    alignItems: 'center',
   },
   searchContainer: {
     alignItems: "center",
@@ -156,6 +181,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     height: 40,
     paddingHorizontal: SPACING.sm,
+    flex: 1,
   },
   input: {
     color: COLORS.text.primary,
@@ -190,5 +216,20 @@ const styles = StyleSheet.create({
   categoryText: {
     color: COLORS.error,
     fontWeight: 'bold',
+  },
+  assistantIconContainer: {
+    marginLeft: 4,
+    padding: 4,
+    borderRadius: 20,
+    backgroundColor: COLORS.card,
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: 40,
+    width: 40,
+  },
+  assistantIcon: {
+    width: 28,
+    height: 28,
+    resizeMode: 'contain',
   },
 }); 

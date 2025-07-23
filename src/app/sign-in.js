@@ -21,10 +21,14 @@ import { COLORS, SPACING, BORDER_RADIUS, TYPOGRAPHY } from "../utils/theme";
 import { commonStyles } from "../utils/styles";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { API_BASE_URL } from "../utils/config";
+import { useTranslation } from 'react-i18next';
+
+export const options = { headerShown: false };
 
 export default function SignInScreen() {
   const { logIn, setGuestMode, setshouldCreateAccount, setResettingPassword } =
     useAuthStore();
+  const { t } = useTranslation();
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -56,7 +60,7 @@ export default function SignInScreen() {
 
     // Email Validation
     if (!formData.email) {
-      showError("Email/Phone is required");
+      showError(t('emailOrPhoneRequired'));
       return false;
     } else if (
       !/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(
@@ -64,16 +68,16 @@ export default function SignInScreen() {
       ) &&
       !/^\+?[1-9]\d{1,14}$/.test(formData.email)
     ) {
-      showError("Please enter a valid email or phone number");
+      showError(t('invalidEmailOrPhone'));
       return false;
     }
 
     // Password validation
     if (!formData.password) {
-      showError("Password is required");
+      showError(t('passwordRequired'));
       return false;
     } else if (formData.password.length < 8) {
-      showError("Password must be at least 8 characters");
+      showError(t('passwordMinLength'));
       return false;
     }
 
@@ -98,10 +102,10 @@ export default function SignInScreen() {
         logIn(data.id); // Store user id
         router.replace("/(tabs)");
       } else {
-        showError(data.error || "Invalid credentials");
+        showError(data.error || t('invalidCredentials'));
       }
     } catch (error) {
-      showError(error.message || "An error occurred while signing in");
+      showError(error.message || t('signInError'));
     } finally {
       setIsLoading(false);
     }
@@ -125,7 +129,7 @@ export default function SignInScreen() {
                 router.replace("/(tabs)");
               }}
             >
-              <Text style={styles.skipText}>Skip</Text>
+              <Text style={styles.skipText}>{t('skip')}</Text>
             </TouchableOpacity>
 
             <View style={styles.contentContainer}>
@@ -133,12 +137,12 @@ export default function SignInScreen() {
                 source={require("../../assets/logo.png")}
                 style={styles.logo}
               />
-              <Text style={styles.title}>Sign In</Text>
+              <Text style={styles.title}>{t('signIn')}</Text>
 
               <View style={styles.inputContainer}>
-                <Text style={styles.label}>Email/Phone</Text>
+                <Text style={styles.label}>{t('emailOrPhone')}</Text>
                 <TextInput
-                  placeholder="Email/Phone"
+                  placeholder={t('emailOrPhone')}
                   style={styles.input}
                   value={formData.email}
                   onChangeText={(text) =>
@@ -150,10 +154,10 @@ export default function SignInScreen() {
               </View>
 
               <View style={styles.inputContainer}>
-                <Text style={styles.label}>Password</Text>
+                <Text style={styles.label}>{t('password')}</Text>
                 <View style={styles.passwordContainer}>
                   <TextInput
-                    placeholder="Password"
+                    placeholder={t('password')}
                     style={styles.input}
                     value={formData.password}
                     onChangeText={(text) =>
@@ -181,7 +185,7 @@ export default function SignInScreen() {
                   router.push("reset-password");
                 }}
               >
-                <Text style={styles.forgotPassword}>Forgot password?</Text>
+                <Text style={styles.forgotPassword}>{t('forgotPassword')}</Text>
               </TouchableOpacity>
 
               <TouchableOpacity
@@ -192,13 +196,13 @@ export default function SignInScreen() {
                 {isLoading ? (
                   <ActivityIndicator color="#fff" />
                 ) : (
-                  <Text style={styles.signInText}>Sign In</Text>
+                  <Text style={styles.signInText}>{t('signIn')}</Text>
                 )}
               </TouchableOpacity>
 
               <View style={styles.signUpContainer}>
                 <Text style={styles.signUp}>
-                  Don&apos;t have an account?{" "}
+                  {t('noAccount')}{' '}
                   <Text
                     style={styles.signUpLink}
                     onPress={() => {
@@ -206,14 +210,14 @@ export default function SignInScreen() {
                       router.replace("sign-up");
                     }}
                   >
-                    Sign Up
+                    {t('signUp')}
                   </Text>
                 </Text>
               </View>
 
               <View style={styles.orContainer}>
                 <View style={styles.line} />
-                <Text style={styles.orText}>OR</Text>
+                <Text style={styles.orText}>{t('or')}</Text>
                 <View style={styles.line} />
               </View>
 
@@ -234,10 +238,8 @@ export default function SignInScreen() {
               </View>
 
               <View style={styles.footerContainer}>
-                <Text style={styles.footer}>
-                  By continuing you agree to Cartlyst&apos;s
-                </Text>
-                <Text style={styles.footerLink}>Terms and Conditions</Text>
+                <Text style={styles.footer}>{t('agreeToTerms')}</Text>
+                <Text style={styles.footerLink}>{t('termsAndConditions')}</Text>
               </View>
             </View>
 
@@ -258,7 +260,7 @@ export default function SignInScreen() {
                   },
                 ]}
               >
-                <Text style={styles.errorText}>{error}</Text>
+                <Text style={styles.errorText}>{t(error)}</Text>
               </Animated.View>
             )}
           </ScrollView>

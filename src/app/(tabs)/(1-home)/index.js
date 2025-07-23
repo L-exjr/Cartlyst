@@ -8,9 +8,10 @@ import {
   TouchableOpacity,
   Dimensions,
   Animated,
+  Alert,
 } from "react-native";
 import { useRouter } from "expo-router";
-import SearchBar from "../../../components/SearchBar";
+import SearchBarWithHistory from "../../../components/SearchBarWithHistory";
 import ProductCard from "../../../components/ProductCard";
 import CarouselCard from "../../../components/CarouselCard";
 import CategoryCircles from "../../../components/CategoryCircles";
@@ -25,7 +26,10 @@ import {
 import { commonStyles } from "../../../utils/styles";
 import { useWishlistStore } from "../../../utils/wishlistStore";
 import { useCartStore } from "../../../utils/cartStore";
+import { useAuthStore } from "../../../utils/authStore";
 import { SafeAreaView, useSafeAreaInsets } from "react-native-safe-area-context";
+import { useTranslation } from 'react-i18next';
+
 
 const { width } = Dimensions.get("window");
 
@@ -37,6 +41,7 @@ export default function HomeScreen() {
   const [dotOffset] = useState(new Animated.Value(0));
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [showAssistant, setShowAssistant] = useState(false);
 
   const insets = useSafeAreaInsets();
   const itemWidth = width;
@@ -55,9 +60,12 @@ export default function HomeScreen() {
   const wishlist = useWishlistStore((state) => state.wishlist);
   const addToWishlist = useWishlistStore((state) => state.addToWishlist);
   const removeFromWishlist = useWishlistStore((state) => state.removeFromWishlist);
+  const userId = useAuthStore((state) => state.userId);
 
   const dotContainerWidth =
     (dotSize + dotMargin * 2) * Math.min(carouselItems.length, visibleDots);
+
+  const { t } = useTranslation();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -101,14 +109,56 @@ export default function HomeScreen() {
     }
   };
 
-  const fetchFeaturedProducts = async () => {
+  // Add this handler for searching
+  const handleSearch = (term, categoryId) => {
+    // Defensive: find the category object if only name is passed
+    let selectedCategory = null;
+    if (typeof categoryId === 'number') {
+      selectedCategory = categories.find(cat => cat.id === categoryId);
+    } else if (typeof categoryId === 'string') {
+      // Try to find by name (legacy)
+      selectedCategory = categories.find(cat => cat.name === categoryId);
+    }
+    // Fallback to first category if not found
+    if (!selectedCategory && categories.length > 0) {
+      selectedCategory = categories[0];
+    }
+    const selectedCategoryId = selectedCategory ? selectedCategory.id : '';
+    console.log('Home search term:', term, 'categoryId:', selectedCategoryId, 'categoryName:', selectedCategory?.name);
+    if (term && term.trim() && selectedCategoryId) {
+      router.push({
+        pathname: '/(tabs)/(2-categories)/products/' + selectedCategoryId,
+        params: { categoryId: selectedCategoryId, categoryName: selectedCategory?.name, search: term }
+      });
+    }
+  };
+
+  // Example: search by product ID (single)
+  const handleProductIdSearch = (productId) => {
+    console.log('Navigating to products screen with productId:', productId);
+    router.push({
+      pathname: '/(tabs)/(2-categories)/products/',
+      params: { productId }
+    });
+  };
+
+  // Update fetchFeaturedProducts to accept a search term
+  const fetchFeaturedProducts = async (searchTerm = "") => {
     try {
-      const response = await fetch(`${API_BASE_URL}/products`);
+      let url = `${API_BASE_URL}/products`;
+      if (searchTerm) url += `?search=${encodeURIComponent(searchTerm)}`;
+      const response = await fetch(url);
       if (!response.ok) throw new Error("Failed to fetch products");
       const data = await response.json();
-      setFeaturedProducts(data);
+      if (Array.isArray(data)) {
+        setFeaturedProducts(data);
+      } else {
+        setFeaturedProducts([]);
+        // Optionally show error: data.error
+      }
     } catch (error) {
-      throw error;
+      setFeaturedProducts([]);
+      // Optionally show error
     }
   };
 
@@ -154,13 +204,13 @@ export default function HomeScreen() {
   };
 
   if (isLoading) {
-    return <LoadingSpinner text="Loading..." />;
+    return <LoadingSpinner text={t('loading')} />;
   }
 
   if (error) {
     return (
       <View style={styles.errorContainer}>
-        <Text style={styles.errorText}>{error}</Text>
+        <Text style={styles.errorText}>{t('homeError', 'Failed to load data. Please check your internet connection.')}</Text>
         <TouchableOpacity
           style={styles.retryButton}
           onPress={() => {
@@ -169,7 +219,7 @@ export default function HomeScreen() {
             fetchData();
           }}
         >
-          <Text style={styles.retryText}>Retry</Text>
+          <Text style={styles.retryText}>{t('retry')}</Text>
         </TouchableOpacity>
       </View>
     );
@@ -179,10 +229,30 @@ export default function HomeScreen() {
   const isInWishlist = (productId) =>
     wishlist.some((item) => item.id === productId);
 
+  // Helper to get discounted price
+  function getDiscountedPrice(product) {
+    if (!product) return 0;
+    let discount = product.discount || 0;
+    let price = product.price || 0;
+    if (discount > 0 && discount < 1) {
+      return price * (1 - discount);
+    } else if (discount >= 1 && discount <= 100) {
+      return price * (1 - discount / 100);
+    } else {
+      return price - discount;
+    }
+  }
+
   return (
     <SafeAreaView>
       <View style={styles.fixedHeader}>
-        <SearchBar />
+        <SearchBarWithHistory
+          onSearch={handleSearch}
+          suggestionsSource={featuredProducts.map(p => ({ title: p.title, category: typeof p.category === 'string' ? p.category : (p.category?.name || '') }))}
+          categoryName={t('all')}
+          placeholder={t('searchPlaceholder', 'Search products...')}
+          onAssistantPress={() => router.push('/(tabs)/(1-home)/Cartlyst')}
+        />
       </View>
       <ScrollView>
         {carouselItems.length > 0 && (
@@ -265,14 +335,20 @@ export default function HomeScreen() {
 
         <View style={styles.paddedHorizontal}>
           <View style={styles.sectionHeader}>
-            <Text style={styles.sectionTitle}>Categories</Text>
-            <TouchableOpacity onPress={() => router.push("/categories")}>
-              <Text style={styles.seeAllText}>SEE ALL</Text>
+            <Text style={styles.sectionTitle}>{t('categories')}</Text>
+            <TouchableOpacity onPress={() => router.push("/(tabs)/(2-categories)")}>
+              <Text style={styles.seeAllText}>{t('seeAll')}</Text>
             </TouchableOpacity>
           </View>
-          <CategoryCircles categories={categories.slice(0, 5)} />
+          <CategoryCircles
+            categories={categories.slice(0, 5)}
+            onPress={(category) => router.push({
+              pathname: '/(tabs)/(2-categories)/products/' + category.id,
+              params: { categoryId: category.id, categoryName: category.name }
+            })}
+          />
 
-          <Text style={styles.sectionTitle}>Featured Products</Text>
+          <Text style={styles.sectionTitle}>{t('featuredProducts')}</Text>
           {featuredProducts.length > 0 ? (
             <FlatList
               data={featuredProducts}
@@ -282,25 +358,34 @@ export default function HomeScreen() {
               scrollEnabled={false}
               renderItem={({ item }) => (
                 <ProductCard
+                  product={item}
                   title={item.title}
-                  price={item.price}
+                  price={item.price} // original price from database
                   discount={item.discount}
                   rating={item.rating}
                   image={item.image}
                   onPress={() => router.push(`/product/${item.id}`)}
-                  onPressHeart={() =>
-                    isInWishlist(item.id)
-                      ? removeFromWishlist(item.id)
-                      : addToWishlist(item)
-                  }
-                  onAddToCart={() => addToCart(item)}
+                  onPressHeart={() => {
+                    console.log('onPressHeart', { userId, item });
+                    if (!userId) Alert.alert(t('noUserIdTitle'), t('noUserIdMsg'));
+                    if (isInWishlist(item.id)) {
+                      removeFromWishlist(userId, item.id);
+                    } else {
+                      addToWishlist(userId, item);
+                    }
+                  }}
+                  onAddToCart={() => {
+                    console.log('onAddToCart', { userId, item });
+                    if (!userId) Alert.alert(t('noUserIdTitle'), t('noUserIdMsg'));
+                    addToCart(userId, item, 1);
+                  }}
                   isFavorite={isInWishlist(item.id)}
                 />
               )}
             />
           ) : (
             <Text style={styles.noProductsText}>
-              No featured products available
+              {t('noFeaturedProducts')}
             </Text>
           )}
         </View>

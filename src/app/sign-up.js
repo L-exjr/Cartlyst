@@ -22,8 +22,12 @@ import { COLORS, SPACING, BORDER_RADIUS, TYPOGRAPHY } from "../utils/theme";
 import { commonStyles } from "../utils/styles";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { API_BASE_URL } from "../utils/config";
+import { useTranslation } from 'react-i18next';
+
+export const options = { headerShown: false };
 
 export default function SignUpScreen() {
+  const { t } = useTranslation();
   const { setVerification, setGuestMode, setshouldCreateAccount } =
     useAuthStore();
   const [formData, setFormData] = useState({
@@ -137,7 +141,49 @@ export default function SignUpScreen() {
     try {
       if (!validateForm()) return;
       setIsLoading(true);
-      // Call backend API
+      let profileImageUrl = null;
+      // If a photo is selected, upload it first
+      if (photo) {
+        try {
+          const formData = new FormData();
+          formData.append('file', {
+            uri: photo,
+            type: 'image/jpeg',
+            name: `profile-signup-${Date.now()}.jpg`
+          });
+          // Try Supabase upload first
+          let uploadResponse = await fetch(`${API_BASE_URL}/files/upload`, {
+            method: 'POST',
+            body: formData,
+            headers: {
+              'Content-Type': 'multipart/form-data',
+            },
+          });
+          let uploadResult;
+          if (!uploadResponse.ok) {
+            // Try local upload as fallback
+            uploadResponse = await fetch(`${API_BASE_URL}/files/upload-local`, {
+              method: 'POST',
+              body: formData,
+              headers: {
+                'Content-Type': 'multipart/form-data',
+              },
+            });
+            if (!uploadResponse.ok) {
+              throw new Error('Both Supabase and local upload failed');
+            }
+            uploadResult = await uploadResponse.json();
+          } else {
+            uploadResult = await uploadResponse.json();
+          }
+          profileImageUrl = uploadResult.downloadUrl;
+        } catch (e) {
+          showError('Image upload failed: ' + e.message);
+          setIsLoading(false);
+          return;
+        }
+      }
+      // Call backend API for signup
       const response = await fetch(`${API_BASE_URL}/api/auth/signup`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -146,6 +192,7 @@ export default function SignUpScreen() {
           email: formData.email,
           phoneNumber: formData.phoneNumber,
           password: formData.password,
+          profileImageUrl: profileImageUrl,
         }),
       });
       const data = await response.json();
@@ -182,10 +229,10 @@ export default function SignUpScreen() {
                   router.replace("/(tabs)");
                 }}
               >
-                <Text style={styles.skipText}>Skip</Text>
+                <Text style={styles.skipText}>{t('skip')}</Text>
               </TouchableOpacity>
-              <Text style={styles.title}>Sign Up</Text>
-              <Text style={styles.subtitle}>Create an account on Cartlyst</Text>
+              <Text style={styles.title}>{t('signUp')}</Text>
+              <Text style={styles.subtitle}>{t('createAccount')}</Text>
 
               <View style={styles.imageContainer}>
                 <View>
@@ -208,9 +255,9 @@ export default function SignUpScreen() {
               </View>
 
               <View style={styles.inputContainer}>
-                <Text style={styles.label}>Full Name</Text>
+                <Text style={styles.label}>{t('fullName')}</Text>
                 <TextInput
-                  placeholder="Full Name"
+                  placeholder={t('fullName')}
                   style={styles.input}
                   value={formData.fullName}
                   onChangeText={(text) =>
@@ -220,9 +267,9 @@ export default function SignUpScreen() {
               </View>
 
               <View style={styles.inputContainer}>
-                <Text style={styles.label}>Email</Text>
+                <Text style={styles.label}>{t('email')}</Text>
                 <TextInput
-                  placeholder="Email"
+                  placeholder={t('email')}
                   style={styles.input}
                   value={formData.email}
                   onChangeText={(text) =>
@@ -234,9 +281,9 @@ export default function SignUpScreen() {
               </View>
 
               <View style={styles.inputContainer}>
-                <Text style={styles.label}>Phone Number</Text>
+                <Text style={styles.label}>{t('phoneNumber')}</Text>
                 <TextInput
-                  placeholder="Phone Number"
+                  placeholder={t('phoneNumber')}
                   style={styles.input}
                   value={formData.phoneNumber}
                   onChangeText={(text) =>
@@ -304,13 +351,13 @@ export default function SignUpScreen() {
                 {isLoading ? (
                   <ActivityIndicator color="#fff" />
                 ) : (
-                  <Text style={styles.signUpText}>Sign Up</Text>
+                  <Text style={styles.signUpText}>{t('signUp')}</Text>
                 )}
               </TouchableOpacity>
 
               <View style={styles.signInContainer}>
                 <Text style={styles.signIn}>
-                  Already have an account?{" "}
+                  {t('alreadyHaveAccount')}{" "}
                   <Text
                     style={styles.signUpLink}
                     onPress={() => {
@@ -318,14 +365,14 @@ export default function SignUpScreen() {
                       router.replace("sign-in");
                     }}
                   >
-                    Sign In
+                    {t('signIn')}
                   </Text>
                 </Text>
               </View>
 
               <View style={styles.orContainer}>
                 <View style={styles.line} />
-                <Text style={styles.orText}>OR</Text>
+                <Text style={styles.orText}>{t('or')}</Text>
                 <View style={styles.line} />
               </View>
 
@@ -346,10 +393,8 @@ export default function SignUpScreen() {
               </View>
 
               <View style={styles.footerContainer}>
-                <Text style={styles.footer}>
-                  By continuing you agree to Cartlyst&apos;s
-                </Text>
-                <Text style={styles.footerLink}>Terms and Conditions</Text>
+                <Text style={styles.footer}>{t('agreeToTerms')}</Text>
+                <Text style={styles.footerLink}>{t('termsAndConditions')}</Text>
               </View>
             </View>
 
@@ -370,7 +415,7 @@ export default function SignUpScreen() {
                   },
                 ]}
               >
-                <Text style={styles.errorText}>{error}</Text>
+                <Text style={styles.errorText}>{t(error)}</Text>
               </Animated.View>
             )}
           </ScrollView>

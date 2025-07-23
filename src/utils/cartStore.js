@@ -2,6 +2,7 @@ import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
 import * as SecureStore from "expo-secure-store";
 import { API_BASE_URL } from "./config";
+import { Alert } from "react-native";
 
 export const useCartStore = create(
   persist(
@@ -15,6 +16,7 @@ export const useCartStore = create(
             const data = await response.json();
             // Map cartQuantity to quantity for frontend compatibility
             const mapped = data.map(item => ({ ...item, quantity: item.cartQuantity ?? item.quantity }));
+            console.log('fetchCart: data returned', mapped);
             set({ cart: mapped });
           }
         } catch (e) {
@@ -22,16 +24,24 @@ export const useCartStore = create(
         }
       },
       addToCart: async (userId, product, quantity = 1) => {
-        if (!userId) return;
+        console.log('addToCart called', { userId, product, quantity });
+        if (!userId) {
+          console.log('No userId!');
+          Alert.alert('No userId in addToCart', 'userId is missing');
+          return;
+        }
         try {
           const response = await fetch(`${API_BASE_URL}/cart/add?userId=${userId}&productId=${product.id}&quantity=${quantity}`, {
             method: "POST",
           });
+          const text = await response.text();
+          console.log('addToCart response', response.status, text);
           if (response.ok) {
-            // Optionally fetch updated cart from backend
             get().fetchCart(userId);
           }
-        } catch (e) {}
+        } catch (e) {
+          Alert.alert('Cart Error', e.message);
+        }
       },
       removeFromCart: async (userId, productId) => {
         if (!userId) return;

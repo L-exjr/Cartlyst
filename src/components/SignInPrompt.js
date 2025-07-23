@@ -5,9 +5,11 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { COLORS, SPACING, TYPOGRAPHY } from "../utils/theme";
 import { commonStyles } from "../utils/styles";
 import PropTypes from "prop-types";
+import { useTranslation } from 'react-i18next';
 
 export default function SignInPrompt({ title, message, iconName = "user" }) {
   const router = useRouter();
+  const { t } = useTranslation();
 
   const handleSignIn = () => {
     router.push("/sign-in");
@@ -21,10 +23,10 @@ export default function SignInPrompt({ title, message, iconName = "user" }) {
         color={COLORS.primary}
         style={styles.icon}
       />
-      <Text style={styles.title}>{title}</Text>
-      <Text style={styles.message}>{message}</Text>
+      <Text style={styles.title}>{t(title)}</Text>
+      <Text style={styles.message}>{t(message)}</Text>
       <TouchableOpacity style={styles.signInButton} onPress={handleSignIn}>
-        <Text style={styles.signInText}>Sign In</Text>
+        <Text style={styles.signInText}>{t('signIn')}</Text>
       </TouchableOpacity>
     </View>
   );

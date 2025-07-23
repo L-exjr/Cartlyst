@@ -16,24 +16,52 @@ import {
   TYPOGRAPHY,
   SHADOWS,
 } from "../utils/theme";
+import Price from './Price';
+
+// Helper to get discounted price
+function getDiscountedPrice(product) {
+  if (!product) return 0;
+  let discount = product.discount || 0;
+  let price = product.price || 0;
+  if (discount > 0 && discount < 1) {
+    return price * (1 - discount);
+  } else if (discount >= 1 && discount <= 100) {
+    return price * (1 - discount / 100);
+  } else {
+    return price - discount;
+  }
+}
 
 export default function ProductCard({
+  product,
   image,
   title,
-  price = 0, // Default to 0 if undefined
-  discount = 0, // Default to 0 if undefined
+  price = 0, // original price from database
+  discount = 0,
   rating = 0,
   onPress,
   onPressHeart,
   onAddToCart,
   isFavorite = false,
-  userId,
   disabled = false,
 }) {
   // Ensure price and discount are numbers
   const safePrice = Number(price) || 0;
   const safeDiscount = Number(discount) || 0;
-  const discountedPrice = safePrice - (safePrice * safeDiscount) / 100;
+  // Always use discounted price for display
+  let discountedPrice = safePrice;
+  // In ProductCard, calculate original price for strikethrough if discount is present
+  let originalPrice = null;
+  if (typeof product?.discount === 'number' && product.discount > 0) {
+    // If discount is a percentage (0-1 or 0-100)
+    let discount = product.discount;
+    if (discount > 0 && discount < 1) {
+      originalPrice = safePrice / (1 - discount);
+    } else if (discount >= 1 && discount <= 100) {
+      originalPrice = safePrice / (1 - discount / 100);
+    }
+  }
+  const showOriginal = originalPrice && originalPrice > discountedPrice;
 
   return (
     <Pressable
@@ -56,7 +84,7 @@ export default function ProductCard({
 
         <TouchableOpacity
           style={styles.heartIcon}
-          onPress={() => onPressHeart(userId)}
+          onPress={onPressHeart}
           activeOpacity={0.7}
         >
           <Feather
@@ -73,11 +101,9 @@ export default function ProductCard({
         </Text>
 
         <View style={styles.priceContainer}>
-          <Text style={styles.discountedPrice}>
-            ${discountedPrice.toFixed(2)}
-          </Text>
-          {safeDiscount > 0 && (
-            <Text style={styles.originalPrice}>${safePrice.toFixed(2)}</Text>
+          <Price amount={discountedPrice} style={styles.discountedPrice} from={product?.currency || 'USD'} />
+          {showOriginal && (
+            <Price amount={originalPrice} style={styles.originalPrice} from={product?.currency || 'USD'} />
           )}
         </View>
 
@@ -94,7 +120,7 @@ export default function ProductCard({
           </View>
 
           <TouchableOpacity
-            onPress={disabled ? undefined : () => onAddToCart(userId)}
+            onPress={disabled ? undefined : onAddToCart}
             style={[styles.cartIconWrapper, disabled && { opacity: 0.2 }]}
             disabled={disabled}
             activeOpacity={disabled ? 1 : 0.7}

@@ -21,6 +21,22 @@ import { commonStyles } from "../../../utils/styles";
 import SignInPrompt from "../../../components/SignInPrompt";
 import SwipeableCartItem from "../../../components/SwipeableCartItem";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { useTranslation } from 'react-i18next';
+import Price from '../../../components/Price';
+
+// Helper to get discounted price
+function getDiscountedPrice(product) {
+  if (!product) return 0;
+  let discount = product.discount || 0;
+  let price = product.price || 0;
+  if (discount > 0 && discount < 1) {
+    return price * (1 - discount);
+  } else if (discount >= 1 && discount <= 100) {
+    return price * (1 - discount / 100);
+  } else {
+    return price - discount;
+  }
+}
 
 export default function CartScreen() {
   const cart = useCartStore((state) => state.cart);
@@ -31,6 +47,7 @@ export default function CartScreen() {
   const addToWishlist = useWishlistStore((state) => state.addToWishlist);
   const { isGuest, isLoggedIn, userId } = useAuthStore();
   const router = useRouter();
+  const { t } = useTranslation();
 
   React.useEffect(() => {
     if (isLoggedIn && userId) {
@@ -38,8 +55,9 @@ export default function CartScreen() {
     }
   }, [isLoggedIn, userId]);
 
+  // Update subtotal calculation
   const subtotal = cart.reduce(
-    (sum, item) => sum + (Number(item.price) || 0) * (item.quantity || 0),
+    (sum, item) => sum + getDiscountedPrice(item) * (item.quantity || 0),
     0,
   );
 
@@ -47,8 +65,8 @@ export default function CartScreen() {
   if (!isLoggedIn || !userId) {
     return (
       <SignInPrompt
-        title="Sign In to View Cart"
-        message="Sign in to save your cart items and access your shopping history."
+        title={t('signInToViewCart')}
+        message={t('signInToSaveCart')}
         iconName="cart-outline"
       />
     );
@@ -65,13 +83,13 @@ export default function CartScreen() {
           style={styles.icon}
         />
         <Text style={styles.emptyText}>
-          Your cart is empty! Start shopping to add items to your cart.
+          {t('cartEmpty')}
         </Text>
         <TouchableOpacity
           style={styles.button}
           onPress={() => router.replace("/(tabs)/(1-home)")}
         >
-          <Text style={styles.buttonText}>Continue Shopping</Text>
+          <Text style={styles.buttonText}>{t('continueShopping')}</Text>
         </TouchableOpacity>
       </View>
     );
@@ -93,7 +111,7 @@ export default function CartScreen() {
   // Cart with items UI
   return (
     <SafeAreaView style={styles.container}>
-      <Text style={styles.header}>CART SUMMARY</Text>
+      <Text style={styles.header}>{t('cartSummary')}</Text>
       <FlatList
         data={cart}
         keyExtractor={(item) => item.id.toString()}
@@ -108,14 +126,12 @@ export default function CartScreen() {
         style={styles.list}
       />
       <View style={styles.summary}>
-        <Text style={styles.subtotal}>Subtotal: ${subtotal.toFixed(2)}</Text>
+        <Price amount={subtotal} style={styles.subtotal} />
         <TouchableOpacity style={styles.checkoutButton} onPress={() => router.push('/(tabs)/(3-cart)/CheckoutScreen')}>
-          <Text style={styles.checkoutText}>
-            Checkout (${subtotal.toFixed(2)})
-          </Text>
+          <Price amount={subtotal} style={styles.checkoutText} />
         </TouchableOpacity>
         <TouchableOpacity style={styles.clearButton} onPress={() => clearCart(userId)}>
-          <Text style={styles.clearText}>Clear Cart</Text>
+          <Text style={styles.clearText}>{t('clearCart')}</Text>
         </TouchableOpacity>
       </View>
     </SafeAreaView>
@@ -129,6 +145,8 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     ...commonStyles.buttonText,
+    color: COLORS.text.primary,
+    fontWeight: 'bold',
   },
   checkoutButton: {
     alignItems: "center",
@@ -139,8 +157,8 @@ const styles = StyleSheet.create({
     width: "100%",
   },
   checkoutText: {
-    color: COLORS.text.inverse,
-    fontWeight: "bold",
+    color: COLORS.text.primary,
+    fontWeight: 'bold',
     ...TYPOGRAPHY.body,
   },
   clearButton: {
@@ -154,8 +172,8 @@ const styles = StyleSheet.create({
     width: "100%",
   },
   clearText: {
-    color: COLORS.error,
-    fontWeight: "bold",
+    color: COLORS.text.primary,
+    fontWeight: 'bold',
     ...TYPOGRAPHY.body,
   },
   container: {
@@ -202,3 +220,5 @@ const styles = StyleSheet.create({
     paddingTop: SPACING.md,
   },
 });
+
+

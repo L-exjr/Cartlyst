@@ -2,6 +2,7 @@ import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
 import * as SecureStore from "expo-secure-store";
 import { API_BASE_URL } from "./config";
+import { Alert } from "react-native";
 
 export const useWishlistStore = create(
   persist(
@@ -19,36 +20,43 @@ export const useWishlistStore = create(
         } catch (e) {}
       },
       addToWishlist: async (userId, product) => {
-        if (!userId) return;
+        console.log('addToWishlist called', { userId, product });
+        if (!userId) {
+          console.log('No userId!');
+          Alert.alert('No userId in addToWishlist', 'userId is missing');
+          return;
+        }
         try {
           const response = await fetch(`${API_BASE_URL}/wishlist/add?userId=${userId}&productId=${product.id}`, {
             method: "POST",
           });
+          const text = await response.text();
+          console.log('addToWishlist response', response.status, text);
           if (response.ok) {
             get().fetchWishlist(userId);
           }
-        } catch (e) {}
+        } catch (e) {
+          Alert.alert('Wishlist Error', e.message);
+        }
       },
       removeFromWishlist: async (userId, productId) => {
+        console.log('removeFromWishlist called', { userId, productId });
         if (!userId) {
-          console.log('removeFromWishlist: missing userId', { userId, productId });
+          console.log('No userId!');
+          Alert.alert('No userId in removeFromWishlist', 'userId is missing');
           return;
         }
-        console.log('removeFromWishlist: called', { userId, productId });
         try {
           const response = await fetch(`${API_BASE_URL}/wishlist/remove?userId=${userId}&productId=${productId}`, {
             method: "DELETE",
           });
-          console.log('removeFromWishlist: response', response.status);
+          const text = await response.text();
+          console.log('removeFromWishlist response', response.status, text);
           if (response.ok) {
-            console.log('removeFromWishlist: success, fetching updated wishlist');
             get().fetchWishlist(userId);
-          } else {
-            const errorText = await response.text();
-            console.log('removeFromWishlist: error response', errorText);
           }
         } catch (e) {
-          console.log('removeFromWishlist: fetch error', e);
+          Alert.alert('Wishlist Error', e.message);
         }
       },
       clearWishlist: () => set({ wishlist: [] }),

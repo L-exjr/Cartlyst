@@ -7,15 +7,18 @@ import { useLocalSearchParams } from "expo-router";
 import { API_BASE_URL } from "../../../../utils/config";
 import { useCartStore } from "../../../../utils/cartStore";
 import { useAuthStore } from "../../../../utils/authStore";
+import { useTranslation } from 'react-i18next';
+import Price from '../../../../components/Price';
 
 export default function ProductDetailScreen() {
   const { id } = useLocalSearchParams();
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-
   const addToCart = useCartStore((state) => state.addToCart);
   const userId = useAuthStore((state) => state.userId);
+  const { t } = useTranslation();
+  
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -23,11 +26,11 @@ export default function ProductDetailScreen() {
       setError(null);
       try {
         const response = await fetch(`${API_BASE_URL}/products/${id}`);
-        if (!response.ok) throw new Error("Failed to fetch product");
+        if (!response.ok) throw new Error(t('failedToFetchProduct'));
         const data = await response.json();
         setProduct(data);
       } catch (err) {
-        setError("Failed to load product details.");
+        setError(t('failedToLoadProductDetails'));
       } finally {
         setLoading(false);
       }
@@ -49,13 +52,29 @@ export default function ProductDetailScreen() {
     return (
       <SafeAreaView style={styles.safeArea}>
         <View style={[styles.infoSection, { flex: 1, justifyContent: "center", alignItems: "center" }]}> 
-          <Text style={{ color: COLORS.error }}>{error || "Product not found."}</Text>
+          <Text style={{ color: COLORS.error }}>{error || t('productNotFound')}</Text>
         </View>
       </SafeAreaView>
     );
+    
+  }
+
+  // Helper to get discounted price
+  function getDiscountedPrice(product) {
+    if (!product) return 0;
+    let discount = product.discount || 0;
+    let price = product.price || 0;
+    if (discount > 0 && discount < 1) {
+      return price * (1 - discount);
+    } else if (discount >= 1 && discount <= 100) {
+      return price * (1 - discount / 100);
+    } else {
+      return price - discount;
+    }
   }
 
   return (
+    
     <SafeAreaView style={styles.safeArea}>
       <ScrollView contentContainerStyle={styles.scrollContent}>
         <View style={styles.imageContainer}>
@@ -75,20 +94,23 @@ export default function ProductDetailScreen() {
         <View style={styles.infoSection}>
           <View style={styles.row}>
             <Text style={styles.productName}>{product.title || product.name}</Text>
-            <Text style={styles.price}>${product.price}</Text>
+            <Price amount={getDiscountedPrice(product)} style={styles.price} />
           </View>
+          {product.discount > 0 && (
+            <Price amount={product.price} style={[styles.price, { textDecorationLine: 'line-through', color: '#888', marginLeft: 8 }]} />
+          )}
           <Text style={styles.description}>{product.description}</Text>
           <View style={styles.deliveryRow}>
             <MaterialCommunityIcons name="truck-delivery-outline" size={18} color={COLORS.text.primary} />
-            <Text style={styles.deliveryText}>Free Delivery</Text>
+            <Text style={styles.deliveryText}>{t('freeDelivery')}</Text>
           </View>
           <View style={styles.ratingRow}>
             <FontAwesome6 name="star" size={16} color={COLORS.primary} />
             <Text style={styles.ratingText}>{product.rating || 4.5}</Text>
-            <Text style={styles.reviewsText}>Rating & Reviews</Text>
+            <Text style={styles.reviewsText}>{t('ratingAndReviews')}</Text>
           </View>
           <TouchableOpacity style={styles.addToCartButton} onPress={() => addToCart(userId, product)}>
-            <Text style={styles.addToCartText}>Add to Cart</Text>
+            <Text style={[styles.addToCartText, {fontWeight: 'bold'}]}>{t('addToCart')}</Text>
           </TouchableOpacity>
         </View>
       </ScrollView>
@@ -100,6 +122,7 @@ const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
     backgroundColor: COLORS.background,
+    marginTop: 0, // Removed headerHeight
   },
   scrollContent: {
     flexGrow: 1,
@@ -203,8 +226,13 @@ const styles = StyleSheet.create({
     marginTop: 16,
   },
   addToCartText: {
-    color: COLORS.text.inverse,
-    ...TYPOGRAPHY.button,
-    fontWeight: "bold",
+    color: COLORS.text.primary,
+    fontWeight: 'bold',
+    ...TYPOGRAPHY.body,
   },
-}); 
+  buyNowText: {
+    color: COLORS.text.primary,
+    fontWeight: 'bold',
+    ...TYPOGRAPHY.body,
+  },
+});

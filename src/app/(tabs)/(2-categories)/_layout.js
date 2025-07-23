@@ -11,6 +11,13 @@ export default function CategoriesLayout() {
           headerShown: false,
         }}
       />
+      <Stack.Screen
+        name="products/[categoryId]"
+        options={{
+          title: "Products",
+          headerShown: false,
+        }}
+      />
     </Stack>
   );
 }

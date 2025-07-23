@@ -6,6 +6,9 @@ import {
   TouchableOpacity,
   ScrollView,
   Image,
+  Alert,
+  ActivityIndicator,
+  Modal,
 } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 import { useAuthStore } from "../../../utils/authStore";
@@ -20,55 +23,248 @@ import PropTypes from "prop-types";
 import { COLORS, SPACING, TYPOGRAPHY, SHADOWS } from "../../../utils/theme";
 import { commonStyles } from "../../../utils/styles";
 import { SafeAreaView } from "react-native-safe-area-context";
+import i18n from '../../../utils/i18n';
+import { useTranslation } from 'react-i18next';
+import { useCurrencyStore } from '../../../utils/currencyStore';
+import { Picker } from '@react-native-picker/picker';
 
 export default function AccountScreen() {
   const { logOut, userId } = useAuthStore();
-  const [photo, setPhoto] = useState();
+  // Remove reloadKey and related logic
+  // Always use user.profileImageUrl from the backend as the image source
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [uploading, setUploading] = useState(false);
+  const [imageError, setImageError] = useState(false);
+  const [loadingImage, setLoadingImage] = useState(false);
+  const [imageTimeoutId, setImageTimeoutId] = useState(null);
+  const [showImageOptions, setShowImageOptions] = useState(false);
+  const [showFullScreen, setShowFullScreen] = useState(false);
+  const [cacheBustKey, setCacheBustKey] = useState(0);
+  const { t } = useTranslation();
+  const [showLanguageModal, setShowLanguageModal] = useState(false);
+  const languages = [
+    { code: 'en', label: 'English' },
+    { code: 'fr', label: 'Français' },
+    { code: 'es', label: 'Español' },
+    { code: 'ar', label: 'العربية' },
+    { code: 'zh', label: '中文' },
+    { code: 'ha', label: 'Hausa' },
+    { code: 'pt', label: 'Português' },
+    { code: 'ru', label: 'Русский' },
+    { code: 'hi', label: 'हिन्दी' },
+    { code: 'sw', label: 'Kiswahili' },
+    { code: 'de', label: 'Deutsch' },
+    { code: 'it', label: 'Italiano' },
+    { code: 'tr', label: 'Türkçe' },
+    { code: 'ja', label: '日本語' },
+    { code: 'ko', label: '한국어' },
+    { code: 'nl', label: 'Nederlands' },
+    { code: 'yo', label: 'Yorùbá' },
+    { code: 'ig', label: 'Igbo' },
+    { code: 'bn', label: 'বাংলা' },
+    { code: 'vi', label: 'Tiếng Việt' },
+  ];
+  const { selectedCurrency, setCurrency, fetchRates } = useCurrencyStore();
+  const [showCurrencyModal, setShowCurrencyModal] = useState(false);
+  const currencyList = ['USD', 'EUR', 'GBP', 'GHS', 'NGN', 'KES', 'ZAR', 'INR', 'CNY', 'JPY'];
+
+  // Fetch user on mount and after update/delete
+  const fetchUser = async () => {
+    if (!userId) return;
+    setLoading(true);
+    try {
+      const response = await fetch(`${API_BASE_URL}/api/users/${userId}`);
+      if (response.ok) {
+        const data = await response.json();
+        setUser(data);
+        setImageError(false);
+      } else {
+        setUser(null);
+      }
+    } catch (e) {
+      setUser(null);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   React.useEffect(() => {
-    const fetchUser = async () => {
-      if (!userId) return;
-      setLoading(true);
-      try {
-        const response = await fetch(`${API_BASE_URL}/api/users/${userId}`);
-        if (response.ok) {
-          const data = await response.json();
-          setUser(data);
-        }
-      } catch (e) {
-        // Optionally handle error
-      } finally {
-        setLoading(false);
-      }
-    };
     fetchUser();
   }, [userId]);
+
+  const handleRetryImage = () => {
+    setImageError(false);
+    setLoadingImage(true);
+    fetchUser();
+  };
+
+  const handleDeleteImage = async () => {
+    setShowImageOptions(false);
+    if (!userId) return;
+    Alert.alert(
+      t('deleteProfileImage'),
+      t('deleteProfileImageConfirm'),
+      [
+        { text: t('cancel'), style: 'cancel' },
+        {
+          text: t('delete'),
+          style: 'destructive',
+          onPress: async () => {
+            try {
+              const response = await fetch(`${API_BASE_URL}/api/users/${userId}/profile-image`, {
+                method: 'DELETE',
+              });
+              if (response.ok) {
+                setImageError(false);
+                setCacheBustKey((k) => k + 1);
+                fetchUser();
+                Alert.alert(t('success'), t('profileImageDeleted'));
+                setShowFullScreen(false);
+              } else {
+                Alert.alert(t('error'), t('failedToDeleteProfileImage'));
+              }
+            } catch (e) {
+              Alert.alert(t('error'), t('failedToDeleteProfileImage'));
+            }
+          },
+        },
+      ]
+    );
+  };
+
+  const handleUpdateImage = () => {
+    setShowImageOptions(false);
+    pickAndUploadImage();
+  };
 
   const handleSignOut = () => {
     logOut();
     router.replace("/sign-in");
   };
 
-  const pickImage = async () => {
+  const updateProfileImage = async (imageUrl) => {
+    if (!userId) return;
+    
     try {
-      let result = await ImagePicker.launchImageLibraryAsync({
-        mediaTypes: ["images"],
-        allowsEditing: true,
-        aspect: [1, 1],
-        quality: 1,
+      const response = await fetch(`${API_BASE_URL}/api/users/${userId}/profile-image`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          profileImageUrl: imageUrl
+        })
       });
-      if (!result.canceled) {
-        setPhoto(result.assets[0].uri);
+
+      if (response.ok) {
+        Alert.alert(t('success'), t('profileImageUpdated'));
+        setCacheBustKey((k) => k + 1);
+        fetchUser();
+      } else {
+        Alert.alert(t('error'), t('failedToUpdateProfileImage'));
       }
-    } catch (e) {
-      // Handle image picker error silently or show a toast
+    } catch (error) {
+      Alert.alert(t('error'), t('failedToUpdateProfileImage'));
     }
   };
 
-  const handleSectionPress = () => {
-    router.push("/(tabs)/(5-account)/modal");
+  const pickAndUploadImage = async () => {
+    try {
+      const result = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.Images,
+        allowsEditing: true,
+        aspect: [1, 1],
+        quality: 0.8,
+      });
+
+      if (!result.canceled) {
+        setUploading(true);
+        const uri = result.assets[0].uri;
+        
+        try {
+          console.log('Starting upload through backend');
+          
+          // Create FormData for file upload
+          const formData = new FormData();
+          formData.append('file', {
+            uri: uri,
+            type: 'image/jpeg',
+            name: `profile-${userId}-${Date.now()}.jpg`
+          });
+
+          // Try Supabase upload first
+          let uploadResponse = await fetch(`${API_BASE_URL}/files/upload`, {
+            method: 'POST',
+            body: formData,
+            headers: {
+              'Content-Type': 'multipart/form-data',
+            },
+          });
+
+          let uploadResult;
+          let imageUrl;
+
+          if (!uploadResponse.ok) {
+            console.log('Supabase upload failed, trying local upload...');
+            
+            // Try local upload as fallback
+            uploadResponse = await fetch(`${API_BASE_URL}/files/upload-local`, {
+              method: 'POST',
+              body: formData,
+              headers: {
+                'Content-Type': 'multipart/form-data',
+              },
+            });
+
+            if (!uploadResponse.ok) {
+              throw new Error('Both Supabase and local upload failed');
+            }
+
+            uploadResult = await uploadResponse.json();
+            console.log('Local upload result:', uploadResult);
+          } else {
+            uploadResult = await uploadResponse.json();
+            console.log('Supabase upload result:', uploadResult);
+          }
+          
+          imageUrl = uploadResult.downloadUrl;
+          
+          if (!imageUrl) {
+            throw new Error('No download URL received from upload');
+          }
+          
+          // Update profile image in backend
+          await updateProfileImage(imageUrl);
+          
+        } catch (e) {
+          console.error('Upload error details:', e);
+          Alert.alert(t('uploadFailed'), t('failedToUploadImage', { error: e.message }));
+        } finally {
+          setUploading(false);
+        }
+      }
+    } catch (error) {
+      console.error('Image picker error:', error);
+      Alert.alert(t('error'), t('failedToPickImage'));
+      setUploading(false);
+    }
+  };
+
+  const handleOrders = () => router.push("/(tabs)/(5-account)/orders-modal");
+  const handleVouchers = () => router.push("/(tabs)/(5-account)/vouchers-modal");
+  const handleRatings = () => router.push("/(tabs)/(5-account)/ratings-modal");
+  const handleInterests = () => router.push("/(tabs)/(5-account)/interests-modal");
+  const handleRecentlyViewed = () => router.push("/(tabs)/(5-account)/recently-viewed-modal");
+  const handleRecentlySearched = () => router.push("/(tabs)/(5-account)/recently-searched-modal");
+  const handleBuyAgain = () => router.push("/(tabs)/(5-account)/buy-again-modal");
+  const handleLists = () => router.push("/(tabs)/(5-account)/lists-modal");
+  const handlePayment = () => router.push("/(tabs)/(5-account)/payment-modal");
+  const handleAddress = () => router.push("/(tabs)/(5-account)/address-modal");
+  const handleLegal = () => router.push("/(tabs)/(5-account)/legal-modal");
+  const handleRate = () => router.push("/(tabs)/(5-account)/rate-modal");
+  const handleSwitchToSeller = () => {
+    router.replace('/seller');
   };
 
   return (
@@ -80,16 +276,91 @@ export default function AccountScreen() {
         {/* Profile Image */}
         <View style={styles.imageContainer}>
           <View>
-            <TouchableOpacity onPress={pickImage}>
+            <TouchableOpacity onPress={() => setShowFullScreen(true)} disabled={uploading}>
               <Image
-                style={styles.image}
+                style={[styles.image, uploading && styles.imageUploading]}
                 source={
-                  photo
-                    ? { uri: photo }
+                  !imageError && user && user.profileImageUrl
+                    ? { uri: user.profileImageUrl + '?cb=' + cacheBustKey }
                     : require("../../../../assets/placeholder.png")
                 }
+                onLoadStart={() => {
+                  if (!imageError) {
+                    setLoadingImage(true);
+                    if (imageTimeoutId) clearTimeout(imageTimeoutId);
+                    const timeout = setTimeout(() => {
+                      setLoadingImage(false);
+                      setImageError(true);
+                    }, 5000);
+                    setImageTimeoutId(timeout);
+                  }
+                }}
+                onError={() => {
+                  setLoadingImage(false);
+                  setImageError(true);
+                  if (imageTimeoutId) clearTimeout(imageTimeoutId);
+                }}
+                onLoad={() => {
+                  setLoadingImage(false);
+                  setImageError(false);
+                  if (imageTimeoutId) clearTimeout(imageTimeoutId);
+                }}
               />
+              {/* Pencil Icon */}
+              <TouchableOpacity
+                style={styles.pencilIcon}
+                onPress={() => setShowImageOptions(true)}
+                disabled={uploading}
+              >
+                <FontAwesome6 name="pencil" size={30} color="#000" style={{ transform: [{ scaleX: -1 }] }} />
+              </TouchableOpacity>
+              {loadingImage && (
+                <View style={styles.uploadingOverlay}>
+                  <ActivityIndicator color="#fff" />
+                  <Text style={styles.uploadingText}>{t('loading')}</Text>
+                </View>
+              )}
             </TouchableOpacity>
+            {/* Image Options Modal */}
+            <Modal
+              visible={showImageOptions}
+              transparent
+              animationType="fade"
+              onRequestClose={() => setShowImageOptions(false)}
+            >
+              <TouchableOpacity style={styles.modalOverlay} onPress={() => setShowImageOptions(false)} activeOpacity={1}>
+                <View style={styles.optionsMenu}>
+                  <TouchableOpacity onPress={handleUpdateImage} style={styles.optionBtn}>
+                    <Text style={styles.optionText}>{t('updateProfileImage')}</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity onPress={handleDeleteImage} style={styles.optionBtn}>
+                    <Text style={[styles.optionText, { color: COLORS.error }]}>{t('deleteProfileImage')}</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity onPress={() => setShowImageOptions(false)} style={styles.optionBtn}>
+                    <Text style={styles.optionText}>{t('cancel')}</Text>
+                  </TouchableOpacity>
+                </View>
+              </TouchableOpacity>
+            </Modal>
+            {/* Full Screen Image Modal */}
+            <Modal
+              visible={showFullScreen}
+              transparent
+              animationType="fade"
+              onRequestClose={() => setShowFullScreen(false)}
+            >
+              <TouchableOpacity style={styles.fullScreenOverlay} onPress={() => setShowFullScreen(false)} activeOpacity={1}>
+                <Image
+                  style={styles.fullScreenImage}
+                  source={
+                    !imageError && user && user.profileImageUrl
+                      ? { uri: user.profileImageUrl + '?cb=' + cacheBustKey }
+                      : require("../../../../assets/placeholder.png")
+                  }
+                  resizeMode="contain"
+                />
+              </TouchableOpacity>
+            </Modal>
           </View>
         </View>
 
@@ -98,10 +369,10 @@ export default function AccountScreen() {
           <View style={styles.greetingAndEmail}>
             <Text style={styles.greeting}>
               {loading
-                ? "Loading..."
+                ? t('loading')
                 : user
-                ? `Welcome, ${(user.fullName || "User").split(" ")[0]}!`
-                : "Welcome!"}
+                ? t('welcomeUser', { name: (user.fullName || t('user')).split(' ')[0] })
+                : t('welcome')}
             </Text>
             <Text style={styles.email}>
               {loading ? "" : user ? user.email : ""}
@@ -111,100 +382,109 @@ export default function AccountScreen() {
             <TouchableOpacity style={styles.notification}>
               <FontAwesome6 name="bell" size={24}></FontAwesome6>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.language}>
+            <TouchableOpacity style={styles.language} onPress={() => router.push("/(tabs)/(5-account)/language-modal")}>
               <MaterialIcons name="language" size={24}></MaterialIcons>
             </TouchableOpacity>
           </View>
         </View>
 
         {/* Section List Example */}
+        
         <View style={styles.section1}>
+        <SectionItem
+          IconComponent={FontAwesome6}
+          iconName="money-bill-transfer"
+          label={`Currency: ${selectedCurrency}`}
+          onPress={() => router.push('/(tabs)/(5-account)/currency-modal')}
+        />
           <SectionItem
             IconComponent={MaterialIcons}
             iconName="storefront"
-            label="Orders"
-            onPress={handleSectionPress}
+            label={t('orders')}
+            onPress={handleOrders}
           />
           <SectionItem
             IconComponent={MaterialCommunityIcons}
             iconName="ticket-confirmation-outline"
-            label="Vouchers"
-            onPress={handleSectionPress}
+            label={t('vouchers')}
+            onPress={handleVouchers}
           />
           <SectionItem
             IconComponent={MaterialIcons}
             iconName="rate-review"
-            label="Ratings & Reviews"
-            onPress={handleSectionPress}
+            label={t('ratings')}
+            onPress={handleRatings}
           />
           <SectionItem
             IconComponent={MaterialIcons}
             iconName="interests"
-            label="Interests"
-            onPress={handleSectionPress}
+            label={t('interests')}
+            onPress={handleInterests}
           />
         </View>
         <View style={styles.section2}>
           <SectionItem
             IconComponent={FontAwesome6}
             iconName="eye"
-            label="Recently Viewed"
-            onPress={handleSectionPress}
+            label={t('recentlyViewed')}
+            onPress={handleRecentlyViewed}
           />
           <SectionItem
             IconComponent={MaterialIcons}
             iconName="youtube-searched-for"
-            label="Recently Searched"
-            onPress={handleSectionPress}
+            label={t('recentlySearched')}
+            onPress={handleRecentlySearched}
           />
           <SectionItem
             IconComponent={MaterialIcons}
             iconName="shopping-basket"
-            label="But Again"
-            onPress={handleSectionPress}
+            label={t('buyAgain')}
+            onPress={handleBuyAgain}
           />
           <SectionItem
             IconComponent={MaterialCommunityIcons}
             iconName="view-list-outline"
-            label="Lists and Registries"
-            onPress={handleSectionPress}
+            label={t('lists')}
+            onPress={handleLists}
           />
         </View>
         <View style={styles.section3}>
           <SectionItem
             IconComponent={FontAwesome6}
             iconName="money-check-dollar"
-            label="Payment Settings"
-            onPress={handleSectionPress}
+            label={t('payment')}
+            onPress={handlePayment}
           />
           <SectionItem
             IconComponent={FontAwesome6}
             iconName="location-dot"
-            label="Address Book"
-            onPress={handleSectionPress}
+            label={t('address')}
+            onPress={handleAddress}
           />
           <SectionItem
             IconComponent={MaterialIcons}
             iconName="policy"
-            label="Legal & About"
-            onPress={handleSectionPress}
+            label={t('legal')}
+            onPress={handleLegal}
           />
           <SectionItem
             IconComponent={FontAwesome6}
             iconName="star"
-            label="Rate Our App"
-            onPress={handleSectionPress}
+            label={t('rate')}
+            onPress={handleRate}
           />
         </View>
+        
 
         {/* Sign Out & Switch Account */}
         <TouchableOpacity style={styles.signoutBtn} onPress={handleSignOut}>
-          <Text style={styles.signoutText}>Logout</Text>
+          <Text style={styles.signoutText}>{t('logout')}</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.switchBtn}>
-          <Text style={styles.switchText}>
-            Switch <MaterialCommunityIcons name="transit-transfer" size={16} />
-          </Text>
+        <TouchableOpacity style={styles.switchBtn} onPress={handleSwitchToSeller}>
+          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+            <Text style={styles.switchText}>{t('switch')}</Text>
+            <MaterialCommunityIcons name="transit-transfer" size={16} />
+          </View>
         </TouchableOpacity>
       </ScrollView>
     </SafeAreaView>
@@ -263,6 +543,25 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginTop: SPACING.sm,
     padding: 0,
+  },
+  imageUploading: {
+    opacity: 0.7,
+  },
+  uploadingOverlay: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    backgroundColor: 'rgba(0,0,0,0.5)',
+    borderRadius: 75,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  uploadingText: {
+    color: COLORS.text.inverse,
+    ...TYPOGRAPHY.caption,
+    fontWeight: 'bold',
   },
   language: {
     paddingHorizontal: SPACING.sm,
@@ -326,5 +625,49 @@ const styles = StyleSheet.create({
     color: COLORS.text.primary,
     ...TYPOGRAPHY.h3,
     fontWeight: "bold",
+  },
+  debugText: {
+    ...TYPOGRAPHY.caption,
+    color: COLORS.text.secondary,
+    marginTop: SPACING.sm,
+  },
+  pencilIcon: {
+    position: 'absolute',
+    right: 10,
+    bottom: 10,
+    zIndex: 10,
+  },
+  modalOverlay: {
+    flex: 1,
+    backgroundColor: 'rgba(0,0,0,0.4)',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  optionsMenu: {
+    backgroundColor: COLORS.surface,
+    borderRadius: 12,
+    padding: 20,
+    width: 250,
+    alignItems: 'center',
+  },
+  optionBtn: {
+    paddingVertical: 12,
+    width: '100%',
+    alignItems: 'center',
+  },
+  optionText: {
+    ...TYPOGRAPHY.body,
+    color: COLORS.text.primary,
+    fontWeight: 'bold',
+  },
+  fullScreenOverlay: {
+    flex: 1,
+    backgroundColor: 'rgba(0,0,0,0.95)',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  fullScreenImage: {
+    width: '100%',
+    height: '100%',
   },
 });

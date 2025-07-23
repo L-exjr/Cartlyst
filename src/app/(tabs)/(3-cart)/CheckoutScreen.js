@@ -1,13 +1,19 @@
 import React, { useState } from "react";
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert, Pressable } from "react-native";
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert, Pressable, KeyboardAvoidingView, Platform, Image, ScrollView } from "react-native";
 import { useCartStore } from "../../../utils/cartStore";
 import { useAuthStore } from "../../../utils/authStore";
 import { useRouter } from "expo-router";
 import { COLORS, SPACING, BORDER_RADIUS, TYPOGRAPHY } from "../../../utils/theme";
 import { FontAwesome6 } from "@expo/vector-icons";
-import PaystackWebView from "react-native-paystack-webview";
+import * as Linking from 'expo-linking';
+import { API_BASE_URL } from '../../../utils/config';
+import { WebView } from 'react-native-webview';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import momo from '../../../../assets/momo.png';
+import card from '../../../../assets/card.png';
+import { useTranslation } from 'react-i18next';
+import Price from '../../../components/Price';
 
-console.log("PaystackWebView:", PaystackWebView);
 console.log("FontAwesome6:", FontAwesome6);
 console.log("useCartStore:", useCartStore);
 console.log("useAuthStore:", useAuthStore);
@@ -15,127 +21,232 @@ console.log("COLORS:", COLORS);
 
 const DELIVERY_FEE = 5.0;
 
+// Helper to get discounted price
+function getDiscountedPrice(product) {
+  if (!product) return 0;
+  let discount = product.discount || 0;
+  let price = product.price || 0;
+  if (discount > 0 && discount < 1) {
+    return price * (1 - discount);
+  } else if (discount >= 1 && discount <= 100) {
+    return price * (1 - discount / 100);
+  } else {
+    return price - discount;
+  }
+}
+
 export default function CheckoutScreen() {
   const cart = useCartStore((state) => state.cart);
   const clearCart = useCartStore((state) => state.clearCart);
   const userId = useAuthStore((state) => state.userId);
   const router = useRouter();
+  const { t } = useTranslation();
 
   const [promoCode, setPromoCode] = useState("");
   const [paymentMethod, setPaymentMethod] = useState("debit_card");
   const [showPaystack, setShowPaystack] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [paymentUrl, setPaymentUrl] = useState(null);
+  const [shippingAddress, setShippingAddress] = useState("");
+  const [shippingPhone, setShippingPhone] = useState("");
+  const [shippingName, setShippingName] = useState("");
 
-  const subtotal = cart.reduce((sum, item) => sum + (Number(item.price) || 0) * (item.quantity || 0), 0);
+  // Use discounted price for subtotal and total
+  const subtotal = cart.reduce((sum, item) => sum + getDiscountedPrice(item) * (item.quantity || 0), 0);
   const total = subtotal + DELIVERY_FEE;
 
   // Dummy email for test mode
   const billingEmail = "student@example.com";
 
-  const handleContinue = () => {
+  const handleContinue = async () => {
+    if (!shippingName.trim() || !shippingAddress.trim() || !shippingPhone.trim()) {
+      Alert.alert(t('missingInfo'), t('enterShippingDetails'));
+      return;
+    }
     if (paymentMethod === "debit_card") {
-      setShowPaystack(true);
+      setLoading(true);
+      try {
+        const response = await fetch(`${API_BASE_URL}/api/paystack/init`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email: billingEmail, amount: total }),
+        });
+        const data = await response.json();
+        setLoading(false);
+        if (data.url) {
+          setPaymentUrl(data.url); // Show WebView
+        } else {
+          Alert.alert(t('paymentError'), t('failedToGetPaymentLink'));
+        }
+      } catch (error) {
+        setLoading(false);
+        Alert.alert(t('paymentError'), t('failedToInitPayment'));
+      }
     } else {
-      Alert.alert("Mobile Money", "Mobile Money test integration is not implemented in this demo.");
+      Alert.alert(t('mobileMoney'), t('mobileMoneyNotImplemented'));
+    }
+  };
+
+  const handleOrder = async () => {
+    try {
+      const orderPayload = {
+        userId,
+        items: cart.map(item => ({ productId: item.id, quantity: item.quantity, price: item.price })),
+        shippingName,
+        shippingAddress,
+        shippingPhone,
+      };
+      const response = await fetch(`${API_BASE_URL}/checkout`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(orderPayload),
+      });
+      // Optionally check response status or data
+    } catch (e) {
+      // Optionally handle error
+    }
+  };
+
+  const handleWebViewNavChange = async navState => {
+    const url = navState.url;
+    console.log('WebView navState.url:', url);
+    // Adjust these patterns to match your Paystack callback/success/cancel URLs
+    const isSuccess = url.includes('paystack/success') || url.includes('callback') || url.includes('success');
+    const isCancel = url.includes('paystack.com/close') || url.includes('cancel');
+    if (isSuccess) {
+      setPaymentUrl(null);
+      try {
+        await handleOrder();
+        clearCart(userId);
+        Alert.alert(t('paymentSuccessful'), t('orderPlaced'), [
+          { text: t('ok'), onPress: () => router.replace('/(tabs)/(1-home)') }
+        ]);
+      } catch (e) {
+        Alert.alert(t('orderError'), t('paymentSucceededOrderFailed'));
+      }
+    } else if (isCancel) {
+      setPaymentUrl(null);
+      Alert.alert(t('paymentClosed'));
     }
   };
 
   return (
-    <View style={styles.container}>
-      {/* Header */}
-      <View style={styles.headerRow}>
-        <TouchableOpacity onPress={() => router.back()} style={styles.backBtn}>
-          <FontAwesome6 name="arrow-left" size={20} color={COLORS.text.inverse} />
-        </TouchableOpacity>
-        <Text style={styles.headerTitle}>Checkout</Text>
-      </View>
-
-      {/* Order Summary */}
-      <Text style={styles.sectionTitle}>Order Summary</Text>
-      <View style={styles.summaryTable}>
-        <View style={styles.summaryRow}>
-          <Text style={styles.summaryLabel}>Items Total</Text>
-          <Text style={styles.summaryValue}>${subtotal.toFixed(2)}</Text>
-        </View>
-        <View style={styles.summaryRow}>
-          <Text style={styles.summaryLabel}>Delivery Fees</Text>
-          <Text style={styles.summaryValue}>${DELIVERY_FEE.toFixed(2)}</Text>
-        </View>
-        {cart.map((item) => (
-          <View style={styles.summaryRow} key={item.id}>
-            <Text style={styles.summaryLabel}>{item.title}</Text>
-            <Text style={styles.summaryValue}>${(Number(item.price) * item.quantity).toFixed(2)}</Text>
+    paymentUrl ? (
+      <View style={{ flex: 1, backgroundColor: COLORS.background }}>
+        <SafeAreaView style={{ backgroundColor: COLORS.primary }} edges={['top']}>
+          <View style={styles.headerRow}>
+            <TouchableOpacity onPress={() => setPaymentUrl(null)} style={styles.backBtn}>
+              <FontAwesome6 name="arrow-left" size={20} color={COLORS.text.primary} />
+            </TouchableOpacity>
+            <Text style={styles.headerText}>{t('payWithPaystack')}</Text>
           </View>
-        ))}
-        <View style={styles.summaryRowTotal}>
-          <Text style={styles.summaryLabelTotal}>Total</Text>
-          <Text style={styles.summaryValueTotal}>${total.toFixed(2)}</Text>
+        </SafeAreaView>
+        <View style={{ flex: 1, borderRadius: BORDER_RADIUS.md, overflow: 'hidden' }}>
+          <WebView
+            source={{ uri: paymentUrl }}
+            style={{ flex: 1, backgroundColor: COLORS.background }}
+            onNavigationStateChange={handleWebViewNavChange}
+            onError={() => {
+              setPaymentUrl(null);
+              Alert.alert('Payment Error', 'WebView failed to load.');
+            }}
+          />
         </View>
       </View>
+    ) : (
+      <View style={{ flex: 1, backgroundColor: COLORS.background }}>
+        <SafeAreaView style={{ backgroundColor: COLORS.primary }} edges={['top']}>
+          <View style={styles.headerRow}>
+            <TouchableOpacity onPress={() => router.back()} style={styles.backBtn}>
+              <FontAwesome6 name="arrow-left" size={20} color={COLORS.text.primary} />
+            </TouchableOpacity>
+            <Text style={styles.headerText}>{t('checkout')}</Text>
+          </View>
+        </SafeAreaView>
+        <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
+          <ScrollView style={styles.checkoutContent}>
+            {/* Order Summary */}
+            <Text style={styles.sectionTitle}>{t('orderSummary')}</Text>
+            <View style={styles.summaryTable}>
+              <View style={styles.summaryRow}>
+                <Text style={styles.summaryLabel}>{t('itemsTotal')}</Text>
+                <Price amount={subtotal} />
+              </View>
+              <View style={styles.summaryRow}>
+                <Text style={styles.summaryLabel}>{t('deliveryFees')}</Text>
+                <Price amount={DELIVERY_FEE} />
+              </View>
+              {cart.map((item) => (
+                <View style={styles.summaryRow} key={item.id}>
+                  <Text style={styles.summaryLabel}>{item.title}</Text>
+                  <Price amount={getDiscountedPrice(item) * item.quantity} />
+                </View>
+              ))}
+              <View style={styles.summaryRowTotal}>
+                <Text style={styles.summaryLabelTotal}>{t('total')}</Text>
+                <Price amount={total} />
+              </View>
+            </View>
+            {/* Shipping Address */}
+            <Text style={styles.sectionTitle}>{t('shippingDetails')}</Text>
+            <TextInput
+              style={styles.promoInput}
+              placeholder={t('shippingName')}
+              value={shippingName}
+              onChangeText={setShippingName}
+            />
+            <TextInput
+              style={styles.promoInput}
+              placeholder={t('shippingAddress')}
+              value={shippingAddress}
+              onChangeText={setShippingAddress}
+            />
+            <TextInput
+              style={styles.promoInput}
+              placeholder={t('shippingPhone')}
+              value={shippingPhone}
+              onChangeText={setShippingPhone}
+              keyboardType="phone-pad"
+            />
+            {/* Payment Method */}
+            <Text style={styles.sectionTitle}>{t('selectPaymentMethod')}</Text>
+            <View style={styles.paymentRow}>
+              <Text style={styles.paymentLabel}>{t('payWith')}</Text>
 
-      {/* Payment Method */}
-      <Text style={styles.sectionTitle}>Select a payment method</Text>
-      <View style={styles.paymentRow}>
-        <Text style={styles.paymentLabel}>Paying With</Text>
-        <TouchableOpacity>
-          <Text style={styles.addNew}>+ Add New</Text>
-        </TouchableOpacity>
+            </View>
+            <View style={styles.paymentOptions}>
+              {/* Mobile Money Icon */}
+              <View style={[styles.paymentOption, { backgroundColor: '#fff', borderWidth: 0, padding: 0, borderRadius: '50%'}]}>
+                <Image source={momo} style={styles.paymentImage} />
+              </View>
+              {/* Debit Card Icon */}
+              <View style={[styles.paymentOption, { backgroundColor: '#fff', borderWidth: 0, padding: 0, borderRadius: '50%' }]}>
+                <Image source={card} style={styles.paymentImage} />
+              </View>
+              </View>
+            {/* Promo Code */}
+            <View style={styles.promoBox}>
+              <Text style={styles.promoLabel}>{t('addVoucherGiftPromo')}</Text>
+              <TextInput
+                style={styles.promoInput}
+                placeholder={t('enterCode')}
+                value={promoCode}
+                onChangeText={setPromoCode}
+              />
+            </View>
+            {/* Continue Button */}
+            <TouchableOpacity style={styles.continueBtn} onPress={handleContinue}>
+              <Text style={styles.continueText}>{t('continue')}</Text>
+            </TouchableOpacity>
+            {loading && (
+              <View style={{ alignItems: 'center', marginVertical: 10 }}>
+                <Text>{t('generatingPaymentLink')}</Text>
+              </View>
+            )}
+          </ScrollView>
+        </KeyboardAvoidingView>
       </View>
-      <View style={styles.paymentOptions}>
-        <Pressable
-          style={[styles.paymentOption, paymentMethod === "mobile_money" && styles.paymentOptionSelected]}
-          onPress={() => setPaymentMethod("mobile_money")}
-        >
-          <FontAwesome6 name="mobile" size={18} color={COLORS.primary} style={{ marginRight: 8 }} />
-          <Text>Mobile Money</Text>
-        </Pressable>
-        <Pressable
-          style={[styles.paymentOption, paymentMethod === "debit_card" && styles.paymentOptionSelected]}
-          onPress={() => setPaymentMethod("debit_card")}
-        >
-          <FontAwesome6 name="credit-card" size={18} color={COLORS.primary} style={{ marginRight: 8 }} />
-          <Text>Debit Card</Text>
-          <FontAwesome6 name="cc-visa" size={18} color="#1a1f71" style={{ marginLeft: 8 }} />
-          <FontAwesome6 name="cc-mastercard" size={18} color="#eb001b" style={{ marginLeft: 4 }} />
-        </Pressable>
-      </View>
-
-      {/* Promo Code */}
-      <View style={styles.promoBox}>
-        <Text style={styles.promoLabel}>Add voucher, gift card or promo code</Text>
-        <TextInput
-          style={styles.promoInput}
-          placeholder="Enter Code"
-          value={promoCode}
-          onChangeText={setPromoCode}
-        />
-      </View>
-
-      {/* Continue Button */}
-      <TouchableOpacity style={styles.continueBtn} onPress={handleContinue}>
-        <Text style={styles.continueText}>Continue</Text>
-      </TouchableOpacity>
-
-      {/* Paystack WebView */}
-      {showPaystack && (
-        <PaystackWebView
-          paystackKey="pk_test_efbcae4b0a420a7d4edf634f4f1a7eac9bbf1e14"
-          amount={total}
-          billingEmail={billingEmail}
-          activityIndicatorColor="gold"
-          onSuccess={transaction => {
-            setShowPaystack(false);
-            clearCart(userId);
-            Alert.alert('Payment Successful', 'Your order has been placed successfully.', [
-              { text: 'OK', onPress: () => router.replace('/(tabs)/(1-home)') }
-            ]);
-          }}
-          onCancel={() => {
-            setShowPaystack(false);
-            Alert.alert('Payment Cancelled');
-          }}
-        />
-      )}
-    </View>
+    )
   );
 }
 
@@ -148,11 +259,14 @@ const styles = StyleSheet.create({
   headerRow: {
     flexDirection: "row",
     alignItems: "center",
-    backgroundColor: COLORS.text.primary,
-    paddingVertical: 12,
-    paddingHorizontal: 8,
-    marginBottom: 12,
-    borderRadius: BORDER_RADIUS.md,
+    height: 56,
+    paddingHorizontal: SPACING.md,
+    backgroundColor: COLORS.primary,
+  },
+  headerText: {
+    ...TYPOGRAPHY.h3,
+    fontWeight: "bold",
+    color: COLORS.text.primary,
   },
   backBtn: {
     marginRight: 12,
@@ -215,12 +329,20 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   addNew: {
-    color: COLORS.primary,
+    color: COLORS.text.primary,
     fontWeight: "bold",
   },
   paymentOptions: {
     flexDirection: "row",
     marginBottom: 16,
+    justifyContent: "center",
+    gap: 16,
+  },
+  paymentRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    marginBottom: 8,
   },
   paymentOption: {
     flexDirection: "row",
@@ -252,6 +374,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     height: 44,
     padding: SPACING.md,
+    marginBottom: 8,
   },
   continueBtn: {
     backgroundColor: COLORS.primary,
@@ -261,8 +384,39 @@ const styles = StyleSheet.create({
     marginTop: 12,
   },
   continueText: {
-    color: COLORS.text.inverse,
+    color: COLORS.text.primary,
     fontWeight: "bold",
     fontSize: 18,
+  },
+  webviewHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: COLORS.text.primary,
+    padding: 12,
+    borderTopLeftRadius: BORDER_RADIUS.md,
+    borderTopRightRadius: BORDER_RADIUS.md,
+    paddingTop: Platform.OS === 'ios' ? 44 : 12, // Safe area for iOS
+  },
+  webviewWrapper: {
+    flex: 1,
+    backgroundColor: COLORS.background,
+    borderRadius: BORDER_RADIUS.md,
+    margin: 8,
+    overflow: 'hidden',
+  },
+  checkoutContent: {
+    flex: 1,
+    padding: SPACING.md,
+  },
+  paymentOptionText: {
+    color: COLORS.text.primary,
+    fontWeight: "bold",
+  },
+  paymentImage: {
+    width: 56,
+    height: 56,
+    borderRadius: 28,
+    resizeMode: 'cover',
+    margin: 8,
   },
 }); 
