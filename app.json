@@ -14,7 +14,11 @@
       "backgroundColor": "#ffffff"
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.L-exjr.Cartlyst",
+      "infoPlist": {
+        "ITSAppUsesNonExemptEncryption": false
+      }
     },
     "android": {
       "adaptiveIcon": {
@@ -43,7 +47,7 @@
     "extra": {
       "router": {},
       "eas": {
-        "projectId": "44ea07e0-0d53-47d7-ba91-115a7cd8c534"
+        "projectId": "7e8e8217-bde3-42d0-8bde-fb4b1b10f25d"
       }
     }
   }
