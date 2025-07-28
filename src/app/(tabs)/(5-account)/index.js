@@ -27,6 +27,7 @@ import i18n from '../../../utils/i18n';
 import { useTranslation } from 'react-i18next';
 import { useCurrencyStore } from '../../../utils/currencyStore';
 import { Picker } from '@react-native-picker/picker';
+import * as Screens from './modalContent';
 
 export default function AccountScreen() {
   const { logOut, userId } = useAuthStore();
@@ -172,7 +173,7 @@ export default function AccountScreen() {
   const pickAndUploadImage = async () => {
     try {
       const result = await ImagePicker.launchImageLibraryAsync({
-        mediaTypes: ImagePicker.MediaTypeOptions.Images,
+        mediaTypes: [ 'images' ],
         allowsEditing: true,
         aspect: [1, 1],
         quality: 0.8,
