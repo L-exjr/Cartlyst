@@ -86,11 +86,15 @@ export default function ResetPasswordScreen() {
           setNewPassword("");
           setConfirmPassword("");
         } else {
-          showError(data.error || "An error occurred while resetting your password");
+          showError(
+            data.error || "An error occurred while resetting your password",
+          );
         }
       } catch (error) {
         setLoading(false);
-        showError(error.message || "An error occurred while resetting your password");
+        showError(
+          error.message || "An error occurred while resetting your password",
+        );
       }
       return;
     }
@@ -109,26 +113,40 @@ export default function ResetPasswordScreen() {
       setSuccess("");
       // Compute the base URL for the reset link (remove /api or /api/auth if present)
       let resetBaseUrl = API_BASE_URL.replace(/\/api(\/auth)?$/, "");
-      console.log("Sending password reset request for:", email, "with resetBaseUrl:", resetBaseUrl);
+      console.log(
+        "Sending password reset request for:",
+        email,
+        "with resetBaseUrl:",
+        resetBaseUrl,
+      );
       // Call backend API
-      const res = await fetch(`${API_BASE_URL}/api/auth/request-password-reset`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, resetBaseUrl }),
-      });
+      const res = await fetch(
+        `${API_BASE_URL}/api/auth/request-password-reset`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email, resetBaseUrl }),
+        },
+      );
       const data = await res.json();
       console.log("Password reset response:", res.status, data);
       setLoading(false);
       if (res.ok) {
-        setSuccess("If your email is registered, you will receive a password reset link.");
+        setSuccess(
+          "If your email is registered, you will receive a password reset link.",
+        );
         setEmail("");
       } else {
-        showError(data.error || "An error occurred while resetting your password");
+        showError(
+          data.error || "An error occurred while resetting your password",
+        );
       }
     } catch (error) {
       setLoading(false);
       console.error("Password reset error:", error);
-      showError(error.message || "An error occurred while resetting your password");
+      showError(
+        error.message || "An error occurred while resetting your password",
+      );
     }
   };
 
@@ -162,7 +180,8 @@ export default function ResetPasswordScreen() {
                   </Text>
                 ) : (
                   <Text style={styles.subtitle}>
-                    Enter your email address and you'll receive instructions to reset your password.
+                    Enter your email address and you'll receive instructions to
+                    reset your password.
                   </Text>
                 )}
               </View>
@@ -217,7 +236,11 @@ export default function ResetPasswordScreen() {
                 disabled={loading}
               >
                 <Text style={styles.resetButtonText}>
-                  {loading ? "Sending..." : token ? "Set New Password" : "Reset Password"}
+                  {loading
+                    ? "Sending..."
+                    : token
+                      ? "Set New Password"
+                      : "Reset Password"}
                 </Text>
               </TouchableOpacity>
             </View>
@@ -243,8 +266,20 @@ export default function ResetPasswordScreen() {
               </Animated.View>
             )}
             {success ? (
-              <View style={[styles.errorContainer, { backgroundColor: COLORS.success, borderLeftColor: COLORS.success }]}>
-                <Text style={[styles.errorText, { color: COLORS.text.primary }]}>{success}</Text>
+              <View
+                style={[
+                  styles.errorContainer,
+                  {
+                    backgroundColor: COLORS.success,
+                    borderLeftColor: COLORS.success,
+                  },
+                ]}
+              >
+                <Text
+                  style={[styles.errorText, { color: COLORS.text.primary }]}
+                >
+                  {success}
+                </Text>
               </View>
             ) : null}
           </ScrollView>

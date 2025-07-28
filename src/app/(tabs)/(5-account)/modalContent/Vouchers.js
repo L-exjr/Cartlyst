@@ -1,8 +1,16 @@
-import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, FlatList, TouchableOpacity, ActivityIndicator } from 'react-native';
-import { useRouter } from 'expo-router';
-import { API_BASE_URL } from '../../../../utils/config';
-import { useAuthStore } from '../../../../utils/authStore';
+import React, { useEffect, useState } from "react";
+import {
+  View,
+  Text,
+  StyleSheet,
+  FlatList,
+  TouchableOpacity,
+  ActivityIndicator,
+} from "react-native";
+import { useRouter } from "expo-router";
+import { API_BASE_URL } from "../../../../utils/config";
+import { useAuthStore } from "../../../../utils/authStore";
+import { COLORS } from "../../../../utils/theme";
 
 export default function VouchersModal() {
   const router = useRouter();
@@ -17,7 +25,7 @@ export default function VouchersModal() {
       setError(null);
       try {
         const res = await fetch(`${API_BASE_URL}/vouchers/${userId}`);
-        if (!res.ok) throw new Error('Failed to fetch vouchers');
+        if (!res.ok) throw new Error("Failed to fetch vouchers");
         const data = await res.json();
         setVouchers(data);
       } catch (e) {
@@ -39,7 +47,7 @@ export default function VouchersModal() {
       ) : (
         <FlatList
           data={vouchers}
-          keyExtractor={item => item.id?.toString()}
+          keyExtractor={(item) => item.id?.toString()}
           renderItem={({ item }) => (
             <View style={styles.voucherItem}>
               <Text style={styles.voucherText}>Code: {item.code}</Text>
@@ -47,10 +55,15 @@ export default function VouchersModal() {
               <Text style={styles.voucherText}>Expiry: {item.expiry}</Text>
             </View>
           )}
-          ListEmptyComponent={<Text style={styles.voucherText}>No vouchers found.</Text>}
+          ListEmptyComponent={
+            <Text style={styles.voucherText}>No vouchers found.</Text>
+          }
         />
       )}
-      <TouchableOpacity style={styles.closeButton} onPress={() => router.back()}>
+      <TouchableOpacity
+        style={styles.closeButton}
+        onPress={() => router.back()}
+      >
         <Text style={styles.closeText}>Close</Text>
       </TouchableOpacity>
     </View>
@@ -58,11 +71,28 @@ export default function VouchersModal() {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#fff', padding: 24 },
-  title: { fontSize: 24, fontWeight: 'bold', marginBottom: 16 },
-  voucherItem: { marginBottom: 16, padding: 12, borderRadius: 8, backgroundColor: '#f1f1f1', width: 300 },
+  closeButton: {
+    backgroundColor: COLORS.primary,
+    borderRadius: 8,
+    marginTop: 24,
+    padding: 12,
+  },
+  closeText: { color: COLORS.surface, fontSize: 16, fontWeight: "bold" },
+  container: {
+    alignItems: "center",
+    backgroundColor: COLORS.surface,
+    flex: 1,
+    justifyContent: "center",
+    padding: 24,
+  },
+  error: { color: COLORS.warning, marginBottom: 16 },
+  title: { fontSize: 24, fontWeight: "bold", marginBottom: 16 },
+  voucherItem: {
+    backgroundColor: COLORS.gray[100],
+    borderRadius: 8,
+    marginBottom: 16,
+    padding: 12,
+    width: 300,
+  },
   voucherText: { fontSize: 16 },
-  error: { color: 'red', marginBottom: 16 },
-  closeButton: { marginTop: 24, padding: 12, backgroundColor: '#d4af37', borderRadius: 8 },
-  closeText: { color: '#fff', fontWeight: 'bold', fontSize: 16 },
-}); 
+});

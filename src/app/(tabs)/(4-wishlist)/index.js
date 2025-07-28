@@ -9,7 +9,7 @@ import {
 } from "react-native";
 import { useWishlistStore } from "../../../utils/wishlistStore";
 import { useCartStore } from "../../../utils/cartStore";
-import  SignInPrompt  from "../../../components/SignInPrompt";
+import SignInPrompt from "../../../components/SignInPrompt";
 import { useAuthStore } from "../../../utils/authStore";
 import { useRouter } from "expo-router";
 import { FontAwesome6 } from "@expo/vector-icons";
@@ -22,12 +22,14 @@ import {
 import { commonStyles } from "../../../utils/styles";
 import { SafeAreaView } from "react-native-safe-area-context";
 import SwipeableWishlistItem from "../../../components/SwipeableWishlistItem";
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from "react-i18next";
 
 export default function WishlistScreen() {
   const wishlist = useWishlistStore((state) => state.wishlist);
   const fetchWishlist = useWishlistStore((state) => state.fetchWishlist);
-  const removeFromWishlist = useWishlistStore((state) => state.removeFromWishlist);
+  const removeFromWishlist = useWishlistStore(
+    (state) => state.removeFromWishlist,
+  );
   const addToWishlist = useWishlistStore((state) => state.addToWishlist);
   const addToCart = useCartStore((state) => state.addToCart);
   const { isGuest, isLoggedIn, userId } = useAuthStore();
@@ -44,8 +46,8 @@ export default function WishlistScreen() {
   if (!isLoggedIn || !userId) {
     return (
       <SignInPrompt
-        title={t('signInToViewWishlist')}
-        message={t('signInToSaveWishlist')}
+        title={t("signInToViewWishlist")}
+        message={t("signInToSaveWishlist")}
         iconName="heart-half-full"
       />
     );
@@ -61,14 +63,12 @@ export default function WishlistScreen() {
           color={COLORS.primary}
           style={styles.icon}
         />
-        <Text style={styles.emptyText}>
-          {t('wishlistEmpty')}
-        </Text>
+        <Text style={styles.emptyText}>{t("wishlistEmpty")}</Text>
         <TouchableOpacity
           style={styles.button}
           onPress={() => router.replace("/(tabs)/(1-home)")}
         >
-          <Text style={styles.buttonText}>{t('continueShopping')}</Text>
+          <Text style={styles.buttonText}>{t("continueShopping")}</Text>
         </TouchableOpacity>
       </View>
     );
@@ -116,7 +116,7 @@ const styles = StyleSheet.create({
   },
   addToCartText: {
     color: COLORS.text.primary,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     ...TYPOGRAPHY.caption,
   },
   button: {
@@ -126,7 +126,7 @@ const styles = StyleSheet.create({
   buttonText: {
     ...commonStyles.buttonText,
     color: COLORS.text.primary,
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
   container: {
     ...commonStyles.container,
@@ -183,5 +183,3 @@ const styles = StyleSheet.create({
     marginBottom: SPACING.xs,
   },
 });
-
-

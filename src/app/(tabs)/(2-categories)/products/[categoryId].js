@@ -1,24 +1,36 @@
 import React, { useEffect, useState, useRef } from "react";
-import { View, Text, StyleSheet, FlatList, TouchableOpacity, ActivityIndicator, Modal, Pressable, Keyboard, ScrollView, TextInput } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  FlatList,
+  TouchableOpacity,
+  ActivityIndicator,
+  Modal,
+  Pressable,
+  Keyboard,
+  ScrollView,
+  TextInput,
+} from "react-native";
 import { FontAwesome6 } from "@expo/vector-icons";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { COLORS, SPACING, BORDER_RADIUS } from "../../../../utils/theme";
 import { API_BASE_URL } from "../../../../utils/config";
 import ProductCard from "../../../../components/ProductCard";
 import MultiSlider from "@ptomasroos/react-native-multi-slider";
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import SearchBarWithHistory from "../../../../components/SearchBarWithHistory";
 import { useWishlistStore } from "../../../../utils/wishlistStore";
 import { useCartStore } from "../../../../utils/cartStore";
 import { useAuthStore } from "../../../../utils/authStore";
-import { SafeAreaView } from 'react-native-safe-area-context';
-import { useTranslation } from 'react-i18next';
-import Price from '../../../../components/Price';
+import { SafeAreaView } from "react-native-safe-area-context";
+import { useTranslation } from "react-i18next";
+import Price from "../../../../components/Price";
 
 console.log("ProductsScreen.js loaded");
 
 const NUM_COLUMNS = 2;
-const SEARCH_HISTORY_KEY = 'product_search_history';
+const SEARCH_HISTORY_KEY = "product_search_history";
 const MAX_HISTORY = 8;
 
 // Helper to get discounted price
@@ -39,12 +51,21 @@ export default function CategoryProductsScreen() {
   let { categoryId, categoryName, search, productId } = useLocalSearchParams();
   const router = useRouter();
   // Defensive: ensure categoryId is a number if possible
-  if (categoryId && typeof categoryId === 'string' && !isNaN(Number(categoryId))) {
+  if (
+    categoryId &&
+    typeof categoryId === "string" &&
+    !isNaN(Number(categoryId))
+  ) {
     categoryId = Number(categoryId);
   }
   // If categoryId is not a number, try to find by name (optional: fetch categories if needed)
   // Add logging
-  console.log('ProductsScreen params:', { categoryId, categoryName, search, productId });
+  console.log("ProductsScreen params:", {
+    categoryId,
+    categoryName,
+    search,
+    productId,
+  });
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [filter, setFilter] = useState("none");
@@ -82,11 +103,14 @@ export default function CategoryProductsScreen() {
 
   const addToCart = useCartStore((state) => state.addToCart);
   const addToWishlist = useWishlistStore((state) => state.addToWishlist);
-  const removeFromWishlist = useWishlistStore((state) => state.removeFromWishlist);
+  const removeFromWishlist = useWishlistStore(
+    (state) => state.removeFromWishlist,
+  );
   const wishlist = useWishlistStore((state) => state.wishlist);
   const userId = useAuthStore((state) => state.userId);
 
-  const isInWishlist = (productId) => wishlist.some((item) => item.id === productId);
+  const isInWishlist = (productId) =>
+    wishlist.some((item) => item.id === productId);
 
   const handlePressHeart = (product) => {
     if (isInWishlist(product.id)) {
@@ -107,7 +131,7 @@ export default function CategoryProductsScreen() {
     // If productId is present, fetch only that product
     if (queryParams.productId) {
       const url = `${API_BASE_URL}/products/${queryParams.productId}`;
-      console.log('[ProductsScreen] Fetching single product from:', url);
+      console.log("[ProductsScreen] Fetching single product from:", url);
       try {
         const res = await fetch(url);
         const data = await res.json();
@@ -135,7 +159,12 @@ export default function CategoryProductsScreen() {
       url = `${API_BASE_URL}/products`;
     }
     if (query) url += `?${query}`;
-    console.log("[ProductsScreen] Fetching products from:", url, "with params:", queryParams);
+    console.log(
+      "[ProductsScreen] Fetching products from:",
+      url,
+      "with params:",
+      queryParams,
+    );
     try {
       const res = await fetch(url);
       const data = await res.json();
@@ -172,7 +201,7 @@ export default function CategoryProductsScreen() {
         initializePriceBounds(fetchedProducts || []);
       }
     });
-    // eslint-disable-next-line
+     
   }, [categoryId]);
 
   // Only apply filters when user clicks Apply
@@ -224,45 +253,119 @@ export default function CategoryProductsScreen() {
   const { t } = useTranslation();
 
   return (
-    <SafeAreaView style={styles.container} edges={['top','left','right']}>
+    <SafeAreaView style={styles.container} edges={["top", "left", "right"]}>
       {/* Header */}
       <View style={styles.header}>
         {/* Remove old back button */}
         <View style={{ flex: 1 }}>
           <SearchBarWithHistory
             onSearch={handleSearch}
-            suggestionsSource={products.map(p => ({ title: p.title, category: categoryName || (typeof p.category === 'string' ? p.category : (p.category?.name || '')) }))}
+            suggestionsSource={products.map((p) => ({
+              title: p.title,
+              category:
+                categoryName ||
+                (typeof p.category === "string"
+                  ? p.category
+                  : p.category?.name || ""),
+            }))}
             categoryName={categoryName}
-            placeholder={t('searchProductsPlaceholder', 'Search products...')}
+            placeholder={t("searchProductsPlaceholder", "Search products...")}
             showBackButton={true}
             onBack={() => router.back()}
-            onAssistantPress={() => router.push('/(tabs)/(1-home)/Cartlyst')}
+            onAssistantPress={() => router.push("/(tabs)/(1-home)/Cartlyst")}
           />
         </View>
       </View>
 
       {/* Category Title */}
       <View style={styles.categoryRow}>
-        <Text style={styles.categoryTitle}>{categoryName || t('products')}</Text>
-        <TouchableOpacity onPress={() => setModalVisible(true)} style={{ marginRight: 16 }}>
+        <Text style={styles.categoryTitle}>
+          {categoryName || t("products")}
+        </Text>
+        <TouchableOpacity
+          onPress={() => setModalVisible(true)}
+          style={{ marginRight: 16 }}
+        >
           <FontAwesome6 name="filter" size={20} color={COLORS.text.primary} />
         </TouchableOpacity>
       </View>
 
       {/* Filter Row */}
       <View style={styles.filterRow}>
-        <Text style={styles.filterLabel}>{t('sortBy')}</Text>
-        <TouchableOpacity onPress={() => { setSort(""); setFilter("none"); handleApplyFilters(); }} style={[styles.filterBtn, (filter === "none" || !sort) && styles.filterBtnActive]}>
-          <Text style={(filter === "none" || !sort) ? styles.filterBtnActiveText : null}>{t('default')}</Text>
+        <Text style={styles.filterLabel}>{t("sortBy")}</Text>
+        <TouchableOpacity
+          onPress={() => {
+            setSort("");
+            setFilter("none");
+            handleApplyFilters();
+          }}
+          style={[
+            styles.filterBtn,
+            (filter === "none" || !sort) && styles.filterBtnActive,
+          ]}
+        >
+          <Text
+            style={
+              filter === "none" || !sort ? styles.filterBtnActiveText : null
+            }
+          >
+            {t("default")}
+          </Text>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => { setSort("priceAsc"); setFilter("priceLowHigh"); handleApplyFilters(); }} style={[styles.filterBtn, filter === "priceLowHigh" && styles.filterBtnActive]}>
-          <Text style={filter === "priceLowHigh" ? styles.filterBtnActiveText : null}>{t('priceLowHigh')}</Text>
+        <TouchableOpacity
+          onPress={() => {
+            setSort("priceAsc");
+            setFilter("priceLowHigh");
+            handleApplyFilters();
+          }}
+          style={[
+            styles.filterBtn,
+            filter === "priceLowHigh" && styles.filterBtnActive,
+          ]}
+        >
+          <Text
+            style={
+              filter === "priceLowHigh" ? styles.filterBtnActiveText : null
+            }
+          >
+            {t("priceLowHigh")}
+          </Text>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => { setSort("priceDesc"); setFilter("priceHighLow"); handleApplyFilters(); }} style={[styles.filterBtn, filter === "priceHighLow" && styles.filterBtnActive]}>
-          <Text style={filter === "priceHighLow" ? styles.filterBtnActiveText : null}>{t('priceHighLow')}</Text>
+        <TouchableOpacity
+          onPress={() => {
+            setSort("priceDesc");
+            setFilter("priceHighLow");
+            handleApplyFilters();
+          }}
+          style={[
+            styles.filterBtn,
+            filter === "priceHighLow" && styles.filterBtnActive,
+          ]}
+        >
+          <Text
+            style={
+              filter === "priceHighLow" ? styles.filterBtnActiveText : null
+            }
+          >
+            {t("priceHighLow")}
+          </Text>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => { setSort("discountDesc"); setFilter("discount"); handleApplyFilters(); }} style={[styles.filterBtn, filter === "discount" && styles.filterBtnActive]}>
-          <Text style={filter === "discount" ? styles.filterBtnActiveText : null}>{t('discount')}</Text>
+        <TouchableOpacity
+          onPress={() => {
+            setSort("discountDesc");
+            setFilter("discount");
+            handleApplyFilters();
+          }}
+          style={[
+            styles.filterBtn,
+            filter === "discount" && styles.filterBtnActive,
+          ]}
+        >
+          <Text
+            style={filter === "discount" ? styles.filterBtnActiveText : null}
+          >
+            {t("discount")}
+          </Text>
         </TouchableOpacity>
       </View>
 
@@ -275,8 +378,8 @@ export default function CategoryProductsScreen() {
       >
         <View style={styles.modalOverlay}>
           <View style={styles.modalContent}>
-            <Text style={styles.modalTitle}>{t('filterProducts')}</Text>
-            <Text style={styles.modalLabel}>{t('priceRange')}</Text>
+            <Text style={styles.modalTitle}>{t("filterProducts")}</Text>
+            <Text style={styles.modalLabel}>{t("priceRange")}</Text>
             <View style={{ alignItems: "center", marginBottom: 10 }}>
               <MultiSlider
                 values={[minPrice, maxPrice]}
@@ -292,49 +395,64 @@ export default function CategoryProductsScreen() {
                 markerStyle={{ backgroundColor: COLORS.primary }}
                 containerStyle={{ width: "90%" }}
               />
-              <View style={{ flexDirection: "row", justifyContent: "space-between", width: "90%" }}>
+              <View
+                style={{
+                  flexDirection: "row",
+                  justifyContent: "space-between",
+                  width: "90%",
+                }}
+              >
                 <Text>{minPrice}</Text>
                 <Text>{maxPrice}</Text>
               </View>
             </View>
             <TextInput
               style={styles.modalInput}
-              placeholder={t('minDiscount')}
+              placeholder={t("minDiscount")}
               keyboardType="numeric"
               value={minDiscount}
               onChangeText={setMinDiscount}
             />
             <TextInput
               style={styles.modalInput}
-              placeholder={t('maxDiscount')}
+              placeholder={t("maxDiscount")}
               keyboardType="numeric"
               value={maxDiscount}
               onChangeText={setMaxDiscount}
             />
             <TextInput
               style={styles.modalInput}
-              placeholder={t('minRating')}
+              placeholder={t("minRating")}
               keyboardType="numeric"
               value={minRating}
               onChangeText={setMinRating}
             />
             <TextInput
               style={styles.modalInput}
-              placeholder={t('maxRating')}
+              placeholder={t("maxRating")}
               keyboardType="numeric"
               value={maxRating}
               onChangeText={setMaxRating}
             />
             <View style={styles.modalButtonRow}>
-              <Pressable style={styles.modalButton} onPress={handleApplyFilters}>
-                <Text style={styles.modalButtonText}>{t('apply')}</Text>
+              <Pressable
+                style={styles.modalButton}
+                onPress={handleApplyFilters}
+              >
+                <Text style={styles.modalButtonText}>{t("apply")}</Text>
               </Pressable>
-              <Pressable style={[styles.modalButton, styles.modalButtonReset]} onPress={handleResetFilters}>
-                <Text style={styles.modalButtonText}>{t('reset')}</Text>
+              <Pressable
+                style={[styles.modalButton, styles.modalButtonReset]}
+                onPress={handleResetFilters}
+              >
+                <Text style={styles.modalButtonText}>{t("reset")}</Text>
               </Pressable>
             </View>
-            <Pressable style={styles.modalClose} onPress={() => setModalVisible(false)}>
-              <Text style={styles.modalCloseText}>{t('close')}</Text>
+            <Pressable
+              style={styles.modalClose}
+              onPress={() => setModalVisible(false)}
+            >
+              <Text style={styles.modalCloseText}>{t("close")}</Text>
             </Pressable>
           </View>
         </View>
@@ -342,7 +460,11 @@ export default function CategoryProductsScreen() {
 
       {/* Product Grid */}
       {loading ? (
-        <ActivityIndicator size="large" color={COLORS.primary} style={{ marginTop: 32 }} />
+        <ActivityIndicator
+          size="large"
+          color={COLORS.primary}
+          style={{ marginTop: 32 }}
+        />
       ) : (
         <FlatList
           data={products}
@@ -353,7 +475,7 @@ export default function CategoryProductsScreen() {
               discount={item.discount}
               rating={item.rating}
               image={item.image}
-              onPress={() => router.push('/(tabs)/(1-home)/product/' + item.id)}
+              onPress={() => router.push("/(tabs)/(1-home)/product/" + item.id)}
               onPressHeart={() => handlePressHeart(item)}
               onAddToCart={() => handleAddToCart(item)}
               isFavorite={isInWishlist(item.id)}
@@ -363,9 +485,20 @@ export default function CategoryProductsScreen() {
           keyExtractor={(item) => item.id.toString()}
           numColumns={NUM_COLUMNS}
           contentContainerStyle={styles.paddedHorizontal}
-          columnWrapperStyle={{ justifyContent: "space-between", marginBottom: 16, paddingLeft: 0, paddingRight: 0, marginLeft: 2, marginRight: 2 }}
+          columnWrapperStyle={{
+            justifyContent: "space-between",
+            marginBottom: 16,
+            paddingLeft: 0,
+            paddingRight: 0,
+            marginLeft: 2,
+            marginRight: 2,
+          }}
           showsVerticalScrollIndicator={false}
-          ListEmptyComponent={<Text style={{ textAlign: "center", marginTop: 32 }}>{t('noProductsFound')}</Text>}
+          ListEmptyComponent={
+            <Text style={{ textAlign: "center", marginTop: 32 }}>
+              {t("noProductsFound")}
+            </Text>
+          }
         />
       )}
     </SafeAreaView>
@@ -373,73 +506,28 @@ export default function CategoryProductsScreen() {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: COLORS.background,
-  },
-  header: {
-    flexDirection: "row",
-    alignItems: "center",
-    paddingTop: SPACING.md,
-    paddingBottom: SPACING.sm,
-    backgroundColor: COLORS.background,
-  },
-  searchInput: {
-    flex: 1,
-    marginHorizontal: SPACING.sm,
-    backgroundColor: COLORS.gray[100],
-    borderRadius: BORDER_RADIUS.md,
-    paddingHorizontal: SPACING.md,
-    height: 36,
-    fontSize: 16,
-    color: COLORS.text.primary,
-  },
-  suggestionDropdown: {
-    position: 'absolute',
-    top: 40,
-    left: 0,
-    right: 0,
-    backgroundColor: COLORS.background,
-    borderRadius: BORDER_RADIUS.md,
-    zIndex: 10,
-    maxHeight: 180,
-    borderWidth: 1,
-    borderColor: COLORS.gray[200],
-    elevation: 4,
-  },
-  suggestionItem: {
-    padding: 12,
-    borderBottomWidth: 1,
-    borderBottomColor: COLORS.gray[100],
-  },
   categoryRow: {
-    flexDirection: "row",
     alignItems: "center",
+    flexDirection: "row",
     justifyContent: "space-between",
     marginBottom: SPACING.sm,
   },
   categoryTitle: {
+    color: COLORS.text.primary,
     fontSize: 18,
     fontWeight: "bold",
-    color: COLORS.text.primary,
     marginLeft: 16,
   },
-  filterRow: {
-    flexDirection: "row",
-    alignItems: "center",
-    marginBottom: SPACING.sm,
-  },
-  filterLabel: {
-    marginRight: 8,
-    fontWeight: "bold",
-    color: COLORS.text.primary,
+  container: {
+    backgroundColor: COLORS.background,
+    flex: 1,
   },
   filterBtn: {
+    backgroundColor: COLORS.gray[100],
+    borderRadius: 8,
+    marginHorizontal: 2,
     paddingHorizontal: 10,
     paddingVertical: 4,
-    borderRadius: 8,
-    backgroundColor: COLORS.gray[100],
-    marginHorizontal: 2,
   },
   filterBtnActive: {
     backgroundColor: COLORS.primary,
@@ -448,75 +536,120 @@ const styles = StyleSheet.create({
     color: COLORS.text.inverse,
     fontWeight: "bold",
   },
+  filterLabel: {
+    color: COLORS.text.primary,
+    fontWeight: "bold",
+    marginRight: 8,
+  },
+  filterRow: {
+    alignItems: "center",
+    flexDirection: "row",
+    marginBottom: SPACING.sm,
+  },
   grid: {
     // no horizontal padding
   },
-  modalOverlay: {
-    flex: 1,
-    backgroundColor: 'rgba(0,0,0,0.3)',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  modalContent: {
+  header: {
+    alignItems: "center",
     backgroundColor: COLORS.background,
-    borderRadius: BORDER_RADIUS.lg,
-    padding: 24,
-    width: '85%',
-    alignItems: 'stretch',
-    elevation: 8,
-  },
-  modalTitle: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    marginBottom: 16,
-    color: COLORS.text.primary,
-    textAlign: 'center',
-  },
-  modalLabel: {
-    fontWeight: 'bold',
-    color: COLORS.text.primary,
-    marginBottom: 4,
-    marginTop: 8,
-  },
-  modalInput: {
-    backgroundColor: COLORS.gray[100],
-    borderRadius: BORDER_RADIUS.md,
-    paddingHorizontal: 12,
-    paddingVertical: 8,
-    fontSize: 16,
-    color: COLORS.text.primary,
-    marginBottom: 10,
-  },
-  modalButtonRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginTop: 12,
+    flexDirection: "row",
+    paddingBottom: SPACING.sm,
+    paddingTop: SPACING.md,
   },
   modalButton: {
-    flex: 1,
+    alignItems: "center",
     backgroundColor: COLORS.primary,
     borderRadius: BORDER_RADIUS.md,
-    paddingVertical: 10,
+    flex: 1,
     marginHorizontal: 4,
-    alignItems: 'center',
+    paddingVertical: 10,
   },
   modalButtonReset: {
     backgroundColor: COLORS.gray[200],
   },
+  modalButtonRow: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginTop: 12,
+  },
   modalButtonText: {
     color: COLORS.text.inverse,
-    fontWeight: 'bold',
     fontSize: 16,
+    fontWeight: "bold",
   },
   modalClose: {
+    alignItems: "center",
     marginTop: 16,
-    alignItems: 'center',
   },
   modalCloseText: {
     color: COLORS.text.primary,
     fontSize: 16,
   },
+  modalContent: {
+    alignItems: "stretch",
+    backgroundColor: COLORS.background,
+    borderRadius: BORDER_RADIUS.lg,
+    elevation: 8,
+    padding: 24,
+    width: "85%",
+  },
+  modalInput: {
+    backgroundColor: COLORS.gray[100],
+    borderRadius: BORDER_RADIUS.md,
+    color: COLORS.text.primary,
+    fontSize: 16,
+    marginBottom: 10,
+    paddingHorizontal: 12,
+    paddingVertical: 8,
+  },
+  modalLabel: {
+    color: COLORS.text.primary,
+    fontWeight: "bold",
+    marginBottom: 4,
+    marginTop: 8,
+  },
+  modalOverlay: {
+    alignItems: "center",
+    backgroundColor: "rgba(0,0,0,0.3)",
+    flex: 1,
+    justifyContent: "center",
+  },
+  modalTitle: {
+    color: COLORS.text.primary,
+    fontSize: 20,
+    fontWeight: "bold",
+    marginBottom: 16,
+    textAlign: "center",
+  },
   paddedHorizontal: {
     paddingHorizontal: 12, // or SPACING.sm or SPACING.md as desired
   },
-}); 
+  searchInput: {
+    backgroundColor: COLORS.gray[100],
+    borderRadius: BORDER_RADIUS.md,
+    color: COLORS.text.primary,
+    flex: 1,
+    fontSize: 16,
+    height: 36,
+    marginHorizontal: SPACING.sm,
+    paddingHorizontal: SPACING.md,
+  },
+  suggestionDropdown: {
+    backgroundColor: COLORS.background,
+    borderColor: COLORS.gray[200],
+    borderRadius: BORDER_RADIUS.md,
+    borderWidth: 1,
+    elevation: 4,
+    left: 0,
+    maxHeight: 180,
+    position: "absolute",
+    right: 0,
+    top: 40,
+    zIndex: 10,
+  },
+  suggestionItem: {
+    borderBottomColor: COLORS.gray[100],
+    borderBottomWidth: 1,
+    padding: 12,
+  },
+});

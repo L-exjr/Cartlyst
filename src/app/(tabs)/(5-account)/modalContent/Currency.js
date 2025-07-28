@@ -3,17 +3,103 @@ import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { useRouter } from "expo-router";
 import { COLORS, SPACING, TYPOGRAPHY } from "../../../../utils/theme";
 import { commonStyles } from "../../../../utils/styles";
-import { useCurrencyStore } from '../../../../utils/currencyStore';
-import { Picker } from '@react-native-picker/picker';
+import { useCurrencyStore } from "../../../../utils/currencyStore";
+import { Picker } from "@react-native-picker/picker";
 
 const currencyList = [
-  'USD', 'EUR', 'GBP', 'GHS', 'NGN', 'KES', 'ZAR', 'INR', 'CNY', 'JPY',
-  'CAD', 'AUD', 'BRL', 'CHF', 'SEK', 'NOK', 'DKK', 'RUB', 'SGD', 'HKD', 'TRY', 'PLN', 'MXN', 'IDR', 'MYR', 'PHP', 'THB', 'VND', 'KRW', 'TWD', 'SAR', 'AED', 'EGP', 'ILS', 'PKR', 'UAH', 'CZK', 'HUF', 'RON', 'BGN', 'HRK', 'CLP', 'COP', 'PEN', 'ARS', 'LKR', 'BDT', 'MAD', 'DZD', 'TZS', 'UGX', 'XOF', 'XAF', 'GMD', 'BWP', 'MUR', 'MZN', 'ZMW', 'NAD', 'SZL', 'BHD', 'OMR', 'QAR', 'KWD', 'JOD', 'LBP', 'SDG', 'SYP', 'YER', 'LYD', 'TND', 'MRU', 'SOS', 'DJF', 'ETB', 'ERN', 'SCR', 'KMF', 'MGA', 'MWK', 'ZWL', 'LSL', 'SLL', 'GHS', 'NGN', 'KES', 'ZAR'
+  "USD",
+  "EUR",
+  "GBP",
+  "GHS",
+  "NGN",
+  "KES",
+  "ZAR",
+  "INR",
+  "CNY",
+  "JPY",
+  "CAD",
+  "AUD",
+  "BRL",
+  "CHF",
+  "SEK",
+  "NOK",
+  "DKK",
+  "RUB",
+  "SGD",
+  "HKD",
+  "TRY",
+  "PLN",
+  "MXN",
+  "IDR",
+  "MYR",
+  "PHP",
+  "THB",
+  "VND",
+  "KRW",
+  "TWD",
+  "SAR",
+  "AED",
+  "EGP",
+  "ILS",
+  "PKR",
+  "UAH",
+  "CZK",
+  "HUF",
+  "RON",
+  "BGN",
+  "HRK",
+  "CLP",
+  "COP",
+  "PEN",
+  "ARS",
+  "LKR",
+  "BDT",
+  "MAD",
+  "DZD",
+  "TZS",
+  "UGX",
+  "XOF",
+  "XAF",
+  "GMD",
+  "BWP",
+  "MUR",
+  "MZN",
+  "ZMW",
+  "NAD",
+  "SZL",
+  "BHD",
+  "OMR",
+  "QAR",
+  "KWD",
+  "JOD",
+  "LBP",
+  "SDG",
+  "SYP",
+  "YER",
+  "LYD",
+  "TND",
+  "MRU",
+  "SOS",
+  "DJF",
+  "ETB",
+  "ERN",
+  "SCR",
+  "KMF",
+  "MGA",
+  "MWK",
+  "ZWL",
+  "LSL",
+  "SLL",
+  "GHS",
+  "NGN",
+  "KES",
+  "ZAR",
 ];
 
 export default function CurrencyModal() {
   const router = useRouter();
-  const { selectedCurrency, setCurrency, fetchRates, rates } = useCurrencyStore();
+  const { selectedCurrency, setCurrency, fetchRates, rates } =
+    useCurrencyStore();
   const [selected, setSelected] = useState(selectedCurrency);
 
   return (
@@ -35,7 +121,7 @@ export default function CurrencyModal() {
         }}
         style={{ width: 220 }}
       >
-        {currencyList.map(cur => (
+        {currencyList.map((cur) => (
           <Picker.Item key={cur} label={cur} value={cur} />
         ))}
       </Picker>
@@ -67,4 +153,4 @@ const styles = StyleSheet.create({
     ...TYPOGRAPHY.h1,
     marginBottom: SPACING.md,
   },
-}); 
+});

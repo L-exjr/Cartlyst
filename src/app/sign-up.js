@@ -22,7 +22,7 @@ import { COLORS, SPACING, BORDER_RADIUS, TYPOGRAPHY } from "../utils/theme";
 import { commonStyles } from "../utils/styles";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { API_BASE_URL } from "../utils/config";
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from "react-i18next";
 
 export const options = { headerShown: false };
 
@@ -146,31 +146,31 @@ export default function SignUpScreen() {
       if (photo) {
         try {
           const formData = new FormData();
-          formData.append('file', {
+          formData.append("file", {
             uri: photo,
-            type: 'image/jpeg',
-            name: `profile-signup-${Date.now()}.jpg`
+            type: "image/jpeg",
+            name: `profile-signup-${Date.now()}.jpg`,
           });
           // Try Supabase upload first
           let uploadResponse = await fetch(`${API_BASE_URL}/files/upload`, {
-            method: 'POST',
+            method: "POST",
             body: formData,
             headers: {
-              'Content-Type': 'multipart/form-data',
+              "Content-Type": "multipart/form-data",
             },
           });
           let uploadResult;
           if (!uploadResponse.ok) {
             // Try local upload as fallback
             uploadResponse = await fetch(`${API_BASE_URL}/files/upload-local`, {
-              method: 'POST',
+              method: "POST",
               body: formData,
               headers: {
-                'Content-Type': 'multipart/form-data',
+                "Content-Type": "multipart/form-data",
               },
             });
             if (!uploadResponse.ok) {
-              throw new Error('Both Supabase and local upload failed');
+              throw new Error("Both Supabase and local upload failed");
             }
             uploadResult = await uploadResponse.json();
           } else {
@@ -178,7 +178,7 @@ export default function SignUpScreen() {
           }
           profileImageUrl = uploadResult.downloadUrl;
         } catch (e) {
-          showError('Image upload failed: ' + e.message);
+          showError("Image upload failed: " + e.message);
           setIsLoading(false);
           return;
         }
@@ -229,10 +229,10 @@ export default function SignUpScreen() {
                   router.replace("/(tabs)");
                 }}
               >
-                <Text style={styles.skipText}>{t('skip')}</Text>
+                <Text style={styles.skipText}>{t("skip")}</Text>
               </TouchableOpacity>
-              <Text style={styles.title}>{t('signUp')}</Text>
-              <Text style={styles.subtitle}>{t('createAccount')}</Text>
+              <Text style={styles.title}>{t("signUp")}</Text>
+              <Text style={styles.subtitle}>{t("createAccount")}</Text>
 
               <View style={styles.imageContainer}>
                 <View>
@@ -244,7 +244,10 @@ export default function SignUpScreen() {
                         : require("../../assets/placeholder.png")
                     }
                   />
-                  <TouchableOpacity style={styles.cameraIcon} onPress={pickImage}>
+                  <TouchableOpacity
+                    style={styles.cameraIcon}
+                    onPress={pickImage}
+                  >
                     <FontAwesome6
                       name="camera"
                       size={24}
@@ -255,9 +258,9 @@ export default function SignUpScreen() {
               </View>
 
               <View style={styles.inputContainer}>
-                <Text style={styles.label}>{t('fullName')}</Text>
+                <Text style={styles.label}>{t("fullName")}</Text>
                 <TextInput
-                  placeholder={t('fullName')}
+                  placeholder={t("fullName")}
                   style={styles.input}
                   value={formData.fullName}
                   onChangeText={(text) =>
@@ -267,9 +270,9 @@ export default function SignUpScreen() {
               </View>
 
               <View style={styles.inputContainer}>
-                <Text style={styles.label}>{t('email')}</Text>
+                <Text style={styles.label}>{t("email")}</Text>
                 <TextInput
-                  placeholder={t('email')}
+                  placeholder={t("email")}
                   style={styles.input}
                   value={formData.email}
                   onChangeText={(text) =>
@@ -281,9 +284,9 @@ export default function SignUpScreen() {
               </View>
 
               <View style={styles.inputContainer}>
-                <Text style={styles.label}>{t('phoneNumber')}</Text>
+                <Text style={styles.label}>{t("phoneNumber")}</Text>
                 <TextInput
-                  placeholder={t('phoneNumber')}
+                  placeholder={t("phoneNumber")}
                   style={styles.input}
                   value={formData.phoneNumber}
                   onChangeText={(text) =>
@@ -351,13 +354,13 @@ export default function SignUpScreen() {
                 {isLoading ? (
                   <ActivityIndicator color="#fff" />
                 ) : (
-                  <Text style={styles.signUpText}>{t('signUp')}</Text>
+                  <Text style={styles.signUpText}>{t("signUp")}</Text>
                 )}
               </TouchableOpacity>
 
               <View style={styles.signInContainer}>
                 <Text style={styles.signIn}>
-                  {t('alreadyHaveAccount')}{" "}
+                  {t("alreadyHaveAccount")}{" "}
                   <Text
                     style={styles.signUpLink}
                     onPress={() => {
@@ -365,14 +368,14 @@ export default function SignUpScreen() {
                       router.replace("sign-in");
                     }}
                   >
-                    {t('signIn')}
+                    {t("signIn")}
                   </Text>
                 </Text>
               </View>
 
               <View style={styles.orContainer}>
                 <View style={styles.line} />
-                <Text style={styles.orText}>{t('or')}</Text>
+                <Text style={styles.orText}>{t("or")}</Text>
                 <View style={styles.line} />
               </View>
 
@@ -393,8 +396,8 @@ export default function SignUpScreen() {
               </View>
 
               <View style={styles.footerContainer}>
-                <Text style={styles.footer}>{t('agreeToTerms')}</Text>
-                <Text style={styles.footerLink}>{t('termsAndConditions')}</Text>
+                <Text style={styles.footer}>{t("agreeToTerms")}</Text>
+                <Text style={styles.footerLink}>{t("termsAndConditions")}</Text>
               </View>
             </View>
 

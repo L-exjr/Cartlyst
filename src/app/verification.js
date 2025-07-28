@@ -42,7 +42,8 @@ export default function VerificationScreen() {
     try {
       setIsLoading(true);
       const otpCode = otp.join("");
-      const contact = type === "email" ? signUpData.email : signUpData.phoneNumber;
+      const contact =
+        type === "email" ? signUpData.email : signUpData.phoneNumber;
       // Call backend API to verify OTP
       const response = await fetch(`${API_BASE_URL}/api/auth/verify`, {
         method: "POST",
@@ -63,7 +64,11 @@ export default function VerificationScreen() {
           router.replace("/(tabs)");
         }
       } else {
-        alert(data.error || data.message || "Verification failed. Please try again.");
+        alert(
+          data.error ||
+            data.message ||
+            "Verification failed. Please try again.",
+        );
       }
     } catch (error) {
       alert(error.message || "Verification failed. Please try again.");
@@ -74,7 +79,8 @@ export default function VerificationScreen() {
 
   const handleResend = async () => {
     try {
-      const contact = type === "email" ? signUpData.email : signUpData.phoneNumber;
+      const contact =
+        type === "email" ? signUpData.email : signUpData.phoneNumber;
       const response = await fetch(`${API_BASE_URL}/api/auth/otp`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -85,12 +91,21 @@ export default function VerificationScreen() {
       });
       const data = await response.json();
       if (response.ok) {
-        alert(data.message || "Verification code has been resent successfully!");
+        alert(
+          data.message || "Verification code has been resent successfully!",
+        );
       } else {
-        alert(data.error || data.message || "Failed to resend verification code. Please try again.");
+        alert(
+          data.error ||
+            data.message ||
+            "Failed to resend verification code. Please try again.",
+        );
       }
     } catch (error) {
-      alert(error.message || "Failed to resend verification code. Please try again.");
+      alert(
+        error.message ||
+          "Failed to resend verification code. Please try again.",
+      );
     }
   };
 

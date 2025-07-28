@@ -1,6 +1,6 @@
-import { create } from 'zustand';
-import * as SecureStore from 'expo-secure-store';
-import { persist } from 'zustand/middleware';
+import { create } from "zustand";
+import * as SecureStore from "expo-secure-store";
+import { persist } from "zustand/middleware";
 
 export const useProductStore = create(
   persist(
@@ -13,7 +13,7 @@ export const useProductStore = create(
       updateProduct: (id, updates) =>
         set((state) => ({
           products: state.products.map((p) =>
-            p.id === id ? { ...p, ...updates } : p
+            p.id === id ? { ...p, ...updates } : p,
           ),
         })),
       deleteProduct: (id) =>
@@ -22,10 +22,10 @@ export const useProductStore = create(
         })),
     }),
     {
-      name: 'products-storage',
+      name: "products-storage",
       getStorage: () => SecureStoreStorage,
-    }
-  )
+    },
+  ),
 );
 
 // Custom wrapper for SecureStore

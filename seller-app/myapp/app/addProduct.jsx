@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import {
   View,
   Text,
@@ -8,30 +8,30 @@ import {
   Alert,
   SafeAreaView,
   Image,
-} from 'react-native';
-import * as ImagePicker from 'expo-image-picker';
-import { Ionicons } from '@expo/vector-icons';
-import SimpleHeader from './components/SimpleHeader';
-import DropDownPicker from 'react-native-dropdown-picker';
-import { useRouter } from 'expo-router';
-import { useProductStore } from '../store/productStore';
+} from "react-native";
+import * as ImagePicker from "expo-image-picker";
+import { Ionicons } from "@expo/vector-icons";
+import SimpleHeader from "./components/SimpleHeader";
+import DropDownPicker from "react-native-dropdown-picker";
+import { useRouter } from "expo-router";
+import { useProductStore } from "../store/productStore";
 
 const AddProductScreen = () => {
   const router = useRouter();
   const addProduct = useProductStore((state) => state.addProduct);
 
-  const [name, setName] = useState('');
-  const [description, setDescription] = useState('');
-  const [price, setPrice] = useState('');
-  const [quantity, setQuantity] = useState('');
+  const [name, setName] = useState("");
+  const [description, setDescription] = useState("");
+  const [price, setPrice] = useState("");
+  const [quantity, setQuantity] = useState("");
   const [image, setImage] = useState(null);
   const [open, setOpen] = useState(false);
   const [category, setCategory] = useState(null);
   const [items, setItems] = useState([
-    { label: 'Bread', value: 'Bread' },
-    { label: 'Pastry', value: 'Pastry' },
-    { label: 'Drink', value: 'Drink' },
-    { label: 'Other', value: 'Other' },
+    { label: "Bread", value: "Bread" },
+    { label: "Pastry", value: "Pastry" },
+    { label: "Drink", value: "Drink" },
+    { label: "Other", value: "Other" },
   ]);
 
   const pickImage = async () => {
@@ -48,17 +48,29 @@ const AddProductScreen = () => {
 
   const handleSubmit = () => {
     if (!name || !price || !quantity || !category) {
-      return Alert.alert('Fill in all fields');
+      return Alert.alert("Fill in all fields");
     }
-    addProduct({ name, description, price: parseFloat(price), quantity: parseInt(quantity), image, category });
+    addProduct({
+      name,
+      description,
+      price: parseFloat(price),
+      quantity: parseInt(quantity),
+      image,
+      category,
+    });
     router.back();
   };
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: '#fff' }}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: "#fff" }}>
       <SimpleHeader title="Add Product" />
       <View style={styles.container}>
-        <TouchableOpacity style={styles.imagePicker} onPress={pickImage} accessibilityLabel="Select product image" accessibilityRole="button">
+        <TouchableOpacity
+          style={styles.imagePicker}
+          onPress={pickImage}
+          accessibilityLabel="Select product image"
+          accessibilityRole="button"
+        >
           {image ? (
             <Image source={{ uri: image }} style={styles.imagePreview} />
           ) : (
@@ -82,7 +94,7 @@ const AddProductScreen = () => {
           onChangeText={setDescription}
           placeholderTextColor="#888"
           multiline
-          placeholderStyle={{ fontWeight: '700' }}
+          placeholderStyle={{ fontWeight: "700" }}
         />
         <TextInput
           style={styles.input}
@@ -110,8 +122,8 @@ const AddProductScreen = () => {
           placeholder="Category"
           style={styles.dropdown}
           dropDownContainerStyle={styles.dropdownContainer}
-          placeholderStyle={{ color: '#888' }}
-          listItemLabelStyle={{ color: '#222' }}
+          placeholderStyle={{ color: "#888" }}
+          listItemLabelStyle={{ color: "#222" }}
           zIndex={1000}
         />
         <TouchableOpacity style={styles.button} onPress={handleSubmit}>
@@ -125,23 +137,23 @@ const AddProductScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: "#fff",
     padding: 20,
   },
   imagePicker: {
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
     borderWidth: 1,
-    borderColor: '#bbb',
-    borderStyle: 'dashed',
+    borderColor: "#bbb",
+    borderStyle: "dashed",
     borderRadius: 12,
     paddingVertical: 24,
     marginVertical: 8,
     marginBottom: 18,
   },
   imagePlaceholder: {
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
   },
   imagePreview: {
     width: 110,
@@ -150,19 +162,19 @@ const styles = StyleSheet.create({
     marginBottom: 6,
   },
   imageText: {
-    color: '#888',
+    color: "#888",
     fontSize: 16,
-    fontWeight: '500',
+    fontWeight: "500",
     marginTop: 8,
   },
   label: {
-    fontWeight: '500',
+    fontWeight: "500",
     marginBottom: 6,
   },
   input: {
-    backgroundColor: '#fff',
+    backgroundColor: "#fff",
     borderWidth: 1,
-    borderColor: '#bbb',
+    borderColor: "#bbb",
     borderRadius: 8,
     padding: 14,
     marginBottom: 14,
@@ -170,23 +182,23 @@ const styles = StyleSheet.create({
   },
   textarea: {
     minHeight: 100,
-    textAlignVertical: 'top',
-    fontWeight: '600',
+    textAlignVertical: "top",
+    fontWeight: "600",
   },
   button: {
-    backgroundColor: '#f4c430',
+    backgroundColor: "#f4c430",
     borderRadius: 10,
     paddingVertical: 14,
-    alignItems: 'center',
+    alignItems: "center",
     marginTop: 20,
   },
   buttonText: {
-    fontWeight: '600',
+    fontWeight: "600",
     fontSize: 16,
   },
   dropdown: {
-    backgroundColor: '#fff',
-    borderColor: '#bbb',
+    backgroundColor: "#fff",
+    borderColor: "#bbb",
     borderWidth: 1,
     borderRadius: 8,
     marginBottom: 18,
@@ -194,7 +206,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 12,
   },
   dropdownContainer: {
-    borderColor: '#bbb',
+    borderColor: "#bbb",
     borderWidth: 1,
     borderRadius: 8,
     marginBottom: 18,

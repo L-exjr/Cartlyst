@@ -10,14 +10,17 @@ import {
   Dimensions,
 } from "react-native";
 import LoadingSpinner from "../../../components/LoadingSpinner";
-import { useSafeAreaInsets, SafeAreaView } from "react-native-safe-area-context";
+import {
+  useSafeAreaInsets,
+  SafeAreaView,
+} from "react-native-safe-area-context";
 import CategoryCards from "../../../components/CategoryCards";
 import { COLORS, SPACING, TYPOGRAPHY } from "../../../utils/theme";
 import { commonStyles } from "../../../utils/styles";
 import { API_BASE_URL } from "../../../utils/config";
 import { useRouter } from "expo-router";
 import SearchBarWithHistory from "../../../components/SearchBarWithHistory";
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from "react-i18next";
 
 export default function CategoriesScreen() {
   const [categories, setCategories] = useState([]);
@@ -43,18 +46,22 @@ export default function CategoriesScreen() {
       setFilteredCategories(categories);
     } else {
       const lower = searchTerm.toLowerCase();
-      setFilteredCategories(categories.filter(c => c.name.toLowerCase().includes(lower)));
+      setFilteredCategories(
+        categories.filter((c) => c.name.toLowerCase().includes(lower)),
+      );
     }
   }, [searchTerm, categories]);
 
   // Update handleSearch to handle category search by name
   const handleSearch = (term, categoryName) => {
     // Find the category by name
-    const foundCategory = categories.find(c => c.name.toLowerCase() === (categoryName || term).toLowerCase());
+    const foundCategory = categories.find(
+      (c) => c.name.toLowerCase() === (categoryName || term).toLowerCase(),
+    );
     if (foundCategory) {
       router.push({
         pathname: `/products/${foundCategory.id}`,
-        params: { categoryName: foundCategory.name }
+        params: { categoryName: foundCategory.name },
       });
     } else {
       // If not found, just filter the list
@@ -80,15 +87,22 @@ export default function CategoriesScreen() {
   };
 
   if (isLoading) {
-    return <LoadingSpinner text={t('loadingCategories', 'Loading categories...')} />;
+    return (
+      <LoadingSpinner text={t("loadingCategories", "Loading categories...")} />
+    );
   }
 
   if (error) {
     return (
       <View style={styles.errorContainer}>
-        <Text style={styles.errorText}>{t('categoriesError', 'Failed to load categories. Please check your internet connection.')}</Text>
+        <Text style={styles.errorText}>
+          {t(
+            "categoriesError",
+            "Failed to load categories. Please check your internet connection.",
+          )}
+        </Text>
         <TouchableOpacity style={styles.retryButton} onPress={fetchCategories}>
-          <Text style={styles.retryText}>{t('retry')}</Text>
+          <Text style={styles.retryText}>{t("retry")}</Text>
         </TouchableOpacity>
       </View>
     );
@@ -99,15 +113,20 @@ export default function CategoriesScreen() {
       <View style={styles.fixedHeader}>
         <SearchBarWithHistory
           onSearch={handleSearch}
-          suggestionsSource={categories.map(c => ({ title: c.name, category: t('all') }))}
-          categoryName={t('all')}
-          placeholder={t('searchCategoriesPlaceholder', 'Search categories...')}
-          onAssistantPress={() => router.push('/(tabs)/(1-home)/Cartlyst')}
+          suggestionsSource={categories.map((c) => ({
+            title: c.name,
+            category: t("all"),
+          }))}
+          categoryName={t("all")}
+          placeholder={t("searchCategoriesPlaceholder", "Search categories...")}
+          onAssistantPress={() => router.push("/(tabs)/(1-home)/Cartlyst")}
         />
       </View>
       {filteredCategories.length === 0 && (
-        <Text style={{ textAlign: 'center', color: COLORS.error, marginTop: 16 }}>
-          {t('noCategoriesFound', 'No categories found.')}
+        <Text
+          style={{ textAlign: "center", color: COLORS.error, marginTop: 16 }}
+        >
+          {t("noCategoriesFound", "No categories found.")}
         </Text>
       )}
       <ScrollView>

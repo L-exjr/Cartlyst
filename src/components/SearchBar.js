@@ -1,20 +1,37 @@
 import React from "react";
-import { View, TextInput, StyleSheet, FlatList, TouchableOpacity, Text, Image } from "react-native";
+import {
+  View,
+  TextInput,
+  StyleSheet,
+  FlatList,
+  TouchableOpacity,
+  Text,
+  Image,
+} from "react-native";
 import { FontAwesome6 } from "@expo/vector-icons";
 import { COLORS, SPACING, BORDER_RADIUS, TYPOGRAPHY } from "../utils/theme";
 
-export default function SearchBar({ onSearch, suggestions = [], onAssistantPress }) {
+export default function SearchBar({
+  onSearch,
+  suggestions = [],
+  onAssistantPress,
+}) {
   const [value, setValue] = React.useState("");
   const [showSuggestions, setShowSuggestions] = React.useState(false);
-  const filteredSuggestions = suggestions.filter(s => s.toLowerCase().includes(value.toLowerCase()) && value.trim());
+  const filteredSuggestions = suggestions.filter(
+    (s) => s.toLowerCase().includes(value.toLowerCase()) && value.trim(),
+  );
   const highlightMatch = (suggestion, term) => {
     if (!term) return <Text style={styles.suggestionText}>{suggestion}</Text>;
     const idx = suggestion.toLowerCase().indexOf(term.toLowerCase());
-    if (idx === -1) return <Text style={styles.suggestionText}>{suggestion}</Text>;
+    if (idx === -1)
+      return <Text style={styles.suggestionText}>{suggestion}</Text>;
     return (
       <Text style={styles.suggestionText}>
         {suggestion.substring(0, idx)}
-        <Text style={styles.suggestionHighlight}>{suggestion.substring(idx, idx + term.length)}</Text>
+        <Text style={styles.suggestionHighlight}>
+          {suggestion.substring(idx, idx + term.length)}
+        </Text>
         {suggestion.substring(idx + term.length)}
       </Text>
     );
@@ -33,7 +50,7 @@ export default function SearchBar({ onSearch, suggestions = [], onAssistantPress
           placeholder="Search products..."
           placeholderTextColor={COLORS.text.secondary}
           value={value}
-          onChangeText={text => {
+          onChangeText={(text) => {
             setValue(text);
             setShowSuggestions(true);
           }}
@@ -45,15 +62,21 @@ export default function SearchBar({ onSearch, suggestions = [], onAssistantPress
           }}
           returnKeyType="search"
         />
-        <TouchableOpacity onPress={onAssistantPress} style={styles.assistantIconContainer}>
-          <Image source={require("../assets/aicon.png")} style={styles.assistantIcon} />
+        <TouchableOpacity
+          onPress={onAssistantPress}
+          style={styles.assistantIconContainer}
+        >
+          <Image
+            source={require("../assets/aicon.png")}
+            style={styles.assistantIcon}
+          />
         </TouchableOpacity>
       </View>
       {showSuggestions && filteredSuggestions.length > 0 && (
         <View style={styles.suggestionsBox}>
           <FlatList
             data={filteredSuggestions}
-            keyExtractor={item => item}
+            keyExtractor={(item) => item}
             renderItem={({ item }) => (
               <TouchableOpacity
                 style={styles.suggestionItem}
@@ -74,6 +97,19 @@ export default function SearchBar({ onSearch, suggestions = [], onAssistantPress
 }
 
 const styles = StyleSheet.create({
+  assistantIcon: {
+    height: 28,
+    resizeMode: "contain",
+    width: 28,
+  },
+  assistantIconContainer: {
+    alignItems: "center",
+    backgroundColor: COLORS.card,
+    borderRadius: 20,
+    justifyContent: "center",
+    marginLeft: SPACING.sm,
+    padding: 4,
+  },
   container: {
     backgroundColor: COLORS.surface,
     padding: SPACING.sm,
@@ -94,48 +130,35 @@ const styles = StyleSheet.create({
   searchIcon: {
     marginRight: SPACING.sm,
   },
-  suggestionsBox: {
-    backgroundColor: COLORS.surface,
-    borderRadius: BORDER_RADIUS.md,
-    marginTop: 2,
-    maxHeight: 150,
-    zIndex: 10,
-    position: 'absolute',
-    left: 0,
-    right: 0,
-    top: 48,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 2,
-    borderWidth: 1,
-    borderColor: COLORS.primary,
+  suggestionHighlight: {
+    color: COLORS.primary,
+    fontWeight: "bold",
   },
   suggestionItem: {
-    padding: SPACING.sm,
-    borderBottomWidth: 1,
     borderBottomColor: COLORS.gray[200],
+    borderBottomWidth: 1,
+    padding: SPACING.sm,
   },
   suggestionText: {
     color: COLORS.text.primary,
     ...TYPOGRAPHY.body,
   },
-  suggestionHighlight: {
-    color: COLORS.primary,
-    fontWeight: 'bold',
-  },
-  assistantIconContainer: {
-    marginLeft: SPACING.sm,
-    padding: 4,
-    borderRadius: 20,
-    backgroundColor: COLORS.card,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  assistantIcon: {
-    width: 28,
-    height: 28,
-    resizeMode: 'contain',
+  suggestionsBox: {
+    backgroundColor: COLORS.surface,
+    borderColor: COLORS.primary,
+    borderRadius: BORDER_RADIUS.md,
+    borderWidth: 1,
+    elevation: 2,
+    left: 0,
+    marginTop: 2,
+    maxHeight: 150,
+    position: "absolute",
+    right: 0,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    top: 48,
+    zIndex: 10,
   },
 });

@@ -15,10 +15,10 @@ export default function HomeLayout() {
       <Stack.Screen
         name="Cartlyst"
         options={({ route }) => ({
-          title: route?.params?.sessionName || 'Cartlyst',
+          title: route?.params?.sessionName || "Cartlyst",
           headerShown: true,
           headerStyle: { backgroundColor: COLORS.primary },
-          tabBarStyle: { display: 'none' },
+          tabBarStyle: { display: "none" },
         })}
       />
       <Stack.Screen

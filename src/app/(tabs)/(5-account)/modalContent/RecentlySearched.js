@@ -1,21 +1,30 @@
-import React, { useState, useEffect } from 'react';
-import { View, Text, TextInput, FlatList, Button, StyleSheet, ActivityIndicator } from 'react-native';
-import { useRecent } from '../../../../utils/recentContext';
+import React, { useState, useEffect } from "react";
+import {
+  View,
+  Text,
+  TextInput,
+  FlatList,
+  Button,
+  StyleSheet,
+  ActivityIndicator,
+} from "react-native";
+import { useRecent } from "../../../../utils/recentContext";
+import { COLORS } from "../../../../utils/theme";
 
 const RecentlySearchedModal = () => {
-  const [searchTerm, setSearchTerm] = useState('');
-  const { 
-    recentSearches, 
-    addRecentSearch, 
+  const [searchTerm, setSearchTerm] = useState("");
+  const {
+    recentSearches,
+    addRecentSearch,
     clearRecentSearches,
     isLoading,
-    error
+    error,
   } = useRecent();
 
   const handleSearch = () => {
     if (searchTerm.trim()) {
       addRecentSearch(searchTerm);
-      setSearchTerm('');
+      setSearchTerm("");
     }
   };
 
@@ -33,10 +42,7 @@ const RecentlySearchedModal = () => {
     return (
       <View style={[styles.container, styles.center]}>
         <Text style={styles.errorText}>Error loading recent searches</Text>
-        <Button 
-          title="Retry" 
-          onPress={() => clearRecentSearches()} 
-        />
+        <Button title="Retry" onPress={() => clearRecentSearches()} />
       </View>
     );
   }
@@ -44,7 +50,7 @@ const RecentlySearchedModal = () => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Search</Text>
-      
+
       <View style={styles.searchContainer}>
         <TextInput
           style={styles.input}
@@ -56,20 +62,20 @@ const RecentlySearchedModal = () => {
           autoCorrect={false}
           autoCapitalize="none"
         />
-        <Button 
-          title="Search" 
-          onPress={handleSearch} 
+        <Button
+          title="Search"
+          onPress={handleSearch}
           disabled={!searchTerm.trim()}
         />
       </View>
-      
+
       <Text style={styles.sectionTitle}>Recent Searches:</Text>
-      
+
       <FlatList
         data={recentSearches}
         keyExtractor={(item) => item.id?.toString() || Math.random().toString()}
         renderItem={({ item }) => (
-          <Text 
+          <Text
             style={styles.recentItem}
             onPress={() => {
               setSearchTerm(item.itemId);
@@ -85,10 +91,10 @@ const RecentlySearchedModal = () => {
         }
         contentContainerStyle={recentSearches.length === 0 && styles.emptyList}
       />
-      
+
       {recentSearches.length > 0 && (
-        <Button 
-          title="Clear History" 
+        <Button
+          title="Clear History"
           onPress={clearRecentSearches}
           color="#ff4444"
         />
@@ -98,57 +104,57 @@ const RecentlySearchedModal = () => {
 };
 
 const styles = StyleSheet.create({
+  center: {
+    alignItems: "center",
+    justifyContent: "center",
+  },
   container: {
+    backgroundColor: COLORS.surface,
     flex: 1,
     padding: 16,
-    backgroundColor: '#fff'
-  },
-  center: {
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    marginBottom: 16,
-    textAlign: 'center'
-  },
-  searchContainer: {
-    flexDirection: 'row',
-    marginBottom: 16,
-  },
-  input: {
-    flex: 1,
-    borderWidth: 1,
-    borderColor: '#ccc',
-    borderRadius: 4,
-    padding: 8,
-    marginRight: 8,
-  },
-  sectionTitle: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    marginBottom: 8,
-  },
-  recentItem: {
-    padding: 12,
-    borderBottomWidth: 1,
-    borderBottomColor: '#eee',
-  },
-  emptyText: {
-    textAlign: 'center',
-    color: '#888',
-    marginTop: 16,
   },
   emptyList: {
     flex: 1,
-    justifyContent: 'center'
+    justifyContent: "center",
+  },
+  emptyText: {
+    color: COLORS.gray[300],
+    marginTop: 16,
+    textAlign: "center",
   },
   errorText: {
-    color: 'red',
+    color: COLORS.warning,
     marginBottom: 16,
-    textAlign: 'center'
-  }
+    textAlign: "center",
+  },
+  input: {
+    borderColor: COLORS.gray[400],
+    borderRadius: 4,
+    borderWidth: 1,
+    flex: 1,
+    marginRight: 8,
+    padding: 8,
+  },
+  recentItem: {
+    borderBottomColor: COLORS.gray[200],
+    borderBottomWidth: 1,
+    padding: 12,
+  },
+  searchContainer: {
+    flexDirection: "row",
+    marginBottom: 16,
+  },
+  sectionTitle: {
+    fontSize: 18,
+    fontWeight: "bold",
+    marginBottom: 8,
+  },
+  title: {
+    fontSize: 24,
+    fontWeight: "bold",
+    marginBottom: 16,
+    textAlign: "center",
+  },
 });
 
 export default RecentlySearchedModal;

@@ -1,60 +1,66 @@
 import React from "react";
-import { View, Text, StyleSheet, TouchableOpacity, Modal, SafeAreaView } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  Modal,
+  SafeAreaView,
+} from "react-native";
 import { useRouter } from "expo-router";
 import { COLORS, SPACING, TYPOGRAPHY } from "../../../utils/theme";
 import { commonStyles } from "../../../utils/styles";
 
-import Currency from './modalContent/Currency'
-import Orders from './modalContent/Orders'
-import Vouchers from './modalContent/Vouchers'
-import RatingsAndReviews from './modalContent/RatingsAndReviews'
-import Interests from './modalContent/Interests'
-import RecentlyViewed from './modalContent/RecentlyViewed'
-import RecentlySearched from './modalContent/RecentlySearched'
-import BuyAgain from './modalContent/BuyAgain'
-import ListAndRegistries from './modalContent/ListAndRegistries'
-import PaymentSettings from './modalContent/PaymentSettings'
-import AddressBook from './modalContent/AddressBook'
-import LegalAndAbout from './modalContent/LegalAndAbout'
-import RateApp from './modalContent/RateApp'
+import Currency from "./modalContent/Currency";
+import Orders from "./modalContent/Orders";
+import Vouchers from "./modalContent/Vouchers";
+import RatingsAndReviews from "./modalContent/RatingsAndReviews";
+import Interests from "./modalContent/Interests";
+import RecentlyViewed from "./modalContent/RecentlyViewed";
+import RecentlySearched from "./modalContent/RecentlySearched";
+import BuyAgain from "./modalContent/BuyAgain";
+import ListAndRegistries from "./modalContent/ListAndRegistries";
+import PaymentSettings from "./modalContent/PaymentSettings";
+import AddressBook from "./modalContent/AddressBook";
+import LegalAndAbout from "./modalContent/LegalAndAbout";
+import RateApp from "./modalContent/RateApp";
 
 export default function ModalScreens() {
   const router = useRouter();
   const ModalScreen = ({ visible, onClose, modalType }) => {
     const renderContent = () => {
       switch (modalType) {
-        case 'currency':
+        case "currency":
           return <Currency />;
-        case 'orders':
+        case "orders":
           return <Orders />;
-        case 'vouchers':
+        case "vouchers":
           return <Vouchers />;
-        case 'ratingsAndReviews':
+        case "ratingsAndReviews":
           return <RatingsAndReviews />;
-        case 'interests':
+        case "interests":
           return <Interests />;
-        case 'recentlyViewed':
+        case "recentlyViewed":
           return <RecentlyViewed />;
-        case 'recentlySearched':
+        case "recentlySearched":
           return <RecentlySearched />;
-        case 'buyAgain':
+        case "buyAgain":
           return <BuyAgain />;
-        case 'listAndRegistries':
+        case "listAndRegistries":
           return <ListAndRegistries />;
-        case 'paymentSettings':
+        case "paymentSettings":
           return <PaymentSettings />;
-        case 'addressBook':
+        case "addressBook":
           return <AddressBook />;
-        case 'legalAndAbout':
+        case "legalAndAbout":
           return <LegalAndAbout />;
-        case 'rateOurApp':
+        case "rateOurApp":
           return <RateApp />;
         default:
           return <Text>Unknown Content</Text>;
       }
     };
-
-  }
+  };
   return (
     <SafeAreaView style={styles.modalContainer}>
       <Modal

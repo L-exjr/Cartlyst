@@ -21,8 +21,8 @@ import { commonStyles } from "../../../utils/styles";
 import SignInPrompt from "../../../components/SignInPrompt";
 import SwipeableCartItem from "../../../components/SwipeableCartItem";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { useTranslation } from 'react-i18next';
-import Price from '../../../components/Price';
+import { useTranslation } from "react-i18next";
+import Price from "../../../components/Price";
 
 // Helper to get discounted price
 function getDiscountedPrice(product) {
@@ -65,8 +65,8 @@ export default function CartScreen() {
   if (!isLoggedIn || !userId) {
     return (
       <SignInPrompt
-        title={t('signInToViewCart')}
-        message={t('signInToSaveCart')}
+        title={t("signInToViewCart")}
+        message={t("signInToSaveCart")}
         iconName="cart-outline"
       />
     );
@@ -82,14 +82,12 @@ export default function CartScreen() {
           color={COLORS.primary}
           style={styles.icon}
         />
-        <Text style={styles.emptyText}>
-          {t('cartEmpty')}
-        </Text>
+        <Text style={styles.emptyText}>{t("cartEmpty")}</Text>
         <TouchableOpacity
           style={styles.button}
           onPress={() => router.replace("/(tabs)/(1-home)")}
         >
-          <Text style={styles.buttonText}>{t('continueShopping')}</Text>
+          <Text style={styles.buttonText}>{t("continueShopping")}</Text>
         </TouchableOpacity>
       </View>
     );
@@ -111,7 +109,7 @@ export default function CartScreen() {
   // Cart with items UI
   return (
     <SafeAreaView style={styles.container}>
-      <Text style={styles.header}>{t('cartSummary')}</Text>
+      <Text style={styles.header}>{t("cartSummary")}</Text>
       <FlatList
         data={cart}
         keyExtractor={(item) => item.id.toString()}
@@ -127,11 +125,17 @@ export default function CartScreen() {
       />
       <View style={styles.summary}>
         <Price amount={subtotal} style={styles.subtotal} />
-        <TouchableOpacity style={styles.checkoutButton} onPress={() => router.push('/(tabs)/(3-cart)/CheckoutScreen')}>
+        <TouchableOpacity
+          style={styles.checkoutButton}
+          onPress={() => router.push("/(tabs)/(3-cart)/CheckoutScreen")}
+        >
           <Price amount={subtotal} style={styles.checkoutText} />
         </TouchableOpacity>
-        <TouchableOpacity style={styles.clearButton} onPress={() => clearCart(userId)}>
-          <Text style={styles.clearText}>{t('clearCart')}</Text>
+        <TouchableOpacity
+          style={styles.clearButton}
+          onPress={() => clearCart(userId)}
+        >
+          <Text style={styles.clearText}>{t("clearCart")}</Text>
         </TouchableOpacity>
       </View>
     </SafeAreaView>
@@ -146,7 +150,7 @@ const styles = StyleSheet.create({
   buttonText: {
     ...commonStyles.buttonText,
     color: COLORS.text.primary,
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
   checkoutButton: {
     alignItems: "center",
@@ -158,7 +162,7 @@ const styles = StyleSheet.create({
   },
   checkoutText: {
     color: COLORS.text.primary,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     ...TYPOGRAPHY.body,
   },
   clearButton: {
@@ -173,7 +177,7 @@ const styles = StyleSheet.create({
   },
   clearText: {
     color: COLORS.text.primary,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     ...TYPOGRAPHY.body,
   },
   container: {
@@ -220,5 +224,3 @@ const styles = StyleSheet.create({
     paddingTop: SPACING.md,
   },
 });
-
-

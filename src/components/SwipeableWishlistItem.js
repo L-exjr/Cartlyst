@@ -12,7 +12,9 @@ export default function SwipeableWishlistItem({ item, onRemove, onAddToCart }) {
       <Image source={{ uri: item.image }} style={styles.image} />
       <View style={styles.info}>
         <Text style={styles.title}>{item.title}</Text>
-        <Text style={styles.price}>${(Number(item.price) || 0).toFixed(2)}</Text>
+        <Text style={styles.price}>
+          ${(Number(item.price) || 0).toFixed(2)}
+        </Text>
         {/* Removed add to cart button from card */}
       </View>
     </View>

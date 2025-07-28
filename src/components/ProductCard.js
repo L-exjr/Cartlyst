@@ -16,7 +16,7 @@ import {
   TYPOGRAPHY,
   SHADOWS,
 } from "../utils/theme";
-import Price from './Price';
+import Price from "./Price";
 
 // Helper to get discounted price
 function getDiscountedPrice(product) {
@@ -52,7 +52,7 @@ export default function ProductCard({
   let discountedPrice = safePrice;
   // In ProductCard, calculate original price for strikethrough if discount is present
   let originalPrice = null;
-  if (typeof product?.discount === 'number' && product.discount > 0) {
+  if (typeof product?.discount === "number" && product.discount > 0) {
     // If discount is a percentage (0-1 or 0-100)
     let discount = product.discount;
     if (discount > 0 && discount < 1) {
@@ -101,9 +101,17 @@ export default function ProductCard({
         </Text>
 
         <View style={styles.priceContainer}>
-          <Price amount={discountedPrice} style={styles.discountedPrice} from={product?.currency || 'USD'} />
+          <Price
+            amount={discountedPrice}
+            style={styles.discountedPrice}
+            from={product?.currency || "USD"}
+          />
           {showOriginal && (
-            <Price amount={originalPrice} style={styles.originalPrice} from={product?.currency || 'USD'} />
+            <Price
+              amount={originalPrice}
+              style={styles.originalPrice}
+              from={product?.currency || "USD"}
+            />
           )}
         </View>
 

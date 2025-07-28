@@ -23,11 +23,11 @@ import PropTypes from "prop-types";
 import { COLORS, SPACING, TYPOGRAPHY, SHADOWS } from "../../../utils/theme";
 import { commonStyles } from "../../../utils/styles";
 import { SafeAreaView } from "react-native-safe-area-context";
-import i18n from '../../../utils/i18n';
-import { useTranslation } from 'react-i18next';
-import { useCurrencyStore } from '../../../utils/currencyStore';
-import { Picker } from '@react-native-picker/picker';
-import * as Screens from './modalContent';
+import i18n from "../../../utils/i18n";
+import { useTranslation } from "react-i18next";
+import { useCurrencyStore } from "../../../utils/currencyStore";
+import { Picker } from "@react-native-picker/picker";
+import * as Screens from "./modalContent";
 
 export default function AccountScreen() {
   const { logOut, userId } = useAuthStore();
@@ -45,30 +45,41 @@ export default function AccountScreen() {
   const { t } = useTranslation();
   const [showLanguageModal, setShowLanguageModal] = useState(false);
   const languages = [
-    { code: 'en', label: 'English' },
-    { code: 'fr', label: 'Français' },
-    { code: 'es', label: 'Español' },
-    { code: 'ar', label: 'العربية' },
-    { code: 'zh', label: '中文' },
-    { code: 'ha', label: 'Hausa' },
-    { code: 'pt', label: 'Português' },
-    { code: 'ru', label: 'Русский' },
-    { code: 'hi', label: 'हिन्दी' },
-    { code: 'sw', label: 'Kiswahili' },
-    { code: 'de', label: 'Deutsch' },
-    { code: 'it', label: 'Italiano' },
-    { code: 'tr', label: 'Türkçe' },
-    { code: 'ja', label: '日本語' },
-    { code: 'ko', label: '한국어' },
-    { code: 'nl', label: 'Nederlands' },
-    { code: 'yo', label: 'Yorùbá' },
-    { code: 'ig', label: 'Igbo' },
-    { code: 'bn', label: 'বাংলা' },
-    { code: 'vi', label: 'Tiếng Việt' },
+    { code: "en", label: "English" },
+    { code: "fr", label: "Français" },
+    { code: "es", label: "Español" },
+    { code: "ar", label: "العربية" },
+    { code: "zh", label: "中文" },
+    { code: "ha", label: "Hausa" },
+    { code: "pt", label: "Português" },
+    { code: "ru", label: "Русский" },
+    { code: "hi", label: "हिन्दी" },
+    { code: "sw", label: "Kiswahili" },
+    { code: "de", label: "Deutsch" },
+    { code: "it", label: "Italiano" },
+    { code: "tr", label: "Türkçe" },
+    { code: "ja", label: "日本語" },
+    { code: "ko", label: "한국어" },
+    { code: "nl", label: "Nederlands" },
+    { code: "yo", label: "Yorùbá" },
+    { code: "ig", label: "Igbo" },
+    { code: "bn", label: "বাংলা" },
+    { code: "vi", label: "Tiếng Việt" },
   ];
   const { selectedCurrency, setCurrency, fetchRates } = useCurrencyStore();
   const [showCurrencyModal, setShowCurrencyModal] = useState(false);
-  const currencyList = ['USD', 'EUR', 'GBP', 'GHS', 'NGN', 'KES', 'ZAR', 'INR', 'CNY', 'JPY'];
+  const currencyList = [
+    "USD",
+    "EUR",
+    "GBP",
+    "GHS",
+    "NGN",
+    "KES",
+    "ZAR",
+    "INR",
+    "CNY",
+    "JPY",
+  ];
 
   // Fetch user on mount and after update/delete
   const fetchUser = async () => {
@@ -103,35 +114,34 @@ export default function AccountScreen() {
   const handleDeleteImage = async () => {
     setShowImageOptions(false);
     if (!userId) return;
-    Alert.alert(
-      t('deleteProfileImage'),
-      t('deleteProfileImageConfirm'),
-      [
-        { text: t('cancel'), style: 'cancel' },
-        {
-          text: t('delete'),
-          style: 'destructive',
-          onPress: async () => {
-            try {
-              const response = await fetch(`${API_BASE_URL}/api/users/${userId}/profile-image`, {
-                method: 'DELETE',
-              });
-              if (response.ok) {
-                setImageError(false);
-                setCacheBustKey((k) => k + 1);
-                fetchUser();
-                Alert.alert(t('success'), t('profileImageDeleted'));
-                setShowFullScreen(false);
-              } else {
-                Alert.alert(t('error'), t('failedToDeleteProfileImage'));
-              }
-            } catch (e) {
-              Alert.alert(t('error'), t('failedToDeleteProfileImage'));
+    Alert.alert(t("deleteProfileImage"), t("deleteProfileImageConfirm"), [
+      { text: t("cancel"), style: "cancel" },
+      {
+        text: t("delete"),
+        style: "destructive",
+        onPress: async () => {
+          try {
+            const response = await fetch(
+              `${API_BASE_URL}/api/users/${userId}/profile-image`,
+              {
+                method: "DELETE",
+              },
+            );
+            if (response.ok) {
+              setImageError(false);
+              setCacheBustKey((k) => k + 1);
+              fetchUser();
+              Alert.alert(t("success"), t("profileImageDeleted"));
+              setShowFullScreen(false);
+            } else {
+              Alert.alert(t("error"), t("failedToDeleteProfileImage"));
             }
-          },
+          } catch (e) {
+            Alert.alert(t("error"), t("failedToDeleteProfileImage"));
+          }
         },
-      ]
-    );
+      },
+    ]);
   };
 
   const handleUpdateImage = () => {
@@ -146,34 +156,37 @@ export default function AccountScreen() {
 
   const updateProfileImage = async (imageUrl) => {
     if (!userId) return;
-    
+
     try {
-      const response = await fetch(`${API_BASE_URL}/api/users/${userId}/profile-image`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
+      const response = await fetch(
+        `${API_BASE_URL}/api/users/${userId}/profile-image`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            profileImageUrl: imageUrl,
+          }),
         },
-        body: JSON.stringify({
-          profileImageUrl: imageUrl
-        })
-      });
+      );
 
       if (response.ok) {
-        Alert.alert(t('success'), t('profileImageUpdated'));
+        Alert.alert(t("success"), t("profileImageUpdated"));
         setCacheBustKey((k) => k + 1);
         fetchUser();
       } else {
-        Alert.alert(t('error'), t('failedToUpdateProfileImage'));
+        Alert.alert(t("error"), t("failedToUpdateProfileImage"));
       }
     } catch (error) {
-      Alert.alert(t('error'), t('failedToUpdateProfileImage'));
+      Alert.alert(t("error"), t("failedToUpdateProfileImage"));
     }
   };
 
   const pickAndUploadImage = async () => {
     try {
       const result = await ImagePicker.launchImageLibraryAsync({
-        mediaTypes: [ 'images' ],
+        mediaTypes: ["images"],
         allowsEditing: true,
         aspect: [1, 1],
         quality: 0.8,
@@ -182,24 +195,24 @@ export default function AccountScreen() {
       if (!result.canceled) {
         setUploading(true);
         const uri = result.assets[0].uri;
-        
+
         try {
-          console.log('Starting upload through backend');
-          
+          console.log("Starting upload through backend");
+
           // Create FormData for file upload
           const formData = new FormData();
-          formData.append('file', {
+          formData.append("file", {
             uri: uri,
-            type: 'image/jpeg',
-            name: `profile-${userId}-${Date.now()}.jpg`
+            type: "image/jpeg",
+            name: `profile-${userId}-${Date.now()}.jpg`,
           });
 
           // Try Supabase upload first
           let uploadResponse = await fetch(`${API_BASE_URL}/files/upload`, {
-            method: 'POST',
+            method: "POST",
             body: formData,
             headers: {
-              'Content-Type': 'multipart/form-data',
+              "Content-Type": "multipart/form-data",
             },
           });
 
@@ -207,65 +220,79 @@ export default function AccountScreen() {
           let imageUrl;
 
           if (!uploadResponse.ok) {
-            console.log('Supabase upload failed, trying local upload...');
-            
+            console.log("Supabase upload failed, trying local upload...");
+
             // Try local upload as fallback
             uploadResponse = await fetch(`${API_BASE_URL}/files/upload-local`, {
-              method: 'POST',
+              method: "POST",
               body: formData,
               headers: {
-                'Content-Type': 'multipart/form-data',
+                "Content-Type": "multipart/form-data",
               },
             });
 
             if (!uploadResponse.ok) {
-              throw new Error('Both Supabase and local upload failed');
+              throw new Error("Both Supabase and local upload failed");
             }
 
             uploadResult = await uploadResponse.json();
-            console.log('Local upload result:', uploadResult);
+            console.log("Local upload result:", uploadResult);
           } else {
             uploadResult = await uploadResponse.json();
-            console.log('Supabase upload result:', uploadResult);
+            console.log("Supabase upload result:", uploadResult);
           }
-          
+
           imageUrl = uploadResult.downloadUrl;
-          
+
           if (!imageUrl) {
-            throw new Error('No download URL received from upload');
+            throw new Error("No download URL received from upload");
           }
-          
+
           // Update profile image in backend
           await updateProfileImage(imageUrl);
-          
         } catch (e) {
-          console.error('Upload error details:', e);
-          Alert.alert(t('uploadFailed'), t('failedToUploadImage', { error: e.message }));
+          console.error("Upload error details:", e);
+          Alert.alert(
+            t("uploadFailed"),
+            t("failedToUploadImage", { error: e.message }),
+          );
         } finally {
           setUploading(false);
         }
       }
     } catch (error) {
-      console.error('Image picker error:', error);
-      Alert.alert(t('error'), t('failedToPickImage'));
+      console.error("Image picker error:", error);
+      Alert.alert(t("error"), t("failedToPickImage"));
       setUploading(false);
     }
   };
 
-  const handleOrders = () => router.push("/(tabs)/(5-account)/modalContent/Orders");
-  const handleVouchers = () => router.push("/(tabs)/(5-account)/modalContent/Vouchers");
-  const handleRatings = () => router.push("/(tabs)/(5-account)/modalContent/RatingsAndReviews");
-  const handleInterests = () => router.push("/(tabs)/(5-account)/modalContent/Interests");
-  const handleRecentlyViewed = () => router.push("/(tabs)/(5-account)/modalContent/RecentlyViewed");
-  const handleRecentlySearched = () => router.push("/(tabs)/(5-account)/modalContent/RecentlySearched");
-  const handleBuyAgain = () => router.push("/(tabs)/(5-account)/modalContent/BuyAgain");
-  const handleLists = () => router.push("/(tabs)/(5-account)/modalContent/ListAndRegistries");
-  const handlePayment = () => router.push("/(tabs)/(5-account)/modalContent/PaymentSettings");
-  const handleAddress = () => router.push("/(tabs)/(5-account)/modalContent/AddressBook");
-  const handleLegal = () => router.push("/(tabs)/(5-account)/modalContent/LegalAndAbout");
-  const handleRate = () => router.push("/(tabs)/(5-account)/modalContent/RateApp");
+  const handleOrders = () =>
+    router.push("/(tabs)/(5-account)/modalContent/Orders");
+  const handleVouchers = () =>
+    router.push("/(tabs)/(5-account)/modalContent/Vouchers");
+  const handleRatings = () =>
+    router.push("/(tabs)/(5-account)/modalContent/RatingsAndReviews");
+  const handleInterests = () =>
+    router.push("/(tabs)/(5-account)/modalContent/Interests");
+  const handleRecentlyViewed = () =>
+    router.push("/(tabs)/(5-account)/modalContent/RecentlyViewed");
+  const handleRecentlySearched = () =>
+    router.push("/(tabs)/(5-account)/modalContent/RecentlySearched");
+  const handleBuyAgain = () =>
+    router.push("/(tabs)/(5-account)/modalContent/BuyAgain");
+  const handleLists = () =>
+    router.push("/(tabs)/(5-account)/modalContent/ListAndRegistries");
+  const handlePayment = () =>
+    router.push("/(tabs)/(5-account)/modalContent/PaymentSettings");
+  const handleAddress = () =>
+    router.push("/(tabs)/(5-account)/modalContent/AddressBook");
+  const handleLegal = () =>
+    router.push("/(tabs)/(5-account)/modalContent/LegalAndAbout");
+  const handleRate = () =>
+    router.push("/(tabs)/(5-account)/modalContent/RateApp");
   const handleSwitchToSeller = () => {
-    router.replace('/seller');
+    router.replace("/seller");
   };
 
   return (
@@ -277,12 +304,15 @@ export default function AccountScreen() {
         {/* Profile Image */}
         <View style={styles.imageContainer}>
           <View>
-            <TouchableOpacity onPress={() => setShowFullScreen(true)} disabled={uploading}>
+            <TouchableOpacity
+              onPress={() => setShowFullScreen(true)}
+              disabled={uploading}
+            >
               <Image
                 style={[styles.image, uploading && styles.imageUploading]}
                 source={
                   !imageError && user && user.profileImageUrl
-                    ? { uri: user.profileImageUrl + '?cb=' + cacheBustKey }
+                    ? { uri: user.profileImageUrl + "?cb=" + cacheBustKey }
                     : require("../../../../assets/placeholder.png")
                 }
                 onLoadStart={() => {
@@ -313,12 +343,17 @@ export default function AccountScreen() {
                 onPress={() => setShowImageOptions(true)}
                 disabled={uploading}
               >
-                <FontAwesome6 name="pencil" size={30} color="#000" style={{ transform: [{ scaleX: -1 }] }} />
+                <FontAwesome6
+                  name="pencil"
+                  size={30}
+                  color="#000"
+                  style={{ transform: [{ scaleX: -1 }] }}
+                />
               </TouchableOpacity>
               {loadingImage && (
                 <View style={styles.uploadingOverlay}>
                   <ActivityIndicator color="#fff" />
-                  <Text style={styles.uploadingText}>{t('loading')}</Text>
+                  <Text style={styles.uploadingText}>{t("loading")}</Text>
                 </View>
               )}
             </TouchableOpacity>
@@ -329,16 +364,33 @@ export default function AccountScreen() {
               animationType="fade"
               onRequestClose={() => setShowImageOptions(false)}
             >
-              <TouchableOpacity style={styles.modalOverlay} onPress={() => setShowImageOptions(false)} activeOpacity={1}>
+              <TouchableOpacity
+                style={styles.modalOverlay}
+                onPress={() => setShowImageOptions(false)}
+                activeOpacity={1}
+              >
                 <View style={styles.optionsMenu}>
-                  <TouchableOpacity onPress={handleUpdateImage} style={styles.optionBtn}>
-                    <Text style={styles.optionText}>{t('updateProfileImage')}</Text>
+                  <TouchableOpacity
+                    onPress={handleUpdateImage}
+                    style={styles.optionBtn}
+                  >
+                    <Text style={styles.optionText}>
+                      {t("updateProfileImage")}
+                    </Text>
                   </TouchableOpacity>
-                  <TouchableOpacity onPress={handleDeleteImage} style={styles.optionBtn}>
-                    <Text style={[styles.optionText, { color: COLORS.error }]}>{t('deleteProfileImage')}</Text>
+                  <TouchableOpacity
+                    onPress={handleDeleteImage}
+                    style={styles.optionBtn}
+                  >
+                    <Text style={[styles.optionText, { color: COLORS.error }]}>
+                      {t("deleteProfileImage")}
+                    </Text>
                   </TouchableOpacity>
-                  <TouchableOpacity onPress={() => setShowImageOptions(false)} style={styles.optionBtn}>
-                    <Text style={styles.optionText}>{t('cancel')}</Text>
+                  <TouchableOpacity
+                    onPress={() => setShowImageOptions(false)}
+                    style={styles.optionBtn}
+                  >
+                    <Text style={styles.optionText}>{t("cancel")}</Text>
                   </TouchableOpacity>
                 </View>
               </TouchableOpacity>
@@ -350,12 +402,16 @@ export default function AccountScreen() {
               animationType="fade"
               onRequestClose={() => setShowFullScreen(false)}
             >
-              <TouchableOpacity style={styles.fullScreenOverlay} onPress={() => setShowFullScreen(false)} activeOpacity={1}>
+              <TouchableOpacity
+                style={styles.fullScreenOverlay}
+                onPress={() => setShowFullScreen(false)}
+                activeOpacity={1}
+              >
                 <Image
                   style={styles.fullScreenImage}
                   source={
                     !imageError && user && user.profileImageUrl
-                      ? { uri: user.profileImageUrl + '?cb=' + cacheBustKey }
+                      ? { uri: user.profileImageUrl + "?cb=" + cacheBustKey }
                       : require("../../../../assets/placeholder.png")
                   }
                   resizeMode="contain"
@@ -370,10 +426,12 @@ export default function AccountScreen() {
           <View style={styles.greetingAndEmail}>
             <Text style={styles.greeting}>
               {loading
-                ? t('loading')
+                ? t("loading")
                 : user
-                ? t('welcomeUser', { name: (user.fullName || t('user')).split(' ')[0] })
-                : t('welcome')}
+                  ? t("welcomeUser", {
+                      name: (user.fullName || t("user")).split(" ")[0],
+                    })
+                  : t("welcome")}
             </Text>
             <Text style={styles.email}>
               {loading ? "" : user ? user.email : ""}
@@ -383,43 +441,50 @@ export default function AccountScreen() {
             <TouchableOpacity style={styles.notification}>
               <FontAwesome6 name="bell" size={24}></FontAwesome6>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.language} onPress={() => router.push("/(tabs)/(5-account)/modalContent/Language")}>
+            <TouchableOpacity
+              style={styles.language}
+              onPress={() =>
+                router.push("/(tabs)/(5-account)/modalContent/Language")
+              }
+            >
               <MaterialIcons name="language" size={24}></MaterialIcons>
             </TouchableOpacity>
           </View>
         </View>
 
         {/* Section List Example */}
-        
+
         <View style={styles.section1}>
-        <SectionItem
-          IconComponent={FontAwesome6}
-          iconName="money-bill-transfer"
-          label={`Currency: ${selectedCurrency}`}
-          onPress={() => router.push('/(tabs)/(5-account)/modalContent/Currency')}
-        />
+          <SectionItem
+            IconComponent={FontAwesome6}
+            iconName="money-bill-transfer"
+            label={`Currency: ${selectedCurrency}`}
+            onPress={() =>
+              router.push("/(tabs)/(5-account)/modalContent/Currency")
+            }
+          />
           <SectionItem
             IconComponent={MaterialIcons}
             iconName="storefront"
-            label={t('orders')}
+            label={t("orders")}
             onPress={handleOrders}
           />
           <SectionItem
             IconComponent={MaterialCommunityIcons}
             iconName="ticket-confirmation-outline"
-            label={t('vouchers')}
+            label={t("vouchers")}
             onPress={handleVouchers}
           />
           <SectionItem
             IconComponent={MaterialIcons}
             iconName="rate-review"
-            label={t('ratings')}
+            label={t("ratings")}
             onPress={handleRatings}
           />
           <SectionItem
             IconComponent={MaterialIcons}
             iconName="interests"
-            label={t('interests')}
+            label={t("interests")}
             onPress={handleInterests}
           />
         </View>
@@ -427,25 +492,25 @@ export default function AccountScreen() {
           <SectionItem
             IconComponent={FontAwesome6}
             iconName="eye"
-            label={t('recentlyViewed')}
+            label={t("recentlyViewed")}
             onPress={handleRecentlyViewed}
           />
           <SectionItem
             IconComponent={MaterialIcons}
             iconName="youtube-searched-for"
-            label={t('recentlySearched')}
+            label={t("recentlySearched")}
             onPress={handleRecentlySearched}
           />
           <SectionItem
             IconComponent={MaterialIcons}
             iconName="shopping-basket"
-            label={t('buyAgain')}
+            label={t("buyAgain")}
             onPress={handleBuyAgain}
           />
           <SectionItem
             IconComponent={MaterialCommunityIcons}
             iconName="view-list-outline"
-            label={t('lists')}
+            label={t("lists")}
             onPress={handleLists}
           />
         </View>
@@ -453,37 +518,39 @@ export default function AccountScreen() {
           <SectionItem
             IconComponent={FontAwesome6}
             iconName="money-check-dollar"
-            label={t('payment')}
+            label={t("payment")}
             onPress={handlePayment}
           />
           <SectionItem
             IconComponent={FontAwesome6}
             iconName="location-dot"
-            label={t('address')}
+            label={t("address")}
             onPress={handleAddress}
           />
           <SectionItem
             IconComponent={MaterialIcons}
             iconName="policy"
-            label={t('legal')}
+            label={t("legal")}
             onPress={handleLegal}
           />
           <SectionItem
             IconComponent={FontAwesome6}
             iconName="star"
-            label={t('rate')}
+            label={t("rate")}
             onPress={handleRate}
           />
         </View>
-        
 
         {/* Sign Out & Switch Account */}
         <TouchableOpacity style={styles.signoutBtn} onPress={handleSignOut}>
-          <Text style={styles.signoutText}>{t('logout')}</Text>
+          <Text style={styles.signoutText}>{t("logout")}</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.switchBtn} onPress={handleSwitchToSeller}>
-          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-            <Text style={styles.switchText}>{t('switch')}</Text>
+        <TouchableOpacity
+          style={styles.switchBtn}
+          onPress={handleSwitchToSeller}
+        >
+          <View style={{ flexDirection: "row", alignItems: "center" }}>
+            <Text style={styles.switchText}>{t("switch")}</Text>
             <MaterialCommunityIcons name="transit-transfer" size={16} />
           </View>
         </TouchableOpacity>
@@ -522,9 +589,24 @@ const styles = StyleSheet.create({
     ...commonStyles.container,
     backgroundColor: COLORS.background,
   },
+  debugText: {
+    ...TYPOGRAPHY.caption,
+    color: COLORS.text.secondary,
+    marginTop: SPACING.sm,
+  },
   email: {
     ...TYPOGRAPHY.body,
     fontWeight: "semibold",
+  },
+  fullScreenImage: {
+    height: "100%",
+    width: "100%",
+  },
+  fullScreenOverlay: {
+    alignItems: "center",
+    backgroundColor: "rgba(0,0,0,0.95)",
+    flex: 1,
+    justifyContent: "center",
   },
   greeting: {
     ...TYPOGRAPHY.h3,
@@ -548,27 +630,40 @@ const styles = StyleSheet.create({
   imageUploading: {
     opacity: 0.7,
   },
-  uploadingOverlay: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
-    backgroundColor: 'rgba(0,0,0,0.5)',
-    borderRadius: 75,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  uploadingText: {
-    color: COLORS.text.inverse,
-    ...TYPOGRAPHY.caption,
-    fontWeight: 'bold',
-  },
   language: {
     paddingHorizontal: SPACING.sm,
   },
+  modalOverlay: {
+    alignItems: "center",
+    backgroundColor: "rgba(0,0,0,0.4)",
+    flex: 1,
+    justifyContent: "center",
+  },
   notification: {
     paddingHorizontal: SPACING.sm,
+  },
+  optionBtn: {
+    alignItems: "center",
+    paddingVertical: 12,
+    width: "100%",
+  },
+  optionText: {
+    ...TYPOGRAPHY.body,
+    color: COLORS.text.primary,
+    fontWeight: "bold",
+  },
+  optionsMenu: {
+    alignItems: "center",
+    backgroundColor: COLORS.surface,
+    borderRadius: 12,
+    padding: 20,
+    width: 250,
+  },
+  pencilIcon: {
+    bottom: 10,
+    position: "absolute",
+    right: 10,
+    zIndex: 10,
   },
   profile: {
     alignItems: "center",
@@ -627,48 +722,20 @@ const styles = StyleSheet.create({
     ...TYPOGRAPHY.h3,
     fontWeight: "bold",
   },
-  debugText: {
+  uploadingOverlay: {
+    alignItems: "center",
+    backgroundColor: "rgba(0,0,0,0.5)",
+    borderRadius: 75,
+    bottom: 0,
+    justifyContent: "center",
+    left: 0,
+    position: "absolute",
+    right: 0,
+    top: 0,
+  },
+  uploadingText: {
+    color: COLORS.text.inverse,
     ...TYPOGRAPHY.caption,
-    color: COLORS.text.secondary,
-    marginTop: SPACING.sm,
-  },
-  pencilIcon: {
-    position: 'absolute',
-    right: 10,
-    bottom: 10,
-    zIndex: 10,
-  },
-  modalOverlay: {
-    flex: 1,
-    backgroundColor: 'rgba(0,0,0,0.4)',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  optionsMenu: {
-    backgroundColor: COLORS.surface,
-    borderRadius: 12,
-    padding: 20,
-    width: 250,
-    alignItems: 'center',
-  },
-  optionBtn: {
-    paddingVertical: 12,
-    width: '100%',
-    alignItems: 'center',
-  },
-  optionText: {
-    ...TYPOGRAPHY.body,
-    color: COLORS.text.primary,
-    fontWeight: 'bold',
-  },
-  fullScreenOverlay: {
-    flex: 1,
-    backgroundColor: 'rgba(0,0,0,0.95)',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  fullScreenImage: {
-    width: '100%',
-    height: '100%',
+    fontWeight: "bold",
   },
 });

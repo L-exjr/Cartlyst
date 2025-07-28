@@ -5,7 +5,7 @@ import { FontAwesome6 } from "@expo/vector-icons";
 import { COLORS, SPACING, BORDER_RADIUS, TYPOGRAPHY } from "../utils/theme";
 import { commonStyles } from "../utils/styles";
 import PropTypes from "prop-types";
-import Price from './Price';
+import Price from "./Price";
 
 // Helper to get discounted price
 function getDiscountedPrice(product) {
@@ -180,5 +180,3 @@ SwipeableCartItem.propTypes = {
   onUpdateQuantity: PropTypes.func.isRequired,
   onMoveToWishlist: PropTypes.func.isRequired,
 };
-
-

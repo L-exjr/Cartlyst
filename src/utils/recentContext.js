@@ -1,5 +1,9 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
-import { getRecentItems, addRecentItem, clearRecentItems } from './recentService';
+import React, { createContext, useContext, useState, useEffect } from "react";
+import {
+  getRecentItems,
+  addRecentItem,
+  clearRecentItems,
+} from "./recentService";
 
 const RecentContext = createContext();
 
@@ -12,13 +16,13 @@ export const RecentProvider = ({ children, userId }) => {
   const loadRecentItems = async () => {
     try {
       setIsLoading(true);
-      const searches = await getRecentItems(userId, 5, 'search');
-      const views = await getRecentItems(userId, 5, 'product');
+      const searches = await getRecentItems(userId, 5, "search");
+      const views = await getRecentItems(userId, 5, "product");
       setRecentSearches(searches || []);
       setRecentViews(views || []);
       setError(null);
     } catch (err) {
-      console.error('Failed to load recent items:', err);
+      console.error("Failed to load recent items:", err);
       setError(err.message);
       setRecentSearches([]);
       setRecentViews([]);
@@ -29,28 +33,28 @@ export const RecentProvider = ({ children, userId }) => {
 
   const addRecentSearch = async (searchTerm) => {
     try {
-      await addRecentItem(userId, searchTerm, 'search');
+      await addRecentItem(userId, searchTerm, "search");
       await loadRecentItems();
     } catch (err) {
-      console.error('Failed to add recent search:', err);
+      console.error("Failed to add recent search:", err);
     }
   };
 
   const addRecentView = async (productId) => {
     try {
-      await addRecentItem(userId, productId, 'product');
+      await addRecentItem(userId, productId, "product");
       await loadRecentItems();
     } catch (err) {
-      console.error('Failed to add recent view:', err);
+      console.error("Failed to add recent view:", err);
     }
   };
 
   const clearRecentSearches = async () => {
     try {
-      await clearRecentItems(userId, 'search');
+      await clearRecentItems(userId, "search");
       setRecentSearches([]);
     } catch (err) {
-      console.error('Failed to clear recent searches:', err);
+      console.error("Failed to clear recent searches:", err);
     }
   };
 
@@ -73,7 +77,7 @@ export const RecentProvider = ({ children, userId }) => {
         addRecentView,
         clearRecentSearches,
         isLoading,
-        error
+        error,
       }}
     >
       {children}
@@ -85,7 +89,7 @@ export const RecentProvider = ({ children, userId }) => {
 export const useRecent = () => {
   const context = useContext(RecentContext);
   if (context === undefined) {
-    throw new Error('useRecent must be used within a RecentProvider');
+    throw new Error("useRecent must be used within a RecentProvider");
   }
   return context;
 };

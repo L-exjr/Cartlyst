@@ -1,21 +1,28 @@
-import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Alert, SafeAreaView } from 'react-native';
-import { useLocalSearchParams } from 'expo-router';
-import { useProductStore } from '../../store/productStore';
-import { useRouter } from 'expo-router';
-import CustomHeader from '../components/CustomHeader';
+import React from "react";
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  Alert,
+  SafeAreaView,
+} from "react-native";
+import { useLocalSearchParams } from "expo-router";
+import { useProductStore } from "../../store/productStore";
+import { useRouter } from "expo-router";
+import CustomHeader from "../components/CustomHeader";
 
 export default function ProductDetailScreen() {
   const { id } = useLocalSearchParams();
   const product = useProductStore((state) =>
-    state.products?.find((p) => p.id === parseInt(id))
+    state.products?.find((p) => p.id === parseInt(id)),
   );
   const router = useRouter();
   const deleteProduct = useProductStore((state) => state.deleteProduct);
 
   if (!product) {
     return (
-      <SafeAreaView style={{ flex: 1, backgroundColor: '#fff' }}>
+      <SafeAreaView style={{ flex: 1, backgroundColor: "#fff" }}>
         <CustomHeader showBack />
         <View style={styles.container}>
           <Text style={styles.error}>Product not found.</Text>
@@ -25,7 +32,7 @@ export default function ProductDetailScreen() {
   }
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: '#fff' }}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: "#fff" }}>
       <CustomHeader showBack />
       <View style={styles.container}>
         <Text style={styles.heading}>Product Details</Text>
@@ -36,20 +43,36 @@ export default function ProductDetailScreen() {
           <Text style={styles.value}>₵ {product.price}</Text>
         </View>
         <View style={styles.actions}>
-          <TouchableOpacity style={styles.editButton} onPress={() => router.push({ pathname: `/product/${product.id}/edit` })}>
+          <TouchableOpacity
+            style={styles.editButton}
+            onPress={() =>
+              router.push({ pathname: `/product/${product.id}/edit` })
+            }
+          >
             <Text style={styles.editText}>Edit</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.deleteButton} onPress={() => {
-            Alert.alert('Delete Product', 'Are you sure you want to delete this product?', [
-              { text: 'Cancel', style: 'cancel' },
-              { text: 'Delete', style: 'destructive', onPress: () => {
-                deleteProduct(product.id);
-                Alert.alert('Deleted', 'Product deleted!', [
-                  { text: 'OK', onPress: () => router.replace('/index') }
-                ]);
-              } },
-            ]);
-          }}>
+          <TouchableOpacity
+            style={styles.deleteButton}
+            onPress={() => {
+              Alert.alert(
+                "Delete Product",
+                "Are you sure you want to delete this product?",
+                [
+                  { text: "Cancel", style: "cancel" },
+                  {
+                    text: "Delete",
+                    style: "destructive",
+                    onPress: () => {
+                      deleteProduct(product.id);
+                      Alert.alert("Deleted", "Product deleted!", [
+                        { text: "OK", onPress: () => router.replace("/index") },
+                      ]);
+                    },
+                  },
+                ],
+              );
+            }}
+          >
             <Text style={styles.deleteText}>Delete</Text>
           </TouchableOpacity>
         </View>
@@ -62,61 +85,61 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
-    backgroundColor: '#fff',
+    backgroundColor: "#fff",
   },
   heading: {
     fontSize: 20,
-    fontWeight: '600',
+    fontWeight: "600",
     marginBottom: 20,
   },
   card: {
-    backgroundColor: '#f5f5f5',
+    backgroundColor: "#f5f5f5",
     borderRadius: 10,
     padding: 16,
     marginBottom: 24,
   },
   label: {
     fontSize: 13,
-    color: '#555',
+    color: "#555",
     marginTop: 8,
   },
   value: {
     fontSize: 16,
-    fontWeight: '500',
+    fontWeight: "500",
   },
   error: {
     fontSize: 16,
-    color: 'red',
-    textAlign: 'center',
+    color: "red",
+    textAlign: "center",
     marginTop: 50,
   },
   actions: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    justifyContent: "space-between",
     marginTop: 16,
   },
   editButton: {
-    backgroundColor: '#f4c430',
+    backgroundColor: "#f4c430",
     padding: 12,
     borderRadius: 8,
     flex: 1,
-    alignItems: 'center',
+    alignItems: "center",
     marginRight: 8,
   },
   deleteButton: {
-    backgroundColor: '#ff4d4f',
+    backgroundColor: "#ff4d4f",
     padding: 12,
     borderRadius: 8,
     flex: 1,
-    alignItems: 'center',
+    alignItems: "center",
     marginLeft: 8,
   },
   editText: {
-    color: '#fff',
-    fontWeight: '600',
+    color: "#fff",
+    fontWeight: "600",
   },
   deleteText: {
-    color: '#fff',
-    fontWeight: '600',
+    color: "#fff",
+    fontWeight: "600",
   },
-}); 
+});

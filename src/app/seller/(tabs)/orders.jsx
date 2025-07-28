@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import {
   View,
   Text,
@@ -6,12 +6,12 @@ import {
   StyleSheet,
   TouchableOpacity,
   SafeAreaView,
-} from 'react-native';
-import { useRouter } from 'expo-router';
-import { useOrderStore } from '../../../sellerStore/orderStore';
-import { Ionicons } from '@expo/vector-icons';
-import CustomHeader from '../components/CustomHeader';
-import Price from '../../../components/Price';
+} from "react-native";
+import { useRouter } from "expo-router";
+import { useOrderStore } from "../../../sellerStore/orderStore";
+import { Ionicons } from "@expo/vector-icons";
+import CustomHeader from "../components/CustomHeader";
+import Price from "../../../components/Price";
 
 // Helper to get discounted price
 function getDiscountedPrice(order) {
@@ -40,13 +40,16 @@ const OrdersScreen = () => {
         <Text style={styles.product}>{item.product}</Text>
         <Text style={styles.status}>{item.status}</Text>
       </View>
-      <Text style={styles.meta}>Qty: {item.quantity} | <Price amount={getDiscountedPrice(item) * item.quantity} /></Text>
+      <Text style={styles.meta}>
+        Qty: {item.quantity} |{" "}
+        <Price amount={getDiscountedPrice(item) * item.quantity} />
+      </Text>
       <Text style={styles.date}>{item.date}</Text>
     </TouchableOpacity>
   );
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: '#fff' }}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: "#fff" }}>
       <CustomHeader />
       <View style={styles.container}>
         <FlatList
@@ -65,40 +68,38 @@ export default OrdersScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: "#fff",
   },
   list: {
     padding: 16,
   },
   card: {
-    backgroundColor: '#f5f5f5',
+    backgroundColor: "#f5f5f5",
     padding: 14,
     borderRadius: 10,
     marginBottom: 12,
   },
   row: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    justifyContent: "space-between",
     marginBottom: 4,
   },
   product: {
     fontSize: 16,
-    fontWeight: '600',
+    fontWeight: "600",
   },
   status: {
     fontSize: 12,
-    color: '#f4c430',
-    fontWeight: '500',
+    color: "#f4c430",
+    fontWeight: "500",
   },
   meta: {
     fontSize: 13,
-    color: '#555',
+    color: "#555",
   },
   date: {
     fontSize: 11,
-    color: '#888',
+    color: "#888",
     marginTop: 4,
   },
 });
-
-

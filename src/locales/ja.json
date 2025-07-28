@@ -149,7 +149,4 @@
   "resetPasswordError": "パスワードリセット中にエラーが発生しました",
   "resetPasswordSuccess": "ご登録のメールアドレス宛にパスワードリセットの手順が送信されます。",
   "back": "戻る"
-} 
- 
- 
- 
+}
