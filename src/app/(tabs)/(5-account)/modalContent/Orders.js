@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, FlatList, TouchableOpacity, ActivityIndicator } from 'react-native';
 import { useRouter } from 'expo-router';
-import { API_BASE_URL } from '../../../utils/config';
-import { useAuthStore } from '../../../utils/authStore';
+import { API_BASE_URL } from '../../../../utils/config';
+import { useAuthStore } from '../../../../utils/authStore';
 
 export default function OrdersModal() {
   const router = useRouter();

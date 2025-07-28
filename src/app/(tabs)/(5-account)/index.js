@@ -172,7 +172,7 @@ export default function AccountScreen() {
   const pickAndUploadImage = async () => {
     try {
       const result = await ImagePicker.launchImageLibraryAsync({
-        mediaTypes: ImagePicker.MediaTypeOptions.Images,
+        mediaTypes: ImagePicker.MediaType.Images,
         allowsEditing: true,
         aspect: [1, 1],
         quality: 0.8,
@@ -251,18 +251,18 @@ export default function AccountScreen() {
     }
   };
 
-  const handleOrders = () => router.push("/(tabs)/(5-account)/orders-modal");
-  const handleVouchers = () => router.push("/(tabs)/(5-account)/vouchers-modal");
-  const handleRatings = () => router.push("/(tabs)/(5-account)/ratings-modal");
-  const handleInterests = () => router.push("/(tabs)/(5-account)/interests-modal");
-  const handleRecentlyViewed = () => router.push("/(tabs)/(5-account)/recently-viewed-modal");
-  const handleRecentlySearched = () => router.push("/(tabs)/(5-account)/recently-searched-modal");
-  const handleBuyAgain = () => router.push("/(tabs)/(5-account)/buy-again-modal");
-  const handleLists = () => router.push("/(tabs)/(5-account)/lists-modal");
-  const handlePayment = () => router.push("/(tabs)/(5-account)/payment-modal");
-  const handleAddress = () => router.push("/(tabs)/(5-account)/address-modal");
-  const handleLegal = () => router.push("/(tabs)/(5-account)/legal-modal");
-  const handleRate = () => router.push("/(tabs)/(5-account)/rate-modal");
+  const handleOrders = () => router.push("/(tabs)/(5-account)/modalContent/Orders");
+  const handleVouchers = () => router.push("/(tabs)/(5-account)/modalContent/Vouchers");
+  const handleRatings = () => router.push("/(tabs)/(5-account)/modalContent/RatingsAndReviews");
+  const handleInterests = () => router.push("/(tabs)/(5-account)/modalContent/Interests");
+  const handleRecentlyViewed = () => router.push("/(tabs)/(5-account)/modalContent/RecentlyViewed");
+  const handleRecentlySearched = () => router.push("/(tabs)/(5-account)/modalContent/RecentlySearched");
+  const handleBuyAgain = () => router.push("/(tabs)/(5-account)/modalContent/BuyAgain");
+  const handleLists = () => router.push("/(tabs)/(5-account)/modalContent/ListAndRegistries");
+  const handlePayment = () => router.push("/(tabs)/(5-account)/modalContent/PaymentSettings");
+  const handleAddress = () => router.push("/(tabs)/(5-account)/modalContent/AddressBook");
+  const handleLegal = () => router.push("/(tabs)/(5-account)/modalContent/LegalAndAbout");
+  const handleRate = () => router.push("/(tabs)/(5-account)/modalContent/RateApp");
   const handleSwitchToSeller = () => {
     router.replace('/seller');
   };
@@ -382,7 +382,7 @@ export default function AccountScreen() {
             <TouchableOpacity style={styles.notification}>
               <FontAwesome6 name="bell" size={24}></FontAwesome6>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.language} onPress={() => router.push("/(tabs)/(5-account)/language-modal")}>
+            <TouchableOpacity style={styles.language} onPress={() => router.push("/(tabs)/(5-account)/modalContent/Language")}>
               <MaterialIcons name="language" size={24}></MaterialIcons>
             </TouchableOpacity>
           </View>
@@ -395,7 +395,7 @@ export default function AccountScreen() {
           IconComponent={FontAwesome6}
           iconName="money-bill-transfer"
           label={`Currency: ${selectedCurrency}`}
-          onPress={() => router.push('/(tabs)/(5-account)/currency-modal')}
+          onPress={() => router.push('/(tabs)/(5-account)/modalContent/Currency')}
         />
           <SectionItem
             IconComponent={MaterialIcons}
