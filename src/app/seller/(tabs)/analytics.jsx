@@ -10,7 +10,7 @@ import {
 } from "react-native";
 import { BarChart } from "react-native-chart-kit";
 import { useAnalyticsStore } from "../../../sellerStore/analyticsStore";
-import CustomHeader from "../components/CustomHeader";
+import CustomHeader from "../../../components/CustomHeader";
 
 const FILTERS = ["weekly", "monthly", "yearly"];
 const screenWidth = Dimensions.get("window").width - 32;

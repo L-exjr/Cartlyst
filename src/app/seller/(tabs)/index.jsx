@@ -1,3 +1,4 @@
+// app/(tabs)/index.jsx
 import React from "react";
 import {
   View,
@@ -9,8 +10,7 @@ import {
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
-import CustomHeader from "../components/CustomHeader";
-import * as Linking from "expo-linking";
+import CustomHeader from "../../../components/CustomHeader";
 
 const mockProducts = Array.from({ length: 8 }, (_, i) => ({
   id: i,
@@ -19,28 +19,11 @@ const mockProducts = Array.from({ length: 8 }, (_, i) => ({
 
 const SellerHomeScreen = () => {
   const router = useRouter();
-  const handleSwitchToBuyer = () => {
-    router.replace("../../(tabs)/");
-  };
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "#fff" }}>
       <CustomHeader />
       <View style={styles.container}>
-        <TouchableOpacity
-          style={{
-            margin: 16,
-            padding: 12,
-            backgroundColor: "#f4c430",
-            borderRadius: 8,
-            alignItems: "center",
-          }}
-          onPress={handleSwitchToBuyer}
-        >
-          <Text style={{ color: "#fff", fontWeight: "bold" }}>
-            Switch to Buyer
-          </Text>
-        </TouchableOpacity>
         <FlatList
           data={mockProducts}
           keyExtractor={(item) => item.id.toString()}
@@ -48,7 +31,7 @@ const SellerHomeScreen = () => {
           contentContainerStyle={styles.grid}
           renderItem={({ item }) => (
             <TouchableOpacity
-              onPress={() => router.push({ pathname: `/product/${item.id}` })}
+              onPress={() => router.push({ pathname: `./product/${item.id}` })}
               style={styles.card}
             >
               <Text style={styles.cardText}>{item.title}</Text>
@@ -59,7 +42,7 @@ const SellerHomeScreen = () => {
         {/* Floating Button */}
         <TouchableOpacity
           style={styles.fab}
-          onPress={() => router.push("/addProduct")}
+          onPress={() => router.push("./addProduct")}
           accessibilityLabel="Add Product"
           accessibilityRole="button"
           accessibilityHint="Navigates to the add product screen"
@@ -84,7 +67,7 @@ const styles = StyleSheet.create({
   },
   card: {
     flex: 1,
-    height: 140,
+    height: 200,
     backgroundColor: "#ddd",
     borderRadius: 8,
     margin: 6,

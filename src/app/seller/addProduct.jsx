@@ -11,7 +11,7 @@ import {
 } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 import { Ionicons } from "@expo/vector-icons";
-import SimpleHeader from "./components/SimpleHeader";
+import SimpleHeader from "../../components/SimpleHeader";
 import DropDownPicker from "react-native-dropdown-picker";
 import { useRouter } from "expo-router";
 import { useProductStore } from "../../sellerStore/productStore";

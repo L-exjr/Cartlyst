@@ -1,0 +1,5575 @@
+.
+├── assets
+├── backend
+│   └── Cartlyst
+│       └── CartlystAPI
+│           ├── build
+│           │   ├── classes
+│           │   │   └── java
+│           │   │       ├── main
+│           │   │       └── test
+│           │   └── resources
+│           │       ├── main
+│           │       └── test
+│           ├── gradle
+│           │   └── wrapper
+│           ├── libs
+│           ├── src
+│           │   ├── main
+│           │   │   ├── java
+│           │   │   │   └── com
+│           │   │   │       └── Cartlyst
+│           │   │   │           └── CartlystAPI
+│           │   │   │               ├── config
+│           │   │   │               ├── controller
+│           │   │   │               ├── dto
+│           │   │   │               ├── model
+│           │   │   │               ├── repository
+│           │   │   │               ├── service
+│           │   │   │               └── util
+│           │   │   └── resources
+│           │   │       ├── rivescript
+│           │   │       └── static
+│           │   └── test
+│           │       ├── java
+│           │       │   └── com
+│           │       │       └── Cartlyst
+│           │       │           └── SwiftMartAPI
+│           │       │               └── config
+│           │       └── resources
+│           └── target
+│               ├── classes
+│               │   └── com
+│               │       └── SwiftMart
+│               │           └── SwiftMartAPI
+│               │               ├── config
+│               │               ├── controller
+│               │               ├── model
+│               │               └── repository
+│               └── test-classes
+│                   └── com
+│                       └── SwiftMart
+│                           └── SwiftMartAPI
+├── frontend
+│   ├── buyer
+│   │   ├── app
+│   │   │   └── (tabs)
+│   │   │       ├── (1-home)
+│   │   │       │   └── product
+│   │   │       ├── (2-categories)
+│   │   │       │   └── products
+│   │   │       ├── (3-cart)
+│   │   │       ├── (4-wishlist)
+│   │   │       └── (5-account)
+│   │   │           └── modalContent
+│   │   ├── components
+│   │   ├── locales
+│   │   └── utils
+│   └── seller
+│       ├── app
+│       │   ├── (tabs)
+│       │   ├── offer
+│       │   │   └── [id]
+│       │   ├── order
+│       │   │   └── [id]
+│       │   └── product
+│       │       └── [id]
+│       ├── components
+│       └── store
+└── node_modules
+    ├── @0no-co
+    │   └── graphql.web
+    │       └── dist
+    ├── @ampproject
+    │   └── remapping
+    │       └── dist
+    │           └── types
+    ├── @babel
+    │   ├── code-frame
+    │   │   └── lib
+    │   ├── compat-data
+    │   │   └── data
+    │   ├── core
+    │   │   ├── lib
+    │   │   │   ├── config
+    │   │   │   │   ├── files
+    │   │   │   │   ├── helpers
+    │   │   │   │   └── validation
+    │   │   │   ├── errors
+    │   │   │   ├── gensync-utils
+    │   │   │   ├── parser
+    │   │   │   │   └── util
+    │   │   │   ├── tools
+    │   │   │   ├── transformation
+    │   │   │   │   ├── file
+    │   │   │   │   └── util
+    │   │   │   └── vendor
+    │   │   ├── node_modules
+    │   │   └── src
+    │   │       └── config
+    │   │           └── files
+    │   ├── eslint-parser
+    │   │   ├── lib
+    │   │   │   ├── convert
+    │   │   │   ├── utils
+    │   │   │   └── worker
+    │   │   └── node_modules
+    │   │       └── eslint-visitor-keys
+    │   │           └── lib
+    │   ├── generator
+    │   │   ├── lib
+    │   │   │   ├── generators
+    │   │   │   └── node
+    │   │   └── node_modules
+    │   ├── helper-annotate-as-pure
+    │   │   └── lib
+    │   ├── helper-compilation-targets
+    │   │   ├── lib
+    │   │   └── node_modules
+    │   │       └── lru-cache
+    │   ├── helper-create-class-features-plugin
+    │   │   ├── lib
+    │   │   └── node_modules
+    │   ├── helper-create-regexp-features-plugin
+    │   │   ├── lib
+    │   │   └── node_modules
+    │   ├── helper-define-polyfill-provider
+    │   │   ├── esm
+    │   │   ├── lib
+    │   │   │   ├── browser
+    │   │   │   ├── node
+    │   │   │   └── visitors
+    │   │   └── node_modules
+    │   ├── helper-globals
+    │   │   └── data
+    │   ├── helper-member-expression-to-functions
+    │   │   └── lib
+    │   ├── helper-module-imports
+    │   │   └── lib
+    │   ├── helper-module-transforms
+    │   │   └── lib
+    │   ├── helper-optimise-call-expression
+    │   │   └── lib
+    │   ├── helper-plugin-utils
+    │   │   └── lib
+    │   ├── helper-remap-async-to-generator
+    │   │   └── lib
+    │   ├── helper-replace-supers
+    │   │   └── lib
+    │   ├── helper-skip-transparent-expression-wrappers
+    │   │   └── lib
+    │   ├── helper-string-parser
+    │   │   └── lib
+    │   ├── helper-validator-identifier
+    │   │   └── lib
+    │   ├── helper-validator-option
+    │   │   └── lib
+    │   ├── helper-wrap-function
+    │   │   └── lib
+    │   ├── helpers
+    │   │   └── lib
+    │   │       └── helpers
+    │   ├── highlight
+    │   │   ├── lib
+    │   │   └── node_modules
+    │   │       ├── ansi-styles
+    │   │       ├── chalk
+    │   │       │   └── types
+    │   │       ├── color-convert
+    │   │       ├── color-name
+    │   │       ├── escape-string-regexp
+    │   │       ├── has-flag
+    │   │       └── supports-color
+    │   ├── parser
+    │   │   ├── bin
+    │   │   ├── lib
+    │   │   └── typings
+    │   ├── plugin-proposal-decorators
+    │   │   └── lib
+    │   ├── plugin-proposal-export-default-from
+    │   │   └── lib
+    │   ├── plugin-syntax-async-generators
+    │   │   └── lib
+    │   ├── plugin-syntax-bigint
+    │   │   └── lib
+    │   ├── plugin-syntax-class-properties
+    │   │   └── lib
+    │   ├── plugin-syntax-class-static-block
+    │   │   └── lib
+    │   ├── plugin-syntax-decorators
+    │   │   └── lib
+    │   ├── plugin-syntax-dynamic-import
+    │   │   └── lib
+    │   ├── plugin-syntax-export-default-from
+    │   │   └── lib
+    │   ├── plugin-syntax-flow
+    │   │   └── lib
+    │   ├── plugin-syntax-import-attributes
+    │   │   └── lib
+    │   ├── plugin-syntax-import-meta
+    │   │   └── lib
+    │   ├── plugin-syntax-json-strings
+    │   │   └── lib
+    │   ├── plugin-syntax-jsx
+    │   │   └── lib
+    │   ├── plugin-syntax-logical-assignment-operators
+    │   │   └── lib
+    │   ├── plugin-syntax-nullish-coalescing-operator
+    │   │   └── lib
+    │   ├── plugin-syntax-numeric-separator
+    │   │   └── lib
+    │   ├── plugin-syntax-object-rest-spread
+    │   │   └── lib
+    │   ├── plugin-syntax-optional-catch-binding
+    │   │   └── lib
+    │   ├── plugin-syntax-optional-chaining
+    │   │   └── lib
+    │   ├── plugin-syntax-private-property-in-object
+    │   │   └── lib
+    │   ├── plugin-syntax-top-level-await
+    │   │   └── lib
+    │   ├── plugin-syntax-typescript
+    │   │   └── lib
+    │   ├── plugin-transform-arrow-functions
+    │   │   └── lib
+    │   ├── plugin-transform-async-generator-functions
+    │   │   └── lib
+    │   ├── plugin-transform-async-to-generator
+    │   │   └── lib
+    │   ├── plugin-transform-block-scoping
+    │   │   └── lib
+    │   ├── plugin-transform-class-properties
+    │   │   └── lib
+    │   ├── plugin-transform-classes
+    │   │   └── lib
+    │   ├── plugin-transform-computed-properties
+    │   │   └── lib
+    │   ├── plugin-transform-destructuring
+    │   │   └── lib
+    │   ├── plugin-transform-export-namespace-from
+    │   │   └── lib
+    │   ├── plugin-transform-flow-strip-types
+    │   │   └── lib
+    │   ├── plugin-transform-for-of
+    │   │   └── lib
+    │   ├── plugin-transform-function-name
+    │   │   └── lib
+    │   ├── plugin-transform-literals
+    │   │   └── lib
+    │   ├── plugin-transform-logical-assignment-operators
+    │   │   └── lib
+    │   ├── plugin-transform-modules-commonjs
+    │   │   └── lib
+    │   ├── plugin-transform-named-capturing-groups-regex
+    │   │   └── lib
+    │   ├── plugin-transform-nullish-coalescing-operator
+    │   │   └── lib
+    │   ├── plugin-transform-numeric-separator
+    │   │   └── lib
+    │   ├── plugin-transform-object-rest-spread
+    │   │   └── lib
+    │   ├── plugin-transform-optional-catch-binding
+    │   │   └── lib
+    │   ├── plugin-transform-optional-chaining
+    │   │   └── lib
+    │   ├── plugin-transform-parameters
+    │   │   └── lib
+    │   ├── plugin-transform-private-methods
+    │   │   └── lib
+    │   ├── plugin-transform-private-property-in-object
+    │   │   └── lib
+    │   ├── plugin-transform-react-display-name
+    │   │   └── lib
+    │   ├── plugin-transform-react-jsx
+    │   │   └── lib
+    │   ├── plugin-transform-react-jsx-development
+    │   │   └── lib
+    │   ├── plugin-transform-react-jsx-self
+    │   │   └── lib
+    │   ├── plugin-transform-react-jsx-source
+    │   │   └── lib
+    │   ├── plugin-transform-react-pure-annotations
+    │   │   └── lib
+    │   ├── plugin-transform-regenerator
+    │   │   └── lib
+    │   │       └── regenerator
+    │   ├── plugin-transform-runtime
+    │   │   ├── lib
+    │   │   │   ├── babel-7
+    │   │   │   └── get-runtime-path
+    │   │   ├── node_modules
+    │   │   └── src
+    │   │       └── get-runtime-path
+    │   ├── plugin-transform-shorthand-properties
+    │   │   └── lib
+    │   ├── plugin-transform-spread
+    │   │   └── lib
+    │   ├── plugin-transform-sticky-regex
+    │   │   └── lib
+    │   ├── plugin-transform-template-literals
+    │   │   └── lib
+    │   ├── plugin-transform-typescript
+    │   │   └── lib
+    │   ├── plugin-transform-unicode-regex
+    │   │   └── lib
+    │   ├── preset-react
+    │   │   └── lib
+    │   ├── preset-typescript
+    │   │   └── lib
+    │   ├── runtime
+    │   │   ├── helpers
+    │   │   │   └── esm
+    │   │   └── regenerator
+    │   ├── template
+    │   │   ├── lib
+    │   │   └── node_modules
+    │   ├── traverse
+    │   │   ├── lib
+    │   │   │   ├── path
+    │   │   │   │   ├── inference
+    │   │   │   │   └── lib
+    │   │   │   └── scope
+    │   │   │       └── lib
+    │   │   └── node_modules
+    │   ├── traverse--for-generate-function-map
+    │   │   ├── lib
+    │   │   │   ├── path
+    │   │   │   │   ├── inference
+    │   │   │   │   └── lib
+    │   │   │   └── scope
+    │   │   │       └── lib
+    │   │   └── node_modules
+    │   └── types
+    │       └── lib
+    │           ├── asserts
+    │           │   └── generated
+    │           ├── ast-types
+    │           │   └── generated
+    │           ├── builders
+    │           │   ├── flow
+    │           │   ├── generated
+    │           │   ├── react
+    │           │   └── typescript
+    │           ├── clone
+    │           ├── comments
+    │           ├── constants
+    │           │   └── generated
+    │           ├── converters
+    │           ├── definitions
+    │           ├── modifications
+    │           │   ├── flow
+    │           │   └── typescript
+    │           ├── retrievers
+    │           ├── traverse
+    │           ├── utils
+    │           │   └── react
+    │           └── validators
+    │               ├── generated
+    │               └── react
+    ├── @eslint
+    │   ├── config-array
+    │   │   └── dist
+    │   │       ├── cjs
+    │   │       │   └── std__path
+    │   │       └── esm
+    │   │           └── std__path
+    │   ├── config-helpers
+    │   │   └── dist
+    │   │       ├── cjs
+    │   │       └── esm
+    │   ├── core
+    │   │   └── dist
+    │   │       ├── cjs
+    │   │       └── esm
+    │   ├── eslintrc
+    │   │   ├── conf
+    │   │   ├── dist
+    │   │   ├── lib
+    │   │   │   ├── config-array
+    │   │   │   ├── shared
+    │   │   │   └── types
+    │   │   └── node_modules
+    │   │       ├── ajv
+    │   │       │   ├── dist
+    │   │       │   ├── lib
+    │   │       │   │   ├── compile
+    │   │       │   │   ├── dot
+    │   │       │   │   ├── dotjs
+    │   │       │   │   └── refs
+    │   │       │   └── scripts
+    │   │       ├── argparse
+    │   │       │   └── lib
+    │   │       ├── globals
+    │   │       ├── js-yaml
+    │   │       │   ├── bin
+    │   │       │   ├── dist
+    │   │       │   └── lib
+    │   │       │       ├── schema
+    │   │       │       └── type
+    │   │       └── json-schema-traverse
+    │   │           └── spec
+    │   │               └── fixtures
+    │   ├── js
+    │   │   ├── src
+    │   │   │   └── configs
+    │   │   └── types
+    │   ├── object-schema
+    │   │   └── dist
+    │   │       ├── cjs
+    │   │       └── esm
+    │   └── plugin-kit
+    │       └── dist
+    │           ├── cjs
+    │           └── esm
+    ├── @eslint-community
+    │   ├── eslint-utils
+    │   │   └── node_modules
+    │   │       └── eslint-visitor-keys
+    │   │           ├── dist
+    │   │           └── lib
+    │   └── regexpp
+    ├── @expo
+    │   ├── cli
+    │   │   ├── build
+    │   │   │   ├── bin
+    │   │   │   ├── metro-require
+    │   │   │   └── src
+    │   │   │       ├── api
+    │   │   │       │   ├── graphql
+    │   │   │       │   │   ├── queries
+    │   │   │       │   │   └── types
+    │   │   │       │   ├── rest
+    │   │   │       │   │   └── cache
+    │   │   │       │   └── user
+    │   │   │       ├── config
+    │   │   │       ├── customize
+    │   │   │       ├── export
+    │   │   │       │   ├── embed
+    │   │   │       │   └── web
+    │   │   │       ├── graphql
+    │   │   │       ├── install
+    │   │   │       │   └── utils
+    │   │   │       ├── lint
+    │   │   │       ├── login
+    │   │   │       ├── logout
+    │   │   │       ├── prebuild
+    │   │   │       ├── register
+    │   │   │       ├── run
+    │   │   │       │   ├── android
+    │   │   │       │   └── ios
+    │   │   │       │       ├── appleDevice
+    │   │   │       │       │   ├── client
+    │   │   │       │       │   └── protocol
+    │   │   │       │       ├── codeSigning
+    │   │   │       │       └── options
+    │   │   │       ├── serve
+    │   │   │       ├── start
+    │   │   │       │   ├── doctor
+    │   │   │       │   │   ├── apple
+    │   │   │       │   │   ├── dependencies
+    │   │   │       │   │   ├── ngrok
+    │   │   │       │   │   ├── typescript
+    │   │   │       │   │   └── web
+    │   │   │       │   ├── interface
+    │   │   │       │   ├── platforms
+    │   │   │       │   │   ├── android
+    │   │   │       │   │   └── ios
+    │   │   │       │   ├── project
+    │   │   │       │   └── server
+    │   │   │       │       ├── metro
+    │   │   │       │       │   ├── debugging
+    │   │   │       │       │   │   └── messageHandlers
+    │   │   │       │       │   ├── dev-server
+    │   │   │       │       │   │   └── utils
+    │   │   │       │       │   └── log-box
+    │   │   │       │       ├── middleware
+    │   │   │       │       │   └── inspector
+    │   │   │       │       ├── type-generation
+    │   │   │       │       └── webpack
+    │   │   │       ├── utils
+    │   │   │       │   ├── build-cache-providers
+    │   │   │       │   ├── telemetry
+    │   │   │       │   │   ├── clients
+    │   │   │       │   │   └── utils
+    │   │   │       │   └── tsconfig
+    │   │   │       └── whoami
+    │   │   ├── node_modules
+    │   │   │   ├── brace-expansion
+    │   │   │   ├── minimatch
+    │   │   │   │   └── dist
+    │   │   │   │       ├── commonjs
+    │   │   │   │       └── esm
+    │   │   │   ├── picomatch
+    │   │   │   │   └── lib
+    │   │   │   └── semver
+    │   │   │       ├── bin
+    │   │   │       ├── classes
+    │   │   │       ├── functions
+    │   │   │       ├── internal
+    │   │   │       └── ranges
+    │   │   └── static
+    │   │       ├── canary
+    │   │       │   ├── react-is
+    │   │       │   │   └── cjs
+    │   │       │   ├── react-native
+    │   │       │   │   └── Libraries
+    │   │       │   │       └── Renderer
+    │   │       │   │           └── implementations
+    │   │       │   └── scheduler
+    │   │       │       └── cjs
+    │   │       ├── canary-full
+    │   │       │   └── node_modules
+    │   │       │       ├── react
+    │   │       │       │   └── cjs
+    │   │       │       └── react-dom
+    │   │       │           └── cjs
+    │   │       ├── loading-page
+    │   │       ├── shims
+    │   │       │   └── react-native-web
+    │   │       │       └── dist
+    │   │       │           ├── cjs
+    │   │       │           │   └── exports
+    │   │       │           │       ├── AppRegistry
+    │   │       │           │       └── BackHandler
+    │   │       │           └── exports
+    │   │       │               ├── AppRegistry
+    │   │       │               └── BackHandler
+    │   │       └── template
+    │   ├── code-signing-certificates
+    │   │   └── build
+    │   ├── config
+    │   │   ├── build
+    │   │   │   ├── paths
+    │   │   │   └── plugins
+    │   │   ├── node_modules
+    │   │   │   ├── @babel
+    │   │   │   │   └── code-frame
+    │   │   │   │       └── lib
+    │   │   │   ├── deepmerge
+    │   │   │   │   └── dist
+    │   │   │   └── semver
+    │   │   │       ├── bin
+    │   │   │       ├── classes
+    │   │   │       ├── functions
+    │   │   │       ├── internal
+    │   │   │       └── ranges
+    │   │   └── paths
+    │   ├── config-plugins
+    │   │   ├── build
+    │   │   │   ├── android
+    │   │   │   ├── ios
+    │   │   │   │   └── utils
+    │   │   │   ├── plugins
+    │   │   │   └── utils
+    │   │   └── node_modules
+    │   │       └── semver
+    │   │           ├── bin
+    │   │           ├── classes
+    │   │           ├── functions
+    │   │           ├── internal
+    │   │           └── ranges
+    │   ├── config-types
+    │   │   └── build
+    │   ├── devcert
+    │   │   ├── dist
+    │   │   │   └── platforms
+    │   │   ├── node_modules
+    │   │   │   └── debug
+    │   │   │       └── src
+    │   │   ├── openssl-configurations
+    │   │   └── src
+    │   │       └── platforms
+    │   ├── env
+    │   │   └── build
+    │   ├── fingerprint
+    │   │   ├── bin
+    │   │   ├── build
+    │   │   │   ├── hash
+    │   │   │   ├── sourcer
+    │   │   │   └── utils
+    │   │   ├── cli
+    │   │   │   └── build
+    │   │   │       ├── commands
+    │   │   │       └── utils
+    │   │   └── node_modules
+    │   │       ├── brace-expansion
+    │   │       ├── minimatch
+    │   │       │   └── dist
+    │   │       │       ├── commonjs
+    │   │       │       └── esm
+    │   │       └── semver
+    │   │           ├── bin
+    │   │           ├── classes
+    │   │           ├── functions
+    │   │           ├── internal
+    │   │           └── ranges
+    │   ├── image-utils
+    │   │   ├── build
+    │   │   └── node_modules
+    │   │       └── semver
+    │   │           ├── bin
+    │   │           ├── classes
+    │   │           ├── functions
+    │   │           ├── internal
+    │   │           └── ranges
+    │   ├── json-file
+    │   │   ├── build
+    │   │   └── node_modules
+    │   │       └── @babel
+    │   │           └── code-frame
+    │   │               └── lib
+    │   ├── metro-config
+    │   │   ├── babel-transformer
+    │   │   ├── build
+    │   │   │   ├── serializer
+    │   │   │   │   └── fork
+    │   │   │   ├── transform-worker
+    │   │   │   │   └── utils
+    │   │   │   ├── traveling
+    │   │   │   └── utils
+    │   │   ├── file-store
+    │   │   └── node_modules
+    │   │       ├── brace-expansion
+    │   │       └── minimatch
+    │   │           └── dist
+    │   │               ├── commonjs
+    │   │               └── esm
+    │   ├── metro-runtime
+    │   │   ├── assets
+    │   │   ├── build
+    │   │   │   ├── async-require
+    │   │   │   ├── error-overlay
+    │   │   │   │   ├── Data
+    │   │   │   │   ├── UI
+    │   │   │   │   ├── modules
+    │   │   │   │   │   ├── ExceptionsManager
+    │   │   │   │   │   ├── NativeLogBox
+    │   │   │   │   │   ├── openFileInEditor
+    │   │   │   │   │   ├── parseErrorStack
+    │   │   │   │   │   ├── stringifySafe
+    │   │   │   │   │   └── symbolicateStackTrace
+    │   │   │   │   ├── overlay
+    │   │   │   │   └── toast
+    │   │   │   └── location
+    │   │   ├── node_modules
+    │   │   ├── rsc
+    │   │   └── src
+    │   │       ├── __mocks__
+    │   │       ├── async-require
+    │   │       ├── error-overlay
+    │   │       │   ├── Data
+    │   │       │   ├── UI
+    │   │       │   ├── modules
+    │   │       │   │   ├── ExceptionsManager
+    │   │       │   │   ├── NativeLogBox
+    │   │       │   │   ├── openFileInEditor
+    │   │       │   │   ├── parseErrorStack
+    │   │       │   │   ├── stringifySafe
+    │   │       │   │   └── symbolicateStackTrace
+    │   │       │   ├── overlay
+    │   │       │   └── toast
+    │   │       ├── location
+    │   │       └── ts-declarations
+    │   ├── osascript
+    │   │   └── build
+    │   ├── package-manager
+    │   │   └── build
+    │   │       ├── ios
+    │   │       ├── node
+    │   │       └── utils
+    │   ├── plist
+    │   │   └── build
+    │   ├── prebuild-config
+    │   │   ├── build
+    │   │   │   └── plugins
+    │   │   │       ├── icons
+    │   │   │       ├── sdk52
+    │   │   │       └── unversioned
+    │   │   │           ├── expo-ads-admob
+    │   │   │           ├── expo-navigation-bar
+    │   │   │           ├── expo-notifications
+    │   │   │           ├── expo-splash-screen
+    │   │   │           ├── expo-system-ui
+    │   │   │           └── react-native-edge-to-edge
+    │   │   └── node_modules
+    │   │       └── semver
+    │   │           ├── bin
+    │   │           ├── classes
+    │   │           ├── functions
+    │   │           ├── internal
+    │   │           └── ranges
+    │   ├── react-native-action-sheet
+    │   │   └── lib
+    │   │       ├── commonjs
+    │   │       │   └── ActionSheet
+    │   │       ├── module
+    │   │       │   └── ActionSheet
+    │   │       └── typescript
+    │   │           └── ActionSheet
+    │   ├── sdk-runtime-versions
+    │   │   └── build
+    │   ├── server
+    │   │   ├── adapter
+    │   │   ├── build
+    │   │   │   ├── middleware
+    │   │   │   └── vendor
+    │   │   └── node_modules
+    │   │       └── undici
+    │   │           ├── lib
+    │   │           │   ├── api
+    │   │           │   ├── cache
+    │   │           │   ├── core
+    │   │           │   ├── dispatcher
+    │   │           │   ├── handler
+    │   │           │   ├── interceptor
+    │   │           │   ├── llhttp
+    │   │           │   ├── mock
+    │   │           │   ├── util
+    │   │           │   └── web
+    │   │           │       ├── cache
+    │   │           │       ├── cookies
+    │   │           │       ├── eventsource
+    │   │           │       ├── fetch
+    │   │           │       ├── webidl
+    │   │           │       └── websocket
+    │   │           │           └── stream
+    │   │           ├── scripts
+    │   │           └── types
+    │   ├── spawn-async
+    │   │   └── build
+    │   ├── sudo-prompt
+    │   ├── vector-icons
+    │   │   ├── build
+    │   │   │   └── vendor
+    │   │   │       └── react-native-vector-icons
+    │   │   │           ├── Fonts
+    │   │   │           ├── bin
+    │   │   │           ├── glyphmaps
+    │   │   │           ├── lib
+    │   │   │           └── templates
+    │   │   └── node_modules
+    │   ├── ws-tunnel
+    │   │   └── build
+    │   │       ├── protocol
+    │   │       ├── tunnel
+    │   │       └── utils
+    │   └── xcpretty
+    │       ├── build
+    │       │   └── utils
+    │       └── node_modules
+    │           ├── @babel
+    │           │   └── code-frame
+    │           │       └── lib
+    │           ├── argparse
+    │           │   └── lib
+    │           └── js-yaml
+    │               ├── bin
+    │               ├── dist
+    │               └── lib
+    │                   ├── schema
+    │                   └── type
+    ├── @humanfs
+    │   ├── core
+    │   │   ├── dist
+    │   │   └── src
+    │   └── node
+    │       ├── dist
+    │       ├── node_modules
+    │       │   └── @humanwhocodes
+    │       │       └── retry
+    │       │           └── dist
+    │       └── src
+    ├── @humanwhocodes
+    │   ├── module-importer
+    │   │   ├── dist
+    │   │   └── src
+    │   └── retry
+    │       └── dist
+    ├── @isaacs
+    │   ├── cliui
+    │   │   ├── build
+    │   │   │   └── lib
+    │   │   └── node_modules
+    │   │       ├── ansi-regex
+    │   │       ├── ansi-styles
+    │   │       ├── emoji-regex
+    │   │       │   └── es2015
+    │   │       ├── string-width
+    │   │       ├── strip-ansi
+    │   │       └── wrap-ansi
+    │   ├── fs-minipass
+    │   │   └── dist
+    │   │       ├── commonjs
+    │   │       └── esm
+    │   └── ttlcache
+    ├── @istanbuljs
+    │   ├── load-nyc-config
+    │   │   └── node_modules
+    │   │       ├── find-up
+    │   │       ├── locate-path
+    │   │       ├── p-limit
+    │   │       └── p-locate
+    │   └── schema
+    ├── @jest
+    │   ├── create-cache-key-function
+    │   │   └── build
+    │   ├── environment
+    │   │   └── build
+    │   ├── fake-timers
+    │   │   └── build
+    │   ├── schemas
+    │   │   └── build
+    │   ├── transform
+    │   │   └── build
+    │   └── types
+    │       └── build
+    ├── @jridgewell
+    │   ├── gen-mapping
+    │   │   ├── dist
+    │   │   ├── src
+    │   │   └── types
+    │   ├── resolve-uri
+    │   │   └── dist
+    │   │       └── types
+    │   ├── source-map
+    │   │   ├── dist
+    │   │   ├── src
+    │   │   └── types
+    │   ├── sourcemap-codec
+    │   │   ├── dist
+    │   │   ├── src
+    │   │   └── types
+    │   └── trace-mapping
+    │       ├── dist
+    │       ├── src
+    │       └── types
+    ├── @nicolo-ribaudo
+    │   └── eslint-scope-5-internals
+    │       └── node_modules
+    │           ├── eslint-scope
+    │           │   └── lib
+    │           └── estraverse
+    ├── @pkgjs
+    │   └── parseargs
+    │       └── internal
+    ├── @ptomasroos
+    │   └── react-native-multi-slider
+    │       └── node_modules
+    ├── @radix-ui
+    │   ├── react-compose-refs
+    │   │   └── dist
+    │   └── react-slot
+    │       └── dist
+    ├── @react-native
+    │   ├── assets-registry
+    │   ├── babel-plugin-codegen
+    │   ├── babel-preset
+    │   │   └── src
+    │   │       └── configs
+    │   ├── codegen
+    │   │   ├── lib
+    │   │   │   ├── cli
+    │   │   │   │   ├── combine
+    │   │   │   │   ├── generators
+    │   │   │   │   └── parser
+    │   │   │   ├── generators
+    │   │   │   │   ├── TypeUtils
+    │   │   │   │   │   ├── Cxx
+    │   │   │   │   │   ├── Java
+    │   │   │   │   │   └── Objective-C
+    │   │   │   │   ├── __test_fixtures__
+    │   │   │   │   ├── components
+    │   │   │   │   │   ├── GeneratePropsJavaPojo
+    │   │   │   │   │   └── __test_fixtures__
+    │   │   │   │   └── modules
+    │   │   │   │       ├── GenerateModuleObjCpp
+    │   │   │   │       │   ├── header
+    │   │   │   │       │   └── source
+    │   │   │   │       └── __test_fixtures__
+    │   │   │   └── parsers
+    │   │   │       ├── consistency
+    │   │   │       ├── flow
+    │   │   │       │   ├── components
+    │   │   │       │   │   └── __test_fixtures__
+    │   │   │       │   └── modules
+    │   │   │       │       └── __test_fixtures__
+    │   │   │       ├── schema
+    │   │   │       └── typescript
+    │   │   │           ├── components
+    │   │   │           │   └── __test_fixtures__
+    │   │   │           └── modules
+    │   │   │               └── __test_fixtures__
+    │   │   └── node_modules
+    │   │       └── glob
+    │   ├── community-cli-plugin
+    │   │   ├── dist
+    │   │   │   ├── commands
+    │   │   │   │   ├── bundle
+    │   │   │   │   └── start
+    │   │   │   └── utils
+    │   │   └── node_modules
+    │   │       ├── debug
+    │   │       │   └── src
+    │   │       ├── ms
+    │   │       └── semver
+    │   │           ├── bin
+    │   │           ├── classes
+    │   │           ├── functions
+    │   │           ├── internal
+    │   │           └── ranges
+    │   ├── debugger-frontend
+    │   │   └── dist
+    │   │       └── third-party
+    │   │           └── front_end
+    │   │               ├── core
+    │   │               │   ├── common
+    │   │               │   ├── dom_extension
+    │   │               │   ├── host
+    │   │               │   ├── i18n
+    │   │               │   │   └── locales
+    │   │               │   ├── platform
+    │   │               │   ├── protocol_client
+    │   │               │   ├── rn_experiments
+    │   │               │   ├── root
+    │   │               │   └── sdk
+    │   │               ├── emulated_devices
+    │   │               │   └── optimized
+    │   │               ├── entrypoints
+    │   │               │   ├── device_mode_emulation_frame
+    │   │               │   ├── devtools_app
+    │   │               │   ├── formatter_worker
+    │   │               │   ├── heap_snapshot_worker
+    │   │               │   ├── inspector
+    │   │               │   ├── inspector_main
+    │   │               │   ├── js_app
+    │   │               │   ├── lighthouse_worker
+    │   │               │   ├── main
+    │   │               │   ├── ndb_app
+    │   │               │   ├── node_app
+    │   │               │   ├── rn_fusebox
+    │   │               │   ├── rn_inspector
+    │   │               │   ├── shell
+    │   │               │   ├── wasmparser_worker
+    │   │               │   └── worker_app
+    │   │               ├── legacy_test_runner
+    │   │               │   └── test_runner
+    │   │               ├── models
+    │   │               │   ├── autofill_manager
+    │   │               │   ├── bindings
+    │   │               │   ├── breakpoints
+    │   │               │   ├── cpu_profile
+    │   │               │   ├── crux-manager
+    │   │               │   ├── emulation
+    │   │               │   ├── extensions
+    │   │               │   ├── formatter
+    │   │               │   ├── har
+    │   │               │   ├── heap_snapshot_model
+    │   │               │   ├── issues_manager
+    │   │               │   │   └── descriptions
+    │   │               │   ├── javascript_metadata
+    │   │               │   ├── live-metrics
+    │   │               │   │   └── web-vitals-injected
+    │   │               │   │       └── spec
+    │   │               │   ├── logs
+    │   │               │   ├── persistence
+    │   │               │   ├── react_native
+    │   │               │   ├── source_map_scopes
+    │   │               │   ├── text_utils
+    │   │               │   ├── timeline_model
+    │   │               │   ├── trace
+    │   │               │   │   ├── extras
+    │   │               │   │   ├── handlers
+    │   │               │   │   ├── helpers
+    │   │               │   │   ├── insights
+    │   │               │   │   ├── lantern
+    │   │               │   │   │   ├── core
+    │   │               │   │   │   ├── graph
+    │   │               │   │   │   ├── metrics
+    │   │               │   │   │   ├── simulation
+    │   │               │   │   │   └── types
+    │   │               │   │   ├── root-causes
+    │   │               │   │   └── types
+    │   │               │   ├── workspace
+    │   │               │   └── workspace_diff
+    │   │               ├── panels
+    │   │               │   ├── accessibility
+    │   │               │   ├── animation
+    │   │               │   ├── application
+    │   │               │   │   ├── components
+    │   │               │   │   └── preloading
+    │   │               │   │       ├── components
+    │   │               │   │       └── helper
+    │   │               │   ├── autofill
+    │   │               │   ├── browser_debugger
+    │   │               │   ├── changes
+    │   │               │   ├── console
+    │   │               │   ├── console_counters
+    │   │               │   ├── css_overview
+    │   │               │   │   └── components
+    │   │               │   ├── developer_resources
+    │   │               │   ├── elements
+    │   │               │   │   └── components
+    │   │               │   ├── emulation
+    │   │               │   │   └── components
+    │   │               │   ├── event_listeners
+    │   │               │   ├── explain
+    │   │               │   ├── freestyler
+    │   │               │   ├── issues
+    │   │               │   │   └── components
+    │   │               │   ├── js_timeline
+    │   │               │   ├── layer_viewer
+    │   │               │   ├── layers
+    │   │               │   ├── lighthouse
+    │   │               │   ├── linear_memory_inspector
+    │   │               │   │   └── components
+    │   │               │   ├── media
+    │   │               │   ├── mobile_throttling
+    │   │               │   ├── network
+    │   │               │   │   ├── components
+    │   │               │   │   └── forward
+    │   │               │   ├── performance_monitor
+    │   │               │   ├── profiler
+    │   │               │   ├── protocol_monitor
+    │   │               │   │   └── components
+    │   │               │   ├── react_devtools
+    │   │               │   ├── recorder
+    │   │               │   │   ├── components
+    │   │               │   │   ├── controllers
+    │   │               │   │   ├── converters
+    │   │               │   │   ├── extensions
+    │   │               │   │   ├── injected
+    │   │               │   │   ├── models
+    │   │               │   │   ├── recorder-actions
+    │   │               │   │   └── util
+    │   │               │   ├── rn_welcome
+    │   │               │   ├── screencast
+    │   │               │   ├── search
+    │   │               │   ├── security
+    │   │               │   ├── sensors
+    │   │               │   ├── settings
+    │   │               │   │   ├── components
+    │   │               │   │   └── emulation
+    │   │               │   │       ├── components
+    │   │               │   │       └── utils
+    │   │               │   ├── snippets
+    │   │               │   ├── sources
+    │   │               │   │   └── components
+    │   │               │   ├── timeline
+    │   │               │   │   ├── components
+    │   │               │   │   │   └── insights
+    │   │               │   │   ├── extensions
+    │   │               │   │   ├── overlays
+    │   │               │   │   │   └── components
+    │   │               │   │   └── utils
+    │   │               │   ├── utils
+    │   │               │   ├── web_audio
+    │   │               │   │   └── graph_visualizer
+    │   │               │   └── webauthn
+    │   │               ├── services
+    │   │               │   ├── puppeteer
+    │   │               │   ├── trace_bounds
+    │   │               │   ├── tracing
+    │   │               │   └── window_bounds
+    │   │               ├── third_party
+    │   │               │   ├── acorn
+    │   │               │   ├── chromium
+    │   │               │   │   └── client-variations
+    │   │               │   ├── codemirror.next
+    │   │               │   │   └── chunk
+    │   │               │   ├── csp_evaluator
+    │   │               │   ├── diff
+    │   │               │   ├── i18n
+    │   │               │   ├── intl-messageformat
+    │   │               │   ├── lighthouse
+    │   │               │   │   └── report
+    │   │               │   ├── lit
+    │   │               │   ├── marked
+    │   │               │   ├── puppeteer
+    │   │               │   ├── puppeteer-replay
+    │   │               │   ├── react-devtools
+    │   │               │   ├── wasmparser
+    │   │               │   └── web-vitals
+    │   │               └── ui
+    │   │                   ├── components
+    │   │                   │   ├── adorners
+    │   │                   │   ├── buttons
+    │   │                   │   ├── chrome_link
+    │   │                   │   ├── code_highlighter
+    │   │                   │   ├── data_grid
+    │   │                   │   ├── dialogs
+    │   │                   │   ├── diff_view
+    │   │                   │   ├── expandable_list
+    │   │                   │   ├── helpers
+    │   │                   │   ├── highlighting
+    │   │                   │   ├── icon_button
+    │   │                   │   ├── input
+    │   │                   │   ├── issue_counter
+    │   │                   │   ├── legacy_wrapper
+    │   │                   │   ├── linkifier
+    │   │                   │   ├── markdown_view
+    │   │                   │   ├── menus
+    │   │                   │   ├── node_text
+    │   │                   │   ├── panel_feedback
+    │   │                   │   ├── panel_introduction_steps
+    │   │                   │   ├── render_coordinator
+    │   │                   │   ├── report_view
+    │   │                   │   ├── request_link_icon
+    │   │                   │   ├── settings
+    │   │                   │   ├── split_view
+    │   │                   │   ├── srgb_overlay
+    │   │                   │   ├── suggestion_input
+    │   │                   │   ├── survey_link
+    │   │                   │   ├── text_editor
+    │   │                   │   ├── text_prompt
+    │   │                   │   ├── tree_outline
+    │   │                   │   └── two_states_counter
+    │   │                   ├── legacy
+    │   │                   │   ├── components
+    │   │                   │   │   ├── color_picker
+    │   │                   │   │   ├── cookie_table
+    │   │                   │   │   ├── data_grid
+    │   │                   │   │   ├── inline_editor
+    │   │                   │   │   ├── object_ui
+    │   │                   │   │   ├── perf_ui
+    │   │                   │   │   ├── quick_open
+    │   │                   │   │   ├── source_frame
+    │   │                   │   │   └── utils
+    │   │                   │   └── theme_support
+    │   │                   ├── lit-html
+    │   │                   └── visual_logging
+    │   ├── dev-middleware
+    │   │   ├── dist
+    │   │   │   ├── inspector-proxy
+    │   │   │   │   └── cdp-types
+    │   │   │   ├── middleware
+    │   │   │   ├── types
+    │   │   │   └── utils
+    │   │   └── node_modules
+    │   │       ├── debug
+    │   │       │   └── src
+    │   │       ├── ms
+    │   │       └── ws
+    │   │           └── lib
+    │   ├── gradle-plugin
+    │   │   ├── gradle
+    │   │   │   └── wrapper
+    │   │   ├── react-native-gradle-plugin
+    │   │   │   └── src
+    │   │   │       └── main
+    │   │   │           └── kotlin
+    │   │   │               └── com
+    │   │   │                   └── facebook
+    │   │   │                       └── react
+    │   │   │                           ├── internal
+    │   │   │                           ├── tasks
+    │   │   │                           │   └── internal
+    │   │   │                           │       └── utils
+    │   │   │                           └── utils
+    │   │   ├── settings-plugin
+    │   │   │   └── src
+    │   │   │       └── main
+    │   │   │           └── kotlin
+    │   │   │               └── com
+    │   │   │                   └── facebook
+    │   │   │                       └── react
+    │   │   ├── shared
+    │   │   │   └── src
+    │   │   │       └── main
+    │   │   │           └── kotlin
+    │   │   │               └── com
+    │   │   │                   └── facebook
+    │   │   │                       └── react
+    │   │   │                           ├── model
+    │   │   │                           └── utils
+    │   │   └── shared-testutil
+    │   │       └── src
+    │   │           └── main
+    │   │               └── kotlin
+    │   │                   └── com
+    │   │                       └── facebook
+    │   │                           └── react
+    │   ├── js-polyfills
+    │   ├── normalize-colors
+    │   └── virtualized-lists
+    │       ├── Lists
+    │       ├── Utilities
+    │       └── node_modules
+    ├── @react-native-async-storage
+    │   └── async-storage
+    │       ├── android
+    │       │   └── src
+    │       │       ├── javaPackage
+    │       │       │   └── java
+    │       │       │       └── com
+    │       │       │           └── reactnativecommunity
+    │       │       │               └── asyncstorage
+    │       │       ├── kotlinPackage
+    │       │       │   └── java
+    │       │       │       └── com
+    │       │       │           └── reactnativecommunity
+    │       │       │               └── asyncstorage
+    │       │       ├── main
+    │       │       │   └── java
+    │       │       │       └── com
+    │       │       │           └── reactnativecommunity
+    │       │       │               └── asyncstorage
+    │       │       │                   └── next
+    │       │       └── oldarch
+    │       │           └── java
+    │       │               └── com
+    │       │                   └── reactnativecommunity
+    │       │                       └── asyncstorage
+    │       ├── ios
+    │       │   └── RNCAsyncStorage.xcodeproj
+    │       ├── jest
+    │       ├── lib
+    │       │   ├── commonjs
+    │       │   ├── module
+    │       │   └── typescript
+    │       ├── macos
+    │       │   └── RNCAsyncStorage.xcodeproj
+    │       │       └── xcshareddata
+    │       │           └── xcschemes
+    │       ├── node_modules
+    │       ├── src
+    │       └── windows
+    │           ├── ReactNativeAsyncStorage
+    │           │   └── codegen
+    │           ├── ReactNativeAsyncStorage61
+    │           └── code
+    │               └── codegen
+    ├── @react-native-community
+    │   └── slider
+    │       ├── android
+    │       │   ├── gradle
+    │       │   │   └── wrapper
+    │       │   └── src
+    │       │       ├── main
+    │       │       │   ├── java
+    │       │       │   │   └── com
+    │       │       │   │       └── reactnativecommunity
+    │       │       │   │           └── slider
+    │       │       │   └── jni
+    │       │       ├── newarch
+    │       │       │   └── java
+    │       │       │       └── com
+    │       │       │           └── reactnativecommunity
+    │       │       │               └── slider
+    │       │       └── oldarch
+    │       │           └── java
+    │       │               └── com
+    │       │                   └── reactnativecommunity
+    │       │                       └── slider
+    │       ├── common
+    │       │   └── cpp
+    │       │       └── react
+    │       │           └── renderer
+    │       │               └── components
+    │       │                   └── RNCSlider
+    │       ├── dist
+    │       │   ├── components
+    │       │   └── utils
+    │       ├── ios
+    │       │   └── RNCSlider.xcodeproj
+    │       ├── src
+    │       │   ├── components
+    │       │   └── utils
+    │       ├── typings
+    │       └── windows
+    │           └── SliderWindows
+    ├── @react-native-picker
+    │   └── picker
+    │       ├── android
+    │       │   └── src
+    │       │       ├── fabric
+    │       │       │   └── java
+    │       │       │       └── com
+    │       │       │           └── reactnativecommunity
+    │       │       │               └── picker
+    │       │       ├── main
+    │       │       │   ├── java
+    │       │       │   │   └── com
+    │       │       │   │       └── reactnativecommunity
+    │       │       │   │           └── picker
+    │       │       │   ├── jni
+    │       │       │   │   └── react
+    │       │       │   │       └── renderer
+    │       │       │   │           └── components
+    │       │       │   │               └── rnpicker
+    │       │       │   └── res
+    │       │       │       ├── drawable
+    │       │       │       └── layout
+    │       │       └── paper
+    │       │           └── java
+    │       │               └── com
+    │       │                   ├── facebook
+    │       │                   │   └── react
+    │       │                   │       └── viewmanagers
+    │       │                   └── reactnativecommunity
+    │       │                       └── picker
+    │       ├── dist
+    │       │   ├── commonjs
+    │       │   └── module
+    │       ├── ios
+    │       │   └── RNCPicker.xcodeproj
+    │       ├── js
+    │       ├── macos
+    │       │   └── RNCPicker.xcodeproj
+    │       ├── node_modules
+    │       ├── typings
+    │       └── windows
+    │           └── ReactNativePicker
+    ├── @react-navigation
+    │   ├── bottom-tabs
+    │   │   ├── lib
+    │   │   │   ├── module
+    │   │   │   │   ├── TransitionConfigs
+    │   │   │   │   ├── navigators
+    │   │   │   │   ├── utils
+    │   │   │   │   └── views
+    │   │   │   └── typescript
+    │   │   │       └── src
+    │   │   │           ├── TransitionConfigs
+    │   │   │           ├── navigators
+    │   │   │           ├── utils
+    │   │   │           └── views
+    │   │   ├── node_modules
+    │   │   └── src
+    │   │       ├── TransitionConfigs
+    │   │       ├── navigators
+    │   │       ├── utils
+    │   │       └── views
+    │   ├── core
+    │   │   ├── lib
+    │   │   │   ├── module
+    │   │   │   │   └── theming
+    │   │   │   └── typescript
+    │   │   │       └── src
+    │   │   │           └── theming
+    │   │   ├── node_modules
+    │   │   │   └── react-is
+    │   │   │       └── cjs
+    │   │   └── src
+    │   │       └── theming
+    │   ├── elements
+    │   │   ├── lib
+    │   │   │   ├── module
+    │   │   │   │   ├── Header
+    │   │   │   │   ├── Label
+    │   │   │   │   └── assets
+    │   │   │   └── typescript
+    │   │   │       └── src
+    │   │   │           ├── Header
+    │   │   │           └── Label
+    │   │   ├── node_modules
+    │   │   └── src
+    │   │       ├── Header
+    │   │       ├── Label
+    │   │       └── assets
+    │   ├── native
+    │   │   ├── lib
+    │   │   │   ├── module
+    │   │   │   │   ├── __stubs__
+    │   │   │   │   └── theming
+    │   │   │   └── typescript
+    │   │   │       └── src
+    │   │   │           ├── __stubs__
+    │   │   │           └── theming
+    │   │   ├── node_modules
+    │   │   └── src
+    │   │       ├── __stubs__
+    │   │       └── theming
+    │   ├── native-stack
+    │   │   ├── lib
+    │   │   │   ├── module
+    │   │   │   │   ├── navigators
+    │   │   │   │   ├── utils
+    │   │   │   │   └── views
+    │   │   │   └── typescript
+    │   │   │       └── src
+    │   │   │           ├── navigators
+    │   │   │           ├── utils
+    │   │   │           └── views
+    │   │   ├── node_modules
+    │   │   └── src
+    │   │       ├── navigators
+    │   │       ├── utils
+    │   │       └── views
+    │   └── routers
+    │       ├── lib
+    │       │   ├── module
+    │       │   └── typescript
+    │       │       └── src
+    │       ├── node_modules
+    │       └── src
+    ├── @shopify
+    │   └── flash-list
+    │       ├── android
+    │       │   └── src
+    │       │       ├── main
+    │       │       │   └── kotlin
+    │       │       │       └── com
+    │       │       │           └── shopify
+    │       │       │               └── reactnative
+    │       │       │                   └── flash_list
+    │       │       └── paper
+    │       │           └── java
+    │       │               └── com
+    │       │                   └── facebook
+    │       │                       └── react
+    │       │                           └── viewmanagers
+    │       ├── dist
+    │       │   ├── benchmark
+    │       │   ├── errors
+    │       │   ├── native
+    │       │   │   ├── auto-layout
+    │       │   │   ├── cell-container
+    │       │   │   └── config
+    │       │   ├── specs
+    │       │   ├── utils
+    │       │   └── viewability
+    │       ├── ios
+    │       │   ├── RNFlashList.xcodeproj
+    │       │   │   └── project.xcworkspace
+    │       │   └── Sources
+    │       ├── node_modules
+    │       └── src
+    │           ├── benchmark
+    │           ├── errors
+    │           ├── native
+    │           │   ├── auto-layout
+    │           │   ├── cell-container
+    │           │   └── config
+    │           ├── specs
+    │           ├── utils
+    │           └── viewability
+    ├── @sinclair
+    │   └── typebox
+    │       ├── compiler
+    │       ├── errors
+    │       ├── system
+    │       └── value
+    ├── @sinonjs
+    │   ├── commons
+    │   │   ├── lib
+    │   │   │   └── prototypes
+    │   │   └── types
+    │   │       └── prototypes
+    │   └── fake-timers
+    │       └── src
+    ├── @supabase
+    │   ├── auth-js
+    │   │   ├── dist
+    │   │   │   ├── main
+    │   │   │   │   └── lib
+    │   │   │   └── module
+    │   │   │       └── lib
+    │   │   └── src
+    │   │       └── lib
+    │   ├── functions-js
+    │   │   ├── dist
+    │   │   │   ├── main
+    │   │   │   └── module
+    │   │   └── src
+    │   ├── node-fetch
+    │   │   └── lib
+    │   ├── postgrest-js
+    │   │   ├── dist
+    │   │   │   ├── cjs
+    │   │   │   │   └── select-query-parser
+    │   │   │   └── esm
+    │   │   └── src
+    │   │       └── select-query-parser
+    │   ├── realtime-js
+    │   │   ├── dist
+    │   │   │   ├── main
+    │   │   │   │   └── lib
+    │   │   │   └── module
+    │   │   │       └── lib
+    │   │   ├── node_modules
+    │   │   │   └── @supabase
+    │   │   │       └── node-fetch
+    │   │   │           └── lib
+    │   │   └── src
+    │   │       └── lib
+    │   ├── storage-js
+    │   │   ├── dist
+    │   │   │   ├── main
+    │   │   │   │   ├── lib
+    │   │   │   │   └── packages
+    │   │   │   ├── module
+    │   │   │   │   ├── lib
+    │   │   │   │   └── packages
+    │   │   │   └── umd
+    │   │   └── src
+    │   │       ├── lib
+    │   │       └── packages
+    │   └── supabase-js
+    │       ├── dist
+    │       │   ├── main
+    │       │   │   └── lib
+    │       │   ├── module
+    │       │   │   └── lib
+    │       │   └── umd
+    │       └── src
+    │           └── lib
+    ├── @types
+    │   ├── babel__core
+    │   │   └── node_modules
+    │   ├── babel__generator
+    │   ├── babel__template
+    │   │   └── node_modules
+    │   ├── babel__traverse
+    │   ├── estree
+    │   ├── graceful-fs
+    │   ├── hoist-non-react-statics
+    │   ├── http-errors
+    │   ├── istanbul-lib-coverage
+    │   ├── istanbul-lib-report
+    │   ├── istanbul-reports
+    │   ├── json-schema
+    │   ├── lodash
+    │   │   ├── common
+    │   │   └── fp
+    │   ├── lodash.isequal
+    │   ├── node
+    │   │   ├── assert
+    │   │   ├── compatibility
+    │   │   ├── dns
+    │   │   ├── fs
+    │   │   ├── readline
+    │   │   ├── stream
+    │   │   ├── timers
+    │   │   ├── ts5.1
+    │   │   │   └── compatibility
+    │   │   ├── ts5.6
+    │   │   │   └── compatibility
+    │   │   └── ts5.7
+    │   │       └── compatibility
+    │   ├── phoenix
+    │   ├── stack-utils
+    │   ├── validator
+    │   │   ├── es
+    │   │   │   └── lib
+    │   │   └── lib
+    │   ├── ws
+    │   ├── yargs
+    │   └── yargs-parser
+    ├── @urql
+    │   ├── core
+    │   │   ├── dist
+    │   │   └── internal
+    │   └── exchange-retry
+    │       └── dist
+    ├── @vitalets
+    │   └── google-translate-api
+    │       ├── dist
+    │       │   ├── cjs
+    │       │   └── esm
+    │       └── src
+    ├── @xmldom
+    │   └── xmldom
+    │       └── lib
+    ├── abort-controller
+    │   └── dist
+    ├── accepts
+    ├── acorn
+    │   ├── bin
+    │   └── dist
+    ├── acorn-jsx
+    │   └── node_modules
+    ├── agent-base
+    │   └── dist
+    ├── ajv
+    │   ├── dist
+    │   │   ├── compile
+    │   │   │   ├── codegen
+    │   │   │   ├── jtd
+    │   │   │   └── validate
+    │   │   ├── refs
+    │   │   │   ├── json-schema-2019-09
+    │   │   │   │   └── meta
+    │   │   │   └── json-schema-2020-12
+    │   │   │       └── meta
+    │   │   ├── runtime
+    │   │   ├── standalone
+    │   │   ├── types
+    │   │   └── vocabularies
+    │   │       ├── applicator
+    │   │       ├── core
+    │   │       ├── discriminator
+    │   │       ├── dynamic
+    │   │       ├── format
+    │   │       ├── jtd
+    │   │       ├── unevaluated
+    │   │       └── validation
+    │   └── lib
+    │       ├── compile
+    │       │   ├── codegen
+    │       │   ├── jtd
+    │       │   └── validate
+    │       ├── refs
+    │       │   ├── json-schema-2019-09
+    │       │   │   └── meta
+    │       │   └── json-schema-2020-12
+    │       │       └── meta
+    │       ├── runtime
+    │       ├── standalone
+    │       ├── types
+    │       └── vocabularies
+    │           ├── applicator
+    │           ├── core
+    │           ├── discriminator
+    │           ├── dynamic
+    │           ├── format
+    │           ├── jtd
+    │           ├── unevaluated
+    │           └── validation
+    ├── ajv-formats
+    │   ├── dist
+    │   └── src
+    ├── ajv-keywords
+    │   ├── dist
+    │   │   ├── definitions
+    │   │   └── keywords
+    │   └── src
+    │       ├── definitions
+    │       └── keywords
+    ├── anser
+    │   └── lib
+    ├── ansi-escapes
+    │   └── node_modules
+    │       └── type-fest
+    │           ├── source
+    │           └── ts41
+    ├── ansi-regex
+    ├── ansi-styles
+    ├── any-promise
+    │   └── register
+    ├── anymatch
+    ├── arg
+    ├── argparse
+    │   └── lib
+    │       ├── action
+    │       │   ├── append
+    │       │   └── store
+    │       ├── argument
+    │       └── help
+    ├── array-buffer-byte-length
+    ├── array-includes
+    ├── array.prototype.findlast
+    ├── array.prototype.flat
+    ├── array.prototype.flatmap
+    ├── array.prototype.tosorted
+    ├── arraybuffer.prototype.slice
+    ├── asap
+    ├── async-function
+    ├── async-limiter
+    ├── asynckit
+    │   └── lib
+    ├── available-typed-arrays
+    ├── axios
+    │   ├── dist
+    │   │   ├── browser
+    │   │   ├── esm
+    │   │   └── node
+    │   └── lib
+    │       ├── adapters
+    │       ├── cancel
+    │       ├── core
+    │       ├── defaults
+    │       ├── env
+    │       │   └── classes
+    │       ├── helpers
+    │       └── platform
+    │           ├── browser
+    │           │   └── classes
+    │           ├── common
+    │           └── node
+    │               └── classes
+    ├── babel-jest
+    │   └── build
+    ├── babel-plugin-istanbul
+    │   └── lib
+    ├── babel-plugin-jest-hoist
+    │   └── build
+    ├── babel-plugin-polyfill-corejs2
+    │   ├── esm
+    │   ├── lib
+    │   └── node_modules
+    ├── babel-plugin-polyfill-corejs3
+    │   ├── core-js-compat
+    │   ├── esm
+    │   └── lib
+    ├── babel-plugin-polyfill-regenerator
+    │   ├── esm
+    │   └── lib
+    ├── babel-plugin-react-native-web
+    │   └── src
+    ├── babel-plugin-syntax-hermes-parser
+    │   └── dist
+    ├── babel-plugin-transform-flow-enums
+    ├── babel-preset-current-node-syntax
+    │   └── src
+    ├── babel-preset-expo
+    │   └── build
+    ├── babel-preset-jest
+    ├── balanced-match
+    ├── base64-js
+    ├── better-opn
+    │   ├── dist
+    │   └── node_modules
+    │       └── open
+    │           └── node_modules
+    ├── big-integer
+    ├── boolbase
+    ├── bplist-creator
+    ├── bplist-parser
+    ├── brace-expansion
+    ├── braces
+    │   └── lib
+    ├── browserslist
+    │   └── node_modules
+    ├── bser
+    ├── buffer
+    ├── buffer-from
+    ├── bytes
+    ├── call-bind
+    ├── call-bind-apply-helpers
+    ├── call-bound
+    ├── caller-callsite
+    │   └── node_modules
+    │       └── callsites
+    ├── caller-path
+    ├── callsites
+    ├── camelcase
+    ├── caniuse-lite
+    │   ├── data
+    │   │   ├── features
+    │   │   └── regions
+    │   └── dist
+    │       ├── lib
+    │       └── unpacker
+    ├── chalk
+    │   └── source
+    ├── chownr
+    │   └── dist
+    │       ├── commonjs
+    │       └── esm
+    ├── chrome-launcher
+    │   ├── bin
+    │   ├── chrome-launcher
+    │   ├── dist
+    │   └── scripts
+    ├── chromium-edge-launcher
+    │   ├── chromium-edge-launcher
+    │   ├── dist
+    │   ├── node_modules
+    │   │   └── mkdirp
+    │   │       ├── bin
+    │   │       └── lib
+    │   └── scripts
+    ├── ci-info
+    ├── cli-cursor
+    ├── cli-spinners
+    ├── client-only
+    ├── cliui
+    │   └── build
+    │       └── lib
+    ├── clone
+    ├── collapse-white-space
+    ├── color
+    ├── color-convert
+    ├── color-name
+    ├── color-string
+    ├── combined-stream
+    │   └── lib
+    ├── commander
+    │   ├── lib
+    │   └── typings
+    ├── compressible
+    │   └── node_modules
+    │       └── mime-db
+    ├── compression
+    │   └── node_modules
+    │       ├── debug
+    │       │   └── src
+    │       ├── ms
+    │       └── negotiator
+    │           └── lib
+    ├── compromise
+    │   ├── builds
+    │   │   ├── one
+    │   │   ├── three
+    │   │   └── two
+    │   ├── one
+    │   ├── src
+    │   │   ├── 1-one
+    │   │   │   ├── cache
+    │   │   │   │   └── methods
+    │   │   │   ├── change
+    │   │   │   │   ├── api
+    │   │   │   │   │   └── lib
+    │   │   │   │   └── compute
+    │   │   │   ├── contraction-one
+    │   │   │   │   ├── compute
+    │   │   │   │   │   └── contractions
+    │   │   │   │   └── model
+    │   │   │   ├── freeze
+    │   │   │   ├── lexicon
+    │   │   │   │   ├── compute
+    │   │   │   │   └── methods
+    │   │   │   ├── lookup
+    │   │   │   │   └── api
+    │   │   │   │       └── buildTrie
+    │   │   │   ├── match
+    │   │   │   │   ├── api
+    │   │   │   │   └── methods
+    │   │   │   │       ├── match
+    │   │   │   │       │   ├── steps
+    │   │   │   │       │   │   └── logic
+    │   │   │   │       │   └── term
+    │   │   │   │       └── parseMatch
+    │   │   │   ├── output
+    │   │   │   │   ├── api
+    │   │   │   │   └── methods
+    │   │   │   │       └── debug
+    │   │   │   ├── pointers
+    │   │   │   │   ├── api
+    │   │   │   │   │   └── lib
+    │   │   │   │   └── methods
+    │   │   │   ├── sweep
+    │   │   │   │   └── methods
+    │   │   │   │       ├── buildNet
+    │   │   │   │       ├── sweep
+    │   │   │   │       └── tagger
+    │   │   │   ├── tag
+    │   │   │   │   ├── api
+    │   │   │   │   ├── compute
+    │   │   │   │   └── methods
+    │   │   │   │       └── addTags
+    │   │   │   ├── tokenize
+    │   │   │   │   ├── compute
+    │   │   │   │   │   └── normal
+    │   │   │   │   ├── methods
+    │   │   │   │   │   ├── 01-sentences
+    │   │   │   │   │   ├── 02-terms
+    │   │   │   │   │   └── 03-whitespace
+    │   │   │   │   └── model
+    │   │   │   │       └── abbreviations
+    │   │   │   └── typeahead
+    │   │   │       └── lib
+    │   │   ├── 2-two
+    │   │   │   ├── contraction-two
+    │   │   │   │   ├── api
+    │   │   │   │   └── compute
+    │   │   │   ├── lazy
+    │   │   │   ├── postTagger
+    │   │   │   │   ├── compute
+    │   │   │   │   └── model
+    │   │   │   │       ├── adjective
+    │   │   │   │       ├── dates
+    │   │   │   │       ├── nouns
+    │   │   │   │       ├── numbers
+    │   │   │   │       ├── person
+    │   │   │   │       └── verbs
+    │   │   │   ├── preTagger
+    │   │   │   │   ├── compute
+    │   │   │   │   │   └── tagger
+    │   │   │   │   │       ├── 1st-pass
+    │   │   │   │   │       ├── 2nd-pass
+    │   │   │   │   │       └── 3rd-pass
+    │   │   │   │   ├── methods
+    │   │   │   │   │   ├── expand
+    │   │   │   │   │   └── transform
+    │   │   │   │   │       ├── adjectives
+    │   │   │   │   │       │   └── conjugate
+    │   │   │   │   │       ├── nouns
+    │   │   │   │   │       │   ├── toPlural
+    │   │   │   │   │       │   └── toSingular
+    │   │   │   │   │       └── verbs
+    │   │   │   │   │           ├── conjugate
+    │   │   │   │   │           ├── getTense
+    │   │   │   │   │           └── toInfinitive
+    │   │   │   │   ├── model
+    │   │   │   │   │   ├── _expand
+    │   │   │   │   │   ├── clues
+    │   │   │   │   │   ├── irregulars
+    │   │   │   │   │   ├── lexicon
+    │   │   │   │   │   ├── models
+    │   │   │   │   │   ├── patterns
+    │   │   │   │   │   └── regex
+    │   │   │   │   └── tagSet
+    │   │   │   └── swap
+    │   │   │       └── api
+    │   │   ├── 3-three
+    │   │   │   ├── adjectives
+    │   │   │   ├── adverbs
+    │   │   │   ├── chunker
+    │   │   │   │   ├── api
+    │   │   │   │   └── compute
+    │   │   │   ├── coreference
+    │   │   │   │   ├── api
+    │   │   │   │   └── compute
+    │   │   │   ├── misc
+    │   │   │   │   ├── acronyms
+    │   │   │   │   ├── parentheses
+    │   │   │   │   ├── possessives
+    │   │   │   │   ├── quotations
+    │   │   │   │   ├── selections
+    │   │   │   │   └── slashes
+    │   │   │   ├── normalize
+    │   │   │   ├── nouns
+    │   │   │   │   └── api
+    │   │   │   ├── numbers
+    │   │   │   │   ├── fractions
+    │   │   │   │   │   └── convert
+    │   │   │   │   └── numbers
+    │   │   │   │       ├── format
+    │   │   │   │       │   ├── toOrdinal
+    │   │   │   │       │   └── toText
+    │   │   │   │       └── parse
+    │   │   │   │           └── toNumber
+    │   │   │   ├── redact
+    │   │   │   ├── sentences
+    │   │   │   │   ├── conjugate
+    │   │   │   │   └── parse
+    │   │   │   ├── topics
+    │   │   │   │   ├── orgs
+    │   │   │   │   ├── people
+    │   │   │   │   └── places
+    │   │   │   └── verbs
+    │   │   │       └── api
+    │   │   │           ├── conjugate
+    │   │   │           └── parse
+    │   │   │               └── grammar
+    │   │   ├── 4-four
+    │   │   │   ├── facts
+    │   │   │   │   └── parse
+    │   │   │   │       └── statement
+    │   │   │   └── sense
+    │   │   │       ├── api
+    │   │   │       ├── compute
+    │   │   │       └── model
+    │   │   │           └── senses
+    │   │   └── API
+    │   │       └── methods
+    │   ├── three
+    │   ├── tokenize
+    │   ├── two
+    │   └── types
+    │       └── view
+    ├── concat-map
+    ├── connect
+    │   └── node_modules
+    │       ├── debug
+    │       │   └── src
+    │       └── ms
+    ├── convert-source-map
+    ├── core-js-compat
+    │   └── node_modules
+    ├── cosmiconfig
+    │   ├── dist
+    │   └── node_modules
+    │       ├── import-fresh
+    │       └── resolve-from
+    ├── cross-fetch
+    │   ├── dist
+    │   └── polyfill
+    ├── cross-spawn
+    │   ├── lib
+    │   │   └── util
+    │   └── node_modules
+    ├── crypto-random-string
+    ├── css-select
+    │   └── lib
+    │       ├── esm
+    │       │   ├── helpers
+    │       │   └── pseudo-selectors
+    │       ├── helpers
+    │       └── pseudo-selectors
+    ├── css-tree
+    │   ├── data
+    │   ├── dist
+    │   ├── lib
+    │   │   ├── common
+    │   │   ├── convertor
+    │   │   ├── definition-syntax
+    │   │   ├── generator
+    │   │   ├── lexer
+    │   │   ├── parser
+    │   │   ├── syntax
+    │   │   │   ├── atrule
+    │   │   │   ├── config
+    │   │   │   ├── function
+    │   │   │   ├── node
+    │   │   │   ├── pseudo
+    │   │   │   │   └── common
+    │   │   │   └── scope
+    │   │   ├── tokenizer
+    │   │   ├── utils
+    │   │   └── walker
+    │   └── node_modules
+    │       └── source-map
+    │           ├── dist
+    │           └── lib
+    ├── css-what
+    │   └── lib
+    │       ├── commonjs
+    │       └── es
+    ├── data-view-buffer
+    ├── data-view-byte-length
+    ├── data-view-byte-offset
+    ├── dayjs
+    │   ├── esm
+    │   │   ├── locale
+    │   │   └── plugin
+    │   │       ├── advancedFormat
+    │   │       ├── arraySupport
+    │   │       ├── badMutable
+    │   │       ├── bigIntSupport
+    │   │       ├── buddhistEra
+    │   │       ├── calendar
+    │   │       ├── customParseFormat
+    │   │       ├── dayOfYear
+    │   │       ├── devHelper
+    │   │       ├── duration
+    │   │       ├── isBetween
+    │   │       ├── isLeapYear
+    │   │       ├── isMoment
+    │   │       ├── isSameOrAfter
+    │   │       ├── isSameOrBefore
+    │   │       ├── isToday
+    │   │       ├── isTomorrow
+    │   │       ├── isYesterday
+    │   │       ├── isoWeek
+    │   │       ├── isoWeeksInYear
+    │   │       ├── localeData
+    │   │       ├── localizedFormat
+    │   │       ├── minMax
+    │   │       ├── negativeYear
+    │   │       ├── objectSupport
+    │   │       ├── pluralGetSet
+    │   │       ├── preParsePostFormat
+    │   │       ├── quarterOfYear
+    │   │       ├── relativeTime
+    │   │       ├── timezone
+    │   │       ├── toArray
+    │   │       ├── toObject
+    │   │       ├── updateLocale
+    │   │       ├── utc
+    │   │       ├── weekOfYear
+    │   │       ├── weekYear
+    │   │       └── weekday
+    │   ├── locale
+    │   └── plugin
+    ├── debug
+    │   └── src
+    ├── decode-uri-component
+    ├── deep-extend
+    │   └── lib
+    ├── deep-is
+    ├── deepmerge
+    │   └── dist
+    ├── defaults
+    ├── define-data-property
+    ├── define-lazy-prop
+    ├── define-properties
+    ├── delayed-stream
+    │   └── lib
+    ├── depd
+    │   └── lib
+    │       └── browser
+    ├── destroy
+    ├── detect-libc
+    │   ├── bin
+    │   └── lib
+    ├── diacritics
+    ├── doctrine
+    │   └── lib
+    ├── dom-serializer
+    │   └── lib
+    │       └── esm
+    ├── domelementtype
+    │   └── lib
+    │       └── esm
+    ├── domhandler
+    │   └── lib
+    │       └── esm
+    ├── domutils
+    │   └── lib
+    │       └── esm
+    ├── dotenv
+    │   └── lib
+    ├── dotenv-expand
+    │   ├── lib
+    │   └── node_modules
+    │       └── dotenv
+    │           └── lib
+    ├── dunder-proto
+    ├── eastasianwidth
+    ├── ee-first
+    ├── efrt
+    │   ├── builds
+    │   └── src
+    │       ├── pack
+    │       └── unpack
+    ├── electron-to-chromium
+    ├── emoji-regex
+    │   └── es2015
+    ├── encodeurl
+    ├── entities
+    │   └── lib
+    │       ├── esm
+    │       │   └── generated
+    │       └── generated
+    ├── env-editor
+    ├── error-ex
+    │   └── node_modules
+    │       └── is-arrayish
+    ├── error-stack-parser
+    │   └── dist
+    ├── es-abstract
+    │   ├── 2015
+    │   │   └── tables
+    │   ├── 2016
+    │   │   └── tables
+    │   ├── 2017
+    │   │   └── tables
+    │   ├── 2018
+    │   │   └── tables
+    │   ├── 2019
+    │   │   └── tables
+    │   ├── 2020
+    │   │   ├── BigInt
+    │   │   ├── Number
+    │   │   └── tables
+    │   ├── 2021
+    │   │   ├── BigInt
+    │   │   ├── Number
+    │   │   └── tables
+    │   ├── 2022
+    │   │   ├── BigInt
+    │   │   ├── Number
+    │   │   └── tables
+    │   ├── 2023
+    │   │   ├── BigInt
+    │   │   ├── Number
+    │   │   └── tables
+    │   ├── 2024
+    │   │   ├── BigInt
+    │   │   ├── Number
+    │   │   └── tables
+    │   ├── 2025
+    │   │   ├── BigInt
+    │   │   ├── Number
+    │   │   └── tables
+    │   ├── 5
+    │   ├── helpers
+    │   │   └── records
+    │   └── operations
+    ├── es-define-property
+    ├── es-errors
+    ├── es-iterator-helpers
+    │   ├── Iterator
+    │   ├── Iterator.concat
+    │   ├── Iterator.from
+    │   ├── Iterator.prototype
+    │   ├── Iterator.prototype.constructor
+    │   ├── Iterator.prototype.drop
+    │   ├── Iterator.prototype.every
+    │   ├── Iterator.prototype.filter
+    │   ├── Iterator.prototype.find
+    │   ├── Iterator.prototype.flatMap
+    │   ├── Iterator.prototype.forEach
+    │   ├── Iterator.prototype.map
+    │   ├── Iterator.prototype.reduce
+    │   ├── Iterator.prototype.some
+    │   ├── Iterator.prototype.take
+    │   ├── Iterator.prototype.toArray
+    │   ├── Iterator.zip
+    │   ├── Iterator.zipKeyed
+    │   ├── IteratorHelperPrototype
+    │   ├── WrapForValidIteratorPrototype
+    │   └── aos
+    ├── es-object-atoms
+    ├── es-set-tostringtag
+    ├── es-shim-unscopables
+    ├── es-to-primitive
+    │   └── helpers
+    ├── escalade
+    │   ├── dist
+    │   └── sync
+    ├── escape-html
+    ├── escape-string-regexp
+    ├── eslint
+    │   ├── bin
+    │   ├── conf
+    │   ├── lib
+    │   │   ├── cli-engine
+    │   │   │   └── formatters
+    │   │   ├── config
+    │   │   ├── eslint
+    │   │   ├── languages
+    │   │   │   └── js
+    │   │   │       └── source-code
+    │   │   │           └── token-store
+    │   │   ├── linter
+    │   │   │   └── code-path-analysis
+    │   │   ├── rule-tester
+    │   │   ├── rules
+    │   │   │   └── utils
+    │   │   │       └── unicode
+    │   │   ├── services
+    │   │   ├── shared
+    │   │   └── types
+    │   ├── messages
+    │   └── node_modules
+    │       ├── ajv
+    │       │   ├── dist
+    │       │   ├── lib
+    │       │   │   ├── compile
+    │       │   │   ├── dot
+    │       │   │   ├── dotjs
+    │       │   │   └── refs
+    │       │   └── scripts
+    │       └── json-schema-traverse
+    │           └── spec
+    │               └── fixtures
+    ├── eslint-config-prettier
+    │   ├── bin
+    │   └── node_modules
+    ├── eslint-plugin-react
+    │   ├── configs
+    │   ├── lib
+    │   │   ├── rules
+    │   │   └── util
+    │   └── node_modules
+    │       └── resolve
+    │           ├── bin
+    │           └── lib
+    ├── eslint-plugin-react-native
+    │   ├── lib
+    │   │   ├── rules
+    │   │   └── util
+    │   └── node_modules
+    ├── eslint-plugin-react-native-globals
+    ├── eslint-scope
+    │   ├── dist
+    │   └── lib
+    ├── eslint-visitor-keys
+    │   ├── dist
+    │   └── lib
+    ├── espree
+    │   ├── dist
+    │   ├── lib
+    │   └── node_modules
+    ├── esprima
+    │   ├── bin
+    │   └── dist
+    ├── esquery
+    │   └── dist
+    ├── esrecurse
+    ├── estraverse
+    ├── esutils
+    │   └── lib
+    ├── etag
+    ├── event-target-shim
+    │   └── dist
+    ├── exec-async
+    ├── expo
+    │   ├── android
+    │   │   └── src
+    │   │       ├── main
+    │   │       │   └── java
+    │   │       │       └── expo
+    │   │       │           └── modules
+    │   │       │               └── fetch
+    │   │       ├── rn74
+    │   │       │   └── main
+    │   │       │       └── expo
+    │   │       │           └── modules
+    │   │       └── rn78
+    │   │           └── main
+    │   │               └── expo
+    │   │                   └── modules
+    │   ├── bin
+    │   ├── build
+    │   │   ├── devtools
+    │   │   ├── dom
+    │   │   │   └── webview
+    │   │   ├── environment
+    │   │   ├── errors
+    │   │   ├── hooks
+    │   │   ├── launch
+    │   │   ├── timer
+    │   │   ├── utils
+    │   │   └── winter
+    │   │       └── fetch
+    │   ├── dom
+    │   ├── ios
+    │   │   ├── AppDelegates
+    │   │   └── Fetch
+    │   ├── node_modules
+    │   ├── scripts
+    │   │   └── xcode
+    │   ├── src
+    │   │   ├── devtools
+    │   │   ├── dom
+    │   │   │   └── webview
+    │   │   ├── environment
+    │   │   ├── errors
+    │   │   ├── hooks
+    │   │   ├── launch
+    │   │   ├── timer
+    │   │   ├── ts-declarations
+    │   │   ├── utils
+    │   │   └── winter
+    │   │       └── fetch
+    │   ├── types
+    │   └── virtual
+    ├── expo-asset
+    │   ├── android
+    │   │   └── src
+    │   │       └── main
+    │   │           └── java
+    │   │               └── expo
+    │   │                   └── modules
+    │   │                       └── asset
+    │   ├── build
+    │   ├── ios
+    │   ├── local-maven-repo
+    │   │   └── expo
+    │   │       └── modules
+    │   │           └── asset
+    │   │               └── expo.modules.asset
+    │   │                   └── 11.1.7
+    │   ├── mocks
+    │   ├── node_modules
+    │   ├── plugin
+    │   │   ├── build
+    │   │   └── src
+    │   ├── src
+    │   │   └── ts-declarations
+    │   └── tools
+    ├── expo-constants
+    │   ├── android
+    │   │   └── src
+    │   │       └── main
+    │   │           └── java
+    │   │               └── expo
+    │   │                   └── modules
+    │   │                       └── constants
+    │   ├── build
+    │   ├── ios
+    │   ├── node_modules
+    │   ├── scripts
+    │   │   ├── build
+    │   │   └── src
+    │   └── src
+    ├── expo-dev-client
+    │   ├── android
+    │   │   └── src
+    │   │       └── main
+    │   ├── build
+    │   ├── e2e
+    │   │   ├── android
+    │   │   ├── app
+    │   │   └── ios
+    │   ├── ios
+    │   ├── node_modules
+    │   ├── plugin
+    │   │   ├── build
+    │   │   └── src
+    │   └── src
+    ├── expo-dev-launcher
+    │   ├── android
+    │   │   └── src
+    │   │       ├── debug
+    │   │       │   ├── assets
+    │   │       │   ├── java
+    │   │       │   │   └── expo
+    │   │       │   │       └── modules
+    │   │       │   │           └── devlauncher
+    │   │       │   │               ├── helpers
+    │   │       │   │               ├── launcher
+    │   │       │   │               │   ├── errors
+    │   │       │   │               │   └── loaders
+    │   │       │   │               ├── modules
+    │   │       │   │               └── react
+    │   │       │   └── res
+    │   │       │       ├── drawable-mdpi
+    │   │       │       ├── drawable-xhdpi
+    │   │       │       ├── drawable-xxhdpi
+    │   │       │       ├── drawable-xxxhdpi
+    │   │       │       └── raw
+    │   │       ├── main
+    │   │       │   ├── java
+    │   │       │   │   ├── com
+    │   │       │   │   │   └── facebook
+    │   │       │   │   │       └── react
+    │   │       │   │   │           └── devsupport
+    │   │       │   │   └── expo
+    │   │       │   │       └── modules
+    │   │       │   │           └── devlauncher
+    │   │       │   │               ├── helpers
+    │   │       │   │               ├── koin
+    │   │       │   │               ├── launcher
+    │   │       │   │               │   ├── configurators
+    │   │       │   │               │   ├── errors
+    │   │       │   │               │   └── manifest
+    │   │       │   │               ├── logs
+    │   │       │   │               ├── modules
+    │   │       │   │               ├── react
+    │   │       │   │               │   └── activitydelegates
+    │   │       │   │               └── splashscreen
+    │   │       │   └── res
+    │   │       │       ├── drawable-hdpi
+    │   │       │       ├── drawable-mdpi
+    │   │       │       ├── drawable-xhdpi
+    │   │       │       ├── drawable-xxhdpi
+    │   │       │       ├── drawable-xxxhdpi
+    │   │       │       ├── layout
+    │   │       │       └── values
+    │   │       ├── release
+    │   │       │   └── java
+    │   │       │       └── expo
+    │   │       │           └── modules
+    │   │       │               └── devlauncher
+    │   │       │                   └── launcher
+    │   │       │                       └── loaders
+    │   │       └── testDebug
+    │   │           └── java
+    │   │               └── expo
+    │   │                   └── modules
+    │   │                       └── devlauncher
+    │   │                           ├── launcher
+    │   │                           │   └── loaders
+    │   │                           └── modules
+    │   ├── build
+    │   ├── bundle
+    │   │   ├── components
+    │   │   ├── functions
+    │   │   ├── hooks
+    │   │   ├── native-modules
+    │   │   ├── providers
+    │   │   ├── queries
+    │   │   └── screens
+    │   ├── expo-dev-launcher-gradle-plugin
+    │   │   └── src
+    │   │       └── main
+    │   │           └── kotlin
+    │   │               └── expo
+    │   │                   └── modules
+    │   │                       └── devlauncher
+    │   ├── ios
+    │   │   ├── Errors
+    │   │   ├── Headers
+    │   │   ├── Logs
+    │   │   ├── Manifest
+    │   │   ├── ReactDelegateHandler
+    │   │   ├── ReactNative
+    │   │   ├── Unsafe
+    │   │   ├── Views
+    │   │   └── assets
+    │   │       ├── __node_modules
+    │   │       │   └── @react-navigation
+    │   │       │       └── elements
+    │   │       │           └── lib
+    │   │       │               └── module
+    │   │       │                   └── assets
+    │   │       └── _expo-dev-client-components
+    │   │           └── assets
+    │   ├── node_modules
+    │   │   └── ajv
+    │   │       ├── dist
+    │   │       │   ├── compile
+    │   │       │   │   ├── codegen
+    │   │       │   │   ├── jtd
+    │   │       │   │   └── validate
+    │   │       │   ├── refs
+    │   │       │   │   ├── json-schema-2019-09
+    │   │       │   │   │   └── meta
+    │   │       │   │   └── json-schema-2020-12
+    │   │       │   │       └── meta
+    │   │       │   ├── runtime
+    │   │       │   ├── standalone
+    │   │       │   ├── types
+    │   │       │   └── vocabularies
+    │   │       │       ├── applicator
+    │   │       │       ├── core
+    │   │       │       ├── discriminator
+    │   │       │       ├── dynamic
+    │   │       │       ├── format
+    │   │       │       ├── jtd
+    │   │       │       ├── unevaluated
+    │   │       │       └── validation
+    │   │       └── lib
+    │   │           ├── compile
+    │   │           │   ├── codegen
+    │   │           │   ├── jtd
+    │   │           │   └── validate
+    │   │           ├── refs
+    │   │           │   ├── json-schema-2019-09
+    │   │           │   │   └── meta
+    │   │           │   └── json-schema-2020-12
+    │   │           │       └── meta
+    │   │           ├── runtime
+    │   │           ├── standalone
+    │   │           ├── types
+    │   │           └── vocabularies
+    │   │               ├── applicator
+    │   │               ├── core
+    │   │               ├── discriminator
+    │   │               ├── dynamic
+    │   │               ├── format
+    │   │               ├── jtd
+    │   │               ├── unevaluated
+    │   │               └── validation
+    │   ├── plugin
+    │   │   ├── build
+    │   │   └── src
+    │   └── src
+    ├── expo-dev-menu
+    │   ├── android
+    │   │   └── src
+    │   │       ├── debug
+    │   │       │   └── java
+    │   │       │       └── expo
+    │   │       │           └── modules
+    │   │       │               └── devmenu
+    │   │       │                   └── react
+    │   │       ├── main
+    │   │       │   ├── java
+    │   │       │   │   ├── com
+    │   │       │   │   │   └── facebook
+    │   │       │   │   │       └── react
+    │   │       │   │   │           └── devsupport
+    │   │       │   │   └── expo
+    │   │       │   │       └── modules
+    │   │       │   │           └── devmenu
+    │   │       │   │               ├── api
+    │   │       │   │               ├── detectors
+    │   │       │   │               ├── devtools
+    │   │       │   │               ├── fab
+    │   │       │   │               ├── helpers
+    │   │       │   │               ├── modules
+    │   │       │   │               ├── react
+    │   │       │   │               ├── safearea
+    │   │       │   │               └── websockets
+    │   │       │   └── res
+    │   │       │       ├── drawable-mdpi
+    │   │       │       ├── drawable-xhdpi
+    │   │       │       ├── drawable-xxhdpi
+    │   │       │       ├── layout
+    │   │       │       ├── raw
+    │   │       │       └── values
+    │   │       └── release
+    │   │           └── java
+    │   │               └── expo
+    │   │                   └── modules
+    │   │                       └── devmenu
+    │   │                           └── react
+    │   ├── app
+    │   │   ├── components
+    │   │   ├── hooks
+    │   │   └── native-modules
+    │   ├── assets
+    │   ├── build
+    │   ├── ios
+    │   │   ├── Headers
+    │   │   ├── Interceptors
+    │   │   ├── Modules
+    │   │   ├── OverlayContainer
+    │   │   │   └── Internal
+    │   │   │       ├── Extensions
+    │   │   │       └── Views
+    │   │   ├── ReactDelegateHandler
+    │   │   ├── ReactNativeCompatibles
+    │   │   │   └── ReactNative
+    │   │   ├── UITests
+    │   │   └── assets
+    │   │       └── _expo-dev-client-components
+    │   │           └── assets
+    │   ├── mocks
+    │   │   └── react-native-gesture-handler
+    │   │       └── src
+    │   ├── node_modules
+    │   ├── plugin
+    │   │   ├── build
+    │   │   └── src
+    │   ├── scripts
+    │   ├── src
+    │   └── vendored
+    │       └── react-native-safe-area-context
+    │           ├── android
+    │           │   └── devmenu
+    │           │       └── com
+    │           │           └── th3rdwave
+    │           │               └── safeareacontext
+    │           ├── ios
+    │           │   └── SafeAreaView
+    │           └── src
+    ├── expo-dev-menu-interface
+    │   ├── android
+    │   │   └── src
+    │   │       └── main
+    │   │           └── java
+    │   │               └── expo
+    │   │                   └── interfaces
+    │   │                       └── devmenu
+    │   ├── ios
+    │   └── node_modules
+    ├── expo-file-system
+    │   ├── android
+    │   │   └── src
+    │   │       └── main
+    │   │           ├── java
+    │   │           │   └── expo
+    │   │           │       └── modules
+    │   │           │           └── filesystem
+    │   │           │               └── next
+    │   │           └── res
+    │   │               └── xml
+    │   ├── build
+    │   │   └── next
+    │   │       └── pathUtilities
+    │   ├── ios
+    │   │   ├── EXSessionTasks
+    │   │   └── Next
+    │   ├── local-maven-repo
+    │   │   └── host
+    │   │       └── exp
+    │   │           └── exponent
+    │   │               └── expo.modules.filesystem
+    │   │                   └── 18.1.11
+    │   ├── node_modules
+    │   ├── plugin
+    │   │   ├── build
+    │   │   └── src
+    │   └── src
+    │       └── next
+    │           └── pathUtilities
+    ├── expo-font
+    │   ├── android
+    │   │   └── src
+    │   │       └── main
+    │   │           └── java
+    │   │               └── expo
+    │   │                   └── modules
+    │   │                       └── font
+    │   ├── build
+    │   ├── ios
+    │   ├── local-maven-repo
+    │   │   └── host
+    │   │       └── exp
+    │   │           └── exponent
+    │   │               └── expo.modules.font
+    │   │                   └── 13.3.2
+    │   ├── node_modules
+    │   ├── plugin
+    │   │   ├── build
+    │   │   └── src
+    │   └── src
+    │       └── ts-declarations
+    ├── expo-image-loader
+    │   ├── android
+    │   │   └── src
+    │   │       └── main
+    │   │           └── java
+    │   │               └── expo
+    │   │                   └── modules
+    │   │                       └── imageloader
+    │   ├── ios
+    │   │   └── EXImageLoader
+    │   └── node_modules
+    ├── expo-image-picker
+    │   ├── android
+    │   │   └── src
+    │   │       └── main
+    │   │           ├── java
+    │   │           │   └── expo
+    │   │           │       └── modules
+    │   │           │           └── imagepicker
+    │   │           │               ├── contracts
+    │   │           │               ├── exporters
+    │   │           │               └── fileprovider
+    │   │           └── res
+    │   │               └── xml
+    │   ├── build
+    │   ├── ios
+    │   ├── local-maven-repo
+    │   │   └── host
+    │   │       └── exp
+    │   │           └── exponent
+    │   │               └── expo.modules.imagepicker
+    │   │                   └── 16.1.4
+    │   ├── node_modules
+    │   ├── plugin
+    │   │   ├── build
+    │   │   └── src
+    │   └── src
+    ├── expo-json-utils
+    │   ├── android
+    │   │   └── src
+    │   │       ├── androidTest
+    │   │       │   └── java
+    │   │       │       └── expo
+    │   │       │           └── modules
+    │   │       │               └── jsonutils
+    │   │       └── main
+    │   │           └── java
+    │   │               └── expo
+    │   │                   └── modules
+    │   │                       └── jsonutils
+    │   └── ios
+    │       └── EXJSONUtils
+    ├── expo-keep-awake
+    │   ├── android
+    │   │   └── src
+    │   │       └── main
+    │   │           └── java
+    │   │               └── expo
+    │   │                   └── modules
+    │   │                       └── keepawake
+    │   ├── build
+    │   ├── ios
+    │   ├── local-maven-repo
+    │   │   └── host
+    │   │       └── exp
+    │   │           └── exponent
+    │   │               └── expo.modules.keepawake
+    │   │                   └── 14.1.4
+    │   ├── node_modules
+    │   └── src
+    ├── expo-linking
+    │   ├── android
+    │   │   └── src
+    │   │       └── main
+    │   │           └── java
+    │   │               └── expo
+    │   │                   └── modules
+    │   │                       └── linking
+    │   ├── build
+    │   ├── ios
+    │   ├── local-maven-repo
+    │   │   └── host
+    │   │       └── exp
+    │   │           └── exponent
+    │   │               └── expo.modules.linking
+    │   │                   └── 7.1.7
+    │   ├── mocks
+    │   ├── node_modules
+    │   └── src
+    ├── expo-localization
+    │   ├── android
+    │   │   └── src
+    │   │       └── main
+    │   │           ├── java
+    │   │           │   └── expo
+    │   │           │       └── modules
+    │   │           │           └── localization
+    │   │           └── res
+    │   │               └── values
+    │   ├── build
+    │   ├── ios
+    │   ├── local-maven-repo
+    │   │   └── host
+    │   │       └── exp
+    │   │           └── exponent
+    │   │               └── expo.modules.localization
+    │   │                   └── 16.1.6
+    │   ├── mocks
+    │   ├── node_modules
+    │   ├── plugin
+    │   │   ├── build
+    │   │   └── src
+    │   └── src
+    ├── expo-location
+    │   ├── android
+    │   │   └── src
+    │   │       └── main
+    │   │           └── java
+    │   │               └── expo
+    │   │                   └── modules
+    │   │                       └── location
+    │   │                           ├── records
+    │   │                           ├── services
+    │   │                           └── taskConsumers
+    │   ├── build
+    │   ├── ios
+    │   │   ├── Providers
+    │   │   ├── Requesters
+    │   │   └── TaskConsumers
+    │   ├── local-maven-repo
+    │   │   └── host
+    │   │       └── exp
+    │   │           └── exponent
+    │   │               └── expo.modules.location
+    │   │                   └── 18.1.6
+    │   ├── node_modules
+    │   ├── plugin
+    │   │   ├── build
+    │   │   └── src
+    │   └── src
+    ├── expo-manifests
+    │   ├── android
+    │   │   └── src
+    │   │       └── main
+    │   │           └── java
+    │   │               └── expo
+    │   │                   └── modules
+    │   │                       └── manifests
+    │   │                           └── core
+    │   ├── build
+    │   ├── ios
+    │   │   └── EXManifests
+    │   ├── node_modules
+    │   └── src
+    ├── expo-modules-autolinking
+    │   ├── android
+    │   │   └── expo-gradle-plugin
+    │   │       ├── expo-autolinking-plugin
+    │   │       │   └── src
+    │   │       │       └── main
+    │   │       │           └── kotlin
+    │   │       │               └── expo
+    │   │       │                   └── modules
+    │   │       │                       └── plugin
+    │   │       ├── expo-autolinking-plugin-shared
+    │   │       │   └── src
+    │   │       │       └── main
+    │   │       │           └── kotlin
+    │   │       │               └── expo
+    │   │       │                   └── modules
+    │   │       │                       └── plugin
+    │   │       │                           ├── configuration
+    │   │       │                           └── text
+    │   │       └── expo-autolinking-settings-plugin
+    │   │           └── src
+    │   │               └── main
+    │   │                   └── kotlin
+    │   │                       └── expo
+    │   │                           └── modules
+    │   │                               └── plugin
+    │   │                                   ├── gradle
+    │   │                                   └── utils
+    │   ├── bin
+    │   ├── build
+    │   │   ├── autolinking
+    │   │   ├── platforms
+    │   │   └── reactNativeConfig
+    │   ├── e2e
+    │   ├── node_modules
+    │   │   └── commander
+    │   │       └── typings
+    │   ├── node_modules_mock
+    │   │   └── @react-native-community
+    │   │       └── cli-platform-android
+    │   ├── scripts
+    │   │   ├── android
+    │   │   └── ios
+    │   │       └── cocoapods
+    │   └── src
+    │       ├── autolinking
+    │       ├── platforms
+    │       └── reactNativeConfig
+    ├── expo-modules-core
+    │   ├── android
+    │   │   └── src
+    │   │       ├── compose
+    │   │       │   └── expo
+    │   │       │       └── modules
+    │   │       │           └── kotlin
+    │   │       │               └── views
+    │   │       ├── fabric
+    │   │       ├── main
+    │   │       │   ├── cpp
+    │   │       │   │   ├── decorators
+    │   │       │   │   ├── javaclasses
+    │   │       │   │   └── types
+    │   │       │   └── java
+    │   │       │       ├── com
+    │   │       │       │   └── facebook
+    │   │       │       │       └── react
+    │   │       │       │           └── uimanager
+    │   │       │       └── expo
+    │   │       │           └── modules
+    │   │       │               ├── adapters
+    │   │       │               │   └── react
+    │   │       │               │       ├── apploader
+    │   │       │               │       ├── permissions
+    │   │       │               │       ├── services
+    │   │       │               │       └── views
+    │   │       │               ├── apploader
+    │   │       │               ├── core
+    │   │       │               │   ├── arguments
+    │   │       │               │   ├── errors
+    │   │       │               │   ├── interfaces
+    │   │       │               │   │   └── services
+    │   │       │               │   ├── logging
+    │   │       │               │   └── utilities
+    │   │       │               ├── interfaces
+    │   │       │               │   ├── camera
+    │   │       │               │   ├── constants
+    │   │       │               │   ├── facedetector
+    │   │       │               │   ├── filesystem
+    │   │       │               │   ├── font
+    │   │       │               │   ├── imageloader
+    │   │       │               │   ├── permissions
+    │   │       │               │   └── taskManager
+    │   │       │               └── kotlin
+    │   │       │                   ├── activityaware
+    │   │       │                   ├── activityresult
+    │   │       │                   ├── allocators
+    │   │       │                   ├── apifeatures
+    │   │       │                   ├── classcomponent
+    │   │       │                   ├── defaultmodules
+    │   │       │                   ├── devtools
+    │   │       │                   │   └── cdp
+    │   │       │                   ├── events
+    │   │       │                   ├── exception
+    │   │       │                   ├── functions
+    │   │       │                   ├── jni
+    │   │       │                   │   └── decorators
+    │   │       │                   ├── modules
+    │   │       │                   ├── objects
+    │   │       │                   ├── providers
+    │   │       │                   ├── records
+    │   │       │                   ├── sharedobjects
+    │   │       │                   ├── tracing
+    │   │       │                   ├── traits
+    │   │       │                   ├── typedarray
+    │   │       │                   ├── types
+    │   │       │                   │   ├── folly
+    │   │       │                   │   ├── io
+    │   │       │                   │   └── net
+    │   │       │                   ├── uuidv5
+    │   │       │                   ├── viewevent
+    │   │       │                   └── views
+    │   │       │                       └── decorators
+    │   │       ├── rn74
+    │   │       │   └── expo
+    │   │       │       └── modules
+    │   │       │           └── rncompatibility
+    │   │       ├── rn77
+    │   │       │   └── expo
+    │   │       │       └── modules
+    │   │       │           └── rncompatibility
+    │   │       └── withoutCompose
+    │   │           └── expo
+    │   │               └── modules
+    │   │                   └── kotlin
+    │   │                       └── views
+    │   ├── build
+    │   │   ├── environment
+    │   │   ├── errors
+    │   │   ├── hooks
+    │   │   ├── sweet
+    │   │   ├── ts-declarations
+    │   │   ├── uuid
+    │   │   │   └── lib
+    │   │   └── web
+    │   ├── common
+    │   │   └── cpp
+    │   │       └── fabric
+    │   ├── expo-module-gradle-plugin
+    │   │   └── src
+    │   │       ├── main
+    │   │       │   └── kotlin
+    │   │       │       └── expo
+    │   │       │           └── modules
+    │   │       │               └── plugin
+    │   │       │                   ├── android
+    │   │       │                   └── gradle
+    │   │       ├── withAutolinkingPlugin
+    │   │       │   └── kotlin
+    │   │       │       └── expo
+    │   │       │           └── modules
+    │   │       │               └── plugin
+    │   │       └── withoutAutolinkingPlugin
+    │   │           └── kotlin
+    │   │               └── expo
+    │   │                   └── modules
+    │   │                       └── plugin
+    │   ├── ios
+    │   │   ├── Api
+    │   │   │   ├── Builders
+    │   │   │   └── Factories
+    │   │   ├── AppDelegates
+    │   │   ├── Core
+    │   │   │   ├── Arguments
+    │   │   │   ├── Classes
+    │   │   │   ├── Convertibles
+    │   │   │   ├── DynamicTypes
+    │   │   │   ├── Events
+    │   │   │   ├── Exceptions
+    │   │   │   ├── Functions
+    │   │   │   ├── Logging
+    │   │   │   ├── Modules
+    │   │   │   ├── Objects
+    │   │   │   ├── Protocols
+    │   │   │   ├── Records
+    │   │   │   ├── SharedObjects
+    │   │   │   ├── TypedArrays
+    │   │   │   └── Views
+    │   │   │       └── SwiftUI
+    │   │   ├── DevTools
+    │   │   ├── Fabric
+    │   │   ├── FileSystemUtilities
+    │   │   ├── Interfaces
+    │   │   │   ├── Camera
+    │   │   │   ├── Constants
+    │   │   │   ├── FaceDetector
+    │   │   │   ├── FileSystem
+    │   │   │   ├── ImageLoader
+    │   │   │   ├── Permissions
+    │   │   │   ├── Sensors
+    │   │   │   └── TaskManager
+    │   │   ├── JSI
+    │   │   ├── Legacy
+    │   │   │   ├── ModuleRegistry
+    │   │   │   ├── ModuleRegistryAdapter
+    │   │   │   ├── ModuleRegistryProvider
+    │   │   │   ├── NativeModulesProxy
+    │   │   │   ├── Protocols
+    │   │   │   └── Services
+    │   │   │       └── Permissions
+    │   │   ├── Platform
+    │   │   ├── ReactDelegates
+    │   │   ├── TestUtils
+    │   │   └── Uuidv5
+    │   └── src
+    │       ├── environment
+    │       ├── errors
+    │       ├── hooks
+    │       ├── sweet
+    │       ├── ts-declarations
+    │       ├── uuid
+    │       │   └── lib
+    │       └── web
+    ├── expo-router
+    │   ├── assets
+    │   ├── build
+    │   │   ├── doctor
+    │   │   ├── domComponents
+    │   │   ├── fork
+    │   │   │   └── native-stack
+    │   │   ├── getDevServer
+    │   │   ├── global-state
+    │   │   ├── head
+    │   │   ├── import-mode
+    │   │   ├── layouts
+    │   │   ├── link
+    │   │   ├── onboard
+    │   │   ├── rsc
+    │   │   │   └── router
+    │   │   ├── static
+    │   │   ├── testing-library
+    │   │   ├── ts-declarations
+    │   │   ├── typed-routes
+    │   │   ├── ui
+    │   │   ├── utils
+    │   │   └── views
+    │   ├── ios
+    │   ├── link
+    │   ├── node
+    │   ├── node_modules
+    │   │   ├── react-fast-compare
+    │   │   └── semver
+    │   │       ├── bin
+    │   │       ├── classes
+    │   │       ├── functions
+    │   │       ├── internal
+    │   │       └── ranges
+    │   ├── plugin
+    │   │   ├── build
+    │   │   └── src
+    │   ├── rsc
+    │   ├── types
+    │   └── vendor
+    │       └── react-helmet-async
+    │           └── lib
+    ├── expo-secure-store
+    │   ├── android
+    │   │   └── src
+    │   │       └── main
+    │   │           ├── java
+    │   │           │   └── expo
+    │   │           │       └── modules
+    │   │           │           └── securestore
+    │   │           │               └── encryptors
+    │   │           └── res
+    │   │               └── xml
+    │   ├── build
+    │   ├── ios
+    │   ├── local-maven-repo
+    │   │   └── host
+    │   │       └── exp
+    │   │           └── exponent
+    │   │               └── expo.modules.securestore
+    │   │                   └── 14.2.3
+    │   ├── node_modules
+    │   ├── plugin
+    │   │   ├── build
+    │   │   └── src
+    │   └── src
+    ├── expo-status-bar
+    │   ├── build
+    │   ├── node_modules
+    │   └── src
+    ├── expo-updates-interface
+    │   ├── android
+    │   │   └── src
+    │   │       └── main
+    │   │           └── java
+    │   │               └── expo
+    │   │                   └── modules
+    │   │                       └── updatesinterface
+    │   ├── ios
+    │   │   └── EXUpdatesInterface
+    │   └── node_modules
+    ├── exponential-backoff
+    │   ├── dist
+    │   │   ├── delay
+    │   │   │   ├── always
+    │   │   │   └── skip-first
+    │   │   └── jitter
+    │   │       ├── full
+    │   │       └── no
+    │   └── src
+    │       ├── delay
+    │       │   ├── always
+    │       │   └── skip-first
+    │       └── jitter
+    │           ├── full
+    │           └── no
+    ├── fast-deep-equal
+    │   └── es6
+    ├── fast-json-stable-stringify
+    │   └── benchmark
+    ├── fast-levenshtein
+    ├── fast-uri
+    │   ├── lib
+    │   └── types
+    ├── fb-watchman
+    ├── file-entry-cache
+    ├── fill-range
+    ├── filter-obj
+    ├── finalhandler
+    │   └── node_modules
+    │       ├── debug
+    │       │   └── src
+    │       ├── ms
+    │       ├── on-finished
+    │       └── statuses
+    ├── find-up
+    ├── flat-cache
+    │   └── src
+    ├── flatted
+    │   ├── cjs
+    │   ├── esm
+    │   ├── php
+    │   ├── python
+    │   └── types
+    ├── flow-enums-runtime
+    ├── follow-redirects
+    ├── fontfaceobserver
+    │   └── src
+    ├── for-each
+    ├── foreground-child
+    │   ├── dist
+    │   │   ├── commonjs
+    │   │   └── esm
+    │   └── node_modules
+    │       └── signal-exit
+    │           └── dist
+    │               ├── cjs
+    │               └── mjs
+    ├── form-data
+    │   └── lib
+    ├── formik
+    │   └── dist
+    ├── franc-min
+    ├── freeport-async
+    ├── fresh
+    ├── fs.realpath
+    ├── fsevents
+    ├── function-bind
+    ├── function.prototype.name
+    │   └── helpers
+    ├── functions-have-names
+    ├── gensync
+    ├── get-caller-file
+    ├── get-intrinsic
+    ├── get-package-type
+    ├── get-proto
+    ├── get-symbol-description
+    ├── getenv
+    ├── glob
+    │   ├── dist
+    │   │   ├── commonjs
+    │   │   └── esm
+    │   └── node_modules
+    │       ├── brace-expansion
+    │       └── minimatch
+    │           └── dist
+    │               ├── commonjs
+    │               └── esm
+    ├── glob-parent
+    ├── globals
+    ├── globalthis
+    ├── gopd
+    ├── graceful-fs
+    ├── grad-school
+    │   ├── builds
+    │   └── src
+    │       ├── crawl
+    │       ├── input
+    │       ├── lib
+    │       └── out
+    ├── has-bigints
+    ├── has-flag
+    ├── has-property-descriptors
+    ├── has-proto
+    ├── has-symbols
+    ├── has-tostringtag
+    ├── hasown
+    ├── hermes-estree
+    │   └── dist
+    │       └── generated
+    ├── hermes-parser
+    │   └── dist
+    │       ├── babel
+    │       ├── estree
+    │       ├── generated
+    │       ├── transform
+    │       ├── traverse
+    │       └── utils
+    ├── hoist-non-react-statics
+    │   ├── dist
+    │   └── src
+    ├── hosted-git-info
+    │   └── lib
+    ├── html-parse-stringify
+    │   └── dist
+    ├── http-errors
+    ├── https-proxy-agent
+    │   └── dist
+    ├── i18n-iso-countries
+    │   └── langs
+    ├── i18next
+    │   ├── dist
+    │   │   ├── cjs
+    │   │   ├── esm
+    │   │   └── umd
+    │   └── typescript
+    ├── i18next-browser-languagedetector
+    │   └── dist
+    │       ├── cjs
+    │       ├── esm
+    │       └── umd
+    ├── i18next-http-backend
+    │   ├── cjs
+    │   ├── esm
+    │   └── lib
+    ├── ieee754
+    ├── ignore
+    ├── image-size
+    │   ├── bin
+    │   └── dist
+    │       ├── types
+    │       └── utils
+    ├── import-fresh
+    │   └── node_modules
+    │       └── resolve-from
+    ├── imurmurhash
+    ├── inflight
+    ├── inherits
+    ├── ini
+    ├── internal-slot
+    ├── invariant
+    │   └── node_modules
+    ├── is-array-buffer
+    ├── is-arrayish
+    ├── is-async-function
+    ├── is-bigint
+    ├── is-boolean-object
+    ├── is-callable
+    ├── is-core-module
+    ├── is-data-view
+    ├── is-date-object
+    ├── is-directory
+    ├── is-docker
+    ├── is-extglob
+    ├── is-finalizationregistry
+    ├── is-fullwidth-code-point
+    ├── is-generator-function
+    ├── is-glob
+    ├── is-map
+    ├── is-negative-zero
+    ├── is-number
+    ├── is-number-object
+    ├── is-plain-obj
+    ├── is-regex
+    ├── is-set
+    ├── is-shared-array-buffer
+    ├── is-string
+    ├── is-symbol
+    ├── is-typed-array
+    ├── is-weakmap
+    ├── is-weakref
+    ├── is-weakset
+    ├── is-wsl
+    │   └── node_modules
+    ├── isarray
+    ├── isexe
+    ├── iso-639-3
+    ├── isows
+    │   ├── _cjs
+    │   ├── _esm
+    │   └── _types
+    ├── istanbul-lib-coverage
+    │   └── lib
+    ├── istanbul-lib-instrument
+    │   ├── node_modules
+    │   └── src
+    ├── iterator.prototype
+    ├── jackspeak
+    │   └── dist
+    │       ├── commonjs
+    │       └── esm
+    ├── jest-environment-node
+    │   └── build
+    ├── jest-get-type
+    │   └── build
+    ├── jest-haste-map
+    │   └── build
+    │       ├── crawlers
+    │       ├── lib
+    │       └── watchers
+    ├── jest-message-util
+    │   └── build
+    ├── jest-mock
+    │   └── build
+    ├── jest-regex-util
+    │   └── build
+    ├── jest-util
+    │   └── build
+    ├── jest-validate
+    │   ├── build
+    │   └── node_modules
+    │       └── camelcase
+    ├── jest-worker
+    │   ├── build
+    │   │   ├── base
+    │   │   └── workers
+    │   └── node_modules
+    │       └── supports-color
+    ├── jimp-compact
+    │   └── dist
+    ├── js-tokens
+    ├── js-yaml
+    │   ├── bin
+    │   ├── dist
+    │   ├── lib
+    │   │   └── js-yaml
+    │   │       ├── schema
+    │   │       └── type
+    │   │           └── js
+    │   └── node_modules
+    ├── jsc-safe-url
+    ├── jsesc
+    │   ├── bin
+    │   └── man
+    ├── json-buffer
+    ├── json-parse-better-errors
+    ├── json-schema-traverse
+    │   └── spec
+    │       └── fixtures
+    ├── json-stable-stringify-without-jsonify
+    ├── json5
+    │   ├── dist
+    │   └── lib
+    ├── jsx-ast-utils
+    │   ├── lib
+    │   │   └── values
+    │   │       └── expressions
+    │   └── src
+    │       └── values
+    │           └── expressions
+    ├── keyv
+    │   └── src
+    ├── kleur
+    ├── lan-network
+    │   └── dist
+    │       └── chunks
+    ├── leven
+    ├── levn
+    │   └── lib
+    ├── lighthouse-logger
+    │   ├── dist
+    │   └── node_modules
+    │       ├── debug
+    │       │   └── src
+    │       └── ms
+    ├── lightningcss
+    │   ├── node
+    │   └── node_modules
+    ├── lightningcss-darwin-x64
+    ├── lines-and-columns
+    │   └── build
+    ├── locate-path
+    ├── lodash
+    │   └── fp
+    ├── lodash-es
+    ├── lodash.debounce
+    ├── lodash.isequal
+    ├── lodash.merge
+    ├── lodash.throttle
+    ├── log-symbols
+    │   └── node_modules
+    │       ├── ansi-styles
+    │       ├── chalk
+    │       │   └── types
+    │       ├── color-convert
+    │       ├── color-name
+    │       ├── escape-string-regexp
+    │       ├── has-flag
+    │       └── supports-color
+    ├── loose-envify
+    ├── lru-cache
+    │   └── dist
+    │       ├── commonjs
+    │       └── esm
+    ├── makeerror
+    │   └── lib
+    ├── marky
+    │   ├── dist
+    │   └── lib
+    ├── math-intrinsics
+    │   └── constants
+    ├── mdn-data
+    │   ├── api
+    │   ├── css
+    │   └── l10n
+    ├── memoize-one
+    │   ├── dist
+    │   └── src
+    ├── merge-options
+    ├── merge-stream
+    ├── metro
+    │   ├── node_modules
+    │   │   ├── ci-info
+    │   │   ├── hermes-estree
+    │   │   │   └── dist
+    │   │   │       ├── generated
+    │   │   │       └── src
+    │   │   │           └── generated
+    │   │   ├── hermes-parser
+    │   │   │   └── dist
+    │   │   │       ├── babel
+    │   │   │       ├── estree
+    │   │   │       ├── generated
+    │   │   │       ├── src
+    │   │   │       │   ├── babel
+    │   │   │       │   ├── estree
+    │   │   │       │   ├── generated
+    │   │   │       │   ├── transform
+    │   │   │       │   ├── traverse
+    │   │   │       │   └── utils
+    │   │   │       ├── transform
+    │   │   │       ├── traverse
+    │   │   │       └── utils
+    │   │   └── ws
+    │   │       └── lib
+    │   └── src
+    │       ├── Bundler
+    │       ├── DeltaBundler
+    │       │   ├── Serializers
+    │       │   │   └── helpers
+    │       │   └── __fixtures__
+    │       ├── IncrementalBundler
+    │       ├── ModuleGraph
+    │       │   └── worker
+    │       ├── Server
+    │       ├── cli
+    │       ├── commands
+    │       ├── integration_tests
+    │       │   └── basic_bundle
+    │       │       ├── build-errors
+    │       │       ├── import-export
+    │       │       ├── optional-dependencies
+    │       │       ├── require-context
+    │       │       │   ├── subdir
+    │       │       │   │   └── nested
+    │       │       │   └── subdir-conflict
+    │       │       └── require-resolveWeak
+    │       │           └── subdir
+    │       ├── lib
+    │       ├── node-haste
+    │       │   ├── DependencyGraph
+    │       │   └── lib
+    │       └── shared
+    │           └── output
+    │               └── RamBundle
+    ├── metro-babel-transformer
+    │   ├── node_modules
+    │   │   ├── hermes-estree
+    │   │   │   └── dist
+    │   │   │       ├── generated
+    │   │   │       └── src
+    │   │   │           └── generated
+    │   │   └── hermes-parser
+    │   │       └── dist
+    │   │           ├── babel
+    │   │           ├── estree
+    │   │           ├── generated
+    │   │           ├── src
+    │   │           │   ├── babel
+    │   │           │   ├── estree
+    │   │           │   ├── generated
+    │   │           │   ├── transform
+    │   │           │   ├── traverse
+    │   │           │   └── utils
+    │   │           ├── transform
+    │   │           ├── traverse
+    │   │           └── utils
+    │   └── src
+    ├── metro-cache
+    │   └── src
+    │       └── stores
+    ├── metro-cache-key
+    │   └── src
+    ├── metro-config
+    │   ├── node_modules
+    │   └── src
+    │       └── defaults
+    ├── metro-core
+    │   └── src
+    │       └── errors
+    ├── metro-file-map
+    │   └── src
+    │       ├── cache
+    │       ├── crawlers
+    │       │   ├── __fixtures__
+    │       │   │   ├── directory
+    │       │   │   ├── ignored
+    │       │   │   └── link-to-directory
+    │       │   ├── node
+    │       │   └── watchman
+    │       ├── lib
+    │       ├── plugins
+    │       │   ├── haste
+    │       │   └── mocks
+    │       └── watchers
+    ├── metro-minify-terser
+    │   ├── node_modules
+    │   └── src
+    ├── metro-resolver
+    │   └── src
+    │       ├── errors
+    │       └── utils
+    ├── metro-runtime
+    │   └── src
+    │       ├── modules
+    │       │   └── vendor
+    │       └── polyfills
+    ├── metro-source-map
+    │   ├── node_modules
+    │   └── src
+    │       └── Consumer
+    ├── metro-symbolicate
+    │   └── src
+    ├── metro-transform-plugins
+    │   └── src
+    │       └── utils
+    ├── metro-transform-worker
+    │   ├── node_modules
+    │   └── src
+    │       └── utils
+    ├── micromatch
+    ├── mime
+    │   └── src
+    ├── mime-db
+    ├── mime-types
+    ├── mimic-fn
+    ├── minimatch
+    ├── minimist
+    ├── minipass
+    │   └── dist
+    │       ├── commonjs
+    │       └── esm
+    ├── minizlib
+    │   └── dist
+    │       ├── commonjs
+    │       └── esm
+    ├── mkdirp
+    │   └── dist
+    │       ├── cjs
+    │       │   └── src
+    │       └── mjs
+    ├── ms
+    ├── mz
+    ├── n-gram
+    ├── nanoid
+    │   ├── async
+    │   ├── bin
+    │   ├── non-secure
+    │   └── url-alphabet
+    ├── natural-compare
+    ├── negotiator
+    │   └── lib
+    ├── nested-error-stacks
+    ├── node-fetch
+    │   └── lib
+    ├── node-forge
+    │   ├── dist
+    │   ├── flash
+    │   │   └── swf
+    │   └── lib
+    ├── node-int64
+    ├── node-releases
+    │   └── data
+    │       ├── processed
+    │       └── release-schedule
+    ├── normalize-path
+    ├── npm-package-arg
+    │   ├── lib
+    │   └── node_modules
+    │       └── semver
+    │           ├── bin
+    │           ├── classes
+    │           ├── functions
+    │           ├── internal
+    │           └── ranges
+    ├── nth-check
+    │   └── lib
+    │       └── esm
+    ├── nullthrows
+    ├── ob1
+    │   └── src
+    │       └── __flowtests__
+    ├── object-assign
+    ├── object-inspect
+    ├── object-keys
+    ├── object.assign
+    │   └── dist
+    ├── object.entries
+    ├── object.fromentries
+    ├── object.values
+    ├── on-finished
+    ├── on-headers
+    ├── once
+    ├── onetime
+    ├── open
+    │   └── node_modules
+    ├── optionator
+    │   └── lib
+    ├── ora
+    │   └── node_modules
+    │       ├── ansi-regex
+    │       ├── ansi-styles
+    │       ├── chalk
+    │       │   └── types
+    │       ├── color-convert
+    │       ├── color-name
+    │       ├── escape-string-regexp
+    │       ├── has-flag
+    │       ├── strip-ansi
+    │       └── supports-color
+    ├── own-keys
+    ├── p-limit
+    ├── p-locate
+    ├── p-try
+    ├── package-json-from-dist
+    │   └── dist
+    │       ├── commonjs
+    │       └── esm
+    ├── parent-module
+    ├── parse-json
+    ├── parse-png
+    ├── parseurl
+    ├── path-exists
+    ├── path-is-absolute
+    ├── path-key
+    ├── path-parse
+    ├── path-scurry
+    │   └── dist
+    │       ├── commonjs
+    │       └── esm
+    ├── paths-js
+    ├── picocolors
+    ├── picomatch
+    │   └── lib
+    ├── pirates
+    │   └── lib
+    ├── plist
+    │   ├── dist
+    │   └── lib
+    ├── pngjs
+    │   └── lib
+    ├── point-in-polygon
+    ├── possible-typed-array-names
+    ├── postcss
+    │   ├── lib
+    │   └── node_modules
+    ├── prelude-ls
+    │   └── lib
+    ├── prettier
+    │   ├── bin
+    │   ├── internal
+    │   └── plugins
+    ├── pretty-bytes
+    ├── pretty-format
+    │   ├── build
+    │   │   └── plugins
+    │   │       └── lib
+    │   └── node_modules
+    │       ├── ansi-styles
+    │       └── react-is
+    │           ├── cjs
+    │           └── umd
+    ├── proc-log
+    │   └── lib
+    ├── progress
+    │   └── lib
+    ├── promise
+    │   ├── domains
+    │   ├── lib
+    │   ├── setimmediate
+    │   └── src
+    ├── prompts
+    │   ├── dist
+    │   │   ├── dateparts
+    │   │   ├── elements
+    │   │   └── util
+    │   └── lib
+    │       ├── dateparts
+    │       ├── elements
+    │       └── util
+    ├── prop-types
+    │   ├── lib
+    │   └── node_modules
+    ├── property-expr
+    ├── proxy-from-env
+    ├── punycode
+    ├── qrcode-terminal
+    │   ├── bin
+    │   ├── lib
+    │   └── vendor
+    │       └── QRCode
+    ├── query-string
+    ├── queue
+    ├── range-parser
+    ├── rc
+    │   ├── lib
+    │   └── node_modules
+    │       └── strip-json-comments
+    ├── react
+    │   └── cjs
+    ├── react-devtools-core
+    │   ├── dist
+    │   └── node_modules
+    │       └── ws
+    │           └── lib
+    ├── react-fast-compare
+    ├── react-freeze
+    │   ├── dist
+    │   └── src
+    ├── react-i18next
+    │   ├── dist
+    │   │   ├── amd
+    │   │   ├── commonjs
+    │   │   ├── es
+    │   │   └── umd
+    │   └── src
+    ├── react-is
+    │   ├── cjs
+    │   └── umd
+    ├── react-native
+    │   ├── Libraries
+    │   │   ├── ActionSheetIOS
+    │   │   ├── Alert
+    │   │   ├── Animated
+    │   │   │   ├── animations
+    │   │   │   ├── components
+    │   │   │   └── nodes
+    │   │   ├── AppDelegate
+    │   │   ├── AppState
+    │   │   ├── BatchedBridge
+    │   │   │   └── __mocks__
+    │   │   ├── Blob
+    │   │   │   └── __mocks__
+    │   │   ├── BugReporting
+    │   │   ├── Components
+    │   │   │   ├── AccessibilityInfo
+    │   │   │   ├── ActivityIndicator
+    │   │   │   ├── Clipboard
+    │   │   │   ├── DrawerAndroid
+    │   │   │   ├── Keyboard
+    │   │   │   ├── LayoutConformance
+    │   │   │   ├── Pressable
+    │   │   │   ├── ProgressBarAndroid
+    │   │   │   ├── RefreshControl
+    │   │   │   │   └── __mocks__
+    │   │   │   ├── SafeAreaView
+    │   │   │   ├── ScrollView
+    │   │   │   ├── Sound
+    │   │   │   ├── StatusBar
+    │   │   │   ├── Switch
+    │   │   │   ├── TextInput
+    │   │   │   ├── ToastAndroid
+    │   │   │   ├── Touchable
+    │   │   │   ├── UnimplementedViews
+    │   │   │   └── View
+    │   │   ├── Core
+    │   │   │   ├── Devtools
+    │   │   │   ├── SegmentFetcher
+    │   │   │   ├── Timers
+    │   │   │   └── __mocks__
+    │   │   ├── Debugging
+    │   │   ├── EventEmitter
+    │   │   │   └── __mocks__
+    │   │   ├── Events
+    │   │   ├── FBLazyVector
+    │   │   │   └── FBLazyVector
+    │   │   ├── Image
+    │   │   ├── Interaction
+    │   │   ├── LayoutAnimation
+    │   │   ├── Linking
+    │   │   ├── LinkingIOS
+    │   │   ├── Lists
+    │   │   │   └── __flowtests__
+    │   │   ├── LogBox
+    │   │   │   ├── Data
+    │   │   │   └── UI
+    │   │   │       └── LogBoxImages
+    │   │   ├── Modal
+    │   │   ├── NativeAnimation
+    │   │   │   ├── Drivers
+    │   │   │   └── Nodes
+    │   │   ├── NativeComponent
+    │   │   ├── NativeModules
+    │   │   │   └── specs
+    │   │   ├── Network
+    │   │   ├── NewAppScreen
+    │   │   │   └── components
+    │   │   ├── Performance
+    │   │   ├── PermissionsAndroid
+    │   │   ├── Pressability
+    │   │   ├── PushNotificationIOS
+    │   │   ├── ReactNative
+    │   │   │   └── ReactFabricPublicInstance
+    │   │   ├── ReactNativeDependencies
+    │   │   ├── ReactPrivate
+    │   │   ├── Renderer
+    │   │   │   ├── implementations
+    │   │   │   └── shims
+    │   │   ├── Required
+    │   │   ├── Settings
+    │   │   ├── Share
+    │   │   ├── StyleSheet
+    │   │   │   ├── __flowtests__
+    │   │   │   └── private
+    │   │   ├── Text
+    │   │   │   ├── BaseText
+    │   │   │   ├── RawText
+    │   │   │   ├── Text
+    │   │   │   ├── TextInput
+    │   │   │   │   ├── Multiline
+    │   │   │   │   └── Singleline
+    │   │   │   └── VirtualText
+    │   │   ├── TurboModule
+    │   │   │   └── samples
+    │   │   ├── TypeSafety
+    │   │   ├── Types
+    │   │   ├── Utilities
+    │   │   │   ├── __mocks__
+    │   │   │   └── differ
+    │   │   ├── Vibration
+    │   │   ├── WebSocket
+    │   │   │   └── __mocks__
+    │   │   ├── Wrapper
+    │   │   ├── __flowtests__
+    │   │   └── vendor
+    │   │       ├── core
+    │   │       └── emitter
+    │   │           └── __flowtests__
+    │   ├── React
+    │   │   ├── Base
+    │   │   │   ├── Surface
+    │   │   │   │   └── SurfaceHostingView
+    │   │   │   └── UIKitProxies
+    │   │   ├── CoreModules
+    │   │   │   └── PlatformStubs
+    │   │   ├── CxxBridge
+    │   │   ├── CxxLogUtils
+    │   │   ├── CxxModule
+    │   │   ├── CxxUtils
+    │   │   ├── DevSupport
+    │   │   ├── FBReactNativeSpec
+    │   │   │   └── FBReactNativeSpec
+    │   │   ├── Fabric
+    │   │   │   ├── Mounting
+    │   │   │   │   └── ComponentViews
+    │   │   │   │       ├── ActivityIndicator
+    │   │   │   │       ├── DebuggingOverlay
+    │   │   │   │       ├── Image
+    │   │   │   │       ├── InputAccessory
+    │   │   │   │       ├── LegacyViewManagerInterop
+    │   │   │   │       ├── Modal
+    │   │   │   │       ├── Root
+    │   │   │   │       ├── SafeAreaView
+    │   │   │   │       ├── ScrollView
+    │   │   │   │       ├── Switch
+    │   │   │   │       ├── Text
+    │   │   │   │       ├── TextInput
+    │   │   │   │       ├── UnimplementedComponent
+    │   │   │   │       ├── UnimplementedView
+    │   │   │   │       └── View
+    │   │   │   ├── Surface
+    │   │   │   └── Utils
+    │   │   ├── I18n
+    │   │   │   └── strings
+    │   │   │       ├── ar.lproj
+    │   │   │       ├── cs.lproj
+    │   │   │       ├── da.lproj
+    │   │   │       ├── de.lproj
+    │   │   │       ├── el.lproj
+    │   │   │       ├── en-GB.lproj
+    │   │   │       ├── en.lproj
+    │   │   │       ├── es-ES.lproj
+    │   │   │       ├── es.lproj
+    │   │   │       ├── fi.lproj
+    │   │   │       ├── fr.lproj
+    │   │   │       ├── he.lproj
+    │   │   │       ├── hi.lproj
+    │   │   │       ├── hr.lproj
+    │   │   │       ├── hu.lproj
+    │   │   │       ├── id.lproj
+    │   │   │       ├── it.lproj
+    │   │   │       ├── ja.lproj
+    │   │   │       ├── ko.lproj
+    │   │   │       ├── ms.lproj
+    │   │   │       ├── nb.lproj
+    │   │   │       ├── nl.lproj
+    │   │   │       ├── pl.lproj
+    │   │   │       ├── pt-PT.lproj
+    │   │   │       ├── pt.lproj
+    │   │   │       ├── ro.lproj
+    │   │   │       ├── ru.lproj
+    │   │   │       ├── sk.lproj
+    │   │   │       ├── sv.lproj
+    │   │   │       ├── th.lproj
+    │   │   │       ├── tr.lproj
+    │   │   │       ├── uk.lproj
+    │   │   │       ├── vi.lproj
+    │   │   │       ├── zh-Hans.lproj
+    │   │   │       ├── zh-Hant-HK.lproj
+    │   │   │       ├── zh-Hant.lproj
+    │   │   │       └── zu.lproj
+    │   │   ├── Inspector
+    │   │   ├── Modules
+    │   │   ├── Profiler
+    │   │   ├── Resources
+    │   │   ├── Runtime
+    │   │   └── Views
+    │   │       ├── RefreshControl
+    │   │       ├── SafeAreaView
+    │   │       └── ScrollView
+    │   ├── ReactAndroid
+    │   │   ├── api
+    │   │   ├── cmake-utils
+    │   │   │   └── default-app-setup
+    │   │   ├── external-artifacts
+    │   │   ├── hermes-engine
+    │   │   └── src
+    │   │       ├── debug
+    │   │       └── main
+    │   │           ├── java
+    │   │           │   └── com
+    │   │           │       └── facebook
+    │   │           │           ├── annotationprocessors
+    │   │           │           │   └── common
+    │   │           │           ├── debug
+    │   │           │           │   ├── debugoverlay
+    │   │           │           │   │   └── model
+    │   │           │           │   ├── holder
+    │   │           │           │   └── tags
+    │   │           │           ├── hermes
+    │   │           │           │   ├── instrumentation
+    │   │           │           │   └── reactexecutor
+    │   │           │           ├── proguard
+    │   │           │           │   └── annotations
+    │   │           │           ├── react
+    │   │           │           │   ├── animated
+    │   │           │           │   ├── bridge
+    │   │           │           │   │   ├── interop
+    │   │           │           │   │   └── queue
+    │   │           │           │   ├── common
+    │   │           │           │   │   ├── annotations
+    │   │           │           │   │   │   └── internal
+    │   │           │           │   │   ├── assets
+    │   │           │           │   │   ├── build
+    │   │           │           │   │   ├── futures
+    │   │           │           │   │   ├── mapbuffer
+    │   │           │           │   │   └── network
+    │   │           │           │   ├── config
+    │   │           │           │   ├── defaults
+    │   │           │           │   ├── devsupport
+    │   │           │           │   │   ├── inspector
+    │   │           │           │   │   └── interfaces
+    │   │           │           │   ├── fabric
+    │   │           │           │   │   ├── events
+    │   │           │           │   │   ├── internal
+    │   │           │           │   │   │   └── interop
+    │   │           │           │   │   ├── interop
+    │   │           │           │   │   └── mounting
+    │   │           │           │   │       └── mountitems
+    │   │           │           │   ├── interfaces
+    │   │           │           │   │   ├── exceptionmanager
+    │   │           │           │   │   └── fabric
+    │   │           │           │   ├── internal
+    │   │           │           │   │   ├── featureflags
+    │   │           │           │   │   ├── interop
+    │   │           │           │   │   └── turbomodule
+    │   │           │           │   │       └── core
+    │   │           │           │   │           └── interfaces
+    │   │           │           │   ├── jscexecutor
+    │   │           │           │   ├── jstasks
+    │   │           │           │   ├── module
+    │   │           │           │   │   ├── annotations
+    │   │           │           │   │   ├── model
+    │   │           │           │   │   └── processing
+    │   │           │           │   ├── modules
+    │   │           │           │   │   ├── accessibilityinfo
+    │   │           │           │   │   ├── appearance
+    │   │           │           │   │   ├── appregistry
+    │   │           │           │   │   ├── appstate
+    │   │           │           │   │   ├── blob
+    │   │           │           │   │   ├── camera
+    │   │           │           │   │   ├── clipboard
+    │   │           │           │   │   ├── common
+    │   │           │           │   │   ├── core
+    │   │           │           │   │   ├── debug
+    │   │           │           │   │   │   └── interfaces
+    │   │           │           │   │   ├── deviceinfo
+    │   │           │           │   │   ├── devloading
+    │   │           │           │   │   ├── devtoolsruntimesettings
+    │   │           │           │   │   ├── dialog
+    │   │           │           │   │   ├── fresco
+    │   │           │           │   │   ├── i18nmanager
+    │   │           │           │   │   ├── image
+    │   │           │           │   │   ├── intent
+    │   │           │           │   │   ├── network
+    │   │           │           │   │   ├── permissions
+    │   │           │           │   │   ├── reactdevtoolssettings
+    │   │           │           │   │   ├── share
+    │   │           │           │   │   ├── sound
+    │   │           │           │   │   ├── statusbar
+    │   │           │           │   │   ├── systeminfo
+    │   │           │           │   │   ├── toast
+    │   │           │           │   │   ├── vibration
+    │   │           │           │   │   └── websocket
+    │   │           │           │   ├── packagerconnection
+    │   │           │           │   ├── processing
+    │   │           │           │   ├── reactperflogger
+    │   │           │           │   ├── runtime
+    │   │           │           │   │   ├── cxxreactpackage
+    │   │           │           │   │   ├── hermes
+    │   │           │           │   │   └── internal
+    │   │           │           │   │       └── bolts
+    │   │           │           │   ├── shell
+    │   │           │           │   ├── soloader
+    │   │           │           │   ├── touch
+    │   │           │           │   ├── turbomodule
+    │   │           │           │   │   └── core
+    │   │           │           │   │       └── interfaces
+    │   │           │           │   ├── uimanager
+    │   │           │           │   │   ├── annotations
+    │   │           │           │   │   ├── common
+    │   │           │           │   │   ├── debug
+    │   │           │           │   │   ├── drawable
+    │   │           │           │   │   ├── events
+    │   │           │           │   │   ├── layoutanimation
+    │   │           │           │   │   ├── style
+    │   │           │           │   │   └── util
+    │   │           │           │   ├── util
+    │   │           │           │   └── views
+    │   │           │           │       ├── common
+    │   │           │           │       ├── debuggingoverlay
+    │   │           │           │       ├── drawer
+    │   │           │           │       │   └── events
+    │   │           │           │       ├── image
+    │   │           │           │       ├── imagehelper
+    │   │           │           │       ├── modal
+    │   │           │           │       ├── progressbar
+    │   │           │           │       ├── safeareaview
+    │   │           │           │       ├── scroll
+    │   │           │           │       ├── swiperefresh
+    │   │           │           │       ├── switchview
+    │   │           │           │       ├── text
+    │   │           │           │       │   ├── frescosupport
+    │   │           │           │       │   └── internal
+    │   │           │           │       │       └── span
+    │   │           │           │       ├── textinput
+    │   │           │           │       ├── unimplementedview
+    │   │           │           │       └── view
+    │   │           │           ├── systrace
+    │   │           │           └── yoga
+    │   │           │               └── annotations
+    │   │           ├── jni
+    │   │           │   ├── first-party
+    │   │           │   │   ├── fbgloginit
+    │   │           │   │   │   └── fb
+    │   │           │   │   ├── hermes
+    │   │           │   │   ├── jni-hack
+    │   │           │   │   │   └── real
+    │   │           │   │   ├── jni-lib-merge
+    │   │           │   │   └── yogajni
+    │   │           │   │       └── jni
+    │   │           │   ├── prebuilt
+    │   │           │   │   └── lib
+    │   │           │   ├── react
+    │   │           │   │   ├── devsupport
+    │   │           │   │   ├── fabric
+    │   │           │   │   ├── featureflags
+    │   │           │   │   ├── hermes
+    │   │           │   │   │   ├── instrumentation
+    │   │           │   │   │   ├── reactexecutor
+    │   │           │   │   │   └── tooling
+    │   │           │   │   ├── jni
+    │   │           │   │   ├── jscexecutor
+    │   │           │   │   ├── jsctooling
+    │   │           │   │   ├── mapbuffer
+    │   │           │   │   │   └── react
+    │   │           │   │   │       └── common
+    │   │           │   │   │           └── mapbuffer
+    │   │           │   │   ├── newarchdefaults
+    │   │           │   │   ├── reactnativeblob
+    │   │           │   │   ├── reactperflogger
+    │   │           │   │   │   └── reactperflogger
+    │   │           │   │   ├── runtime
+    │   │           │   │   │   ├── cxxreactpackage
+    │   │           │   │   │   │   └── ReactCommon
+    │   │           │   │   │   ├── hermes
+    │   │           │   │   │   │   └── jni
+    │   │           │   │   │   ├── jni
+    │   │           │   │   │   └── jsc
+    │   │           │   │   │       └── jni
+    │   │           │   │   ├── turbomodule
+    │   │           │   │   │   └── ReactCommon
+    │   │           │   │   └── uimanager
+    │   │           │   └── third-party
+    │   │           │       ├── boost
+    │   │           │       │   └── asm
+    │   │           │       │       ├── arm64-v8a
+    │   │           │       │       ├── armeabi-v7a
+    │   │           │       │       ├── x86
+    │   │           │       │       └── x86_64
+    │   │           │       ├── double-conversion
+    │   │           │       ├── fast_float
+    │   │           │       ├── fmt
+    │   │           │       ├── folly
+    │   │           │       └── glog
+    │   │           └── res
+    │   │               ├── devsupport
+    │   │               │   ├── anim
+    │   │               │   ├── drawable
+    │   │               │   ├── drawable-hdpi
+    │   │               │   ├── drawable-mdpi
+    │   │               │   ├── drawable-xhdpi
+    │   │               │   ├── drawable-xxhdpi
+    │   │               │   ├── drawable-xxxhdpi
+    │   │               │   ├── layout
+    │   │               │   ├── values
+    │   │               │   ├── values-af
+    │   │               │   ├── values-ar
+    │   │               │   ├── values-az
+    │   │               │   ├── values-be
+    │   │               │   ├── values-bg
+    │   │               │   ├── values-bn
+    │   │               │   ├── values-ca
+    │   │               │   ├── values-cs
+    │   │               │   ├── values-da
+    │   │               │   ├── values-de
+    │   │               │   ├── values-el
+    │   │               │   ├── values-en-rGB
+    │   │               │   ├── values-es
+    │   │               │   ├── values-es-rES
+    │   │               │   ├── values-et
+    │   │               │   ├── values-fa
+    │   │               │   ├── values-fi
+    │   │               │   ├── values-fr
+    │   │               │   ├── values-fr-rCA
+    │   │               │   ├── values-gu
+    │   │               │   ├── values-hi
+    │   │               │   ├── values-hr
+    │   │               │   ├── values-hu
+    │   │               │   ├── values-hy
+    │   │               │   ├── values-is
+    │   │               │   ├── values-it
+    │   │               │   ├── values-iw
+    │   │               │   ├── values-ja
+    │   │               │   ├── values-ka
+    │   │               │   ├── values-kk
+    │   │               │   ├── values-km
+    │   │               │   ├── values-kn
+    │   │               │   ├── values-ko
+    │   │               │   ├── values-ky
+    │   │               │   ├── values-lo
+    │   │               │   ├── values-lt
+    │   │               │   ├── values-lv
+    │   │               │   ├── values-mk
+    │   │               │   ├── values-ml
+    │   │               │   ├── values-mn
+    │   │               │   ├── values-mr
+    │   │               │   ├── values-ms
+    │   │               │   ├── values-my
+    │   │               │   ├── values-ne
+    │   │               │   ├── values-nl
+    │   │               │   ├── values-pa
+    │   │               │   ├── values-pl
+    │   │               │   ├── values-pt
+    │   │               │   ├── values-pt-rPT
+    │   │               │   ├── values-ro
+    │   │               │   ├── values-ru
+    │   │               │   ├── values-si
+    │   │               │   ├── values-sk
+    │   │               │   ├── values-sl
+    │   │               │   ├── values-sq
+    │   │               │   ├── values-sr
+    │   │               │   ├── values-sv
+    │   │               │   ├── values-sw
+    │   │               │   ├── values-ta
+    │   │               │   ├── values-te
+    │   │               │   ├── values-th
+    │   │               │   ├── values-tr
+    │   │               │   ├── values-uk
+    │   │               │   ├── values-ur
+    │   │               │   ├── values-vi
+    │   │               │   ├── values-zh-rCN
+    │   │               │   ├── values-zh-rHK
+    │   │               │   ├── values-zh-rTW
+    │   │               │   ├── values-zu
+    │   │               │   └── xml
+    │   │               ├── shell
+    │   │               │   └── values
+    │   │               ├── systeminfo
+    │   │               │   └── values
+    │   │               └── views
+    │   │                   ├── alert
+    │   │                   │   └── layout
+    │   │                   ├── modal
+    │   │                   │   ├── anim
+    │   │                   │   └── values
+    │   │                   ├── uimanager
+    │   │                   │   ├── values
+    │   │                   │   ├── values-af
+    │   │                   │   ├── values-ar
+    │   │                   │   ├── values-az
+    │   │                   │   ├── values-be
+    │   │                   │   ├── values-bg
+    │   │                   │   ├── values-bn
+    │   │                   │   ├── values-ca
+    │   │                   │   ├── values-cs
+    │   │                   │   ├── values-da
+    │   │                   │   ├── values-de
+    │   │                   │   ├── values-el
+    │   │                   │   ├── values-en-rGB
+    │   │                   │   ├── values-es
+    │   │                   │   ├── values-es-rES
+    │   │                   │   ├── values-et
+    │   │                   │   ├── values-fa
+    │   │                   │   ├── values-fi
+    │   │                   │   ├── values-fr
+    │   │                   │   ├── values-fr-rCA
+    │   │                   │   ├── values-gu
+    │   │                   │   ├── values-hi
+    │   │                   │   ├── values-hr
+    │   │                   │   ├── values-hu
+    │   │                   │   ├── values-hy
+    │   │                   │   ├── values-is
+    │   │                   │   ├── values-it
+    │   │                   │   ├── values-iw
+    │   │                   │   ├── values-ja
+    │   │                   │   ├── values-ka
+    │   │                   │   ├── values-kk
+    │   │                   │   ├── values-km
+    │   │                   │   ├── values-kn
+    │   │                   │   ├── values-ko
+    │   │                   │   ├── values-ky
+    │   │                   │   ├── values-lo
+    │   │                   │   ├── values-lt
+    │   │                   │   ├── values-lv
+    │   │                   │   ├── values-mk
+    │   │                   │   ├── values-ml
+    │   │                   │   ├── values-mn
+    │   │                   │   ├── values-mr
+    │   │                   │   ├── values-ms
+    │   │                   │   ├── values-my
+    │   │                   │   ├── values-ne
+    │   │                   │   ├── values-nl
+    │   │                   │   ├── values-pa
+    │   │                   │   ├── values-pl
+    │   │                   │   ├── values-pt
+    │   │                   │   ├── values-pt-rPT
+    │   │                   │   ├── values-ro
+    │   │                   │   ├── values-ru
+    │   │                   │   ├── values-si
+    │   │                   │   ├── values-sk
+    │   │                   │   ├── values-sl
+    │   │                   │   ├── values-sq
+    │   │                   │   ├── values-sr
+    │   │                   │   ├── values-sv
+    │   │                   │   ├── values-sw
+    │   │                   │   ├── values-ta
+    │   │                   │   ├── values-te
+    │   │                   │   ├── values-th
+    │   │                   │   ├── values-tr
+    │   │                   │   ├── values-uk
+    │   │                   │   ├── values-ur
+    │   │                   │   ├── values-vi
+    │   │                   │   ├── values-zh-rCN
+    │   │                   │   ├── values-zh-rHK
+    │   │                   │   ├── values-zh-rTW
+    │   │                   │   └── values-zu
+    │   │                   └── view
+    │   │                       └── values
+    │   ├── ReactApple
+    │   │   └── Libraries
+    │   │       └── RCTFoundation
+    │   │           └── RCTDeprecation
+    │   │               └── Exported
+    │   ├── ReactCommon
+    │   │   ├── callinvoker
+    │   │   │   └── ReactCommon
+    │   │   ├── cxxreact
+    │   │   ├── devtoolsruntimesettings
+    │   │   ├── hermes
+    │   │   │   ├── executor
+    │   │   │   └── inspector-modern
+    │   │   │       └── chrome
+    │   │   ├── jsc
+    │   │   ├── jserrorhandler
+    │   │   ├── jsi
+    │   │   │   └── jsi
+    │   │   ├── jsiexecutor
+    │   │   │   └── jsireact
+    │   │   ├── jsinspector-modern
+    │   │   │   └── tracing
+    │   │   ├── jsitooling
+    │   │   │   └── react
+    │   │   │       └── runtime
+    │   │   ├── logger
+    │   │   ├── oscompat
+    │   │   ├── react
+    │   │   │   ├── bridging
+    │   │   │   ├── debug
+    │   │   │   ├── featureflags
+    │   │   │   ├── nativemodule
+    │   │   │   │   ├── core
+    │   │   │   │   │   ├── ReactCommon
+    │   │   │   │   │   └── platform
+    │   │   │   │   │       ├── android
+    │   │   │   │   │       │   └── ReactCommon
+    │   │   │   │   │       └── ios
+    │   │   │   │   │           └── ReactCommon
+    │   │   │   │   ├── cputime
+    │   │   │   │   ├── defaults
+    │   │   │   │   ├── devtoolsruntimesettings
+    │   │   │   │   ├── dom
+    │   │   │   │   ├── featureflags
+    │   │   │   │   ├── idlecallbacks
+    │   │   │   │   ├── intersectionobserver
+    │   │   │   │   ├── microtasks
+    │   │   │   │   ├── mutationobserver
+    │   │   │   │   ├── samples
+    │   │   │   │   │   ├── ReactCommon
+    │   │   │   │   │   └── platform
+    │   │   │   │   │       ├── android
+    │   │   │   │   │       │   └── ReactCommon
+    │   │   │   │   │       └── ios
+    │   │   │   │   │           └── ReactCommon
+    │   │   │   │   └── webperformance
+    │   │   │   ├── performance
+    │   │   │   │   └── timeline
+    │   │   │   ├── renderer
+    │   │   │   │   ├── animations
+    │   │   │   │   ├── attributedstring
+    │   │   │   │   ├── componentregistry
+    │   │   │   │   │   └── native
+    │   │   │   │   ├── components
+    │   │   │   │   │   ├── image
+    │   │   │   │   │   ├── inputaccessory
+    │   │   │   │   │   ├── legacyviewmanagerinterop
+    │   │   │   │   │   ├── modal
+    │   │   │   │   │   ├── progressbar
+    │   │   │   │   │   │   └── android
+    │   │   │   │   │   │       └── react
+    │   │   │   │   │   │           └── renderer
+    │   │   │   │   │   │               └── components
+    │   │   │   │   │   │                   └── progressbar
+    │   │   │   │   │   ├── rncore
+    │   │   │   │   │   ├── root
+    │   │   │   │   │   ├── safeareaview
+    │   │   │   │   │   ├── scrollview
+    │   │   │   │   │   │   └── platform
+    │   │   │   │   │   │       └── android
+    │   │   │   │   │   │           └── react
+    │   │   │   │   │   │               └── renderer
+    │   │   │   │   │   │                   └── components
+    │   │   │   │   │   │                       └── scrollview
+    │   │   │   │   │   ├── switch
+    │   │   │   │   │   │   └── androidswitch
+    │   │   │   │   │   │       └── react
+    │   │   │   │   │   │           └── renderer
+    │   │   │   │   │   │               └── components
+    │   │   │   │   │   │                   └── androidswitch
+    │   │   │   │   │   ├── text
+    │   │   │   │   │   ├── textinput
+    │   │   │   │   │   │   └── platform
+    │   │   │   │   │   │       ├── android
+    │   │   │   │   │   │       │   └── react
+    │   │   │   │   │   │       │       └── renderer
+    │   │   │   │   │   │       │           └── components
+    │   │   │   │   │   │       │               └── androidtextinput
+    │   │   │   │   │   │       └── ios
+    │   │   │   │   │   │           └── react
+    │   │   │   │   │   │               └── renderer
+    │   │   │   │   │   │                   └── components
+    │   │   │   │   │   │                       └── iostextinput
+    │   │   │   │   │   ├── unimplementedview
+    │   │   │   │   │   └── view
+    │   │   │   │   │       └── platform
+    │   │   │   │   │           ├── android
+    │   │   │   │   │           │   └── react
+    │   │   │   │   │           │       └── renderer
+    │   │   │   │   │           │           └── components
+    │   │   │   │   │           │               └── view
+    │   │   │   │   │           └── cxx
+    │   │   │   │   │               └── react
+    │   │   │   │   │                   └── renderer
+    │   │   │   │   │                       └── components
+    │   │   │   │   │                           └── view
+    │   │   │   │   ├── consistency
+    │   │   │   │   ├── core
+    │   │   │   │   ├── css
+    │   │   │   │   ├── debug
+    │   │   │   │   ├── dom
+    │   │   │   │   ├── element
+    │   │   │   │   ├── graphics
+    │   │   │   │   │   └── platform
+    │   │   │   │   │       ├── android
+    │   │   │   │   │       │   └── react
+    │   │   │   │   │       │       └── renderer
+    │   │   │   │   │       │           └── graphics
+    │   │   │   │   │       ├── cxx
+    │   │   │   │   │       │   └── react
+    │   │   │   │   │       │       └── renderer
+    │   │   │   │   │       │           └── graphics
+    │   │   │   │   │       └── ios
+    │   │   │   │   │           └── react
+    │   │   │   │   │               └── renderer
+    │   │   │   │   │                   └── graphics
+    │   │   │   │   ├── imagemanager
+    │   │   │   │   │   └── platform
+    │   │   │   │   │       ├── android
+    │   │   │   │   │       │   └── react
+    │   │   │   │   │       │       └── renderer
+    │   │   │   │   │       │           └── imagemanager
+    │   │   │   │   │       ├── cxx
+    │   │   │   │   │       │   └── react
+    │   │   │   │   │       │       └── renderer
+    │   │   │   │   │       │           └── imagemanager
+    │   │   │   │   │       └── ios
+    │   │   │   │   │           └── react
+    │   │   │   │   │               └── renderer
+    │   │   │   │   │                   └── imagemanager
+    │   │   │   │   ├── leakchecker
+    │   │   │   │   ├── mapbuffer
+    │   │   │   │   ├── mounting
+    │   │   │   │   │   ├── internal
+    │   │   │   │   │   └── stubs
+    │   │   │   │   ├── observers
+    │   │   │   │   │   ├── events
+    │   │   │   │   │   ├── intersection
+    │   │   │   │   │   └── mutation
+    │   │   │   │   ├── runtimescheduler
+    │   │   │   │   ├── scheduler
+    │   │   │   │   ├── telemetry
+    │   │   │   │   ├── textlayoutmanager
+    │   │   │   │   │   └── platform
+    │   │   │   │   │       ├── android
+    │   │   │   │   │       │   └── react
+    │   │   │   │   │       │       └── renderer
+    │   │   │   │   │       │           └── textlayoutmanager
+    │   │   │   │   │       ├── cxx
+    │   │   │   │   │       └── ios
+    │   │   │   │   │           └── react
+    │   │   │   │   │               └── renderer
+    │   │   │   │   │                   └── textlayoutmanager
+    │   │   │   │   └── uimanager
+    │   │   │   │       └── consistency
+    │   │   │   ├── runtime
+    │   │   │   │   ├── hermes
+    │   │   │   │   ├── iostests
+    │   │   │   │   ├── nativeviewconfig
+    │   │   │   │   └── platform
+    │   │   │   │       └── ios
+    │   │   │   │           └── ReactCommon
+    │   │   │   ├── test_utils
+    │   │   │   │   └── ios
+    │   │   │   │       ├── Memory
+    │   │   │   │       └── Shims
+    │   │   │   ├── timing
+    │   │   │   └── utils
+    │   │   ├── reactperflogger
+    │   │   │   ├── fusebox
+    │   │   │   └── reactperflogger
+    │   │   ├── runtimeexecutor
+    │   │   │   └── ReactCommon
+    │   │   └── yoga
+    │   │       ├── cmake
+    │   │       └── yoga
+    │   │           ├── algorithm
+    │   │           ├── config
+    │   │           ├── debug
+    │   │           ├── enums
+    │   │           ├── event
+    │   │           ├── node
+    │   │           ├── numeric
+    │   │           └── style
+    │   ├── android
+    │   ├── flow
+    │   ├── gradle
+    │   ├── jest
+    │   ├── node_modules
+    │   │   ├── glob
+    │   │   ├── semver
+    │   │   │   ├── bin
+    │   │   │   ├── classes
+    │   │   │   ├── functions
+    │   │   │   ├── internal
+    │   │   │   └── ranges
+    │   │   └── ws
+    │   │       └── lib
+    │   ├── scripts
+    │   │   ├── cocoapods
+    │   │   ├── codegen
+    │   │   │   └── templates
+    │   │   ├── hermes
+    │   │   ├── react_native_pods_utils
+    │   │   └── xcode
+    │   ├── sdks
+    │   │   ├── hermes-engine
+    │   │   │   └── utils
+    │   │   └── hermesc
+    │   │       ├── linux64-bin
+    │   │       ├── osx-bin
+    │   │       └── win64-bin
+    │   ├── src
+    │   │   ├── private
+    │   │   │   ├── animated
+    │   │   │   ├── components
+    │   │   │   ├── debugging
+    │   │   │   ├── devmenu
+    │   │   │   ├── featureflags
+    │   │   │   │   └── specs
+    │   │   │   ├── fusebox
+    │   │   │   │   └── specs
+    │   │   │   ├── inspector
+    │   │   │   ├── renderer
+    │   │   │   │   └── errorhandling
+    │   │   │   ├── setup
+    │   │   │   ├── specs_DEPRECATED
+    │   │   │   │   ├── components
+    │   │   │   │   └── modules
+    │   │   │   ├── styles
+    │   │   │   ├── types
+    │   │   │   ├── utilities
+    │   │   │   └── webapis
+    │   │   │       ├── dom
+    │   │   │       │   ├── events
+    │   │   │       │   │   └── internals
+    │   │   │       │   ├── nodes
+    │   │   │       │   │   ├── internals
+    │   │   │       │   │   └── specs
+    │   │   │       │   └── oldstylecollections
+    │   │   │       ├── geometry
+    │   │   │       ├── html
+    │   │   │       │   └── events
+    │   │   │       ├── idlecallbacks
+    │   │   │       │   └── specs
+    │   │   │       ├── intersectionobserver
+    │   │   │       │   ├── internals
+    │   │   │       │   └── specs
+    │   │   │       ├── microtasks
+    │   │   │       │   └── specs
+    │   │   │       ├── mutationobserver
+    │   │   │       │   ├── internals
+    │   │   │       │   └── specs
+    │   │   │       ├── performance
+    │   │   │       │   ├── internals
+    │   │   │       │   └── specs
+    │   │   │       │       └── __mocks__
+    │   │   │       ├── utils
+    │   │   │       ├── websockets
+    │   │   │       │   └── events
+    │   │   │       └── xhr
+    │   │   │           └── events
+    │   │   └── types
+    │   ├── third-party-podspecs
+    │   │   ├── RCT-Folly
+    │   │   ├── boost
+    │   │   └── glog
+    │   └── types
+    │       ├── modules
+    │       ├── private
+    │       └── public
+    ├── react-native-chart-kit
+    │   ├── dist
+    │   │   ├── contribution-graph
+    │   │   └── line-chart
+    │   └── node_modules
+    ├── react-native-communications
+    ├── react-native-dotenv
+    │   └── node_modules
+    │       └── dotenv
+    │           └── lib
+    ├── react-native-dropdown-picker
+    │   ├── node_modules
+    │   └── src
+    │       ├── components
+    │       ├── constants
+    │       ├── themes
+    │       │   ├── dark
+    │       │   │   └── icons
+    │       │   └── light
+    │       │       └── icons
+    │       └── translations
+    ├── react-native-edge-to-edge
+    │   ├── android
+    │   │   └── src
+    │   │       ├── main
+    │   │       │   ├── java
+    │   │       │   │   └── com
+    │   │       │   │       └── zoontek
+    │   │       │   │           └── rnedgetoedge
+    │   │       │   └── res
+    │   │       │       ├── values
+    │   │       │       ├── values-night
+    │   │       │       ├── values-night-v27
+    │   │       │       ├── values-v27
+    │   │       │       ├── values-v29
+    │   │       │       └── values-v30
+    │   │       ├── newarch
+    │   │       │   └── com
+    │   │       │       └── zoontek
+    │   │       │           └── rnedgetoedge
+    │   │       └── oldarch
+    │   │           └── com
+    │   │               └── zoontek
+    │   │                   └── rnedgetoedge
+    │   ├── dist
+    │   │   ├── commonjs
+    │   │   │   └── specs
+    │   │   ├── module
+    │   │   │   └── specs
+    │   │   └── typescript
+    │   │       └── specs
+    │   ├── node_modules
+    │   └── src
+    │       └── specs
+    ├── react-native-gifted-chat
+    │   ├── lib
+    │   │   ├── Bubble
+    │   │   ├── Day
+    │   │   ├── GiftedChat
+    │   │   ├── Message
+    │   │   ├── MessageContainer
+    │   │   │   └── components
+    │   │   │       ├── DayAnimated
+    │   │   │       └── Item
+    │   │   ├── TypingIndicator
+    │   │   └── hooks
+    │   ├── node_modules
+    │   └── src
+    │       ├── Bubble
+    │       ├── Day
+    │       ├── GiftedChat
+    │       ├── Message
+    │       ├── MessageContainer
+    │       │   └── components
+    │       │       ├── DayAnimated
+    │       │       └── Item
+    │       ├── TypingIndicator
+    │       └── hooks
+    ├── react-native-iphone-x-helper
+    │   └── node_modules
+    ├── react-native-is-edge-to-edge
+    │   ├── dist
+    │   └── node_modules
+    ├── react-native-lightbox-v2
+    │   ├── dist
+    │   │   └── hooks
+    │   └── node_modules
+    ├── react-native-parsed-text
+    │   ├── node_modules
+    │   └── src
+    │       └── lib
+    ├── react-native-paystack-webview
+    │   ├── node_modules
+    │   └── production
+    │       └── lib
+    ├── react-native-safe-area-context
+    │   ├── android
+    │   │   └── src
+    │   │       ├── fabric
+    │   │       │   └── java
+    │   │       │       └── com
+    │   │       │           └── th3rdwave
+    │   │       │               └── safeareacontext
+    │   │       ├── main
+    │   │       │   ├── java
+    │   │       │   │   └── com
+    │   │       │   │       └── th3rdwave
+    │   │       │   │           └── safeareacontext
+    │   │       │   └── jni
+    │   │       └── paper
+    │   │           └── java
+    │   │               └── com
+    │   │                   ├── facebook
+    │   │                   │   └── react
+    │   │                   │       └── viewmanagers
+    │   │                   └── th3rdwave
+    │   │                       └── safeareacontext
+    │   ├── common
+    │   │   └── cpp
+    │   │       └── react
+    │   │           └── renderer
+    │   │               └── components
+    │   │                   └── safeareacontext
+    │   ├── ios
+    │   │   ├── Fabric
+    │   │   └── RNSafeAreaContext.xcodeproj
+    │   ├── jest
+    │   ├── lib
+    │   │   ├── commonjs
+    │   │   │   └── specs
+    │   │   ├── module
+    │   │   │   └── specs
+    │   │   └── typescript
+    │   │       ├── jest
+    │   │       └── src
+    │   │           └── specs
+    │   ├── node_modules
+    │   └── src
+    │       └── specs
+    ├── react-native-screens
+    │   ├── android
+    │   │   └── src
+    │   │       ├── fabric
+    │   │       │   └── java
+    │   │       │       └── com
+    │   │       │           └── swmansion
+    │   │       │               └── rnscreens
+    │   │       ├── main
+    │   │       │   ├── cpp
+    │   │       │   ├── java
+    │   │       │   │   └── com
+    │   │       │   │       └── swmansion
+    │   │       │   │           └── rnscreens
+    │   │       │   │               ├── bottomsheet
+    │   │       │   │               ├── events
+    │   │       │   │               ├── ext
+    │   │       │   │               ├── stack
+    │   │       │   │               │   ├── anim
+    │   │       │   │               │   └── views
+    │   │       │   │               ├── transition
+    │   │       │   │               └── utils
+    │   │       │   ├── jni
+    │   │       │   └── res
+    │   │       │       ├── base
+    │   │       │       │   ├── anim
+    │   │       │       │   └── drawable
+    │   │       │       └── v33
+    │   │       │           └── anim-v33
+    │   │       ├── paper
+    │   │       │   └── java
+    │   │       │       └── com
+    │   │       │           ├── facebook
+    │   │       │           │   └── react
+    │   │       │           │       └── viewmanagers
+    │   │       │           └── swmansion
+    │   │       │               └── rnscreens
+    │   │       └── versioned
+    │   │           ├── backgroundcolor
+    │   │           │   ├── 74
+    │   │           │   ├── 76
+    │   │           │   └── latest
+    │   │           └── pointerevents
+    │   │               ├── 77
+    │   │               │   └── com
+    │   │               │       └── swmansion
+    │   │               │           └── rnscreens
+    │   │               │               └── bottomsheet
+    │   │               └── latest
+    │   │                   └── com
+    │   │                       └── swmansion
+    │   │                           └── rnscreens
+    │   │                               └── bottomsheet
+    │   ├── common
+    │   │   └── cpp
+    │   │       └── react
+    │   │           └── renderer
+    │   │               └── components
+    │   │                   └── rnscreens
+    │   │                       └── utils
+    │   ├── cpp
+    │   ├── gesture-handler
+    │   ├── ios
+    │   │   ├── RNScreens.xcodeproj
+    │   │   ├── events
+    │   │   └── utils
+    │   ├── lib
+    │   │   ├── commonjs
+    │   │   │   ├── components
+    │   │   │   │   └── helpers
+    │   │   │   ├── fabric
+    │   │   │   ├── gesture-handler
+    │   │   │   ├── native-stack
+    │   │   │   │   ├── contexts
+    │   │   │   │   ├── navigators
+    │   │   │   │   ├── utils
+    │   │   │   │   └── views
+    │   │   │   └── reanimated
+    │   │   ├── module
+    │   │   │   ├── components
+    │   │   │   │   └── helpers
+    │   │   │   ├── fabric
+    │   │   │   ├── gesture-handler
+    │   │   │   ├── native-stack
+    │   │   │   │   ├── contexts
+    │   │   │   │   ├── navigators
+    │   │   │   │   ├── utils
+    │   │   │   │   └── views
+    │   │   │   └── reanimated
+    │   │   └── typescript
+    │   │       ├── components
+    │   │       │   └── helpers
+    │   │       ├── fabric
+    │   │       ├── gesture-handler
+    │   │       ├── native-stack
+    │   │       │   ├── contexts
+    │   │       │   ├── navigators
+    │   │       │   ├── utils
+    │   │       │   └── views
+    │   │       └── reanimated
+    │   ├── native-stack
+    │   ├── node_modules
+    │   ├── reanimated
+    │   ├── src
+    │   │   ├── components
+    │   │   │   └── helpers
+    │   │   ├── fabric
+    │   │   ├── gesture-handler
+    │   │   ├── native-stack
+    │   │   │   ├── contexts
+    │   │   │   ├── navigators
+    │   │   │   ├── utils
+    │   │   │   └── views
+    │   │   └── reanimated
+    │   └── windows
+    │       └── RNScreens
+    ├── react-native-svg
+    │   ├── android
+    │   │   ├── gradle
+    │   │   │   └── wrapper
+    │   │   └── src
+    │   │       ├── RenderableViewManager73
+    │   │       │   └── java
+    │   │       │       └── com
+    │   │       │           └── horcrux
+    │   │       │               └── svg
+    │   │       ├── RenderableViewManager75
+    │   │       │   └── java
+    │   │       │       └── com
+    │   │       │           └── horcrux
+    │   │       │               └── svg
+    │   │       ├── SvgPackage73
+    │   │       │   └── java
+    │   │       │       └── com
+    │   │       │           └── horcrux
+    │   │       │               └── svg
+    │   │       ├── SvgPackage74
+    │   │       │   └── java
+    │   │       │       └── com
+    │   │       │           └── horcrux
+    │   │       │               └── svg
+    │   │       ├── SvgViewManager73
+    │   │       │   └── java
+    │   │       │       └── com
+    │   │       │           └── horcrux
+    │   │       │               └── svg
+    │   │       ├── SvgViewManager75
+    │   │       │   └── java
+    │   │       │       └── com
+    │   │       │           └── horcrux
+    │   │       │               └── svg
+    │   │       ├── main
+    │   │       │   ├── java
+    │   │       │   │   └── com
+    │   │       │   │       └── horcrux
+    │   │       │   │           └── svg
+    │   │       │   │               └── events
+    │   │       │   └── jni
+    │   │       └── paper
+    │   │           └── java
+    │   │               └── com
+    │   │                   ├── facebook
+    │   │                   │   └── react
+    │   │                   │       └── viewmanagers
+    │   │                   └── horcrux
+    │   │                       └── svg
+    │   ├── apple
+    │   │   ├── Brushes
+    │   │   ├── Elements
+    │   │   ├── Filters
+    │   │   │   └── MetalCI
+    │   │   ├── RNSVG.xcodeproj
+    │   │   ├── Shapes
+    │   │   ├── Text
+    │   │   ├── Utils
+    │   │   └── ViewManagers
+    │   ├── common
+    │   │   └── cpp
+    │   │       └── react
+    │   │           └── renderer
+    │   │               └── components
+    │   │                   └── rnsvg
+    │   ├── css
+    │   ├── filter-image
+    │   ├── lib
+    │   │   ├── commonjs
+    │   │   │   ├── css
+    │   │   │   ├── elements
+    │   │   │   │   └── filters
+    │   │   │   ├── fabric
+    │   │   │   ├── filter-image
+    │   │   │   │   └── extract
+    │   │   │   ├── lib
+    │   │   │   │   ├── extract
+    │   │   │   │   └── utils
+    │   │   │   ├── utils
+    │   │   │   └── web
+    │   │   │       └── utils
+    │   │   ├── module
+    │   │   │   ├── css
+    │   │   │   ├── elements
+    │   │   │   │   └── filters
+    │   │   │   ├── fabric
+    │   │   │   ├── filter-image
+    │   │   │   │   └── extract
+    │   │   │   ├── lib
+    │   │   │   │   ├── extract
+    │   │   │   │   └── utils
+    │   │   │   ├── utils
+    │   │   │   └── web
+    │   │   │       └── utils
+    │   │   └── typescript
+    │   │       ├── css
+    │   │       ├── elements
+    │   │       │   └── filters
+    │   │       ├── fabric
+    │   │       ├── filter-image
+    │   │       │   └── extract
+    │   │       ├── lib
+    │   │       │   ├── extract
+    │   │       │   └── utils
+    │   │       ├── utils
+    │   │       └── web
+    │   │           └── utils
+    │   ├── node_modules
+    │   ├── scripts
+    │   ├── src
+    │   │   ├── css
+    │   │   ├── elements
+    │   │   │   └── filters
+    │   │   ├── fabric
+    │   │   ├── filter-image
+    │   │   │   └── extract
+    │   │   ├── lib
+    │   │   │   ├── extract
+    │   │   │   └── utils
+    │   │   ├── utils
+    │   │   └── web
+    │   │       └── utils
+    │   └── windows
+    │       └── RNSVG
+    │           └── Fabric
+    ├── react-native-swipe-list-view
+    │   ├── bin
+    │   ├── components
+    │   ├── lib
+    │   ├── node_modules
+    │   └── types
+    ├── react-native-toast-message
+    │   ├── lib
+    │   │   └── src
+    │   │       ├── components
+    │   │       ├── contexts
+    │   │       ├── hooks
+    │   │       ├── types
+    │   │       └── utils
+    │   └── node_modules
+    ├── react-native-webview
+    │   ├── android
+    │   │   └── src
+    │   │       ├── main
+    │   │       │   ├── java
+    │   │       │   │   └── com
+    │   │       │   │       └── reactnativecommunity
+    │   │       │   │           └── webview
+    │   │       │   │               └── events
+    │   │       │   └── res
+    │   │       │       └── xml
+    │   │       ├── newarch
+    │   │       │   └── com
+    │   │       │       └── reactnativecommunity
+    │   │       │           └── webview
+    │   │       └── oldarch
+    │   │           └── com
+    │   │               └── reactnativecommunity
+    │   │                   └── webview
+    │   ├── apple
+    │   ├── ios
+    │   │   └── RNCWebView.xcodeproj
+    │   ├── lib
+    │   ├── macos
+    │   │   └── RNCWebView.xcodeproj
+    │   ├── node_modules
+    │   ├── src
+    │   └── windows
+    │       └── ReactNativeWebView
+    ├── react-native-worklets
+    │   ├── Common
+    │   │   └── cpp
+    │   │       └── worklets
+    │   │           ├── AnimationFrameQueue
+    │   │           ├── NativeModules
+    │   │           ├── Registries
+    │   │           ├── Resources
+    │   │           ├── SharedItems
+    │   │           ├── Tools
+    │   │           └── WorkletRuntime
+    │   ├── android
+    │   │   └── src
+    │   │       ├── experimentalBundling
+    │   │       │   └── com
+    │   │       │       └── swmansion
+    │   │       │           └── worklets
+    │   │       ├── legacyBundling
+    │   │       │   └── com
+    │   │       │       └── swmansion
+    │   │       │           └── worklets
+    │   │       └── main
+    │   │           ├── cpp
+    │   │           │   └── worklets
+    │   │           │       └── android
+    │   │           └── java
+    │   │               └── com
+    │   │                   └── swmansion
+    │   │                       └── worklets
+    │   │                           └── runloop
+    │   ├── apple
+    │   │   └── worklets
+    │   │       └── apple
+    │   ├── bundleMode
+    │   ├── lib
+    │   │   ├── module
+    │   │   │   ├── PlatformChecker
+    │   │   │   ├── WorkletsModule
+    │   │   │   ├── featureFlags
+    │   │   │   ├── runLoop
+    │   │   │   ├── specs
+    │   │   │   └── utils
+    │   │   └── typescript
+    │   │       ├── PlatformChecker
+    │   │       ├── WorkletsModule
+    │   │       ├── featureFlags
+    │   │       ├── runLoop
+    │   │       ├── specs
+    │   │       └── utils
+    │   ├── node_modules
+    │   ├── plugin
+    │   ├── scripts
+    │   └── src
+    │       ├── PlatformChecker
+    │       ├── WorkletsModule
+    │       ├── featureFlags
+    │       ├── runLoop
+    │       ├── specs
+    │       └── utils
+    ├── react-refresh
+    │   └── cjs
+    ├── recyclerlistview
+    │   ├── dist
+    │   │   ├── reactnative
+    │   │   │   ├── core
+    │   │   │   │   ├── constants
+    │   │   │   │   ├── dependencies
+    │   │   │   │   ├── devutils
+    │   │   │   │   │   └── debughandlers
+    │   │   │   │   │       └── resize
+    │   │   │   │   ├── exceptions
+    │   │   │   │   ├── layoutmanager
+    │   │   │   │   ├── scrollcomponent
+    │   │   │   │   ├── sticky
+    │   │   │   │   └── viewrenderer
+    │   │   │   ├── platform
+    │   │   │   │   ├── reactnative
+    │   │   │   │   │   ├── itemanimators
+    │   │   │   │   │   │   └── defaultjsanimator
+    │   │   │   │   │   ├── scrollcomponent
+    │   │   │   │   │   └── viewrenderer
+    │   │   │   │   └── web
+    │   │   │   │       ├── itemanimators
+    │   │   │   │       ├── scrollcomponent
+    │   │   │   │       └── viewrenderer
+    │   │   │   └── utils
+    │   │   └── web
+    │   │       ├── core
+    │   │       │   ├── constants
+    │   │       │   ├── dependencies
+    │   │       │   ├── devutils
+    │   │       │   │   └── debughandlers
+    │   │       │   │       └── resize
+    │   │       │   ├── exceptions
+    │   │       │   ├── layoutmanager
+    │   │       │   ├── scrollcomponent
+    │   │       │   ├── sticky
+    │   │       │   └── viewrenderer
+    │   │       ├── platform
+    │   │       │   ├── reactnative
+    │   │       │   │   ├── itemanimators
+    │   │       │   │   │   └── defaultjsanimator
+    │   │       │   │   ├── scrollcomponent
+    │   │       │   │   └── viewrenderer
+    │   │       │   └── web
+    │   │       │       ├── itemanimators
+    │   │       │       ├── scrollcomponent
+    │   │       │       └── viewrenderer
+    │   │       └── utils
+    │   ├── node_modules
+    │   ├── src
+    │   │   ├── core
+    │   │   │   ├── constants
+    │   │   │   ├── dependencies
+    │   │   │   ├── devutils
+    │   │   │   │   └── debughandlers
+    │   │   │   │       └── resize
+    │   │   │   ├── exceptions
+    │   │   │   ├── layoutmanager
+    │   │   │   ├── scrollcomponent
+    │   │   │   ├── sticky
+    │   │   │   └── viewrenderer
+    │   │   ├── platform
+    │   │   │   ├── reactnative
+    │   │   │   │   ├── itemanimators
+    │   │   │   │   │   └── defaultjsanimator
+    │   │   │   │   ├── scrollcomponent
+    │   │   │   │   └── viewrenderer
+    │   │   │   └── web
+    │   │   │       ├── itemanimators
+    │   │   │       ├── scrollcomponent
+    │   │   │       └── viewrenderer
+    │   │   └── utils
+    │   ├── sticky
+    │   └── web
+    ├── reflect.getprototypeof
+    ├── regenerate
+    ├── regenerate-unicode-properties
+    │   ├── Binary_Property
+    │   ├── General_Category
+    │   ├── Property_of_Strings
+    │   ├── Script
+    │   └── Script_Extensions
+    ├── regenerator-runtime
+    ├── regexp.prototype.flags
+    ├── regexpu-core
+    │   ├── data
+    │   └── node_modules
+    ├── regjsgen
+    ├── regjsparser
+    │   ├── bin
+    │   └── node_modules
+    │       └── jsesc
+    │           ├── bin
+    │           └── man
+    ├── require-directory
+    ├── require-from-string
+    ├── requireg
+    │   ├── lib
+    │   └── node_modules
+    │       └── resolve
+    │           └── lib
+    ├── resolve
+    │   ├── bin
+    │   └── lib
+    ├── resolve-from
+    ├── resolve-workspace-root
+    │   └── build
+    ├── resolve.exports
+    │   └── dist
+    ├── restore-cursor
+    ├── rimraf
+    │   └── node_modules
+    │       └── glob
+    ├── rtl-detect
+    │   ├── __test__
+    │   │   └── lib
+    │   └── lib
+    ├── safe-array-concat
+    ├── safe-buffer
+    ├── safe-push-apply
+    ├── safe-regex-test
+    ├── sax
+    │   └── lib
+    ├── scheduler
+    │   └── cjs
+    ├── schema-utils
+    │   ├── declarations
+    │   │   ├── keywords
+    │   │   └── util
+    │   └── dist
+    │       ├── keywords
+    │       └── util
+    ├── semver
+    │   └── bin
+    ├── send
+    │   └── node_modules
+    │       ├── debug
+    │       │   ├── node_modules
+    │       │   │   └── ms
+    │       │   └── src
+    │       └── encodeurl
+    ├── serialize-error
+    ├── serve-static
+    │   └── node_modules
+    │       ├── debug
+    │       │   ├── node_modules
+    │       │   │   └── ms
+    │       │   └── src
+    │       ├── encodeurl
+    │       └── send
+    │           └── node_modules
+    │               └── encodeurl
+    ├── server-only
+    ├── set-function-length
+    ├── set-function-name
+    ├── set-proto
+    ├── setprototypeof
+    ├── shallowequal
+    ├── shebang-command
+    ├── shebang-regex
+    ├── shell-quote
+    ├── side-channel
+    ├── side-channel-list
+    ├── side-channel-map
+    ├── side-channel-weakmap
+    ├── signal-exit
+    ├── simple-plist
+    │   ├── dist
+    │   └── node_modules
+    │       └── bplist-parser
+    ├── simple-swizzle
+    ├── sisteransi
+    │   └── src
+    ├── slash
+    ├── slugify
+    ├── source-map
+    │   ├── dist
+    │   └── lib
+    ├── source-map-js
+    │   └── lib
+    ├── source-map-support
+    │   └── node_modules
+    │       └── source-map
+    │           ├── dist
+    │           └── lib
+    ├── split-on-first
+    ├── sprintf-js
+    │   ├── demo
+    │   ├── dist
+    │   └── src
+    ├── stack-utils
+    │   └── node_modules
+    │       └── escape-string-regexp
+    ├── stackframe
+    │   └── dist
+    ├── stacktrace-parser
+    │   ├── dist
+    │   └── node_modules
+    │       └── type-fest
+    │           └── source
+    ├── statuses
+    ├── stop-iteration-iterator
+    ├── stream-buffers
+    │   └── lib
+    ├── strict-uri-encode
+    ├── string-width
+    ├── string-width-cjs
+    ├── string.prototype.matchall
+    ├── string.prototype.repeat
+    ├── string.prototype.trim
+    ├── string.prototype.trimend
+    ├── string.prototype.trimstart
+    ├── strip-ansi
+    ├── strip-ansi-cjs
+    ├── strip-json-comments
+    ├── structured-headers
+    │   ├── browser
+    │   ├── dist
+    │   └── src
+    ├── sucrase
+    │   ├── bin
+    │   ├── dist
+    │   │   ├── esm
+    │   │   │   ├── parser
+    │   │   │   │   ├── plugins
+    │   │   │   │   │   └── jsx
+    │   │   │   │   ├── tokenizer
+    │   │   │   │   ├── traverser
+    │   │   │   │   └── util
+    │   │   │   ├── transformers
+    │   │   │   └── util
+    │   │   ├── parser
+    │   │   │   ├── plugins
+    │   │   │   │   └── jsx
+    │   │   │   ├── tokenizer
+    │   │   │   ├── traverser
+    │   │   │   └── util
+    │   │   ├── transformers
+    │   │   ├── types
+    │   │   │   ├── parser
+    │   │   │   │   ├── plugins
+    │   │   │   │   │   └── jsx
+    │   │   │   │   ├── tokenizer
+    │   │   │   │   ├── traverser
+    │   │   │   │   └── util
+    │   │   │   ├── transformers
+    │   │   │   └── util
+    │   │   └── util
+    │   ├── node_modules
+    │   │   └── commander
+    │   │       └── typings
+    │   ├── register
+    │   └── ts-node-plugin
+    ├── suffix-thumb
+    │   ├── builds
+    │   └── src
+    │       ├── compress
+    │       ├── convert
+    │       ├── learn
+    │       │   └── find
+    │       ├── reverse
+    │       └── validate
+    ├── supports-color
+    ├── supports-hyperlinks
+    ├── supports-preserve-symlinks-flag
+    ├── tar
+    │   ├── dist
+    │   │   ├── commonjs
+    │   │   └── esm
+    │   └── node_modules
+    │       └── yallist
+    │           └── dist
+    │               ├── commonjs
+    │               └── esm
+    ├── temp-dir
+    ├── terminal-link
+    ├── terser
+    │   ├── bin
+    │   ├── dist
+    │   ├── lib
+    │   │   ├── compress
+    │   │   └── utils
+    │   ├── node_modules
+    │   │   └── commander
+    │   │       └── typings
+    │   └── tools
+    ├── test-exclude
+    │   └── node_modules
+    │       └── glob
+    ├── thenify
+    ├── thenify-all
+    ├── throat
+    ├── tiny-case
+    ├── tiny-warning
+    │   ├── dist
+    │   └── src
+    ├── tmpl
+    │   └── lib
+    ├── to-regex-range
+    ├── toidentifier
+    ├── toposort
+    ├── tr46
+    │   └── lib
+    ├── trigram-utils
+    ├── ts-interface-checker
+    │   └── dist
+    ├── ts-object-utils
+    │   ├── dist
+    │   └── src
+    ├── tslib
+    │   └── modules
+    ├── type-check
+    │   └── lib
+    ├── type-detect
+    ├── type-fest
+    │   └── source
+    ├── typed-array-buffer
+    ├── typed-array-byte-length
+    ├── typed-array-byte-offset
+    ├── typed-array-length
+    ├── unbox-primitive
+    ├── undici
+    │   ├── lib
+    │   │   ├── api
+    │   │   ├── core
+    │   │   ├── dispatcher
+    │   │   ├── handler
+    │   │   ├── interceptor
+    │   │   ├── llhttp
+    │   │   ├── mock
+    │   │   ├── util
+    │   │   └── web
+    │   │       ├── cache
+    │   │       ├── cookies
+    │   │       ├── eventsource
+    │   │       ├── fetch
+    │   │       ├── fileapi
+    │   │       └── websocket
+    │   ├── scripts
+    │   └── types
+    ├── undici-types
+    ├── unicode-canonical-property-names-ecmascript
+    ├── unicode-match-property-ecmascript
+    ├── unicode-match-property-value-ecmascript
+    │   └── data
+    ├── unicode-property-aliases-ecmascript
+    ├── unique-string
+    ├── unpipe
+    ├── update-browserslist-db
+    │   └── node_modules
+    ├── uri-js
+    │   └── dist
+    │       ├── es5
+    │       └── esnext
+    │           └── schemes
+    ├── use-latest-callback
+    │   ├── lib
+    │   │   └── src
+    │   └── src
+    ├── use-sync-external-store
+    │   ├── cjs
+    │   │   └── use-sync-external-store-shim
+    │   └── shim
+    ├── utils-merge
+    ├── uuid
+    │   └── dist
+    │       ├── bin
+    │       ├── esm-browser
+    │       ├── esm-node
+    │       └── umd
+    ├── validate-npm-package-name
+    │   └── lib
+    ├── validator
+    │   ├── es
+    │   │   └── lib
+    │   │       └── util
+    │   └── lib
+    │       └── util
+    ├── vary
+    ├── vlq
+    │   └── dist
+    │       └── types
+    ├── void-elements
+    ├── walker
+    │   └── lib
+    ├── warn-once
+    ├── wcwidth
+    ├── webidl-conversions
+    │   └── lib
+    ├── whatwg-fetch
+    │   └── dist
+    ├── whatwg-url
+    │   └── lib
+    ├── whatwg-url-without-unicode
+    │   ├── lib
+    │   └── node_modules
+    │       └── webidl-conversions
+    │           └── lib
+    ├── which
+    │   └── bin
+    ├── which-boxed-primitive
+    ├── which-builtin-type
+    ├── which-collection
+    ├── which-typed-array
+    ├── wonka
+    │   ├── dist
+    │   └── src
+    ├── word-wrap
+    ├── wrap-ansi
+    ├── wrap-ansi-cjs
+    ├── wrappy
+    ├── write-file-atomic
+    │   └── lib
+    ├── ws
+    │   └── lib
+    ├── xcode
+    │   ├── lib
+    │   │   └── parser
+    │   └── node_modules
+    ├── xml2js
+    │   ├── lib
+    │   └── node_modules
+    │       └── xmlbuilder
+    │           ├── lib
+    │           └── typings
+    ├── xmlbuilder
+    │   ├── lib
+    │   ├── perf
+    │   │   └── basic
+    │   └── typings
+    ├── y18n
+    │   └── build
+    │       └── lib
+    │           └── platform-shims
+    ├── yallist
+    ├── yargs
+    │   ├── build
+    │   │   └── lib
+    │   │       ├── typings
+    │   │       └── utils
+    │   ├── helpers
+    │   ├── lib
+    │   │   └── platform-shims
+    │   └── locales
+    ├── yargs-parser
+    │   └── build
+    │       └── lib
+    ├── yocto-queue
+    ├── yup
+    └── zustand
+        ├── esm
+        │   ├── middleware
+        │   ├── react
+        │   └── vanilla
+        ├── middleware
+        ├── react
+        └── vanilla
+
+5573 directories

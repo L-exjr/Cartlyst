@@ -10,7 +10,7 @@ import {
 import { useRouter } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
 import { useOfferStore } from "../../../sellerStore/offerStore";
-import CustomHeader from "../components/CustomHeader";
+import CustomHeader from "../../../components/CustomHeader";
 
 const OffersScreen = () => {
   const router = useRouter();
@@ -18,7 +18,7 @@ const OffersScreen = () => {
 
   const renderItem = ({ item }) => (
     <TouchableOpacity
-      onPress={() => router.push({ pathname: `/offer/${item.id}` })}
+      onPress={() => router.push({ pathname: `./offer/${item.id}` })}
       style={styles.card}
     >
       <Text style={styles.title}>{item.title}</Text>
@@ -39,7 +39,7 @@ const OffersScreen = () => {
 
         <TouchableOpacity
           style={styles.fab}
-          onPress={() => router.push("/addOffer")}
+          onPress={() => router.push("./addOffer")}
           accessibilityLabel="Add Offer"
           accessibilityRole="button"
           accessibilityHint="Navigates to the add offer screen"

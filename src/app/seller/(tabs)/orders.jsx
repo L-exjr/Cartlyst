@@ -10,22 +10,7 @@ import {
 import { useRouter } from "expo-router";
 import { useOrderStore } from "../../../sellerStore/orderStore";
 import { Ionicons } from "@expo/vector-icons";
-import CustomHeader from "../components/CustomHeader";
-import Price from "../../../components/Price";
-
-// Helper to get discounted price
-function getDiscountedPrice(order) {
-  if (!order) return 0;
-  let discount = order.discount || 0;
-  let price = order.price || 0;
-  if (discount > 0 && discount < 1) {
-    return price * (1 - discount);
-  } else if (discount >= 1 && discount <= 100) {
-    return price * (1 - discount / 100);
-  } else {
-    return price - discount;
-  }
-}
+import CustomHeader from "../../../components/CustomHeader";
 
 const OrdersScreen = () => {
   const { orders } = useOrderStore();
@@ -41,8 +26,7 @@ const OrdersScreen = () => {
         <Text style={styles.status}>{item.status}</Text>
       </View>
       <Text style={styles.meta}>
-        Qty: {item.quantity} |{" "}
-        <Price amount={getDiscountedPrice(item) * item.quantity} />
+        Qty: {item.quantity} | ₵{item.total}
       </Text>
       <Text style={styles.date}>{item.date}</Text>
     </TouchableOpacity>

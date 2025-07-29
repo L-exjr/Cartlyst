@@ -9,7 +9,7 @@ import {
 } from "react-native";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { useProductStore } from "../../../../sellerStore/productStore";
-import CustomHeader from "../../components/CustomHeader";
+import CustomHeader from "../../../../components/CustomHeader";
 
 export default function EditProductScreen() {
   const { id } = useLocalSearchParams();

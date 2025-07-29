@@ -9,7 +9,7 @@ import {
 } from "react-native";
 import { useRouter, useLocalSearchParams } from "expo-router";
 import { useOrderStore } from "../../../../sellerStore/orderStore";
-import SimpleHeader from "../../components/SimpleHeader";
+import SimpleHeader from "../../../../components/SimpleHeader";
 import { Ionicons } from "@expo/vector-icons";
 
 const STATUSES = [

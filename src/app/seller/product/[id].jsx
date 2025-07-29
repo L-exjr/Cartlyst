@@ -10,8 +10,7 @@ import {
 import { useLocalSearchParams } from "expo-router";
 import { useProductStore } from "../../../sellerStore/productStore";
 import { useRouter } from "expo-router";
-import CustomHeader from "../components/CustomHeader";
-import Price from "../../../components/Price";
+import CustomHeader from "../../../components/CustomHeader";
 
 export default function ProductDetailScreen() {
   const { id } = useLocalSearchParams();
@@ -32,20 +31,6 @@ export default function ProductDetailScreen() {
     );
   }
 
-  // Helper to get discounted price
-  function getDiscountedPrice(product) {
-    if (!product) return 0;
-    let discount = product.discount || 0;
-    let price = product.price || 0;
-    if (discount > 0 && discount < 1) {
-      return price * (1 - discount);
-    } else if (discount >= 1 && discount <= 100) {
-      return price * (1 - discount / 100);
-    } else {
-      return price - discount;
-    }
-  }
-
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "#fff" }}>
       <CustomHeader showBack />
@@ -55,20 +40,7 @@ export default function ProductDetailScreen() {
           <Text style={styles.label}>Name:</Text>
           <Text style={styles.value}>{product.name}</Text>
           <Text style={styles.label}>Price:</Text>
-          <Price amount={getDiscountedPrice(product)} style={styles.value} />
-          {product.discount > 0 && (
-            <Price
-              amount={product.price}
-              style={[
-                styles.value,
-                {
-                  textDecorationLine: "line-through",
-                  color: "#888",
-                  marginLeft: 8,
-                },
-              ]}
-            />
-          )}
+          <Text style={styles.value}>₵ {product.price}</Text>
         </View>
         <View style={styles.actions}>
           <TouchableOpacity

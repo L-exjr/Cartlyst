@@ -10,7 +10,7 @@ import {
 import { useLocalSearchParams } from "expo-router";
 import { useOfferStore } from "../../../sellerStore/offerStore";
 import { useRouter } from "expo-router";
-import CustomHeader from "../components/CustomHeader";
+import CustomHeader from "../../../components/CustomHeader";
 
 export default function OfferDetailScreen() {
   const { id } = useLocalSearchParams();
