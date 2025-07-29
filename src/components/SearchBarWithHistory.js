@@ -12,6 +12,7 @@ import {
 import { FontAwesome6 } from "@expo/vector-icons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { COLORS, SPACING, BORDER_RADIUS, TYPOGRAPHY } from "../utils/theme";
+import PropTypes from "prop-types";
 
 const SEARCH_HISTORY_KEY = "global_product_search_history";
 const MAX_HISTORY = 8;
@@ -118,16 +119,7 @@ export default function SearchBarWithHistory({
   return (
     <View style={styles.container}>
       {showBackButton && (
-        <TouchableOpacity
-          onPress={onBack}
-          style={{
-            marginRight: 8,
-            justifyContent: "center",
-            alignItems: "center",
-            height: 40,
-            width: 40,
-          }}
-        >
+        <TouchableOpacity onPress={onBack} style={styles.backButton}>
           <FontAwesome6
             name="arrow-left"
             size={20}
@@ -159,13 +151,7 @@ export default function SearchBarWithHistory({
               setSearch("");
               setShowSuggestions(false);
             }}
-            style={{
-              marginLeft: 8,
-              justifyContent: "center",
-              alignItems: "center",
-              height: 40,
-              width: 32,
-            }}
+            style={styles.clearButton}
           >
             <FontAwesome6
               name="xmark"
@@ -244,6 +230,21 @@ export default function SearchBarWithHistory({
   );
 }
 
+SearchBarWithHistory.propTypes = {
+  onSearch: PropTypes.func.isRequired,
+  suggestionsSource: PropTypes.arrayOf(
+    PropTypes.shape({
+      title: PropTypes.string,
+      category: PropTypes.string,
+    }),
+  ),
+  categoryName: PropTypes.string,
+  placeholder: PropTypes.string,
+  showBackButton: PropTypes.bool,
+  onBack: PropTypes.func,
+  onAssistantPress: PropTypes.func,
+};
+
 const styles = StyleSheet.create({
   assistantIcon: {
     height: 28,
@@ -260,9 +261,23 @@ const styles = StyleSheet.create({
     padding: 4,
     width: 40,
   },
+  backButton: {
+    alignItems: "center",
+    height: 40,
+    justifyContent: "center",
+    marginRight: 8,
+    width: 40,
+  },
   categoryText: {
     color: COLORS.error,
     fontWeight: "bold",
+  },
+  clearButton: {
+    alignItems: "center",
+    height: 40,
+    justifyContent: "center",
+    marginLeft: 8,
+    width: 32,
   },
   container: {
     alignItems: "center",

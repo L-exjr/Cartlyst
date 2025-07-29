@@ -71,23 +71,23 @@ export default function HomeScreen() {
 
   const { t } = useTranslation();
 
-  useEffect(() => {
-    const fetchData = async () => {
-      setIsLoading(true);
-      setError(null);
-      try {
-        await Promise.all([
-          fetchCategories(),
-          fetchFeaturedProducts(),
-          fetchCarouselItems(),
-        ]);
-      } catch (err) {
-        setError("Failed to load data. Please check your internet connection.");
-      } finally {
-        setIsLoading(false);
-      }
-    };
+  const fetchData = async () => {
+    setIsLoading(true);
+    setError(null);
+    try {
+      await Promise.all([
+        fetchCategories(),
+        fetchFeaturedProducts(),
+        fetchCarouselItems(),
+      ]);
+    } catch (err) {
+      setError("Failed to load data. Please check your internet connection.");
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
+  useEffect(() => {
     fetchData();
   }, []);
 
@@ -448,9 +448,6 @@ const styles = StyleSheet.create({
     height: 170,
     marginBottom: SPACING.sm,
     position: "relative",
-  },
-  container: {
-    ...commonStyles.container,
   },
   dot: {
     borderRadius: BORDER_RADIUS.sm,

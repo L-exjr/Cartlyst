@@ -129,7 +129,10 @@ export default function ProductCard({
 
           <TouchableOpacity
             onPress={disabled ? undefined : onAddToCart}
-            style={[styles.cartIconWrapper, disabled && { opacity: 0.2 }]}
+            style={[
+              styles.cartIconWrapper,
+              disabled && styles.cartIconDisabled,
+            ]}
             disabled={disabled}
             activeOpacity={disabled ? 1 : 0.7}
           >
@@ -152,6 +155,11 @@ export default function ProductCard({
 }
 
 ProductCard.propTypes = {
+  product: PropTypes.shape({
+    discount: PropTypes.number,
+    price: PropTypes.number,
+    currency: PropTypes.string,
+  }),
   image: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   price: PropTypes.number.isRequired,
@@ -173,6 +181,9 @@ const styles = StyleSheet.create({
     overflow: "hidden",
     width: "48%",
     ...SHADOWS.small,
+  },
+  cartIconDisabled: {
+    opacity: 0.2,
   },
   cartIconWrapper: {
     alignItems: "center",

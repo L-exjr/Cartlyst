@@ -201,7 +201,6 @@ export default function CategoryProductsScreen() {
         initializePriceBounds(fetchedProducts || []);
       }
     });
-     
   }, [categoryId]);
 
   // Only apply filters when user clicks Apply

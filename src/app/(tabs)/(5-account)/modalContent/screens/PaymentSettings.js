@@ -1,11 +1,12 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
+import { COLORS } from "../../../../../utils/theme";
 
-export default function AddressModal() {
+export default function PaymentModal() {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Address Book</Text>
-      <Text>This is the Address Book modal screen.</Text>
+      <Text style={styles.title}>Payment Settings</Text>
+      <Text>This is the Payment Settings modal screen.</Text>
     </View>
   );
 }
@@ -13,7 +14,7 @@ export default function AddressModal() {
 const styles = StyleSheet.create({
   container: {
     alignItems: "center",
-    backgroundColor: "#fff",
+    backgroundColor: COLORS.surface,
     flex: 1,
     justifyContent: "center",
   },

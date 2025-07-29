@@ -8,8 +8,8 @@ import {
   StyleSheet,
   ActivityIndicator,
 } from "react-native";
-import { useRecent } from "../../../../utils/recentContext";
-import { COLORS } from "../../../../utils/theme";
+import { useRecent } from "../../../../../utils/recentContext";
+import { COLORS } from "../../../../../utils/theme";
 
 const RecentlySearchedModal = () => {
   const [searchTerm, setSearchTerm] = useState("");

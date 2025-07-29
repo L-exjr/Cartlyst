@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { useRouter } from "expo-router";
-import { COLORS, SPACING, TYPOGRAPHY } from "../../../../utils/theme";
-import { commonStyles } from "../../../../utils/styles";
-import { useCurrencyStore } from "../../../../utils/currencyStore";
+import { COLORS, SPACING, TYPOGRAPHY } from "../../../../../utils/theme";
+import { commonStyles } from "../../../../../utils/styles";
+import { useCurrencyStore } from "../../../../../utils/currencyStore";
 import { Picker } from "@react-native-picker/picker";
 
 const currencyList = [
@@ -119,7 +119,7 @@ export default function CurrencyModal() {
           await fetchRates();
           router.back();
         }}
-        style={{ width: 220 }}
+        style={styles.picker}
       >
         {currencyList.map((cur) => (
           <Picker.Item key={cur} label={cur} value={cur} />
@@ -147,6 +147,9 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.surface,
     flex: 1,
     padding: SPACING.xl,
+  },
+  picker: {
+    width: 220,
   },
   title: {
     color: COLORS.text.primary,

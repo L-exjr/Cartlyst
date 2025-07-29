@@ -7,9 +7,9 @@ import {
   ScrollView,
 } from "react-native";
 import { useRouter } from "expo-router";
-import { COLORS, SPACING, TYPOGRAPHY } from "../../../../utils/theme";
-import { commonStyles } from "../../../../utils/styles";
-import i18n from "../../../../utils/i18n";
+import { COLORS, SPACING, TYPOGRAPHY } from "../../../../../utils/theme";
+import { commonStyles } from "../../../../../utils/styles";
+import i18n from "../../../../../utils/i18n";
 import { useTranslation } from "react-i18next";
 
 export default function LanguageModal() {

@@ -1,12 +1,12 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
-import { COLORS } from '../../../../utils/theme'
+import { COLORS } from "../../../../../utils/theme";
 
-export default function RateModal() {
+export default function BuyAgainModal() {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Rate Our App</Text>
-      <Text>This is the Rate Our App modal screen.</Text>
+      <Text style={styles.title}>Buy Again</Text>
+      <Text>This is the Buy Again modal screen.</Text>
     </View>
   );
 }

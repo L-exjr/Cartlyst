@@ -27,7 +27,6 @@ import i18n from "../../../utils/i18n";
 import { useTranslation } from "react-i18next";
 import { useCurrencyStore } from "../../../utils/currencyStore";
 import { Picker } from "@react-native-picker/picker";
-import * as Screens from "./modalContent";
 
 export default function AccountScreen() {
   const { logOut, userId } = useAuthStore();
@@ -268,29 +267,29 @@ export default function AccountScreen() {
   };
 
   const handleOrders = () =>
-    router.push("/(tabs)/(5-account)/modalContent/Orders");
+    router.push("/(tabs)/(5-account)/modalContent/screens/Orders");
   const handleVouchers = () =>
-    router.push("/(tabs)/(5-account)/modalContent/Vouchers");
+    router.push("/(tabs)/(5-account)/modalContent/screens/Vouchers");
   const handleRatings = () =>
-    router.push("/(tabs)/(5-account)/modalContent/RatingsAndReviews");
+    router.push("/(tabs)/(5-account)/modalContent/screens/RatingsAndReviews");
   const handleInterests = () =>
-    router.push("/(tabs)/(5-account)/modalContent/Interests");
+    router.push("/(tabs)/(5-account)/modalContent/screens/Interests");
   const handleRecentlyViewed = () =>
-    router.push("/(tabs)/(5-account)/modalContent/RecentlyViewed");
+    router.push("/(tabs)/(5-account)/modalContent/screens/RecentlyViewed");
   const handleRecentlySearched = () =>
-    router.push("/(tabs)/(5-account)/modalContent/RecentlySearched");
+    router.push("/(tabs)/(5-account)/modalContent/screens/RecentlySearched");
   const handleBuyAgain = () =>
-    router.push("/(tabs)/(5-account)/modalContent/BuyAgain");
+    router.push("/(tabs)/(5-account)/modalContent/screens/BuyAgain");
   const handleLists = () =>
-    router.push("/(tabs)/(5-account)/modalContent/ListAndRegistries");
+    router.push("/(tabs)/(5-account)/modalContent/screens/ListAndRegistries");
   const handlePayment = () =>
-    router.push("/(tabs)/(5-account)/modalContent/PaymentSettings");
+    router.push("/(tabs)/(5-account)/modalContent/screens/PaymentSettings");
   const handleAddress = () =>
-    router.push("/(tabs)/(5-account)/modalContent/AddressBook");
+    router.push("/(tabs)/(5-account)/modalContent/screens/AddressBook");
   const handleLegal = () =>
-    router.push("/(tabs)/(5-account)/modalContent/LegalAndAbout");
+    router.push("/(tabs)/(5-account)/modalContent/screens/LegalAndAbout");
   const handleRate = () =>
-    router.push("/(tabs)/(5-account)/modalContent/RateApp");
+    router.push("/(tabs)/(5-account)/modalContent/screens/RateApp");
   const handleSwitchToSeller = () => {
     router.replace("/seller");
   };
@@ -343,10 +342,10 @@ export default function AccountScreen() {
                 onPress={() => setShowImageOptions(true)}
                 disabled={uploading}
               >
-                <FontAwesome6
-                  name="pencil"
+                <MaterialCommunityIcons
+                  name="camera"
                   size={30}
-                  color="#000"
+                  color="#666"
                   style={{ transform: [{ scaleX: -1 }] }}
                 />
               </TouchableOpacity>
@@ -444,7 +443,7 @@ export default function AccountScreen() {
             <TouchableOpacity
               style={styles.language}
               onPress={() =>
-                router.push("/(tabs)/(5-account)/modalContent/Language")
+                router.push("/(tabs)/(5-account)/modalContent/screens/Language")
               }
             >
               <MaterialIcons name="language" size={24}></MaterialIcons>
@@ -454,13 +453,13 @@ export default function AccountScreen() {
 
         {/* Section List Example */}
 
-        <View style={styles.section1}>
+        <View style={styles.section}>
           <SectionItem
             IconComponent={FontAwesome6}
             iconName="money-bill-transfer"
             label={`Currency: ${selectedCurrency}`}
             onPress={() =>
-              router.push("/(tabs)/(5-account)/modalContent/Currency")
+              router.push("/(tabs)/(5-account)/modalContent/screens/Currency")
             }
           />
           <SectionItem
@@ -488,7 +487,7 @@ export default function AccountScreen() {
             onPress={handleInterests}
           />
         </View>
-        <View style={styles.section2}>
+        <View style={styles.section}>
           <SectionItem
             IconComponent={FontAwesome6}
             iconName="eye"
@@ -514,7 +513,7 @@ export default function AccountScreen() {
             onPress={handleLists}
           />
         </View>
-        <View style={styles.section3}>
+        <View style={styles.section}>
           <SectionItem
             IconComponent={FontAwesome6}
             iconName="money-check-dollar"
@@ -549,9 +548,9 @@ export default function AccountScreen() {
           style={styles.switchBtn}
           onPress={handleSwitchToSeller}
         >
-          <View style={{ flexDirection: "row", alignItems: "center" }}>
+          <View style={styles.switchBtn}>
             <Text style={styles.switchText}>{t("switch")}</Text>
-            <MaterialCommunityIcons name="transit-transfer" size={16} />
+            <MaterialCommunityIcons name="transit-transfer" size={22} />
           </View>
         </TouchableOpacity>
       </ScrollView>
@@ -589,11 +588,6 @@ const styles = StyleSheet.create({
     ...commonStyles.container,
     backgroundColor: COLORS.background,
   },
-  debugText: {
-    ...TYPOGRAPHY.caption,
-    color: COLORS.text.secondary,
-    marginTop: SPACING.sm,
-  },
   email: {
     ...TYPOGRAPHY.body,
     fontWeight: "semibold",
@@ -604,7 +598,7 @@ const styles = StyleSheet.create({
   },
   fullScreenOverlay: {
     alignItems: "center",
-    backgroundColor: "rgba(0,0,0,0.95)",
+    backgroundColor: COLORS.overlayLight,
     flex: 1,
     justifyContent: "center",
   },
@@ -635,7 +629,7 @@ const styles = StyleSheet.create({
   },
   modalOverlay: {
     alignItems: "center",
-    backgroundColor: "rgba(0,0,0,0.4)",
+    backgroundColor: COLORS.overlayLight,
     flex: 1,
     justifyContent: "center",
   },
@@ -673,21 +667,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: SPACING.sm,
     width: "100%",
   },
-  section1: {
-    backgroundColor: COLORS.background,
-    ...SHADOWS.medium,
-    marginTop: SPACING.lg,
-    paddingHorizontal: SPACING.md,
-    width: "100%",
-  },
-  section2: {
-    backgroundColor: COLORS.background,
-    ...SHADOWS.medium,
-    marginTop: SPACING.lg,
-    paddingHorizontal: SPACING.md,
-    width: "100%",
-  },
-  section3: {
+  section: {
     backgroundColor: COLORS.background,
     ...SHADOWS.medium,
     marginTop: SPACING.lg,
@@ -719,12 +699,12 @@ const styles = StyleSheet.create({
   },
   switchText: {
     color: COLORS.text.primary,
-    ...TYPOGRAPHY.h3,
+    ...TYPOGRAPHY.h2,
     fontWeight: "bold",
   },
   uploadingOverlay: {
     alignItems: "center",
-    backgroundColor: "rgba(0,0,0,0.5)",
+    backgroundColor: COLORS.overlayLight,
     borderRadius: 75,
     bottom: 0,
     justifyContent: "center",

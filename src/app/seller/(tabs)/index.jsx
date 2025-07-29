@@ -1,4 +1,3 @@
-// app/(tabs)/index.jsx
 import React from "react";
 import {
   View,
@@ -18,12 +17,11 @@ const mockProducts = Array.from({ length: 8 }, (_, i) => ({
   title: `Product ${i + 1}`,
 }));
 
-const handleSwitchToBuyer = () => {
-  router.replace("/(tabs)/index");
-};
-
 const SellerHomeScreen = () => {
   const router = useRouter();
+  const handleSwitchToBuyer = () => {
+    router.replace("../../(tabs)/");
+  };
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "#fff" }}>

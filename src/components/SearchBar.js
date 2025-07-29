@@ -9,7 +9,14 @@ import {
   Image,
 } from "react-native";
 import { FontAwesome6 } from "@expo/vector-icons";
-import { COLORS, SPACING, BORDER_RADIUS, TYPOGRAPHY } from "../utils/theme";
+import {
+  COLORS,
+  SPACING,
+  BORDER_RADIUS,
+  TYPOGRAPHY,
+  SHADOWS,
+} from "../utils/theme";
+import PropTypes from "prop-types";
 
 export default function SearchBar({
   onSearch,
@@ -96,6 +103,12 @@ export default function SearchBar({
   );
 }
 
+SearchBar.propTypes = {
+  onSearch: PropTypes.func.isRequired,
+  suggestions: PropTypes.arrayOf(PropTypes.string),
+  onAssistantPress: PropTypes.func,
+};
+
 const styles = StyleSheet.create({
   assistantIcon: {
     height: 28,
@@ -154,10 +167,7 @@ const styles = StyleSheet.create({
     maxHeight: 150,
     position: "absolute",
     right: 0,
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
+    ...SHADOWS.medium,
     top: 48,
     zIndex: 10,
   },

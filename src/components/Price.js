@@ -1,6 +1,7 @@
 import React from "react";
 import { Text } from "react-native";
 import { useCurrencyStore } from "../utils/currencyStore";
+import PropTypes from "prop-types";
 
 const currencySymbols = {
   USD: "$",
@@ -104,3 +105,9 @@ export default function Price({ amount, from = "USD", style }) {
     </Text>
   );
 }
+
+Price.propTypes = {
+  amount: PropTypes.number.isRequired,
+  from: PropTypes.string,
+  style: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
+};
