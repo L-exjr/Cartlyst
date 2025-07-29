@@ -105,11 +105,26 @@ export default function RootLayout() {
   return (
     <ErrorBoundary>
       <StatusBar style="auto" />
-      <Stack screenOptions={{ headerShown: false }}>
-        <Stack.Screen name="(tabs)" />
-        <Stack.Screen name="seller" />
-      </Stack>
       <Toast />
+      <Stack>
+        <Stack.Protected guard={isLoggedIn || isGuest}>
+          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+          <Stack.Screen name="seller" options={{ headerShown: false }} />
+        </Stack.Protected>
+        <Stack.Protected guard={!isLoggedIn}>
+          <Stack.Screen name="sign-in" options={{ headerShown: false }} />
+          <Stack.Protected guard={shouldCreateAccount}>
+            <Stack.Screen name="sign-up" options={{ headerShown: false }} />
+          </Stack.Protected>
+          <Stack.Protected guard={isResettingPassword}>
+            <Stack.Screen name="reset-password" options={{ headerShown: false }} />
+          </Stack.Protected>
+          <Stack.Protected guard={isVerifying}>
+            <Stack.Screen name="verification" options={{ headerShown: false, presentation: "modal" }} initialParams={{ type: verificationType }} />
+          </Stack.Protected>
+
+        </Stack.Protected>
+      </Stack>
     </ErrorBoundary>
   );
 }

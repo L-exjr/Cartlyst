@@ -21,7 +21,12 @@ export default function AddAddress() {
   const isEdit = mode === "edit";
   const userId = useAuthStore((state) => state.userId);
 
-  const [form, setForm] = useState({ name: "", street: "", city: "", phone: "" });
+  const [form, setForm] = useState({
+    name: "",
+    street: "",
+    city: "",
+    phone: "",
+  });
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -150,5 +155,10 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: "bold",
   },
-  title: { fontSize: 24, fontWeight: "bold", marginBottom: 16, textAlign: "center" },
+  title: {
+    fontSize: 24,
+    fontWeight: "bold",
+    marginBottom: 16,
+    textAlign: "center",
+  },
 });

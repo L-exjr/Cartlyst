@@ -108,7 +108,9 @@ export default function BuyAgainModal() {
                   >
                     <Text style={styles.qtyText}>−</Text>
                   </TouchableOpacity>
-                  <Text style={styles.qtyNumber}>{quantities[item.id] || 1}</Text>
+                  <Text style={styles.qtyNumber}>
+                    {quantities[item.id] || 1}
+                  </Text>
                   <TouchableOpacity
                     style={styles.qtyButton}
                     onPress={() => handleQuantityChange(item.id, 1)}
@@ -130,7 +132,10 @@ export default function BuyAgainModal() {
         />
       )}
 
-      <TouchableOpacity style={styles.closeButton} onPress={() => router.back()}>
+      <TouchableOpacity
+        style={styles.closeButton}
+        onPress={() => router.back()}
+      >
         <Text style={styles.closeText}>Close</Text>
       </TouchableOpacity>
     </View>

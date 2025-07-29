@@ -63,7 +63,9 @@ export default function ListsModal() {
         body: JSON.stringify({ name: newName }),
       });
       setLists((prev) =>
-        prev.map((list) => (list.id === id ? { ...list, name: newName } : list))
+        prev.map((list) =>
+          list.id === id ? { ...list, name: newName } : list,
+        ),
       );
       setEditingId(null);
     } catch {
@@ -119,7 +121,7 @@ export default function ListsModal() {
           value={item.name}
           onChangeText={(text) =>
             setLists((prev) =>
-              prev.map((l) => (l.id === item.id ? { ...l, name: text } : l))
+              prev.map((l) => (l.id === item.id ? { ...l, name: text } : l)),
             )
           }
           onSubmitEditing={() => editListName(item.id, item.name)}
@@ -170,7 +172,10 @@ export default function ListsModal() {
         />
       </View>
 
-      <TouchableOpacity style={styles.closeButton} onPress={() => router.back()}>
+      <TouchableOpacity
+        style={styles.closeButton}
+        onPress={() => router.back()}
+      >
         <Text style={styles.closeText}>Close</Text>
       </TouchableOpacity>
     </View>
@@ -193,7 +198,7 @@ const styles = StyleSheet.create({
   container: {
     alignItems: "center",
     backgroundColor: COLORS.surface,
-    flex: 1, 
+    flex: 1,
     padding: 24,
   },
   createButton: {

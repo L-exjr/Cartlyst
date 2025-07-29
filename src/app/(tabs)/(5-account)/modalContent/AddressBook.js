@@ -48,7 +48,9 @@ export default function AddressBook() {
         style: "destructive",
         onPress: async () => {
           try {
-            await fetch(`${API_BASE_URL}/addresses/${id}`, { method: "DELETE" });
+            await fetch(`${API_BASE_URL}/addresses/${id}`, {
+              method: "DELETE",
+            });
             setAddresses((prev) => prev.filter((addr) => addr.id !== id));
           } catch {
             Alert.alert("Error", "Failed to delete address");

@@ -41,25 +41,32 @@ export default function RecentlyViewedModal() {
   }, [userId]);
 
   const handleClearAll = async () => {
-    Alert.alert("Clear All", "Are you sure you want to clear recently viewed items?", [
-      { text: "Cancel", style: "cancel" },
-      {
-        text: "Clear",
-        style: "destructive",
-        onPress: async () => {
-          try {
-            const res = await fetch(`${API_BASE_URL}/recently-viewed/${userId}`, {
-              method: "DELETE",
-            });
-            if (!res.ok) throw new Error();
-            setItems([]);
-            Alert.alert("Success", "Recently viewed items cleared.");
-          } catch {
-            Alert.alert("Error", "Failed to clear items.");
-          }
+    Alert.alert(
+      "Clear All",
+      "Are you sure you want to clear recently viewed items?",
+      [
+        { text: "Cancel", style: "cancel" },
+        {
+          text: "Clear",
+          style: "destructive",
+          onPress: async () => {
+            try {
+              const res = await fetch(
+                `${API_BASE_URL}/recently-viewed/${userId}`,
+                {
+                  method: "DELETE",
+                },
+              );
+              if (!res.ok) throw new Error();
+              setItems([]);
+              Alert.alert("Success", "Recently viewed items cleared.");
+            } catch {
+              Alert.alert("Error", "Failed to clear items.");
+            }
+          },
         },
-      },
-    ]);
+      ],
+    );
   };
 
   const handleItemPress = (itemId) => {
@@ -105,7 +112,10 @@ export default function RecentlyViewedModal() {
         </>
       )}
 
-      <TouchableOpacity style={styles.closeButton} onPress={() => router.back()}>
+      <TouchableOpacity
+        style={styles.closeButton}
+        onPress={() => router.back()}
+      >
         <Text style={styles.closeText}>Close</Text>
       </TouchableOpacity>
     </View>

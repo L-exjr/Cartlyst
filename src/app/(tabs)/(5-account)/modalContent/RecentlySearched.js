@@ -47,9 +47,12 @@ export default function RecentlySearchedModal() {
         style: "destructive",
         onPress: async () => {
           try {
-            const res = await fetch(`${API_BASE_URL}/recently-searched/${userId}`, {
-              method: "DELETE",
-            });
+            const res = await fetch(
+              `${API_BASE_URL}/recently-searched/${userId}`,
+              {
+                method: "DELETE",
+              },
+            );
             if (!res.ok) throw new Error();
             setTerms([]);
             Alert.alert("Success", "Search history cleared.");
@@ -95,7 +98,10 @@ export default function RecentlySearchedModal() {
         </>
       )}
 
-      <TouchableOpacity style={styles.closeButton} onPress={() => router.back()}>
+      <TouchableOpacity
+        style={styles.closeButton}
+        onPress={() => router.back()}
+      >
         <Text style={styles.closeText}>Close</Text>
       </TouchableOpacity>
     </View>
