@@ -1,3 +1,5 @@
+// verification.js
+
 import React, { useState, useRef } from "react";
 import {
   View,
@@ -55,14 +57,9 @@ export default function VerificationScreen() {
       });
       const data = await response.json();
       if (response.ok) {
-        if (type === "email") {
-          // If email verification is successful, proceed to phone verification
-          router.setParams({ type: "phone" });
-        } else {
-          // If phone verification is successful, complete sign-up
-          logIn(signUpData.id || userId); // Use id from signUpData or authStore
-          router.replace("/(tabs)");
-        }
+        // Successful verification - log in and go to home screen
+        logIn(signUpData.id || userId);
+        router.replace("/(tabs)");
       } else {
         alert(
           data.error ||
@@ -113,6 +110,7 @@ export default function VerificationScreen() {
     // Switch between email and phone verification
     const newType = type === "email" ? "phone" : "email";
     router.setParams({ type: newType });
+    setOtp(["", "", "", "", "", ""]); // Clear OTP fields when switching methods
   };
 
   const handleClose = () => {
@@ -124,7 +122,6 @@ export default function VerificationScreen() {
     <SafeAreaView style={styles.container}>
       <KeyboardAvoidingView
         behavior={Platform.OS === "ios" ? "padding" : "height"}
-        style={{ flex: 1 }}
       >
         <ScrollView
           contentContainerStyle={styles.scrollContent}
@@ -193,10 +190,11 @@ export default function VerificationScreen() {
             </View>
 
             <Text style={styles.switchText}>
-              Send to{" "}
+              Verify using{" "}
               <Text style={styles.linkText} onPress={handleSwitchMethod}>
                 {type === "email" ? "Phone Number" : "Email"}
-              </Text>
+              </Text>{" "}
+              instead
             </Text>
           </View>
         </ScrollView>

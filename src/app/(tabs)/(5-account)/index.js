@@ -267,29 +267,29 @@ export default function AccountScreen() {
   };
 
   const handleOrders = () =>
-    router.push("/(tabs)/(5-account)/modalContent/screens/Orders");
+    router.push("/(tabs)/(5-account)/modalContent/Orders");
   const handleVouchers = () =>
-    router.push("/(tabs)/(5-account)/modalContent/screens/Vouchers");
+    router.push("/(tabs)/(5-account)/modalContent/Vouchers");
   const handleRatings = () =>
-    router.push("/(tabs)/(5-account)/modalContent/screens/RatingsAndReviews");
+    router.push("/(tabs)/(5-account)/modalContent/RatingsAndReviews");
   const handleInterests = () =>
-    router.push("/(tabs)/(5-account)/modalContent/screens/Interests");
+    router.push("/(tabs)/(5-account)/modalContent/Interests");
   const handleRecentlyViewed = () =>
-    router.push("/(tabs)/(5-account)/modalContent/screens/RecentlyViewed");
+    router.push("/(tabs)/(5-account)/modalContent/RecentlyViewed");
   const handleRecentlySearched = () =>
-    router.push("/(tabs)/(5-account)/modalContent/screens/RecentlySearched");
+    router.push("/(tabs)/(5-account)/modalContent/RecentlySearched");
   const handleBuyAgain = () =>
-    router.push("/(tabs)/(5-account)/modalContent/screens/BuyAgain");
+    router.push("/(tabs)/(5-account)/modalContent/BuyAgain");
   const handleLists = () =>
-    router.push("/(tabs)/(5-account)/modalContent/screens/ListAndRegistries");
+    router.push("/(tabs)/(5-account)/modalContent/ListAndRegistries");
   const handlePayment = () =>
-    router.push("/(tabs)/(5-account)/modalContent/screens/PaymentSettings");
+    router.push("/(tabs)/(5-account)/modalContent/PaymentSettings");
   const handleAddress = () =>
-    router.push("/(tabs)/(5-account)/modalContent/screens/AddressBook");
+    router.push("/(tabs)/(5-account)/modalContent/AddressBook");
   const handleLegal = () =>
-    router.push("/(tabs)/(5-account)/modalContent/screens/LegalAndAbout");
+    router.push("/(tabs)/(5-account)/modalContent/LegalAndAbout");
   const handleRate = () =>
-    router.push("/(tabs)/(5-account)/modalContent/screens/RateApp");
+    router.push("/(tabs)/(5-account)/modalContent/RateApp");
   const handleSwitchToSeller = () => {
     router.replace("/seller");
   };
@@ -336,9 +336,9 @@ export default function AccountScreen() {
                   if (imageTimeoutId) clearTimeout(imageTimeoutId);
                 }}
               />
-              {/* Pencil Icon */}
+              {/* Camera Icon */}
               <TouchableOpacity
-                style={styles.pencilIcon}
+                style={styles.cameraIcon}
                 onPress={() => setShowImageOptions(true)}
                 disabled={uploading}
               >
@@ -443,7 +443,7 @@ export default function AccountScreen() {
             <TouchableOpacity
               style={styles.language}
               onPress={() =>
-                router.push("/(tabs)/(5-account)/modalContent/screens/Language")
+                router.push("/(tabs)/(5-account)/modalContent/Language")
               }
             >
               <MaterialIcons name="language" size={24}></MaterialIcons>
@@ -459,7 +459,7 @@ export default function AccountScreen() {
             iconName="money-bill-transfer"
             label={`Currency: ${selectedCurrency}`}
             onPress={() =>
-              router.push("/(tabs)/(5-account)/modalContent/screens/Currency")
+              router.push("/(tabs)/(5-account)/modalContent/Currency")
             }
           />
           <SectionItem
@@ -583,6 +583,12 @@ const styles = StyleSheet.create({
   buttons: {
     flexDirection: "row",
   },
+  cameraIcon: {
+    bottom: 10,
+    position: "absolute",
+    right: 10,
+    zIndex: 1,
+  },
   chevronStyle: { marginLeft: "auto" },
   container: {
     ...commonStyles.container,
@@ -652,12 +658,6 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     padding: 20,
     width: 250,
-  },
-  pencilIcon: {
-    bottom: 10,
-    position: "absolute",
-    right: 10,
-    zIndex: 10,
   },
   profile: {
     alignItems: "center",

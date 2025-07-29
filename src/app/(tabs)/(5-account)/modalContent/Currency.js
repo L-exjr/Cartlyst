@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { useRouter } from "expo-router";
-import { COLORS, SPACING, TYPOGRAPHY } from "../../../../../utils/theme";
-import { commonStyles } from "../../../../../utils/styles";
-import { useCurrencyStore } from "../../../../../utils/currencyStore";
+import { COLORS, SPACING, TYPOGRAPHY } from "../../../../utils/theme";
+import { commonStyles } from "../../../../utils/styles";
+import { useCurrencyStore } from "../../../../utils/currencyStore";
 import { Picker } from "@react-native-picker/picker";
 
 const currencyList = [

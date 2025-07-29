@@ -1,12 +1,12 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
-import { COLORS } from "../../../../../utils/theme";
+import { COLORS } from "../../../../utils/theme";
 
-export default function ListsModal() {
+export default function PaymentModal() {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Lists and Registries</Text>
-      <Text>This is the Lists and Registries modal screen.</Text>
+      <Text style={styles.title}>Payment Settings</Text>
+      <Text>This is the Payment Settings modal screen.</Text>
     </View>
   );
 }

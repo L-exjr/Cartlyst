@@ -19,7 +19,7 @@ export default function AccountLayout() {
         }}
       />
       <Stack.Screen
-        name="modal"
+        name="modalContent"
         options={{
           presentation: "modal",
           headerShown: false,

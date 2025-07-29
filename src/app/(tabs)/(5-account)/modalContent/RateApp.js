@@ -1,12 +1,12 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
-import { COLORS } from "../../../../../utils/theme";
+import { COLORS } from "../../../../utils/theme";
 
-export default function RecentlyViewedModal() {
+export default function RateModal() {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Recently Viewed</Text>
-      <Text>This is the Recently Viewed modal screen.</Text>
+      <Text style={styles.title}>Rate Our App</Text>
+      <Text>This is the Rate Our App modal screen.</Text>
     </View>
   );
 }
@@ -14,7 +14,7 @@ export default function RecentlyViewedModal() {
 const styles = StyleSheet.create({
   container: {
     alignItems: "center",
-    backgroundColor: COLORS.success,
+    backgroundColor: COLORS.surface,
     flex: 1,
     justifyContent: "center",
   },

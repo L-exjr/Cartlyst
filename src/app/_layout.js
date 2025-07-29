@@ -1,14 +1,14 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { useAuthStore } from "../utils/authStore";
 import ErrorBoundary from "../components/ErrorBoundary";
-import { useEffect } from "react";
 import * as Location from "expo-location";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import i18n from "../utils/i18n";
 import { useCurrencyStore } from "../utils/currencyStore";
 import countries from "i18n-iso-countries";
+import Toast from "react-native-toast-message";
 import "i18n-iso-countries/langs/en.json";
 
 const COUNTRY_TO_CURRENCY = {
@@ -31,8 +31,9 @@ const COUNTRY_TO_CURRENCY = {
   MX: "MXN",
   EG: "EGP",
   SA: "SAR",
-  AE: "AED", // ...add more as needed
+  AE: "AED",
 };
+
 const COUNTRY_TO_LANGUAGE = {
   US: "en",
   GB: "en",
@@ -52,7 +53,7 @@ const COUNTRY_TO_LANGUAGE = {
   MX: "es",
   EG: "ar",
   SA: "ar",
-  AE: "ar", // ...add more as needed
+  AE: "ar",
 };
 
 export default function RootLayout() {
@@ -74,19 +75,19 @@ export default function RootLayout() {
           let countryCode = "US";
           let currency = "USD";
           let language = "en";
-          // Get location permissions and country
-          let { status } = await Location.requestForegroundPermissionsAsync();
+
+          const { status } = await Location.requestForegroundPermissionsAsync();
           if (status === "granted") {
             const loc = await Location.getCurrentPositionAsync({});
             const geo = await Location.reverseGeocodeAsync(loc.coords);
-            if (geo && geo[0] && geo[0].isoCountryCode) {
+            if (geo?.[0]?.isoCountryCode) {
               countryCode = geo[0].isoCountryCode;
             }
           }
-          // Map country to currency/language
+
           currency = COUNTRY_TO_CURRENCY[countryCode] || "USD";
           language = COUNTRY_TO_LANGUAGE[countryCode] || "en";
-          // Set and persist
+
           useCurrencyStore.getState().setCurrency(currency);
           i18n.changeLanguage(language);
           await AsyncStorage.setItem("selectedCurrency", currency);
@@ -108,6 +109,7 @@ export default function RootLayout() {
         <Stack.Screen name="(tabs)" />
         <Stack.Screen name="seller" />
       </Stack>
+      <Toast />
     </ErrorBoundary>
   );
 }

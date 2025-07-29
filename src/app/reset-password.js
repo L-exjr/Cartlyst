@@ -154,7 +154,6 @@ export default function ResetPasswordScreen() {
     <SafeAreaView style={styles.container}>
       <KeyboardAvoidingView
         behavior={Platform.OS === "ios" ? "padding" : "height"}
-        style={{ flex: 1 }}
       >
         <TouchableOpacity
           style={styles.backButton}
@@ -180,8 +179,8 @@ export default function ResetPasswordScreen() {
                   </Text>
                 ) : (
                   <Text style={styles.subtitle}>
-                    Enter your email address and you'll receive instructions to
-                    reset your password.
+                    Enter your email address and you&apos;ll receive
+                    instructions to reset your password.
                   </Text>
                 )}
               </View>
@@ -294,7 +293,6 @@ const styles = StyleSheet.create({
     left: 25,
     padding: SPACING.sm,
     position: "absolute",
-    top: 60,
     zIndex: 1,
   },
   container: {
@@ -306,7 +304,7 @@ const styles = StyleSheet.create({
     flex: 1,
     gap: SPACING.sm,
     paddingHorizontal: SPACING.lg,
-    paddingTop: 100,
+    paddingTop: 50,
   },
   errorContainer: {
     backgroundColor: COLORS.error,

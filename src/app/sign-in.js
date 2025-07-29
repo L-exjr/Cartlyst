@@ -115,7 +115,6 @@ export default function SignInScreen() {
     <SafeAreaView style={styles.container}>
       <KeyboardAvoidingView
         behavior={Platform.OS === "ios" ? "padding" : "height"}
-        style={{ flex: 1 }}
       >
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
           <ScrollView
@@ -280,7 +279,7 @@ const styles = StyleSheet.create({
     flex: 1,
     gap: 1,
     paddingHorizontal: SPACING.lg,
-    paddingTop: 100,
+    paddingTop: 50,
   },
   errorContainer: {
     backgroundColor: COLORS.error,
@@ -399,7 +398,6 @@ const styles = StyleSheet.create({
   skipButton: {
     position: "absolute",
     right: 25,
-    top: 60,
     zIndex: 1,
   },
   skipText: {
