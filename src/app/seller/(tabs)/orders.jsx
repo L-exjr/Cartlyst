@@ -18,7 +18,7 @@ const OrdersScreen = () => {
 
   const renderItem = ({ item }) => (
     <TouchableOpacity
-      onPress={() => router.push({ pathname: `/order/${item.id}` })}
+      onPress={() => router.push({ pathname: `../order/${item.id}` })}
       style={styles.card}
     >
       <View style={styles.row}>
